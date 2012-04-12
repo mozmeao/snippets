@@ -1,0 +1,6 @@
+build/*
+!build/.gitignore
+*~
+*.pyc
+.snippetconfig
+*.pyc

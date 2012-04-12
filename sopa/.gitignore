@@ -1,0 +1,7 @@
+build/*
+!build/.gitignore
+*~
+*.pyc
+.snippetconfig
+*.pyc
+.DS_Store

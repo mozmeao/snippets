@@ -1,0 +1,42 @@
+#doom_container {
+    display: none;
+}
+
+#brandStart {
+    position: relative;
+}
+
+#black_bar_of_doom {
+    position: absolute;
+    left: -moz-calc(50% - 113px);
+    top: -moz-calc(47% - 16px);
+    -moz-transform: rotate(-5deg);
+}
+
+body {
+    -moz-transition: 1s linear;
+}
+
+body.dark {
+    background: #181818;
+}
+
+body.dark #searchText {
+    background: #181818;
+    color: #BBB;
+}
+
+body.dark #contentContainer {
+    background: none;
+}
+
+body.dark a {
+    color: #990000;
+}
+
+body.dark #snippets,
+body.dark #snippets:hover,
+body.dark #snippets:hover:active {
+    color: #BBB;
+    background: none;
+}
