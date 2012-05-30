@@ -32,9 +32,8 @@ function send_impression(id) {
     var url = 'https://snippets-stats.mozilla.org/foo.html';
 
     if (Math.random() <= sample_rate) {
-        var locale = navigator.language;
         var r = XMLHttpRequest();
-        r.open('POST', url + '?locale=' + locale + '&snippet_name=' + id);
+        r.open('POST', url + '?snippet_name=' + id);
         r.send();
     }
 }
