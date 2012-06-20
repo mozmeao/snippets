@@ -28,7 +28,7 @@ if (snippets.length > 0) {
 // was shown. No personally-identifiable information
 // is sent.
 function send_impression(id) {
-    var sample_rate = 0.01;
+    var sample_rate = 0.1;
     var url = 'https://snippets-stats.mozilla.org/foo.html';
 
     if (Math.random() <= sample_rate) {
