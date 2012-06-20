@@ -33,7 +33,7 @@ function send_impression(id) {
 
     if (Math.random() <= sample_rate) {
         var r = XMLHttpRequest();
-        r.open('POST', url + '?snippet_name=' + id);
+        r.open('GET', url + '?snippet_name=' + id);
         r.send();
     }
 }
