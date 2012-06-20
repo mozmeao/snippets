@@ -1,0 +1,12 @@
+.share-buttons {
+    border-left: 1px dotted #999;
+    float: right;
+    list-style-type: none;
+    margin: -7px 0 0;
+    padding-left: 10px;
+    padding-right: 20px;
+}
+
+.share-buttons img {
+    vertical-align: middle;
+}
