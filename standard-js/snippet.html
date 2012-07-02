@@ -1,0 +1,69 @@
+<script type="text/javascript">
+//<![CDATA[
+(function() {
+
+    var SAMPLE_RATE = 0.1;
+    var STATS_URL = 'https://snippets-stats.mozilla.org/foo.html';
+
+    var snippets = (document.getElementById('snippetContainer')
+                    .getElementsByClassName('snippet'));
+    if (snippets.length > 0) {
+        var show_snippet = snippets[Math.floor(Math.random() * snippets.length)];
+        show_snippet.style.display = 'block';
+
+        try {
+            activateSnippetsButtonClick(show_snippet);
+        } catch (err) {
+            // Do nothing, most likely a newer version of Firefox w/o
+            // activateSnippetsButtonClick
+        }
+
+        // Send impression to the snippets stats server.
+        var show_snippet_id = show_snippet.parentNode.dataset.snippetId;
+        send_impression(show_snippet_id);
+
+        // Trigger show_snippet event on snippet node.
+        var evt = document.createEvent('Event');
+        evt.initEvent('show_snippet', true, true);
+        show_snippet.dispatchEvent(evt);
+
+        // Add sample rate and snippet ID to currently displayed links.
+        var parameters = ('sample_rate=' + SAMPLE_RATE + '&snippet_id=' +
+                          show_snippet_id);
+        modifyLinks(show_snippet.getElementsByTagName('a'), parameters);
+    } else {
+        localStorage['snippets'] = '';
+        showSnippets();
+    }
+
+    // Notifies stats server that the given snippet ID
+    // was shown. No personally-identifiable information
+    // is sent.
+    function send_impression(id) {
+        if (Math.random() <= SAMPLE_RATE) {
+            var r = new XMLHttpRequest();
+            r.open('GET', STATS_URL + '?snippet_name=' + id);
+            r.send();
+        }
+    }
+
+    // Modifies the given links to include the specified GET parameters.
+    function modifyLinks(links, parameters) {
+        for (var k = 0, len = links.length; k < len; k++) {
+            var link = links[k];
+            var delimeter = (link.href.indexOf('?') !== -1 ? '&' : '?');
+
+            // Pull the fragment off of the link
+            var fragment_position = link.href.indexOf('#');
+            if (fragment_position === -1) fragment_position = link.href.length;
+
+            var href = link.href.substring(0, fragment_position);
+            var fragment = link.href.substring(fragment_position);
+
+            link.href = href + delimeter + parameters + fragment;
+        }
+    }
+
+})();
+//]]>
+</script>
