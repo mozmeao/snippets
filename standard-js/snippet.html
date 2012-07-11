@@ -28,7 +28,7 @@
         show_snippet.dispatchEvent(evt);
 
         // Add sample rate and snippet ID to currently displayed links.
-        var parameters = ('sample_rate=' + SAMPLE_RATE + '&snippet_id=' +
+        var parameters = ('sample_rate=' + SAMPLE_RATE + '&snippet_name=' +
                           show_snippet_id);
         modifyLinks(show_snippet.getElementsByTagName('a'), parameters);
     } else {
