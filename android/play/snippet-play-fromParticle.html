@@ -1,0 +1,1024 @@
+<div class="snippet tiny-android">
+  
+  <style type="text/css">
+body{
+  overflow: hidden;
+}
+  #brandLogo {
+    z-index: 10;
+  }
+  #brandLogo.shrink {
+    -moz-animation: shrink-logo 1000ms ease-in-out 500ms forwards 1;
+  } 
+/*                            */
+/*        PHONE               */
+/*                            */
+/*                            */
+    #container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 208px;
+      height: 420px;
+      -moz-transform-style: preserve-3d;
+      -moz-transform: translate3d(0,-3000px,0) scale(.47) rotateX(0deg);
+      -moz-perspective: 800px;
+      z-index: 5;
+      outline: solid thin transparent;
+    }
+
+      #container.phone-phone-home {
+        -moz-animation: phone-phone-home 800ms linear 0ms forwards 1;
+      }
+
+    #main-phone-container {
+      position: absolute;
+      top:0;
+      left: 0;
+      width: 208px;
+      height: 420px;
+      -moz-transform-style: preserve-3d;
+      -moz-perspective: 200px;
+      -moz-transform:translate3d(0,0,0) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+      outline: solid thin transparent;
+    }
+      #main-phone-container.shift-phone {
+        /*-moz-transform:translate3d(0,0,0) rotateX(30deg) rotateY(0deg) rotateZ(0deg);*/
+        -moz-animation: shift-phone-perspective 800ms ease 0ms forward 1;
+      }
+
+    .outer-phone-container {
+      position: absolute;
+      width: 214px; 
+      height: 426px;
+      background: rgba(65,65,65,1);
+      border-radius: 40px 40px / 40px 40px;
+      -moz-transform-style: preserve-3d;
+      -moz-transform: translate3d(0,0,0);
+    }
+      
+      .outer-phone-container .phone-top {
+        position: absolute;
+        top: -6px;
+        left: 13px;
+        width: 188px;
+        height: 20px;
+        background: rgba(65, 65, 65, 1);
+        border-radius: 210px 210px 0px 0px / 50px 50px 0px 0px;
+        -moz-transform-style: preserve-3d;
+        -moz-transform: translate3d(0,0,0);
+      }
+      
+      .outer-phone-container .phone-bottom {
+        position: absolute;
+        bottom: -6px;
+        left: 13px;
+        width: 188px;
+        height: 20px;
+        background: rgba(65, 65, 65, 1);
+        border-radius: 0px 0px 210px 210px / 0px 0px 50px 50px;
+        -moz-transform-style: preserve-3d;
+        -moz-transform: translate3d(0,0,0);
+      }
+    
+    .inner-phone-container {
+      position: absolute;
+      left: 3px;
+      top: 3px; 
+      width: 208px;
+      height: 420px;
+      background: rgba(25, 25, 25, 1);
+      border-radius: 40px 40px / 40px 40px;
+      box-shadow: inset 0px 4px 4px rgba(255, 255, 255, .6);
+      -moz-transform-style: preserve-3d;
+      -moz-transform: translate3d(0,0,0);
+    }
+      
+      .inner-phone-container .phone-top {
+        position: absolute;
+        top: -6px;
+        left: 13px;
+        width: 184px;
+        height: 20px;
+        background: rgba(25, 25, 25, 1);        
+        border-radius: 210px 210px 0px 0px / 50px 50px 0px 0px;
+        box-shadow: inset 0px 4px 2px rgba(255, 255, 255, .);
+        -moz-transform-style: preserve-3d;
+        -moz-transform: translate3d(0,0,0);
+      }
+      
+      .inner-phone-container .phone-bottom {
+        position: absolute;
+        bottom: -6px;
+        left: 13px;
+        width: 184px;
+        height: 20px;
+        background: rgba(25, 25, 25, 1);
+        border-radius: 0px 0px 210px 210px / 0px 0px 50px 50px;
+        -moz-transform-style: preserve-3d;
+        -moz-transform: translate3d(0,0,0);
+      }
+    
+      .inner-phone-container .speaker-slot {
+        position: absolute;
+        top: 18px;
+        left: 80px;
+        width: 54px;
+        height: 8px;
+        background: rgba(0,0,0,1);
+        border-radius: 10px;
+        border-top: 1px solid rgba(40,40,40,1);
+        border-left: 1px solid rgba(40,40,40,1);
+        border-bottom: 1px solid rgba(0,0,0,1);
+        border-right: 1px solid rgba(0,0,0,1);
+        box-shadow: inset 0 -2px 1px rgba(255,255,255,.5);
+        -moz-transform-style: preserve-3d;
+        -moz-transform: translate3d(0,0,0);
+      }
+    
+      .inner-phone-container .camera-lens {
+        position: absolute;
+        top: 19px;
+        right: 32px;
+        width: 10px;
+        height: 10px;
+        background: rgba(30, 30, 40, 1);
+        border-radius: 10px;
+        box-shadow: inset 0px -2px 3px rgba(255, 255, 255, .1);
+        -moz-transform-style: preserve-3d;
+        -moz-transform: translate3d(0,0,0);
+      }
+      
+      .inner-phone-container .status-bar {
+        position: absolute;
+        top: 54px;
+        left: 11px;
+        height: 12px;
+        width: 188px;
+        background: rgba(5,5,5,1);
+        -moz-transform-style: preserve-3d;
+        -moz-transform: translate3d(0,0,0);
+      }
+      
+      .inner-phone-container .inner-screen {
+        position: absolute;
+        top: 66px;
+        left: 11px;
+        width: 188px;
+        height: 298px;
+        background-color: #96C3DC;
+        box-shadow: inset 0px 0px 3px rgba(50,50,50,1);
+        -moz-transform-style: preserve-3d;
+        -moz-transform: translate3d(0,0,0);
+      }
+/*                            */
+/*        PHONE               */
+/*                            */
+/*                            */
+
+.snippet.tiny-android .icon {
+  top: 0px;
+  width: 40px;
+  height: 40px;
+  /* background-color: black; */
+}
+
+#searchBarWrapper {
+  -moz-transform-origin: 0% 50%;
+  -moz-transform: translate3d(0,0,0);
+  z-index: 800;
+}
+
+#searchContainer {
+  z-index: 800;
+}
+
+#searchForm {
+  z-index: 800;
+}
+
+#searchLogoContainer {
+  z-index: 800;
+}
+
+#searchText {
+  z-index: 800;
+}
+
+#searchSubmit {
+  z-index: 800;
+}
+
+  #newContentWrapper #searchBarWrapper.shake { 
+    -moz-animation: shake 540ms ease 0ms forwards; 
+  }
+
+
+
+#android-container {
+  position: absolute;
+  bottom: -78px;
+  xleft: 40px;
+  right: -128px;
+  width: 264px;
+  height: 0px;
+  -moz-transform-style: preserve-3d;
+  -moz-perspective: 800px;
+  -moz-transform-origin: 0% 0%;
+  -moz-transform: translate3d(-44px,-24px,0) scale(.26);
+  pointer-events: auto;
+}
+  
+  #android-container.step-2 {
+    -moz-transform: translate3d(0px,-207px,0) scale(.3);
+    -moz-animation: container-to-phone 1s linear 0ms forwards 1;
+  }
+
+  #android-container.phone-home {
+    -moz-transform: translate3d(0,0,0)
+  }
+
+  .curtain {
+    position: absolute;
+    bottom: 34px;
+    xleft: 280px;
+    right: 0;
+    height: 3000px;
+    width: 3000px;
+    pointer-events: none;
+    overflow: hidden;
+    -moz-transform-style: preserve-3d;
+    -moz-transform: translate3d(0,0,0);
+    background-color: transparent;
+  }
+
+  #android-large-wrapper {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 264px;
+    height: 336px;
+    -moz-transform-style: preserve-3d;
+    -moz-transform-origin: 0% 0%;
+    -moz-transform: translate3d(0,0,0);
+    pointer-events: auto;
+  }
+
+    #newContentWrapper #android-large-wrapper.step-1 { 
+      -moz-animation: move-droid 30s ease-in-out 600ms forwards infinite; 
+    }
+
+    #newContentWrapper #android-large-wrapper.begin-animation { 
+      -moz-animation: begin-animation 1s ease 0ms forwards 1; 
+    }
+
+    #newContentWrapper #android-large-wrapper.step-2 { 
+      -moz-transform: translate3d(50px,-207px,0);/*
+      -moz-transition-property: -moz-transform ;
+      -moz-transition-duration: 1s;
+      -moz-transition-timing-function: ease;*/
+      -moz-animation: to-phone 1s linear 0ms forwards 1;
+    }
+
+    #newContentWrapper #android-large-wrapper.droid-phone-home { 
+      -moz-transform: translate3d(-380px,-3000px,0);
+      -moz-animation: droid-phone-home 800ms linear 0ms forwards 1;
+    }
+
+    #newContentWrapper #android-large-wrapper.droid-move-behind-phone {
+      -moz-transform: translate3d(-130px,-200px,0);
+      -moz-animation: droid-move-behind-phone 800ms linear 0ms forwards 1;
+    }
+
+    .android {
+      position: absolute;
+      top: 0px;
+      width: 264px;
+      height: 336px;
+      -moz-transform-style: preserve-3d;
+      z-index: 1;
+      -moz-transform: translate3d(0,0,0);
+    }
+
+      .android .rotating-container {
+        position: absolute;
+        width: 264px;
+        height: 336px;
+        -moz-transform-style: preserve-3d;
+        -moz-transform: translate3d(0,0,0);
+        z-index: 1;
+      }
+
+      .android .body {
+        position: absolute;
+        top: 110px;
+        left: 48px;
+        width: 168px;
+        height: 152px;
+        border-radius: 0px 0px 20px 20px;
+        background-color: #96c03c;
+        z-index: 1;
+        -moz-transform-style: preserve-3d;
+        -moz-transform: translate3d(0,0,0);
+        outline: solid thin transparent;
+      }
+        
+      .android #head {
+        position: absolute;
+        top: 30px;
+        left: 48px;
+        width: 168px;
+        height: 68px;
+        border-top-left-radius: 50% 100%;
+        border-top-right-radius: 50% 100%;
+        -moz-transform-origin: 50% 50%;
+        background-color: #96c03c;
+        z-index: 1;
+        -moz-transform-style: preserve-3d;
+        -moz-transform: translate3d(0,0,0);
+        -moz-persective: 800;
+        outline: solid thin transparent;
+      }
+        
+        .android #head.bobble-head {
+          -moz-animation: bobble-head 15s ease 3s forwards infinite;
+        }
+
+        .android #eyes-overflow-wrapper {
+          position: absolute;
+          top: 25px;
+          left: 8px;
+          width: 152px;
+          height: 20px;
+          overflow: hidden;
+          z-index: 1;
+          outline: solid thin transparent;
+          -moz-transform-style: preserve-3d;
+          -moz-transform: translate3d(0,0,0);
+        }
+
+          .android #eyes-overflow-wrapper.look-at-logo {
+            -moz-animation: look-at-logo 600ms ease 0ms forwards 1;
+          }
+         
+        .android .eyes {
+          position: absolute;
+          width: 152px;
+          height: 20px;
+          -moz-transform-style: preserve-3d;
+          -moz-transform: translate3d(0,0,0);
+          -moz-animation: eye-animation 3500ms ease 1s both infinite;
+          z-index: 1;
+        }
+        
+          .android .eye {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px 10px 10px 10px;
+            background-color: white;
+            z-index: 1;
+            -moz-transform-style: preserve-3d;
+            -moz-transform: translate3d(0,0,0);
+          }
+            .android .eye.left { left: 30px; }
+            .android .eye.right { right: 30px; }
+            
+          .android .antenna {
+            position: absolute;
+            top: 8px; 
+            width: 6px;
+            height: 32px;
+            border-radius: 15px 15px 0px 0px;
+            -moz-transform-origin: 50% 100%;
+            -moz-transform-style: preserve-3d;
+            -moz-transform: translate3d(0,0,0);
+            background-color: #96c03c;
+            z-index: 1;
+            outline: solid thin transparent;
+          }
+            
+            .android .antenna.left {
+              left: 104px; 
+              -moz-transform: translate3d(0,0,0) rotateZ(-32deg);
+              -webkit-transform: translate3d(0,0,0) rotateZ(-32deg);
+
+            }
+              .android.large .antenna.left { 
+                /*-moz-animation: antenna-animation-left 1s ease-in-out 0ms alternate infinite;  */
+              }
+              
+              .android.large .antenna.left.spin { 
+                /*-moz-animation: spin-head-antennae-l 800ms linear 2000ms 4;*/
+              }
+
+            .android .antenna.right {
+              right: 104px; 
+              -moz-transform: translate3d(0,0,0) rotateZ(32deg);
+              -webkit-transform: translate3d(0,0,0) rotateZ(32deg);
+            }
+              .android.large .antenna.right { 
+                /*-moz-animation: antenna-animation-right 1s ease-in-out 0s alternate infinite;  */
+              }
+
+              .android.large .antenna.right.spin { 
+                /*-moz-animation: spin-head-antennae-r 800ms linear 2000ms 4;*/
+              }
+             
+      .android .arm {
+        position: absolute;
+        top: 110px;
+        width: 36px;
+        height: 114px;
+        border-radius: 18px 18px 18px 18px;
+        background-color: #96c03c;
+        -moz-transform-origin: 50% 16%;
+        -webkit-transform-origin: 50% 16%;
+        -moz-transform: translate3d(0,0,0) rotateY(0deg);
+        z-index: 1;
+        -moz-transform-style: preserve-3d;
+        outline: solid thin transparent;
+      }
+        .android .arm.left { 
+          left: 0px; 
+        }
+          .android .arm.left.flight {
+            -moz-transform: rotate(-200deg);
+          }
+
+          .android .arm.left.wave {
+            -moz-animation: wave-left 3s ease-in-out 400ms forwards 1;
+          }
+
+        .android .arm.right { 
+          left: 228px; 
+        }
+          .android .arm.right.flight {
+            -moz-transform: rotate(200deg);
+          }
+
+          .android .arm.right.flight.land {
+            -moz-animation: landing-arms 600ms ease-in-out 400ms forwards 1;
+          }
+
+      .android .leg {
+        position: absolute;
+        top: 250px;
+        width: 36px;
+        height: 72px;
+        border-radius: 0px 0px 18px 18px;
+        background-color: #96c03c;
+        -moz-transform: translate3d(0,0,0) rotateY(0deg);
+        z-index: 1;
+        -moz-transform-style: preserve-3d;
+        outline: solid thin transparent;
+      }
+        .android .leg.left { 
+          left: 86px; 
+        }
+          .android .leg.left.step {
+            -moz-animation: stepping 790ms ease-in-out 100ms forwards 1;
+          } 
+        .android .leg.right { 
+          right: 84px; 
+        }
+          .android .leg.right.step {
+            -moz-animation: stepping 790ms ease-in-out 0ms forwards 1;
+          }
+    
+.smoke-container {
+  position: absolute;
+  top: -80px; 
+  left: 316px;
+  width: 40px; 
+  height: 40px;
+	color: rgba(200, 200, 200, 1);
+	font-weight: 600;
+	font-size: 80px;
+  text-indent: -9999px;
+  display: none;
+}
+
+.smoke-container-two {
+  position: absolute;
+  top: -80px; 
+  left: 335px;
+  width: 40px; 
+  height: 40px;
+  color: rgba(200, 200, 200, 1);
+  font-weight: 600;
+  font-size: 80px;
+  text-indent: -9999px;
+  display: none;
+}
+  .icon.blow-up .smoke-container{ 
+    display: block; 
+  }
+
+.smoke-container-two .smoke, .smoke-container .smoke {
+  position: absolute;
+	-moz-animation-name: smoke;
+}
+  
+  .smoke-container-two .smoke, .smoke-container .smoke.one {
+    left: 5px;
+    top: -50px;
+  	-moz-animation-duration: 3000ms;
+  }
+  .smoke-container-two .smoke, .smoke-container .smoke.two {
+    left: 9px;
+    top: -45px;
+  	-moz-animation-duration: 3300ms;
+  }
+  .smoke-container-two .smoke, .smoke-container .smoke.three {
+    left: 13px;
+    top: -48px;
+  	-moz-animation-duration: 3700ms;
+  }
+  .smoke-container-two .smoke, .smoke-container .smoke.four {
+    left: 2px;
+    top: -40px;
+  	-moz-animation-duration: 3700ms;
+  }
+  .smoke-container-two .smoke, .smoke-container .smoke.five {
+    left: 18px;
+    top: -40px;
+  	-moz-animation-duration: 3700ms;
+  }
+  .smoke-container-two .smoke, .smoke-container .smoke.six {
+    left: 8px;
+    top: -34px;
+  	-moz-animation-duration: 3000ms;
+  }    
+
+@-moz-keyframes stepping {
+  0%{ -moz-transform: translate3d(0,0,0); }
+  /*14%{ -moz-transform: translate3d(0,-20px,0); }*/
+  25%{ -moz-transform: translate3d(0,-40px,0); }
+  /*42%{ -moz-transform: translate3d(0,-20px,0); }*/
+  50%{ -moz-transform: translate3d(0,0,0); }
+  /*80%{ -moz-transform: translate3d(0,-20px,0); }*/
+  75%{ -moz-transform: translate3d(0,-40px,0); }
+  100%{ -moz-transform: translate3d(0,0,0); }
+}
+
+@-moz-keyframes shift-phone-perspective {
+  0% { -moz-transform: translate3d(0,0,0) rotateX(0deg); }
+  100% { -moz-transform: translate3d(0,0,0) rotateX(100deg); }
+}
+
+@-moz-keyframes slide-eyes {
+  0%{ -moz-transform: translate3d(0,0,0); }
+  19%{ -moz-transform: translate3d(-280px,0,0); }
+  54%{ -moz-transform: translate3d(-280px,0,0); }
+  54.001%{ -moz-transform: translate3d(100px,0,0); }
+  73%{ -moz-transform: translate3d(0px,0,0); }
+  100%{ -moz-transform: translate3d(0px,0,0); }
+}
+
+@-moz-keyframes shrink-logo {
+  0%{ -moz-transform: translate3d(0,0,0) scale(1); }
+  100%{ -moz-transform: translate3d(0,8px,0) scale(.45); }
+}
+
+@-moz-keyframes landing-arms {
+  0% { -moz-transform: translate3d(0,0,0) rotate(-180deg); }
+  100% { -moz-transform: translate3d(0,0,0) rotate(0deg); }
+}
+
+@-moz-keyframes wave-left {
+  0% { -moz-transform: rotate(0deg); }
+  15% { -moz-transform: rotate(156deg); }
+  25% { -moz-transform: rotate(136deg); }
+  35% { -moz-transform: rotate(156deg); }
+  45% { -moz-transform: rotate(40deg); }
+  55% { -moz-transform: rotate(30deg); }
+  65% { -moz-transform: rotate(136deg); }
+  75% { -moz-transform: rotate(156deg); }
+  85% { -moz-transform: rotate(136deg); }
+  100% { -moz-transform: rotate(156deg); }
+}
+
+@-moz-keyframes phone-phone-home {
+  0% { -moz-transform: translate3d(0,-2200px,0) rotateX(0deg) scale(.46); }
+  80% { -moz-transform: translate3d(130px,-367px,0) rotateX(0deg) scale(.46); }
+  90% { -moz-transform: translate3d(130px,-367px,0) rotateX(0deg) scale(.46); }
+  100% { -moz-transform: translate3d(130px,-367px,0) rotateX(0deg) scale(.46); }
+}
+
+@-moz-keyframes droid-phone-home {
+  0% {  -moz-transform: translate3d(-380px,-4000px,0) rotate(0deg); }
+  85% {  -moz-transform: translate3d(-130px,-280px,0) rotate(0deg); }
+  100% {  -moz-transform: translate3d(-130px,-280px,0) rotate(0deg); }
+}
+
+@-moz-keyframes droid-move-behind-phone {
+  0% {  -moz-transform: translate3d(-130px,-280px,0) rotate(0deg); }
+  80% {  -moz-transform: translate3d(-530px,-280px,0) rotate(0deg); }
+  100% {  -moz-transform: translate3d(-640px,-250px,0) rotate(-15deg); }
+}
+
+@-moz-keyframes container-to-phone {
+  0% { -moz-transform: translate3d(-44px,-97px,0) rotate(0deg) scale(.26); }
+  20% { -moz-transform: translate3d(-44px,-208px,0) rotate(0deg) scale(.26); }
+  50% { -moz-transform: translate3d(-180px,-520px,0) rotate(-30deg) scale(.26); }
+  70% { -moz-transform: translate3d(-280px,-728px,0) rotate(-45deg) scale(.26); }
+  100% { -moz-transform: translate3d(-380px,-3000px,0) rotate(-45deg) scale(.26); }
+}
+
+@-moz-keyframes to-phone {
+  0% { -moz-transform: translate3d(50px,0,0); }
+  20% { -moz-transform: translate3d(50px,0,0); }
+  100% { -moz-transform: translate3d(-900px,0,0); }
+}
+
+@-moz-keyframes spin-head-eyes {
+  0%{ -moz-transform: translate3d(0,0,0); }
+  /*19%{ -moz-transform: translate3d(-280px,0,0); }
+  54%{ -moz-transform: translate3d(-280px,0,0); }
+  54.001%{ -moz-transform: translate3d(280px,0,0); }
+  59.8%{ -moz-transform: translate3d(0px,0,0); }*/
+  100%{ -moz-transform: translate3d(0px,0,0); }
+}
+
+@-moz-keyframes spin-head-antennae-l {
+  0%{ -moz-transform: translate3d(0,0,0); }
+  /*19%{ -moz-transform: translate3d(48px,0,0); }
+  54%{ -moz-transform: translate3d(48px,0,0); }
+  54.001%{ -moz-transform: translate3d(-48px,0,); }
+  59.8%{ -moz-transform: translate3d(0,0,0); }*/
+  100%{ -moz-transform: translate3d(0,0,0); }
+}
+
+@-moz-keyframes spin-head-antennae-r {
+  0%{ -moz-transform: translate3d(0,0,0); }
+  /*19%{ -moz-transform: translate3d(-48px,0,0) rotateZ(0deg); }
+  54%{ -moz-transform: translate3d(-48px,0,0) rotateZ(0deg); }
+  54.001%{ -moz-transform: translate3d(48px,0,0) rotateZ(0deg); }
+  59.8%{ -moz-transform: translate3d(0,0,0) rotateZ(0deg); }*/
+  100%{ -moz-transform: translate3d(0,0,0); }
+}
+
+@-moz-keyframes bobble-head {
+  0% { -moz-transform: translate3d(0,0,0) rotate(0deg); }
+  15% { -moz-transform: translate3d(0,0,0) rotate(0deg); }
+  20% { -moz-transform: translate3d(0,0,0) rotate(0deg); }
+  21% { -moz-transform: translate3d(0,0,0) rotate(0deg); }
+  /*90% { -moz-transform: translate3d(0,0,0) rotate(0deg); }
+  91% { -moz-transform: translate3d(0,-4px,0) rotate(10deg) }
+  92% { -moz-transform: translate3d(0,4px,0) rotate(-10deg); }
+  93% { -moz-transform: translate3d(0,-4px,0) rotate(10deg); }
+  94% { -moz-transform: translate3d(0,4px,0) rotate(-10deg); }
+  95% { -moz-transform: translate3d(0,0,0) rotate(0deg); }*/
+  100% { -moz-transform: translate3d(0,0,0) rotate(0deg); }
+}
+
+@-moz-keyframes begin-animation {
+  0% { -moz-transform: translate3d(0px,0px,0);  }
+  40% { -moz-transform: translate3d(50px,-187px,0);  }
+  100% { -moz-transform: translate3d(50px,-187px,0);  }
+}
+
+@-moz-keyframes move-droid {
+  0% { -moz-transform: translate3d(0,0,0); }
+  15% { -moz-transform: translate3d(-108px,-10px,0); }
+  30% { -moz-transform: translate3d(0,0,0); }
+  35% { -moz-transform: translate3d(40px,5px,0); }
+  55% { -moz-transform: translate3d(8px,3px,0); }
+  57% { -moz-transform: translate3d(-45px,-10px,0); }
+  59% { -moz-transform: translate3d(0px,-12px,0); }
+  64% { -moz-transform: translate3d(55px,-12px,0); }
+  74% { -moz-transform: translate3d(20px,0px,0); }
+  100% { -moz-transform: translate3d(0,0,0); }
+}
+
+@moz-keyframes look-right {
+  0% { -moz-transform: translate3d(0,0,0); }
+  25% { -moz-transform: translate3d(8px,10px,0); }
+  50% { -moz-transform: translate3d(0,0,0); }
+  75% { -moz-transform: translate3d(-8px,-10px,0); }
+  100% { -moz-transform: translate3d(0,0,0); }
+}
+
+@-moz-keyframes look-at-logo {
+  0% { -moz-transform: translate3d(0,0,0); }
+  100% { -moz-transform: translate3d(-12px,-2px,0); }
+}
+
+@-moz-keyframes eye-animation {
+  0% { -moz-transform: scaleY(1); }
+  5% { -moz-transform: scaleY(0); }
+  10% { -moz-transform: scaleY(1); }
+  100% { -moz-transform: scaleY(1); }
+}
+
+@-moz-keyframes arm-animation-left {
+	0% { -moz-transform: translate3d(0,0,0) rotate(0deg); }
+	4% { -moz-transform: translate3d(0,0,0) rotate(156deg); }
+	6.5% { -moz-transform: translate3d(0,0,0) rotate(136deg); }
+	8% { -moz-transform: translate3d(0,0,0) rotate(156deg); }
+  9% { -moz-transform: translate3d(0,0,0) rotate(136deg); }
+	11% { -moz-transform: translate3d(0,0,0) rotate(40deg); }
+	12% { -moz-transform: translate3d(0,0,0) rotate(0deg); }
+	100% { -moz-transform: translate3d(0,0,0) rotate(0deg); }
+}
+
+@-moz-keyframes left-leg-animation {
+  0%{ -moz-transform: translate3d(0px,0px,0px) scaleY(1); }
+  100%{ -moz-transform: translate3d(0px,0px,0px) scaleY(.5); }
+}
+
+@-moz-keyframes blow-up-android {
+  0%{ opacity: 1; }
+  100%{ opacity: 0; }
+}
+
+/* ------------------------------------------------------------- */
+@-moz-keyframes smoke {
+	0% { text-shadow: 9999px 0 0 rgba(153, 153, 153, 1); }
+	20% { text-shadow: 9999px -40px 20px rgba(153, 153, 153, 0); }
+	100% { text-shadow: 9999px 0 0 rgba(0, 0, 0, 0); }
+}
+/* ------------------------------------------------------------- */
+@-moz-keyframes drop-hero {
+  0%{ -moz-transform: translate3d(0,0,0) scale(.41); opacity: 0; }
+  7.5%{ -moz-transform: translate3d(0,300px,0) scale(.41); opacity: 1; }
+  25%{ -moz-transform: translate3d(0,1000px,0) scale(.41); opacity: 1; }
+  56%{ -moz-transform: translate3d(0,1000px,0) scale(.41); opacity: 1; }
+  /* 90%{ -moz-transform: translate3d(-128px,1000px,0) scale(.41); opacity: 1; } */
+  100%{ -moz-transform: translate3d(-128px,1000px,0) scale(.41); opacity: 1; }
+}
+/* ------------------------------------------------------------- */
+@-moz-keyframes shake {
+  0%{ -moz-transform: translate3d(0,0,0) rotateZ(0deg); }
+  20%{ -moz-transform: translate3d(0,12px,0) rotateZ(1deg); }
+  54%{ -moz-transform: translate3d(0,0px,0) rotateZ(0deg); }
+  70%{ -moz-transform: translate3d(0,3px,0) rotateZ(.2deg); }
+  80%{ -moz-transform: translate3d(0,0px,0) rotateZ(0deg); }
+  100%{ -moz-transform: translate3d(0,0px,0) rotateZ(0deg); }
+}
+/* ---------------------------------------------------- */
+@-moz-keyframes antenna-animation-left {
+	0% { -moz-transform: translate3d(0,0,0) rotate(-32deg); }
+	10% { -moz-transform: translate3d(0,0,0) rotate(-22deg); }
+	20% { -moz-transform: translate3d(0,0,0) rotate(-32deg); }
+	100% { -moz-transform: translate3d(0,0,0) rotate(-32deg); }
+}
+
+@-webkit-keyframes antenna-animation-left {
+	0% { -webkit-transform: translate3d(0,0,0) rotate(-32deg); }
+	10% { -webkit-transform: translate3d(0,0,0) rotate(-22deg); }
+	20% { -webkit-transform: translate3d(0,0,0) rotate(-32deg); }
+	100% { -webkit-transform: translate3d(0,0,0) rotate(-32deg); }
+}
+/* ---------------------------------------------------- */
+@-moz-keyframes antenna-animation-right {
+	0% { -moz-transform: translate3d(0,0,0) rotate(32deg); }
+	10% { -moz-transform: translate3d(0,0,0) rotate(22deg); }
+	20% { -moz-transform: translate3d(0,0,0) rotate(32deg); }
+	100% { -moz-transform: translate3d(0,0,0) rotate(32deg); }
+}
+
+@-webkit-keyframes antenna-animation-right {
+	0% { -webkit-transform: translate3d(0,0,0) rotate(32deg); }
+	10% { -webkit-transform: translate3d(0,0,0) rotate(22deg); }
+	20% { -webkit-transform: translate3d(0,0,0) rotate(32deg); }
+	100% { -webkit-transform: translate3d(0,0,0) rotate(32deg); }
+}
+/* ---------------------------------------------------- */
+
+    
+  </style>
+    
+    <div class="smoke-container">
+      <div class="smoke one">.</div>
+      <div class="smoke two">.</div>
+      <div class="smoke three">.</div>
+      <div class="smoke four">.</div>
+      <div class="smoke five">.</div>
+      <div class="smoke six">.</div>
+    </div>
+
+     <div class="smoke-container-two">
+      <div class="smoke one">.</div>
+      <div class="smoke two">.</div>
+      <div class="smoke three">.</div>
+      <div class="smoke four">.</div>
+      <div class="smoke five">.</div>
+      <div class="smoke six">.</div>
+    </div>
+
+  <!-- </div> -->
+  <div class="curtain" style="display: none;">
+    <div id="android-container">
+      <div id="android-large-wrapper">
+        <div class="android large">
+          <div class="body"></div>
+          <div id="head">
+            <div id="eyes-overflow-wrapper">
+              <div class="eyes">
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+              </div>
+            </div>
+          </div>
+          <div class="rotating-container">
+            <div class="antenna left"></div>
+            <div class="antenna right"></div>
+          </div>
+          <div class="arm left"></div>
+          <div class="arm right"></div>
+          <div class="leg left"></div>
+          <div class="leg right"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="container">    
+      <div id="main-phone-container">      
+        <div class="outer-phone-container">
+          <div class="phone-top"></div>
+          <div class="phone-bottom"></div>
+        </div>
+        <div class="inner-phone-container">  
+          <div class="phone-top"></div>
+          <div class="speaker-slot"></div>
+          <div class="camera-lens"></div>
+          <div class="status-bar"></div>
+          <div class="inner-screen"></div>
+          <div class="phone-bottom"></div>
+        </div>
+      </div>      
+    </div>
+
+
+  <p style="z-index:800;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+  <script type="text/javascript">
+   //<![CDATA[
+    function wrapInitialPageContent(){
+      var topSection = document.querySelector("#topSection");
+      topSection.style.position = "relative"; // need to add positioning to this so we can get proper offsetTop bellow
+      //topSection.style.top = "100px";
+      // search bar stuff
+      var searchContainer = document.querySelector("#searchContainer");
+      var form = searchContainer.querySelector("form");
+      //var formComputedStyle = window.getComputedStyle(form);
+      var formWidth = form.offsetWidth;
+      var formHeight = form.offsetHeight;
+      var formOffsetTop = form.offsetTop;
+      var searchBarWrapper = document.createElement("div");
+      searchBarWrapper.setAttribute("style","position: absolute; bottom: 0px; left: 0px; width: "+formWidth+"px; height: "+formHeight+"px; z-index: 800;");
+      searchBarWrapper.id = "searchBarWrapper";
+      searchBarWrapper.appendChild(searchContainer);
+      
+      // brand logo
+      var brandLogo = document.querySelector("#brandLogo");
+      var brandLogoOffsetTop = brandLogo.offsetTop;
+      brandLogo.style.position = "absolute";
+      brandLogo.style.top = brandLogoOffsetTop+"px";
+      brandLogo.style.left = Math.floor((formWidth - brandLogo.width) / 2)+"px";
+      brandLogo.style.marginTop = "0";
+      brandLogo.style.marginBottom = "0";
+      brandLogo.style.zindex = "500";
+      brandLogo.className += " brand-logo-override";
+      
+      // new div to move content into
+      var newContentWrapper = document.createElement("div");
+      newContentWrapper.id = "newContentWrapper";
+      newContentWrapper.setAttribute("style","position: relative; width: "+formWidth+"px; height: "+(formOffsetTop+formHeight)+"px; margin-left: auto; margin-right: auto;");
+      
+      brandLogo.parentNode.insertBefore(newContentWrapper, brandLogo);
+      
+      // move content into place
+      newContentWrapper.appendChild(brandLogo);
+      newContentWrapper.appendChild(searchBarWrapper);
+      
+      // re-focus input
+      document.querySelector("#searchText").focus();
+    }
+    
+    function injectLargeAndroid () {
+      var largeAndroid = document.querySelector(".curtain");//"#android-container");
+      var searchBarWrapper = document.querySelector("#newContentWrapper");
+      searchBarWrapper.appendChild(largeAndroid);
+      largeAndroid.style.display = "block";
+    }
+    
+    function blowUpTinyAndroid () {
+      var tinyAndroid = document.querySelector(".android.tiny");
+      tinyAndroid.parentNode.className += " blow-up";
+      var newContentWrapper = document.querySelector("#newContentWrapper");
+      newContentWrapper.className += " run-hero-animation";
+    }
+
+    wrapInitialPageContent();
+    this.bottomOfPhoneForDroid = null;
+    // mouseover the tiny android to start everything off
+    window.initialAndroidMouseoverEventHasBeenFired = false;
+    
+    setTimeout(function(){
+      injectLargeAndroid();
+      //setPhonePosition();
+      
+      var android = document.getElementById("android-large-wrapper");
+      var androidHead = document.querySelector("#head");
+      var androidArms = document.querySelectorAll(".arm");
+      var androidLegs = document.querySelectorAll(".leg");
+      var androidContainer = document.getElementById("android-container");
+      var eyeContainer = document.getElementById("eyes-overflow-wrapper");
+      //var rightAnten = document.querySelectorAll(".android.large .antenna.right");
+      //var leftAnten = document.querySelectorAll(".android.large .antenna.left");
+      //var eyes = document.querySelector(".eyes");
+
+      var phone = document.getElementById("container");
+      var phoneContainer = document.getElementById("main-phone-container");
+      
+      var smokeOne = document.querySelector(".smoke-container");
+      var smokeTwo = document.querySelector(".smoke-container-two");
+      var brandLogo = document.getElementById("brandLogo");
+      
+      var brandLogo = document.getElementById("brandLogo");
+      var curtain = document.querySelector(".curtain");
+      var searchBarWrapper = document.getElementById("searchBarWrapper");
+
+      android.className += " step-1";
+
+      android.addEventListener("animationstart", function(e){
+        if (e.animationName == "droid-move-behind-phone") {
+          setTimeout(function(){
+            androidArms[0].className = " arm left wave";
+          }, 150);
+        }
+      }, false);
+
+      android.addEventListener("animationend", function(e){
+
+        if (e.animationName == "begin-animation") {//droid finished moving on top of search bar
+          eyeContainer.className += "look-at-logo";//move eyes to look at firefox logo
+          //eyes.className = "eyes";
+        }
+
+        if (e.animationName == "look-at-logo") {//droid has looked at ff logo
+          androidHead.className = ""; //clear the head nods and spins
+          eyeContainer.className = "";
+          searchBarWrapper.className += " shake";
+          //do a transition here to go get phone
+          
+          androidArms[0].className += " flight";
+          androidArms[1].className += " flight";
+
+          //lift off
+          
+          android.className = "step-2";
+          smokeOne.style.display = "block";//show the smoke left leg
+          smokeTwo.style.display = "block";//show the smoke right leg
+          
+          android.className += " to-phone";
+          androidContainer.className += " step-2";
+          //document.querySelector(".to-phone").setAttribute("style", "-moz-transform: translate3d(-390px,-" + droidCeiling + "px,0px) scale(.41);");
+        }
+
+        if (e.animationName == "to-phone") {
+          //lift off has finished
+          //curtain.className = "";
+          //removing "to-phone" animations
+          androidContainer.className = "";
+          searchBarWrapper.className = "";
+          android.className = "";
+          phone.className += " phone-phone-home";
+          android.className += " droid-phone-home";
+          brandLogo.className += " shrink";
+          androidArms[1].className += " land";
+        }
+
+        if (e.animationName == "droid-phone-home") {
+          android.className = "droid-move-behind-phone";
+          androidLegs[0].className += " step";
+          androidLegs[1].className += " step";
+        }
+
+      }, false);
+
+      brandLogo.addEventListener("animationend", function(e){
+        if (e.animationName == "shrink-logo") {
+          phoneContainer.className += "shift-phone";
+        }
+      }, false);
+
+      android.addEventListener("mouseover", function(e){
+        if(!initialAndroidMouseoverEventHasBeenFired){
+          initialAndroidMouseoverEventHasBeenFired = true;
+          android.style.webkitAnimation = "";
+          android.className = "begin-animation";
+          console.log(e.target);
+          console.log(e.currentTarget);
+          //blowUpTinyAndroid();
+        }
+      }, false);
+
+    }, 0);
+  //]]>
+  </script>
+  
+</div>
