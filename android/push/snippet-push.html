@@ -1,4 +1,4 @@
-<div class="snippet tiny-android">
+<div class="snippet tiny-android" id="snippet-push">
 <div class="icon-hover-wrapper">
 <p>Fast. Smart. Safe. <a href="https://www.mozilla.org/firefox/sms/">Put Firefox on your Android phone</a>.</p>
 
@@ -325,19 +325,25 @@ div { box-sizing: border-box; }
     var searchBarWrapper = document.querySelector("#searchBarWrapper");
     searchBarWrapper.appendChild(smokeBomb);
   }
-  wrapInitialPageContent();
-  window.tinyAndroidMouseoverEventHasBeenFired = false;
-  setTimeout(function(){
-    injectPhone();
-    injectLargeAndroid();
-    var iconHoverWrapper = document.querySelector(".icon-hover-wrapper");
-    iconHoverWrapper.addEventListener("mouseover", function(e){
-      if(!tinyAndroidMouseoverEventHasBeenFired){
-        tinyAndroidMouseoverEventHasBeenFired = true;
-        blowUpTinyAndroid();
-      }
-    }, false);
-  }, 0);
+  
+  (function() {
+    var snippet = document.getElementById('snippet-push');
+    snippet.addEventListener('show_snippet', function(e) {
+      wrapInitialPageContent();
+      window.tinyAndroidMouseoverEventHasBeenFired = false;
+      setTimeout(function(){
+        injectPhone();
+        injectLargeAndroid();
+        var iconHoverWrapper = document.querySelector(".icon-hover-wrapper");
+        iconHoverWrapper.addEventListener("mouseover", function(e){
+          if(!tinyAndroidMouseoverEventHasBeenFired){
+            tinyAndroidMouseoverEventHasBeenFired = true;
+            blowUpTinyAndroid();
+          }
+        }, false);
+      }, 0);
+    });
+  })();
   //]]>
 </script>
 

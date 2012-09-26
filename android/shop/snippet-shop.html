@@ -1,4 +1,4 @@
-<div class="snippet">
+<div class="snippet" id="snippet-shop">
 <p>Fast. Smart. Safe. <a href="https://www.mozilla.org/firefox/sms/">Get the mobile browser that's got your back</a>.</p>
 <img class="icon" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAsCAMAAADYUfG+AAAAYFBMVEV6enuenp5kZWUtLi5WWVpKSkpFS0NKS0p2dXbGxsa9vb3Jycmfn596enrFxcUAAAC71+Lj7suv0G3G3Z31+vUvMzYdISKWwDxcqdGUxN02VmdIgJ0DBASgxk1Tm8B1l1gD2zrMAAAAEHRSTlOG2cXa+5j6X/2ixk0tE30Ai5C9EwAAAc9JREFUeF6F0ouO4jAMBVCgacJCzOT56Av+/y/XzoSNhzLLlZCKcuRbtz18fc4bA+pwgA9GnDEK/mfGc82pq53R51lUJEb9i4GzuC+ohIhSqvfmJO73UhYphIwxjvDGaLEUQvdZyrSu66B2BsSMhFBZkGCSejWnWNA0FNca9dOoSE0NYV81A3ADcm6kj3o1ojZxVObEuniTmTqKAzAD8dlkfbug7TTfa4h3MiYE601pJo38+ai0TMYUBNvmbJgqmSMwA2meXLbB5uzx54IxEzYp/i6GVDwdBZ+dz4iss9TUDTUZPLHOBeuQYF8w2MQMRGrK3uOpDx6vwhZop2Z602a3jMFROCYbbGKGdqpNRMjSKDF8dUM7FeOoidJGPZLmhp5eMbh2z+YjNnWjEpIyBZdZ5ADMQFoXNMZyQk3MjPRFLjhnYwZ34mZYKXMJ/qWJmfbZRiTbxpt4V0PpkX1w30Qh4AYI1UgTtt7EDaHU+h45O8+a+LsgVCNz6O+JGULyH1pSb+KG963U9N6Akk2N16vWGuCnAX293m63k0yo5O07KKGbKv5gjmcZxfFyudCfqp4GdCUXypFETUUadnPaMZuzux+eKuB1L61Rtuz2+py/bxxo6KwtoiIAAAAASUVORK5CYII="/>
 
@@ -322,26 +322,30 @@ body { overflow: hidden; }
     android.className += " move-back";
   }
 
-  wrapInitialPageContent();
-  window.androidMouseoverEventHasBeenFired = false;
-  setTimeout(function(){
-    injectBagContainer();
-    injectAndroid();
-    injectPhone();
-    var android = document.querySelector(".android");
-    android.addEventListener("mouseover", function(e){
-      if(!androidMouseoverEventHasBeenFired){
-        androidMouseoverEventHasBeenFired = true;
-        runHeroAnimation();
-      }
-    }, false);
-
-    var brandLogo = document.querySelector("#brandLogo");
-    brandLogo.addEventListener("animationend", function(){
-      moveAndroidBackInZSpace();
-    }, false);
-
-  }, 0);
+  (function() {
+    var snippet = document.getElementById('snippet-shop');
+    snippet.addEventListener('show_snippet', function(e) {
+      wrapInitialPageContent();
+      window.androidMouseoverEventHasBeenFired = false;
+      setTimeout(function(){
+        injectBagContainer();
+        injectAndroid();
+        injectPhone();
+        var android = document.querySelector(".android");
+        android.addEventListener("mouseover", function(e){
+          if(!androidMouseoverEventHasBeenFired){
+            androidMouseoverEventHasBeenFired = true;
+            runHeroAnimation();
+          }
+        }, false);
+    
+        var brandLogo = document.querySelector("#brandLogo");
+        brandLogo.addEventListener("animationend", function(){
+          moveAndroidBackInZSpace();
+        }, false);
+      }, 0);
+    });
+  })();
 //]]>
 </script>
 

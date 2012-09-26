@@ -1,4 +1,4 @@
-<div class="snippet tiny-android">
+<div class="snippet tiny-android" id="snippet-play">
 <p style="z-index:800;">Fast. Smart. Safe. <a href="https://www.mozilla.org/firefox/sms/">It's never been easier to put Firefox on your Android phone</a>.</p>
 <img class="icon" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAsCAMAAADYUfG+AAAAYFBMVEV6enuenp5kZWUtLi5WWVpKSkpFS0NKS0p2dXbGxsa9vb3Jycmfn596enrFxcUAAAC71+Lj7suv0G3G3Z31+vUvMzYdISKWwDxcqdGUxN02VmdIgJ0DBASgxk1Tm8B1l1gD2zrMAAAAEHRSTlOG2cXa+5j6X/2ixk0tE30Ai5C9EwAAAc9JREFUeF6F0ouO4jAMBVCgacJCzOT56Av+/y/XzoSNhzLLlZCKcuRbtz18fc4bA+pwgA9GnDEK/mfGc82pq53R51lUJEb9i4GzuC+ohIhSqvfmJO73UhYphIwxjvDGaLEUQvdZyrSu66B2BsSMhFBZkGCSejWnWNA0FNca9dOoSE0NYV81A3ADcm6kj3o1ojZxVObEuniTmTqKAzAD8dlkfbug7TTfa4h3MiYE601pJo38+ai0TMYUBNvmbJgqmSMwA2meXLbB5uzx54IxEzYp/i6GVDwdBZ+dz4iss9TUDTUZPLHOBeuQYF8w2MQMRGrK3uOpDx6vwhZop2Z602a3jMFROCYbbGKGdqpNRMjSKDF8dUM7FeOoidJGPZLmhp5eMbh2z+YjNnWjEpIyBZdZ5ADMQFoXNMZyQk3MjPRFLjhnYwZ34mZYKXMJ/qWJmfbZRiTbxpt4V0PpkX1w30Qh4AYI1UgTtt7EDaHU+h45O8+a+LsgVCNz6O+JGULyH1pSb+KG963U9N6Akk2N16vWGuCnAX293m63k0yo5O07KKGbKv5gjmcZxfFyudCfqp4GdCUXypFETUUadnPaMZuzux+eKuB1L61Rtuz2+py/bxxo6KwtoiIAAAAASUVORK5CYII="/>
 
@@ -241,88 +241,93 @@ body { overflow: hidden; }
     newContentWrapper.className += " run-hero-animation";
   }
 
-  wrapInitialPageContent();
-  this.bottomOfPhoneForDroid = null;
-  window.initialAndroidMouseoverEventHasBeenFired = false;
-
-  setTimeout(function(){
-    injectLargeAndroid();
-
-    var android = document.getElementById("android-large-wrapper");
-    var androidHead = document.querySelector("#head");
-    var androidArms = document.querySelectorAll(".arm");
-    var androidLegs = document.querySelectorAll(".leg");
-    var androidContainer = document.getElementById("android-container");
-    var eyeContainer = document.getElementById("eyes-overflow-wrapper");
-
-    var phone = document.getElementById("container");
-    var phoneContainer = document.getElementById("main-phone-container");
-
-    var smokeOne = document.querySelector(".smoke-container");
-    var smokeTwo = document.querySelector(".smoke-container-two");
-    var brandLogo = document.getElementById("brandLogo");
-
-    var brandLogo = document.getElementById("brandLogo");
-    var curtain = document.querySelector(".curtain");
-    var searchBarWrapper = document.getElementById("searchBarWrapper");
-
-    android.className += " step-1";
-
-    android.addEventListener("animationstart", function(e){
-      if (e.animationName == "droid-move-behind-phone") {
-        setTimeout(function(){
-          androidArms[0].className = " arm left wave";
-        }, 150);
-      }
-    }, false);
-
-    android.addEventListener("animationend", function(e){
-      if (e.animationName == "begin-animation") {
-        eyeContainer.className += "look-at-logo";
-      }
-
-      if (e.animationName == "look-at-logo") {
-        androidHead.className = "";
-        eyeContainer.className = "";
-        searchBarWrapper.className += " shake";
-        androidArms[0].className += " flight";
-        androidArms[1].className += " flight";
-        android.className = "step-2";
-        smokeOne.style.display = "block";
-        smokeTwo.style.display = "block";
-        android.className += " to-phone";
-        androidContainer.className += " step-2";
-      }
-
-      if (e.animationName == "to-phone") {
-        androidContainer.className = "";
-        searchBarWrapper.className = "";
-        android.className = "";
-        phone.className += " phone-phone-home";
-        android.className += " droid-phone-home";
-        brandLogo.className += " shrink";
-        androidArms[1].className += " land";
-      }
-
-      if (e.animationName == "droid-phone-home") {
-        android.className = "droid-move-behind-phone";
-        androidLegs[0].className += " step";
-        androidLegs[1].className += " step";
-      }
-
-    }, false);
-
-    android.addEventListener("mouseover", function(e){
-      if(!initialAndroidMouseoverEventHasBeenFired){
-        initialAndroidMouseoverEventHasBeenFired = true;
-        android.style.webkitAnimation = "";
-        android.className = "begin-animation";
-        console.log(e.target);
-        console.log(e.currentTarget);
-      }
-    }, false);
-
-  }, 0);
+  (function() {
+    var snippet = document.getElementById('snippet-play');
+    snippet.addEventListener('show_snippet', function(e) {
+      wrapInitialPageContent();
+      this.bottomOfPhoneForDroid = null;
+      window.initialAndroidMouseoverEventHasBeenFired = false;
+    
+      setTimeout(function(){
+        injectLargeAndroid();
+    
+        var android = document.getElementById("android-large-wrapper");
+        var androidHead = document.querySelector("#head");
+        var androidArms = document.querySelectorAll(".arm");
+        var androidLegs = document.querySelectorAll(".leg");
+        var androidContainer = document.getElementById("android-container");
+        var eyeContainer = document.getElementById("eyes-overflow-wrapper");
+    
+        var phone = document.getElementById("container");
+        var phoneContainer = document.getElementById("main-phone-container");
+    
+        var smokeOne = document.querySelector(".smoke-container");
+        var smokeTwo = document.querySelector(".smoke-container-two");
+        var brandLogo = document.getElementById("brandLogo");
+    
+        var brandLogo = document.getElementById("brandLogo");
+        var curtain = document.querySelector(".curtain");
+        var searchBarWrapper = document.getElementById("searchBarWrapper");
+    
+        android.className += " step-1";
+    
+        android.addEventListener("animationstart", function(e){
+          if (e.animationName == "droid-move-behind-phone") {
+            setTimeout(function(){
+              androidArms[0].className = " arm left wave";
+            }, 150);
+          }
+        }, false);
+    
+        android.addEventListener("animationend", function(e){
+          if (e.animationName == "begin-animation") {
+            eyeContainer.className += "look-at-logo";
+          }
+    
+          if (e.animationName == "look-at-logo") {
+            androidHead.className = "";
+            eyeContainer.className = "";
+            searchBarWrapper.className += " shake";
+            androidArms[0].className += " flight";
+            androidArms[1].className += " flight";
+            android.className = "step-2";
+            smokeOne.style.display = "block";
+            smokeTwo.style.display = "block";
+            android.className += " to-phone";
+            androidContainer.className += " step-2";
+          }
+    
+          if (e.animationName == "to-phone") {
+            androidContainer.className = "";
+            searchBarWrapper.className = "";
+            android.className = "";
+            phone.className += " phone-phone-home";
+            android.className += " droid-phone-home";
+            brandLogo.className += " shrink";
+            androidArms[1].className += " land";
+          }
+    
+          if (e.animationName == "droid-phone-home") {
+            android.className = "droid-move-behind-phone";
+            androidLegs[0].className += " step";
+            androidLegs[1].className += " step";
+          }
+    
+        }, false);
+    
+        android.addEventListener("mouseover", function(e){
+          if(!initialAndroidMouseoverEventHasBeenFired){
+            initialAndroidMouseoverEventHasBeenFired = true;
+            android.style.webkitAnimation = "";
+            android.className = "begin-animation";
+            console.log(e.target);
+            console.log(e.currentTarget);
+          }
+        }, false);
+    
+      }, 0);
+    });
+  })();
 //]]>
 </script>
 
