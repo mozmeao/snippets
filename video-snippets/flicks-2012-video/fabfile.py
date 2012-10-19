@@ -7,15 +7,15 @@ import time
 from os.path import isfile
 from subprocess import CalledProcessError, check_output
 
-import pystache
 import sqlite3
 from fabric.decorators import task
+from jinja2 import Environment, FileSystemLoader
+from slimit import minify
 from watchdog.events import PatternMatchingEventHandler
 from watchdog.observers import Observer
 
 
 BUILD_OUT_FILE = 'build.html'
-IMAGES_DIR = 'images'
 SNIPPET_CONTENT_FILE = 'content.html'
 JS_FILE = 'script.js'
 CSS_FILE = 'styles.css'
@@ -38,6 +38,23 @@ class MonitorBuildPushEventHandler(PatternMatchingEventHandler):
         print "Files have changed, pushing..."
         build()
         push()
+
+
+env = Environment(autoescape=True, loader=FileSystemLoader('./'))
+
+
+def base64img(filename):
+    if filename.endswith('png'):
+        mimetype = 'image/png'
+    elif filename.endswith(('jpg', 'jpeg')):
+        mimetype = 'image/jpeg'
+    else:
+        return ''
+
+    with open(filename, 'r') as f:
+        data = base64.encodestring(f.read())
+    return 'data:%s;base64,%s' % (mimetype, data)
+env.globals['base64img'] = base64img
 
 
 @task
@@ -179,62 +196,28 @@ def _test_sqlite3_db(db_path):
 def build():
     """Builds the snippet."""
     # Use the LESS file over the CSS file if it exists.
-    css = CSS_FILE
+    css = ''
     if os.path.isfile(LESS_FILE):
-        css = LESS_FILE
+        args = [LESS_BIN, '-x', LESS_FILE]
+        try:
+            css = check_output(args)
+        except CalledProcessError, e:
+            print 'Error compiling %s with command `%s`:' % (filename, args)
+            print e.output
+            print 'File will be ignored.'
+    elif os.path.isfile(CSS_FILE):
+        with open(CSS_FILE, 'r') as f:
+            css = f.read()
 
-    template = SnippetView({
-        'css': css,
-        'js': JS_FILE,
-        'content': SNIPPET_CONTENT_FILE
-    })
+    js = ''
+    if os.path.isfile(JS_FILE):
+        with open(JS_FILE, 'r') as f:
+            js = minify(f.read())
+
+    template = env.get_template(SNIPPET_CONTENT_FILE)
 
     with open(BUILD_OUT_FILE, 'w') as output:
-        output.write(template.render())
-
-
-class SnippetView(pystache.View):
-    template_file = SNIPPET_CONTENT_FILE
-
-    def __init__(self, filenames):
-        super(SnippetView, self).__init__()
-        self._filenames = filenames
-
-    def __getattr__(self, item):
-        try:
-            return self._loadfile(item)
-        except KeyError:
-            raise AttributeError
-
-    def _loadfile(self, key):
-        filename = self._filenames[key]
-
-        # Handle files that need preprocessing.
-        if filename.endswith('less'):
-            args = [LESS_BIN, '-x', filename]
-            try:
-                return check_output(args)
-            except CalledProcessError, e:
-                print 'Error compiling %s with command `%s`:' % (filename, args)
-                print e.output
-                print 'File will be ignored.'
-        else:
-            with open(filename, 'r') as f:
-                return f.read()
-
-    def base64img(self, text=None):
-        return self._base64img
-
-    def _base64img(self, text=''):
-        filename = text.strip()
-        if filename.endswith('png'):
-            mimetype = 'image/png'
-        elif filename.endswith(('jpg', 'jpeg')):
-            mimetype = 'image/jpeg'
-        else:
-            return ''
-
-        with open(IMAGES_DIR + '/' + filename, 'r') as f:
-            data = base64.encodestring(f.read())
-
-        return 'data:%s;base64,%s' % (mimetype, data)
+        output.write(template.render({
+            'css': css,
+            'js': js
+        }))
