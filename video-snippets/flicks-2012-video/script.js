@@ -8,10 +8,10 @@
 
         // Store strings (for l10n handyness).
         this.strings = {
-            shareLabel: 'Share',
-            shareScreenPrompt: 'Share',
+            share: 'Share',
             resume: 'Resume',
             replay: 'Replay',
+            tweet: 'Tweet',
             twitterShare: ''
         };
         if (options.strings) {
@@ -19,12 +19,13 @@
         }
 
         // Build HTML for the overlay.
+        // TODO: Do this smarter.
         var container = document.createElement('div');
         var content = [];
 
         content.push('<div class="video-overlay">');
         content.push('<i class="close"></i>');
-        content.push('<button class="share">' + this.strings.shareLabel + '</button>');
+        content.push('<button class="share"></button>');
         content.push('<div class="shareScreen">');
         content.push('<div class="shareBox">');
         if (options.externalLink) {
@@ -32,10 +33,10 @@
             content.push(options.externalLink.label);
             content.push('</a>');
         }
-        content.push('<div class="prompt">' + this.strings.shareScreenPrompt + '</div>');
+        content.push('<div class="prompt">' + this.strings.share + '</div>');
         content.push('<div class="social">');
-        content.push('<a href="' + this.util.buildFacebookURL(shareURL) + '" target="_blank" class="facebook"></a>');
-        content.push('<a href="' + this.util.buildTwitterURL(shareURL, this.strings.twitterShare) + '" target="_blank" class="twitter"></a>');
+        content.push('<a href="' + this.util.buildFacebookURL(shareURL) + '" target="_blank" class="facebook">' + this.strings.share + '</a>');
+        content.push('<a href="' + this.util.buildTwitterURL(shareURL, this.strings.twitterShare) + '" target="_blank" class="twitter">' + this.strings.tweet + '</a>');
         content.push('</div>');
         content.push('<input type="text" class="link" value="' + shareURL + '"></input>');
         content.push('<button class="resume">' + this.strings.resume + '</button>');
@@ -118,6 +119,7 @@
 
         onEnded: function(e) {
             e.preventDefault();
+            this.util.addClass(this.resumeButton, 'replay');
             this.resumeButton.innerHTML = this.strings.replay;
             this.ended = true;
             this.showShare();
@@ -132,6 +134,8 @@
             e.preventDefault();
             this.video.pause();
 
+
+            this.util.removeClass(this.resumeButton, 'replay');
             this.resumeButton.innerHTML = this.strings.resume;
             this.showShare();
         },
@@ -208,7 +212,7 @@
         hidden: true,
         externalLink: {
             href: 'https://firefoxflicks.mozilla.org',
-            label: 'Visit firefoxflicks.org'
+            label: 'visit firefoxflicks.org'
         },
         strings: {
             shareLabel: 'Share',
