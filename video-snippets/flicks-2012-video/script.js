@@ -25,7 +25,7 @@
 
         content.push('<div class="video-overlay">');
         content.push('<i class="close"></i>');
-        content.push('<button class="share"></button>');
+        content.push('<button class="share">' + this.strings.share + '</button>');
         content.push('<div class="shareScreen">');
         content.push('<div class="shareBox">');
         if (options.externalLink) {
@@ -33,7 +33,6 @@
             content.push(options.externalLink.label);
             content.push('</a>');
         }
-        content.push('<div class="prompt">' + this.strings.share + '</div>');
         content.push('<div class="social">');
         content.push('<a href="' + this.util.buildFacebookURL(shareURL) + '" target="_blank" class="facebook">' + this.strings.share + '</a>');
         content.push('<a href="' + this.util.buildTwitterURL(shareURL, this.strings.twitterShare) + '" target="_blank" class="twitter">' + this.strings.tweet + '</a>');
@@ -208,18 +207,18 @@
     var video = snippet.querySelector('video');
     var showVideoLink = snippet.querySelector('.show-video');
 
-    var shareOverlay = new VideoShareOverlay(video, 'https://www.mozilla.org', {
+    var shareOverlay = new VideoShareOverlay(video, 'http://mzl.la/InvJlr', {
         hidden: true,
         externalLink: {
             href: 'https://firefoxflicks.mozilla.org',
-            label: 'visit firefoxflicks.org'
+            label: 'Visit firefoxflicks.org'
         },
         strings: {
             shareLabel: 'Share',
             shareScreenPrompt: 'Share',
             resume: 'Resume',
             replay: 'Replay',
-            twitterShare: ''
+            twitterShare: 'Fall in love with Firefox. Let this winning video from #Firefox Flicks show you how. Via @Firefox'
         }
     });
 
