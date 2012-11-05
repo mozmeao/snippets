@@ -207,7 +207,7 @@
     var video = snippet.querySelector('video');
     var showVideoLink = snippet.querySelector('.show-video');
 
-    var shareOverlay = new VideoShareOverlay(video, 'http://mzl.la/InvJlr', {
+    var shareOverlay = new VideoShareOverlay(video, 'http://mzl.la/JSGZHP', {
         hidden: true,
         externalLink: {
             href: 'https://firefoxflicks.mozilla.org',
@@ -218,7 +218,7 @@
             shareScreenPrompt: 'Share',
             resume: 'Resume',
             replay: 'Replay',
-            twitterShare: 'Fall in love with Firefox. Let this winning video from #Firefox Flicks show you how. Via @Firefox'
+            twitterShare: 'What if companies tracked you offline like they do online? This winning #Firefox Flicks video has the answer. Via @Firefox'
         }
     });
 
