@@ -1,9 +1,17 @@
 <script type="text/javascript">
 //<![CDATA[
-(function() {
+(function(showDefaultSnippets) {
 
     var SAMPLE_RATE = 0.1;
     var STATS_URL = 'https://snippets-stats.mozilla.org/foo.html';
+
+    // showDefaultSnippets polyfill, available in about:home v4
+    if (typeof showDefaultSnippets !== 'function') {
+        showDefaultSnippets = function() {
+            localStorage['snippets'] = '';
+            showSnippets();
+        }
+    }
 
     var snippets = (document.getElementById('snippetContainer')
                     .getElementsByClassName('snippet'));
@@ -32,8 +40,7 @@
                           show_snippet_id);
         modifyLinks(show_snippet.getElementsByTagName('a'), parameters);
     } else {
-        localStorage['snippets'] = '';
-        showSnippets();
+        showDefaultSnippets();
     }
 
     // Notifies stats server that the given snippet ID
@@ -64,6 +71,6 @@
         }
     }
 
-})();
+})(window.showDefaultSnippets);
 //]]>
 </script>
