@@ -1,0 +1,56 @@
+<style>
+    div.switch-{{ snippet_id }}#brandLogo {
+        background-size: {{ width|default(192, true) }}px {{ height ~ 'px' if height else 'auto' }};
+    }
+
+    a.logo-link-{{ snippet_id }} {
+        display: inline-block;
+    }
+
+    .switch-{{ snippet_id }}#brandLogo {
+        height: {{ height|default(192, true) }}px;
+        width: {{ width|default(192, true) }}px;
+    }
+</style>
+<div id="snippet-{{ snippet_id }}" class="snippet">
+  <a href="#" class="accountslink">
+    <img class="icon" src="{{ icon }}" />
+  </a>
+<p>{{ text|safe }}</p>
+</div>
+<script>
+//<![CDATA[
+(function() {
+    var snippet = document.getElementById('snippet-{{ snippet_id }}');
+    var newLogo = '{{ replacement_logo }}';
+    snippet.addEventListener('show_snippet', function(e) {
+        var trigger_accounts_link = function() {
+            var event = new CustomEvent('mozUITour', { bubbles: true, detail: { action:'showFirefoxAccounts', data: {}}});
+            document.dispatchEvent(event);
+        };
+        var brandLogo = document.getElementById('brandLogo');
+        if (brandLogo.src !== undefined) {
+            brandLogo.src = newLogo;
+        } else {
+            brandLogo.style.backgroundImage = 'url(' + newLogo + ')';
+        }
+        brandLogo.className += ' switch-{{ snippet_id }}';
+
+        var parent = brandLogo.parentElement;
+        var searchContainer = document.getElementById('searchContainer');
+        var brandLogo = parent.removeChild(brandLogo);
+        var link = document.createElement('a');
+        link.className = 'logo-link-{{ snippet_id }} accountslink';
+        link.href = '#';
+        link.onclick = trigger_accounts_link;
+        link.appendChild(brandLogo);
+        parent.insertBefore(link, searchContainer);
+
+        var links = document.getElementById('snippet-{{ snippet_id }}').getElementsByClassName('accountslink');
+        for (var i=0; i < links.length; i++ ) {
+            links[i].onclick = trigger_accounts_link;
+        }
+    });
+})();
+//]]>
+</script>
