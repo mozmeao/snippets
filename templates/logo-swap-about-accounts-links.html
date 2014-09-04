@@ -25,8 +25,10 @@
     var newLogo = '{{ replacement_logo }}';
     snippet.addEventListener('show_snippet', function(e) {
         var trigger_accounts_link = function() {
-            var event = new CustomEvent('mozUITour', { bubbles: true, detail: { action:'showFirefoxAccounts', data: {}}});
-            document.dispatchEvent(event);
+            send_impression('{{ snippet_id }}-about-accounts-click', function() {
+                var event = new CustomEvent('mozUITour', { bubbles: true, detail: { action:'showFirefoxAccounts', data: {}}});
+                document.dispatchEvent(event);
+            });
         };
         var brandLogo = document.getElementById('brandLogo');
         if (brandLogo.src !== undefined) {
@@ -51,6 +53,25 @@
             links[i].onclick = trigger_accounts_link;
         }
     });
+
+    // Impression code taken from the base snippet JS from the snippets service.
+    // Notifies stats server that the given snippet ID
+    // was shown. No personally-identifiable information
+    // is sent.
+    var SAMPLE_RATE = 0.1;
+    var STATS_URL = 'https://snippets-stats.mozilla.org/foo.html';
+    function send_impression(id, callback) {
+        if (Math.random() <= SAMPLE_RATE) {
+            var locale = document.getElementById('snippet_set').getAttribute('data-locale');
+            var url = STATS_URL + '?snippet_name=' + id + '&locale=' + locale;
+            var r = new XMLHttpRequest();
+            r.onload = callback;
+            r.open('GET', url);
+            r.send();
+        } else {
+            callback();
+        }
+    }
 })();
 //]]>
 </script>
