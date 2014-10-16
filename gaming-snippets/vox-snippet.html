@@ -6,10 +6,9 @@
     100% {height:320px;}
   }
 
-  #brandLogo.vox-embiggen {
-    position: relative;
-    animation: vox-embiggen .4s forwards;
-    -moz-animation: vox-embiggen .4s forwards;
+  @keyframes vox-shrink {
+    0% {height:320px;}
+    100% {height:192px;}
   }
 
   @keyFrames vox-fade-in {
@@ -17,14 +16,138 @@
     100% {opacity: 1;}
   }
 
+  #brandLogo.vox-shrink {
+    position: relative;
+    animation: vox-shrink .4s forwards;
+    -moz-animation: vox-shrink .4s forwards;
+  }
+
+  #brandLogo.vox-embiggen {
+    position: relative;
+    animation: vox-embiggen .4s forwards;
+    -moz-animation: vox-embiggen .4s forwards;
+  }
+
   #vox-canvas.vox-fade-in {
     animation: vox-fade-in .4s forwards;
     -moz-animation: vox-fade-in .4s forwards;
   }
 
+  #vox-switcher {
+    background: #4D4D4D;
+    border-radius: 50%;
+    color: #FFF;
+    cursor: pointer;
+    height: 30px;
+    left: 484px;
+    opacity: 0.3;
+    position: absolute;
+    top: 276px;
+    width: 30px;
+    display: table;
+  }
+
+  #vox-switcher span {
+    display: table-cell;
+    font-weight: bold;
+    vertical-align: middle;
+    font-size: 16px;
+  }
+
+   #vox-switcher:hover,
+   #vox-switcher:focus {
+    opacity: 1;
+  }
+
+  #vox-explainer {
+    display: none;
+    height: 320px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 580px;
+    z-index: 998;
+  }
+
+  #vox-explainer .modal {
+    background: #F5F5F5;
+    border-radius:4px;
+    border:1px solid #DDD;
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    font-size: 12px;
+    height: 100px;
+    left:222px;
+    position:absolute;
+    top:164px;
+    width: 300px;
+    z-index: 999;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  #vox-explainer .modal .header {
+    height:30px;
+    padding: 10px;
+    text-align: left;
+  }
+
+  #vox-explainer .modal .footer {
+    background: none repeat scroll 0% 0% #EAEAEA;
+    border-top: 1px solid #D1D1D1;
+    font-size: 12px;
+    height: 50px;
+  }
+
+  #vox-explainer button {
+    -moz-appearance: none;
+    height: 30px;
+    color: #333;
+    text-shadow: 0px 1px 1px #FEFFFE;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #C1C1C1;
+    border-radius: 2px;
+    margin: 10px;
+    font-size: 12px;
+    display: inline-block;
+  }
+
+  #vox-explainer button:hover,
+  #vox-explainer button:focus {
+    background: #EBEBEB;
+  }
+
+  #vox-explainer button:active {
+    background: #DADADA;
+  }
+
+  #vox-explainer .modal:after {
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 15px solid #EAEAEA;
+    content: "";
+    height: 0px;
+    position: absolute;
+    right: 8px;
+    bottom: -15px;
+    width: 0px;
+  }
+
+  #vox-explainer .modal:before {
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 13px solid #DDD;
+    content: "";
+    height: 0px;
+    position: absolute;
+    right: 10px;
+    bottom: -16px;
+    width: 0px;
+  }
+
   canvas#vox-cavas {
-    opacity: 0;
     background: #f2f2f2;
+    opacity: 0;
   }
 
   #vox-canvas:focus {
@@ -36,22 +159,43 @@
     <img class="icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAyCAYAAAAus5mQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3BpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2RDA3QkM4ODNEQzYxMUU0QTIxN0M5NTFBOUNGNUMzNSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpFNUQyQjhBMzNFNUMxMUU0QTIxN0M5NTFBOUNGNUMzNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpFNUQyQjhBMjNFNUMxMUU0QTIxN0M5NTFBOUNGNUMzNSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNCAoTWFjaW50b3NoKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjAxMDA5ZjA2LTFkNDItNDgwYi1hY2I0LWM0OGE4MGMwZTAzZCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2RDA3QkM4ODNEQzYxMUU0QTIxN0M5NTFBOUNGNUMzNSIvPiA8L3Jk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" />
 </a>
 <p>Name your price to play eight awesome indie games right in your Firefox browser. <a href="http://mzl.la/1tr8l1i">Get the Humble Mozilla Bundle, and play on!</a></p>
+
 <script>
 
 //<![CDATA[
   (function(){
-    var brandLogo = document.getElementById('brandLogo');
-    var snippet = document.getElementById('voxatron-game-snippet');
-    var canvas = document.createElement('canvas');
-    
-    //make logo area bigger
-    function changeHeight() {
+      var snippet = document.getElementById('voxatron-game-snippet');
+
+    if (isGameGo()) {
+      snippet.addEventListener('show_snippet', function() {
+
+        var brandLogo = document.getElementById('brandLogo');
+        var canvas = document.createElement('canvas');
+        var explainerDiv = document.createElement('div');
+        var switcherDiv = document.createElement('div');
+
+        changeHeight(brandLogo);
+        appendCanvas(brandLogo,canvas);
+        appendToggles(brandLogo,switcherDiv,explainerDiv);
+        bindToggleListeners(brandLogo,canvas,switcherDiv,explainerDiv);
+        initGame(canvas);
+      });
+    }
+
+    function isGameGo() {
+      if (typeof gSnippetsMap === 'undefined' ||  !gSnippetsMap.get('hideVoxatron')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function changeHeight(brandLogo) {
       brandLogo.className += ' vox-embiggen';
       brandLogo.style.width = '580px';
     }
 
-    //append the canvas to logo div
-    function appendCanvas() {
+    function appendCanvas(brandLogo,canvas) {
       brandLogo.appendChild(canvas);
       canvas.id = 'vox-canvas';
       canvas.setAttribute('tabindex','1');
@@ -60,13 +204,51 @@
       canvas.style.width = '580px';
     }
 
-    snippet.addEventListener('show_snippet', function() {
-      changeHeight();
-      appendCanvas();
-      initGame();
-    });
+    function appendToggles(brandLogo,switcherDiv,explainerDiv) {
+      brandLogo.appendChild(switcherDiv);
+      switcherDiv.id = 'vox-switcher'
+      switcherDiv.innerHTML = '<span>?</span>';
+      explainerDiv.id = 'vox-explainer'
+      brandLogo.appendChild(explainerDiv);
+      explainerDiv.innerHTML = '<div class="modal"><div class="header">We put this game on our home page to show off our latest gaming technology.</div><div class="footer"><button id="vox-keep">Keep playing</button><button id="vox-hide">Don\'t show the game</button></div></div>';
+    }
 
-    function initGame() {
+    function bindToggleListeners(brandLogo,canvas,switcherDiv,explainerDiv) {
+      var voxKeeper = document.getElementById('vox-keep');
+      var voxHider = document.getElementById('vox-hide');
+
+      canvas.addEventListener('click', function(){
+        switcherDiv.style.display = 'none';
+      });
+
+      switcherDiv.addEventListener('click', function() {
+        explainerDiv.style.display = 'block';
+      });
+
+      voxKeeper.addEventListener('click',function() {
+        explainerDiv.style.display = 'none';
+        switcherDiv.style.display = 'none';
+      });
+
+      voxHider.addEventListener('click',function(){
+        explainerDiv.style.display = 'none';
+        switcherDiv.style.display = 'none';
+        brandLogo.removeChild(canvas);
+        brandLogo.className ='vox-shrink';
+        if( typeof gSnippetsMap === 'undefined' ) {
+          return;
+        } else {
+          setGSnippetsMapFlag();
+        }
+      });
+    }
+
+    function setGSnippetsMapFlag() {
+      gSnippetsMap.set('hideVoxatron', true);
+    }
+
+
+    function initGame(canvas) {
       var Module = { canvas: canvas };
 function e(a){throw a;}var h=void 0,j=!0,k=null,m=!1;function n(){return function(){}}var q;"undefined"===typeof q&&(q=eval("(function() { try { return Module || {} } catch(e) { return {} } })()"));q.kb||(q.kb=0,q.ze=0);q.kb++;
 function aa(){q.FS_createDataFile("/","dat.m",[1,100,32,32,1,51,0,6,3,5,4,1,1,89,1,12,1,19,1,32,1,19,1,12,1,161,28,5,1,64,1,13,1,129,1,13,1,128,34,14,61,13,1,48,1,11,121,12,1,160,135,10,1,192,93,26,99,12,155,17,199,15,185,16,157,5,1,56,131,3,218,15,1,13,1,10,5,5,240,7,197,3,31,16,32,3,36,2,1,12,163,9,10,9,31,8,64,2,31,11,97,2,251,13,31,4,91,2,31,11,162,2,221,10,1,11,1,12,1,58,52,12,252,11,1,66,83,14,32,17,31,24,64,7,176,14,64,17,176,2,94,15,160,11,31,6,224,2,31,13,172,12,31,5,32,14,1,13,236,10,31,
