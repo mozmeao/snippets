@@ -75,10 +75,10 @@
     border:1px solid #DDD;
     box-shadow: 0 2px 6px rgba(0,0,0,.2);
     font-size: 12px;
-    height: 100px;
+    height: 117px;
     left:222px;
     position:absolute;
-    top:164px;
+    top:148px;
     width: 300px;
     z-index: 999;
     -moz-box-sizing: border-box;
@@ -86,8 +86,10 @@
   }
 
   #vox-explainer .modal .header {
-    height:30px;
-    padding: 10px;
+    background: #F2F2F2 url(chrome://branding/content/about-logo.png) no-repeat 10px center;
+    background-size: 30px 30px;
+    height:44px;
+    padding: 10px 10px 10px 50px;
     text-align: left;
   }
 
@@ -110,6 +112,7 @@
     margin: 10px;
     font-size: 12px;
     display: inline-block;
+    float:right;
   }
 
   #vox-explainer button:hover,
@@ -133,18 +136,6 @@
     width: 0px;
   }
 
-  #vox-explainer .modal:before {
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-top: 13px solid #DDD;
-    content: "";
-    height: 0px;
-    position: absolute;
-    right: 10px;
-    bottom: -16px;
-    width: 0px;
-  }
-
   canvas#vox-cavas {
     background: #f2f2f2;
     opacity: 0;
@@ -164,31 +155,21 @@
 
 //<![CDATA[
   (function(){
-      var snippet = document.getElementById('voxatron-game-snippet');
+    var snippet = document.getElementById('voxatron-game-snippet');
 
-    if (isGameGo()) {
-      snippet.addEventListener('show_snippet', function() {
+    snippet.addEventListener('show_snippet', function() {
 
-        var brandLogo = document.getElementById('brandLogo');
-        var canvas = document.createElement('canvas');
-        var explainerDiv = document.createElement('div');
-        var switcherDiv = document.createElement('div');
+      var brandLogo = document.getElementById('brandLogo');
+      var canvas = document.createElement('canvas');
+      var explainerDiv = document.createElement('div');
+      var switcherDiv = document.createElement('div');
 
-        changeHeight(brandLogo);
-        appendCanvas(brandLogo,canvas);
-        appendToggles(brandLogo,switcherDiv,explainerDiv);
-        bindToggleListeners(brandLogo,canvas,switcherDiv,explainerDiv);
-        initGame(canvas);
-      });
-    }
-
-    function isGameGo() {
-      if (typeof gSnippetsMap === 'undefined' ||  !gSnippetsMap.get('hideVoxatron')) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+      changeHeight(brandLogo);
+      appendCanvas(brandLogo,canvas);
+      appendToggles(brandLogo,switcherDiv,explainerDiv);
+      bindToggleListeners(canvas,switcherDiv,explainerDiv);
+      initGame(canvas);
+    });
 
     function changeHeight(brandLogo) {
       brandLogo.className += ' vox-embiggen';
@@ -210,43 +191,26 @@
       switcherDiv.innerHTML = '<span>?</span>';
       explainerDiv.id = 'vox-explainer'
       brandLogo.appendChild(explainerDiv);
-      explainerDiv.innerHTML = '<div class="modal"><div class="header">We put this game on our home page to show off our latest gaming technology.</div><div class="footer"><button id="vox-keep">Keep playing</button><button id="vox-hide">Don\'t show the game</button></div></div>';
+      explainerDiv.innerHTML = '<div class="modal"><div class="header">For a short time only, we\'ve put this game on our home page to show off the latest gaming technology in Firefox. Have fun!</div><div class="footer"><button id="vox-dismiss">Ok</button></div></div>';
     }
 
-    function bindToggleListeners(brandLogo,canvas,switcherDiv,explainerDiv) {
-      var voxKeeper = document.getElementById('vox-keep');
-      var voxHider = document.getElementById('vox-hide');
-
-      canvas.addEventListener('click', function(){
-        switcherDiv.style.display = 'none';
-      });
+    function bindToggleListeners(canvas,switcherDiv,explainerDiv) {
+      var voxDismiss = document.getElementById('vox-dismiss');
 
       switcherDiv.addEventListener('click', function() {
         explainerDiv.style.display = 'block';
       });
 
-      voxKeeper.addEventListener('click',function() {
+      voxDismiss.addEventListener('click',function() {
+        explainerDiv.style.display = 'none';
+      });
+
+      canvas.addEventListener('click', function(){
         explainerDiv.style.display = 'none';
         switcherDiv.style.display = 'none';
       });
 
-      voxHider.addEventListener('click',function(){
-        explainerDiv.style.display = 'none';
-        switcherDiv.style.display = 'none';
-        brandLogo.removeChild(canvas);
-        brandLogo.className ='vox-shrink';
-        if( typeof gSnippetsMap === 'undefined' ) {
-          return;
-        } else {
-          setGSnippetsMapFlag();
-        }
-      });
     }
-
-    function setGSnippetsMapFlag() {
-      gSnippetsMap.set('hideVoxatron', true);
-    }
-
 
     function initGame(canvas) {
       var Module = { canvas: canvas };
