@@ -486,12 +486,12 @@
         element.addEventListener(eventName, oneTimeCallback);
     }
 
-    var FACEBOOK_APPID = encodeURI('307233949472123');
-    var HREF_FB = encodeURI('{{ facebook_share_url }}');
-    var HREF_TW = encodeURI('{{ twitter_share_url }}');
-    var REDIRECT_URL = encodeURI('https://snippets.mozilla.com/static/html/close.html');
-    var TWITTER_TEXT = encodeURI('{{ tweet_text }}');
-    var TWITTER_HASHTAG = encodeURI('{{ tweet_hashtag }}');
+    var FACEBOOK_APPID = encodeURIComponent('307233949472123');
+    var HREF_FB = encodeURIComponent('{{ facebook_share_url|safe }}');
+    var HREF_TW = encodeURIComponent('{{ twitter_share_url|safe }}');
+    var REDIRECT_URL = encodeURIComponent('https://snippets.mozilla.com/static/html/close.html');
+    var TWITTER_TEXT = encodeURIComponent('{{ tweet_text|safe }}');
+    var TWITTER_HASHTAG = encodeURIComponent('{{ tweet_hashtag|safe }}');
     var DIALOG_WINDOW_NAME = 'share_window';
     var DIALOG_DIMENSIONS = 'height=400,width=500';
 
