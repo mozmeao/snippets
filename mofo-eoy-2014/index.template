@@ -3,6 +3,9 @@
 <head>
   <title>Snippet Prototype</title>
   <link rel="stylesheet" type="text/css" href="snippet.css">
+  <style type="text/css">
+    %-css-%
+  </style>
 </head>
 <body>
   <div id="snippet">
@@ -20,6 +23,8 @@
     </div>
   </div>
 
-  <script src="snippet.js"></script>
+  <script>
+    %-js-%
+  </script>
 </body>
 </html>
