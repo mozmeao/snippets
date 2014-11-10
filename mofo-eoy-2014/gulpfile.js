@@ -10,8 +10,8 @@ gulp.task('build', function() {
 
   gulp.src('index.template')
     .pipe(rename('index.html'))
-    .pipe(replace('%-css-%', css))
-    .pipe(replace('%-js-%', js))
+    .pipe(replace('{{ CSS }}', css))
+    .pipe(replace('{{ JS }}', js))
     .pipe(gulp.dest('./build/'));
 });
 

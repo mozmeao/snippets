@@ -1,25 +1,67 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Snippet Prototype</title>
-  <style type="text/css">%-css-%</style>
-</head>
-<body>
-  <div id="snippet">
-    <img class="placeholder" src="../placeholder.png">
-    <p>Mozilla, the non-profit behind Firefox, relies on grants and donations from people like you. <em>If everyone reading this donates a few dollars, we can be fully funded for another year.</em></p>
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>about:home Snippet Preview</title>
 
-    <div>
-      <div class="donation-amounts pull-left">
-        <button class="button button-selected" data-amount="10">$10</button>
-        <button class="button" data-amount="5">$5</button>
-        <button class="button" data-amount="3">$3</button>
+    <link rel="icon" type="image/png" id="favicon" href="chrome://branding/content/icon32.png"/>
+    <link rel="stylesheet" type="text/css" media="all" href="chrome://browser/content/abouthome/aboutHome.css"/>
+  </head>
+
+  <body>
+    <div class="spacer"></div>
+    <div id="topSection">
+      <div id="brandLogo"></div>
+
+      <div id="searchContainer">
+        <form name="searchForm" id="searchForm">
+          <div id="searchLogoContainer"><img id="searchEngineLogo" src="google.png"></div>
+          <input type="text" name="q" value="" id="searchText" maxlength="256" autofocus="autofocus"></input>
+          <input id="searchSubmit" type="submit" value="Search"></input>
+        </form>
       </div>
 
-      <a id="donate-button" class="button button-red button-wide pull-right" href="http://example.org/#amount-10" target="_blank">Donate</a>
-    </div>
-  </div>
+      <div id="snippetContainer">
+        <div id="snippets">
+          <div class="snippet_set" id="snippet_set">
 
-  <script>%-js-%</script>
-</body>
+            <!-- SNIPPET START -->
+
+            <style type="text/css">{{ CSS }}</style>
+            <div id="snippet">
+              <p>Mozilla, the non-profit behind Firefox, relies on grants and donations from people like you. <em>If everyone reading this donates a few dollars, we can be fully funded for another year.</em></p>
+
+              <div>
+                <div class="donation-amounts pull-left">
+                  <button class="button button-selected" data-amount="10">$10</button>
+                  <button class="button" data-amount="5">$5</button>
+                  <button class="button" data-amount="3">$3</button>
+                </div>
+
+                <a id="donate-button" class="button button-red button-wide pull-right" href="http://example.org/#amount-10" target="_blank">Donate</a>
+              </div>
+            </div>
+            <script>{{ JS }}</script>
+
+            <!-- SNIPPET : END -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+
+    <div id="launcher">
+      <button class="launchButton" id="downloads">Downloads</button>
+      <button class="launchButton" id="bookmarks">Bookmarks</button>
+      <button class="launchButton" id="history">History</button>
+      <button class="launchButton" id="apps" hidden="true">Apps</button>
+      <button class="launchButton" id="addons">Add-ons</button>
+      <button class="launchButton" id="sync">Sync</button>
+      <button class="launchButton" id="settings">Settings</button>
+      <div id="restorePreviousSessionSeparator"></div>
+      <button class="launchButton" id="restorePreviousSession">Restore Previous Session</button>
+    </div>
+
+    <a id="aboutMozilla" href="https://www.mozilla.org/about/?utm_source=about-home&amp;utm_medium=Referral"></a>
+  </body>
 </html>
