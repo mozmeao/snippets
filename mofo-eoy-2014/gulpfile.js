@@ -16,7 +16,7 @@ gulp.task('build', function() {
 });
 
 gulp.task('watch', function () {
-  var watcher = gulp.watch(['index.template'], ['build']);
+  var watcher = gulp.watch(['index.template', 'snippet.*'], ['build']);
 });
 
 gulp.task('connect', function() {

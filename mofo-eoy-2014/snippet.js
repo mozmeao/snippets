@@ -7,7 +7,7 @@
   var btnAmounts = document.querySelectorAll('.donation-amounts .button');
   var btnSelected = document.querySelector('.donation-amounts .button-selected');
   var btnDonate = document.querySelector('#donate-button');
-  var elHighlighted = document.querySelector('#snippet em');
+  var elHighlighted = document.querySelector('#mofo-eoy-2014 em');
 
   // View functions
 
