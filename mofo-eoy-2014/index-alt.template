@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>about:home Snippet Preview</title>
+
+    <link rel="icon" type="image/png" id="favicon" href="chrome://branding/content/icon32.png"/>
+    <link rel="stylesheet" type="text/css" media="all" href="chrome://browser/content/abouthome/aboutHome.css"/>
+  </head>
+
+  <body>
+    <div class="spacer"></div>
+    <div id="topSection">
+      <div id="brandLogo"></div>
+
+      <div id="searchContainer">
+        <form name="searchForm" id="searchForm">
+          <div id="searchLogoContainer"><img id="searchEngineLogo" src="google.png"></div>
+          <input type="text" name="q" value="" id="searchText" maxlength="256" autofocus="autofocus"></input>
+          <input id="searchSubmit" type="submit" value="Search"></input>
+        </form>
+      </div>
+
+      <div id="snippetContainer">
+        <div id="snippets">
+          <div class="snippet_set" id="snippet_set">
+
+            <!-- SNIPPET START -->
+
+            <div class="snippet">
+              <style type="text/css">{{ CSS }}</style>
+              <div id="mofo-eoy-2014" class="alternative">
+                <p><b>Dear Firefox users:</b> Firefox puts the public good and user privacy before profit. If Firefox is useful to you, take one minute to support the nonprofit and volunteers behind it. <em>If everyone reading this donates $5, Mozilla's fundraiser would be over within an hour.</em> <i>Thank you</i>.</p>
+
+                <div>
+                  <div class="donation-amounts pull-left">
+                    <button class="button button-selected" data-amount="10">$10</button>
+                    <button class="button" data-amount="5">$5</button>
+                    <button class="button" data-amount="3">$3</button>
+                  </div>
+
+                  <a id="donate-button" class="button button-red button-wide pull-right" href="http://example.org/#amount-10" target="_blank">Donate</a>
+                </div>
+              </div>
+              <script>{{ JS }}</script>
+            </div>
+
+            <!-- SNIPPET : END -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+
+    <div id="launcher">
+      <button class="launchButton" id="downloads">Downloads</button>
+      <button class="launchButton" id="bookmarks">Bookmarks</button>
+      <button class="launchButton" id="history">History</button>
+      <button class="launchButton" id="apps" hidden="true">Apps</button>
+      <button class="launchButton" id="addons">Add-ons</button>
+      <button class="launchButton" id="sync">Sync</button>
+      <button class="launchButton" id="settings">Settings</button>
+      <div id="restorePreviousSessionSeparator"></div>
+      <button class="launchButton" id="restorePreviousSession">Restore Previous Session</button>
+    </div>
+
+    <a id="aboutMozilla" href="https://www.mozilla.org/about/?utm_source=about-home&amp;utm_medium=Referral"></a>
+  </body>
+</html>

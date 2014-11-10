@@ -13,10 +13,16 @@ gulp.task('build', function() {
     .pipe(replace('{{ CSS }}', css))
     .pipe(replace('{{ JS }}', js))
     .pipe(gulp.dest('./build/'));
+
+  gulp.src('index-alt.template')
+    .pipe(rename('index-alt.html'))
+    .pipe(replace('{{ CSS }}', css))
+    .pipe(replace('{{ JS }}', js))
+    .pipe(gulp.dest('./build/'));
 });
 
 gulp.task('watch', function () {
-  var watcher = gulp.watch(['index.template', 'snippet.*'], ['build']);
+  var watcher = gulp.watch(['index.template', 'index-alt.template', 'snippet.js', 'snippet.css'], ['build']);
 });
 
 gulp.task('connect', function() {

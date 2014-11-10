@@ -28,6 +28,9 @@
   #mofo-eoy-2014 em.active {
     background: rgba(173, 228, 255, 0.75);
   }
+  #mofo-eoy-2014.alternative em.active {
+    background: rgba(243, 248, 1, 0.4);
+  }
 
   #mofo-eoy-2014 .button {
     margin-top: 8px;
@@ -61,6 +64,10 @@
     background-color: rgb(193, 56, 50);
     background-image: linear-gradient(to top, rgba(0, 1, 1, 0) 0%, rgba(255, 255, 255, 0) 100%);
     font-size: 18px;
+    transition: background-color 400ms linear;
+  }
+  #mofo-eoy-2014 .button-red:hover {
+    background-color: rgb(160, 39, 35);
   }
 
   #mofo-eoy-2014 .button-wide {

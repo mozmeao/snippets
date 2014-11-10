@@ -28,7 +28,9 @@
 
   // Fade in highlight on text
   setTimeout(function() {
-    elHighlighted.classList.add('active');
+    if (elHighlighted) {
+      elHighlighted.classList.add('active');
+    }
   }, 1000);
 
 })();
