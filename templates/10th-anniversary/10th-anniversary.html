@@ -25,6 +25,14 @@
     opacity: 1;
 }
 
+#anniversary-snippet-{{ snippet_id }} .message .post-share {
+    display: none;
+}
+
+#anniversary-snippet-{{ snippet_id }} .strings {
+    display: none;
+}
+
 #anniversary-snippet-{{ snippet_id }} .social {
     width: 38px;
     height: 38px;
@@ -325,6 +333,8 @@
 </style>
 
 <div id="anniversary-snippet-{{ snippet_id }}" class="snippet">
+  <div class="strings" data-tweet-text="{{ tweet_text|safe }}" data-tweet-hashtag="{{ tweet_hashtag|safe }}"></div>
+
   <div id="animation-container-{{ snippet_id }}">
     <div class="animation-clip flare">
       <div class="frames">
@@ -344,7 +354,10 @@
 
 
   <div class="snippet-box">
-    <div class="message">{{ message|safe }}</div>
+    <div class="message">
+      <span class="pre-share">{{ message|safe }}</span>
+      <span class="post-share">{{ postShareMessage|safe }}</span>
+    </div>
     <div class="social-container">
       <span class="social fb"></span>
       <span class="social twitter"></span>
@@ -362,6 +375,7 @@
     var snippet = document.getElementById('anniversary-snippet-{{ snippet_id }}');
     var logoContainer = document.getElementById('brandLogo');
     var message = snippet.querySelector('.message');
+    var stringElement = snippet.querySelector('.strings');
     var heartLoaded = false;
 
     var animationContainer = document.getElementById('animation-container-{{ snippet_id }}');
@@ -448,6 +462,10 @@
         el.style.opacity = '0';
     }
 
+    function getString(id) {
+        return stringElement.dataset[id];
+    }
+
     function loadImages(urls, callback) {
         var count = 0;
         var total = urls.length;
@@ -469,7 +487,8 @@
         if (!postShare.runOnce) {
             hide(message);
             afterEvent(message, 'transitionend', function() {
-                message.innerHTML = '{{ postShareMessage|safe }}';
+                message.querySelector('.pre-share').style.display = 'none';
+                message.querySelector('.post-share').style.display = 'inline';
                 show(message);
             });
         }
@@ -490,8 +509,8 @@
     var HREF_FB = encodeURIComponent('{{ facebook_share_url|safe }}');
     var HREF_TW = encodeURIComponent('{{ twitter_share_url|safe }}');
     var REDIRECT_URL = encodeURIComponent('https://snippets.mozilla.com/static/html/close.html');
-    var TWITTER_TEXT = encodeURIComponent('{{ tweet_text|replace('&amp;', '&')|safe }}');
-    var TWITTER_HASHTAG = encodeURIComponent('{{ tweet_hashtag|safe }}');
+    var TWITTER_TEXT = encodeURIComponent(getString('tweetText'));
+    var TWITTER_HASHTAG = encodeURIComponent(getString('tweetHashtag'));
     var DIALOG_WINDOW_NAME = 'share_window';
     var DIALOG_DIMENSIONS = 'height=400,width=500';
 
