@@ -23,29 +23,7 @@
       <div id="snippetContainer">
         <div id="snippets">
           <div class="snippet_set" id="snippet_set">
-
-            <!-- SNIPPET START -->
-
-            <div class="snippet">
-              <style type="text/css">{{ CSS }}</style>
-              <div id="mofo-eoy-2014">
-                <p>Mozilla, the non-profit behind Firefox, relies on grants and donations from people like you. <em>If everyone reading this donates a few dollars, we can be fully funded for another year.</em></p>
-
-                <div>
-                  <div class="donation-amounts pull-left">
-                    <button class="button button-selected" data-amount="10">$10</button>
-                    <button class="button" data-amount="5">$5</button>
-                    <button class="button" data-amount="3">$3</button>
-                  </div>
-
-                  <a id="donate-button" class="button button-red button-wide pull-right" href="http://example.org/#amount-10" target="_blank">Donate</a>
-                </div>
-              </div>
-              <script>{{ JS }}</script>
-            </div>
-
-            <!-- SNIPPET : END -->
-
+            {{ SNIPPET }}
           </div>
         </div>
       </div>
