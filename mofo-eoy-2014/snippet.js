@@ -26,6 +26,10 @@
     });
   }
 
+  btnDonate.addEventListener('click', function (event) {
+    btnDonate.blur();
+  });
+
   // Fade in highlight on text
   setTimeout(function() {
     if (elHighlighted) {

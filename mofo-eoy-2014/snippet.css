@@ -69,6 +69,9 @@
   #mofo-eoy-2014 .button-red:hover {
     background-color: rgb(160, 39, 35);
   }
+  #mofo-eoy-2014 .button-red:active {
+    text-decoration: none;
+  }
 
   #mofo-eoy-2014 .button-wide {
     padding: 7px 60px;
