@@ -10,7 +10,7 @@
         <button class="button" data-amount="3">$3</button>
       </div>
 
-      <a id="donate-button" class="button button-red button-wide pull-right" href="http://example.org/#amount-10" target="_blank">Donate</a>
+      <a id="donate-button" class="button button-red button-wide pull-right" href="https://sendto.mozilla.org/page/contribute/givenow-1page?ref=EOYFR2014&utm_campaign=EOYFR2014&utm_source=testA_selectamt&utm_medium=snippet#amount-10" target="_blank">Donate</a>
     </div>
   </div>
   <script>{{ JS }}</script>

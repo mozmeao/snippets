@@ -1,7 +1,7 @@
 <div class="snippet">
   <style type="text/css">{{ CSS }}</style>
   <div id="mofo-eoy-2014" class="alternative">
-    <p><b>Dear Firefox users:</b> Firefox puts the public good and user privacy before profit. If Firefox is useful to you, take one minute to support the nonprofit and volunteers behind it. <em>If everyone reading this donates $5, Mozilla's fundraiser would be over within an hour.</em> <i>Thank you</i>.</p>
+    <p><b>Dear Firefox users:</b> Firefox puts the public good and user privacy before profit. If Firefox is useful to you, take one minute to support the nonprofit and volunteers behind it. <em>If everyone reading this donates $3, Mozilla's fundraiser would be over within an hour.</em> <i>Thank you</i>.</p>
 
     <div>
       <div class="donation-amounts pull-left">
@@ -10,7 +10,7 @@
         <button class="button" data-amount="3">$3</button>
       </div>
 
-      <a id="donate-button" class="button button-red button-wide pull-right" href="http://example.org/#amount-10" target="_blank">Donate</a>
+      <a id="donate-button" class="button button-red button-wide pull-right" href="https://sendto.mozilla.org/page/contribute/givenow-1page?ref=EOYFR2014&utm_campaign=EOYFR2014&utm_source=testA_selectamt&utm_medium=snippet#amount-10" target="_blank">Donate</a>
     </div>
   </div>
   <script>{{ JS }}</script>

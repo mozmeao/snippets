@@ -1,6 +1,6 @@
 (function () {
 
-  var donationURL = 'http://example.org/';
+  var donationURL = 'https://sendto.mozilla.org/page/contribute/givenow-1page?ref=EOYFR2014&utm_campaign=EOYFR2014&utm_source=testA_selectamt&utm_medium=snippet';
 
   // Element cache :
 
