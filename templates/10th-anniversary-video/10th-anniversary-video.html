@@ -412,8 +412,8 @@
     }
 
     var FACEBOOK_APPID = encodeURIComponent('307233949472123');
-    var HREF_FB = encodeURIComponent('{{ facebook_share_url|safe }}');
-    var HREF_TW = encodeURIComponent('{{ twitter_share_url|safe }}');
+    var HREF_FB = encodeURIComponent('{{ facebook_share_url|replace('&amp;', '&')|safe }}');
+    var HREF_TW = encodeURIComponent('{{ twitter_share_url|replace('&amp;', '&')|safe }}');
     var REDIRECT_URL = encodeURIComponent('https://snippets.mozilla.com/static/html/close.html');
     var TWITTER_TEXT = encodeURIComponent('{{ tweet_text|replace('&amp;', '&')|safe }}');
     var TWITTER_HASHTAG = encodeURIComponent('{{ tweet_hashtag|safe }}');
