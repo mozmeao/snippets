@@ -1,0 +1,26 @@
+<!-- Any instances of {{ snippet_id }} are replaced with the ID number for the
+     snippet using this template. -->
+<div class="snippet" id="{{ snippet_id }}-mofo-eoy-fundraiser">
+  <style>
+      #{{ snippet_id }}-mofo-eoy-fundraiser {
+          /* All CSS should be preceeded by the ID selector for this individual
+            snippet. */
+      }
+  </style>
+
+  {% if icon_url %}<a href="{{ icon_url|safe }}">{% endif %}
+    <img class="icon" src="{{ icon }}" />
+  {% if icon_url %}</a>{% endif %}
+  <p>{{ text|safe }}</p>
+
+  <script type="text/javascript">
+      //<![CDATA[
+      (function() {
+          var snippet = document.getElementById('{{ snippet_id }}-mofo-eoy-fundraiser');
+          snippet.addEventListener('show_snippet', function() {
+              // This code runs when the snippet is displayed.
+          }, false);
+      })();
+      //]]>
+  </script>
+</div>

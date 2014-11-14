@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>about:home Snippet Preview</title>
+
+    <link rel="icon" type="image/png" id="favicon" href="chrome://branding/content/icon32.png"/>
+    <link rel="stylesheet" type="text/css" media="all" href="chrome://browser/content/abouthome/aboutHome.css"/>
+  </head>
+
+  <body>
+    <div class="spacer"></div>
+    <div id="topSection">
+      <div id="brandLogo"></div>
+
+      <div id="searchContainer">
+        <form name="searchForm" id="searchForm">
+          <div id="searchLogoContainer"><img id="searchEngineLogo" src="google.png"></div>
+          <input type="text" name="q" value="" id="searchText" maxlength="256" autofocus="autofocus"></input>
+          <input id="searchSubmit" type="submit" value="Search"></input>
+        </form>
+      </div>
+
+      <div id="snippetContainer">
+        <div id="snippets">
+          <div class="snippet_set" id="snippet_set">
+            <div class="snippet">
+  <style type="text/css">#mofo-eoy-2014 {
+  width: 470px;
+  margin: 20px auto;
+  font-family: "Open Sans";
+}
+
+  #mofo-eoy-2014 button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+
+  #mofo-eoy-2014 .placeholder {
+    margin-bottom: 20px 0;
+  }
+
+  #mofo-eoy-2014 p {
+    font-size: 14px;
+    line-height: 1.5em;
+    margin: 20px 0;
+  }
+
+  #mofo-eoy-2014 em {
+    transition: background 800ms linear;
+    font-style: normal;
+    padding: 1px 5px;
+  }
+
+  #mofo-eoy-2014 em.active {
+    background: rgba(173, 228, 255, 0.75);
+  }
+  #mofo-eoy-2014.alternative em.active {
+    background: rgba(243, 248, 1, 0.4);
+  }
+
+  #mofo-eoy-2014 .button {
+    margin-top: 8px;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+    font-family: "Open Sans";
+    font-size: 22px;
+    font-weight: 600;
+    text-shadow: 0 1px 0 rgba(135, 136, 136, 0.53);
+    background-color: rgb(151, 152, 152);
+    background-image: linear-gradient(to top, rgba(0, 1, 1, 0.09) 0%, rgba(255, 255, 255, 0.09) 100%);
+    border: 1px solid rgba(151, 152, 152, 0.9);
+    border-radius: 2px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  }
+
+  #mofo-eoy-2014 .button:hover {
+    cursor: pointer;
+  }
+
+  #mofo-eoy-2014 .button:focus {
+    text-decoration: underline;
+    outline: 0;
+  }
+
+  #mofo-eoy-2014 .button-red {
+    border: 1px solid rgba(230, 69, 61, 0.5);
+    background-color: rgb(193, 56, 50);
+    background-image: linear-gradient(to top, rgba(0, 1, 1, 0) 0%, rgba(255, 255, 255, 0) 100%);
+    font-size: 18px;
+    transition: background-color 400ms linear;
+  }
+  #mofo-eoy-2014 .button-red:hover {
+    background-color: rgb(160, 39, 35);
+  }
+  #mofo-eoy-2014 .button-red:active {
+    text-decoration: none;
+  }
+
+  #mofo-eoy-2014 .button-wide {
+    padding: 7px 60px;
+  }
+
+  #mofo-eoy-2014 .button-selected {
+    background: linear-gradient(rgb(75, 172, 238), rgb(2, 132, 225));
+    border: 1px solid rgba(75, 172, 238, 0.9);
+  }
+
+  /* Utilities */
+
+  #mofo-eoy-2014 .pull-right {
+    float: right;
+  }
+
+  #mofo-eoy-2014 .pull-left {
+    float: left;
+  }
+</style>
+  <div id="mofo-eoy-2014" class="alternative">
+    <p><b>Dear Firefox users:</b> Firefox puts the public good and user privacy before profit. If Firefox is useful to you, take one minute to support the nonprofit and volunteers behind it. <em>If everyone reading this donates $3, Mozilla's fundraiser would be over within an hour.</em> <i>Thank you</i>.</p>
+
+    <div>
+      <div class="donation-amounts pull-left">
+        <button class="button button-selected" data-amount="10">$10</button>
+        <button class="button" data-amount="5">$5</button>
+        <button class="button" data-amount="3">$3</button>
+      </div>
+
+      <a id="donate-button" class="button button-red button-wide pull-right" href="https://sendto.mozilla.org/page/contribute/givenow-1page?ref=EOYFR2014&utm_campaign=EOYFR2014&utm_source=testA_selectamt&utm_medium=snippet#amount-10" target="_blank">Donate</a>
+    </div>
+  </div>
+  <script>(function () {
+
+  var donationURL = 'https://sendto.mozilla.org/page/contribute/givenow-1page?ref=EOYFR2014&utm_campaign=EOYFR2014&utm_source=testA_selectamt&utm_medium=snippet';
+
+  // Element cache :
+
+  var btnAmounts = document.querySelectorAll('.donation-amounts .button');
+  var btnSelected = document.querySelector('.donation-amounts .button-selected');
+  var btnDonate = document.querySelector('#donate-button');
+  var elHighlighted = document.querySelector('#mofo-eoy-2014 em');
+
+  // View functions
+
+  function selectAmount(element) {
+    element.classList.add('button-selected');
+    btnSelected.classList.remove('button-selected');
+    btnSelected = element;
+    btnDonate.attributes['href'].value = donationURL + '#amount-' + element.attributes['data-amount'].value;
+  }
+
+  // Event binding :
+
+  for(var i=0; i<btnAmounts.length; i++) {
+    btnAmounts[i].addEventListener('click', function (event) {
+      selectAmount(event.target);
+    });
+  }
+
+  btnDonate.addEventListener('click', function (event) {
+    btnDonate.blur();
+  });
+
+  // Fade in highlight on text
+  setTimeout(function() {
+    if (elHighlighted) {
+      elHighlighted.classList.add('active');
+    }
+  }, 1000);
+
+})();
+</script>
+</div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+
+    <div id="launcher">
+      <button class="launchButton" id="downloads">Downloads</button>
+      <button class="launchButton" id="bookmarks">Bookmarks</button>
+      <button class="launchButton" id="history">History</button>
+      <button class="launchButton" id="apps" hidden="true">Apps</button>
+      <button class="launchButton" id="addons">Add-ons</button>
+      <button class="launchButton" id="sync">Sync</button>
+      <button class="launchButton" id="settings">Settings</button>
+      <div id="restorePreviousSessionSeparator"></div>
+      <button class="launchButton" id="restorePreviousSession">Restore Previous Session</button>
+    </div>
+
+    <a id="aboutMozilla" href="https://www.mozilla.org/about/?utm_source=about-home&amp;utm_medium=Referral"></a>
+  </body>
+</html>

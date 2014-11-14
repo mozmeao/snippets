@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>about:home Snippet Preview</title>
+
+    <link rel="icon" type="image/png" id="favicon" href="chrome://branding/content/icon32.png"/>
+    <link rel="stylesheet" type="text/css" media="all" href="chrome://browser/content/abouthome/aboutHome.css"/>
+  </head>
+
+  <body>
+    <div class="spacer"></div>
+    <div id="topSection">
+      <div id="brandLogo"></div>
+
+      <div id="searchContainer">
+        <form name="searchForm" id="searchForm">
+          <div id="searchLogoContainer"><img id="searchEngineLogo" src="google.png"></div>
+          <input type="text" name="q" value="" id="searchText" maxlength="256" autofocus="autofocus"></input>
+          <input id="searchSubmit" type="submit" value="Search"></input>
+        </form>
+      </div>
+
+      <div id="snippetContainer">
+        <div id="snippets">
+          <div class="snippet_set" id="snippet_set">
+            {{ SNIPPET }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+
+    <div id="launcher">
+      <button class="launchButton" id="downloads">Downloads</button>
+      <button class="launchButton" id="bookmarks">Bookmarks</button>
+      <button class="launchButton" id="history">History</button>
+      <button class="launchButton" id="apps" hidden="true">Apps</button>
+      <button class="launchButton" id="addons">Add-ons</button>
+      <button class="launchButton" id="sync">Sync</button>
+      <button class="launchButton" id="settings">Settings</button>
+      <div id="restorePreviousSessionSeparator"></div>
+      <button class="launchButton" id="restorePreviousSession">Restore Previous Session</button>
+    </div>
+
+    <a id="aboutMozilla" href="https://www.mozilla.org/about/?utm_source=about-home&amp;utm_medium=Referral"></a>
+  </body>
+</html>
