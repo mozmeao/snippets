@@ -1,0 +1,46 @@
+<style>
+  #install-link-{{ snippet_id }} {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAPklEQVR4AWP4D4Wv/oMAkITyKZD4Cpb4iiSBA+CWePkfAn+CeEASxmdY+R8CH4LEgSSMTwt/bPk/EQi3wCUAcebY97QtnxsAAAAASUVORK5CYII=) top 12px left 16px no-repeat, linear-gradient(#84C63C, #489615) repeat scroll 0% 0% #489615;
+    border-radius: 6px;
+    box-shadow: 0px 3px rgba(0, 0, 0, 0.1), 0px -4px rgba(0, 0, 0, 0.1) inset;
+    color: #FFF;
+    display: inline-block;
+    font: bold 16px "Trebuchet MS",sans-serif;
+    margin-left: 80px;
+    padding: 8px 16px 12px 38px;
+    text-align: center;
+    text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
+  }
+
+  #install-link-{{ snippet_id }}:active {
+    box-shadow: none;
+    margin-top: 3px;
+  }
+
+  #addon-install-frame-{{ snippet_id }} {
+    display: none;
+  }
+</style>
+<div class="snippet" id="addon-install-snippet-{{ snippet_id }}">
+  <img class="icon" src="{{ icon }}" />
+  <p>{{ text|safe }}</p>
+  <a href="#" id="install-link-{{ snippet_id }}">Add to Firefox</a>
+  <iframe id="addon-install-frame-{{ snippet_id }}"></iframe>
+</div>
+<script>
+// <![CDATA[
+  (function() {
+    'use strict';
+
+    var snippet = document.getElementById('addon-install-snippet-{{ snippet_id }}');
+    snippet.addEventListener('show_snippet', function(e) {
+      var iframe = document.getElementById('addon-install-frame-{{ snippet_id }}');
+      var installLink = document.getElementById('install-link-{{ snippet_id }}');
+      installLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        iframe.src = '{{ install_url }}';
+      });
+    }, false);
+  })();
+// ]]>
+</script>
