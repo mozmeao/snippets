@@ -110,6 +110,12 @@
               (function () {
 
                 var donationURL = '{{ donationFormURL|safe }}';
+                var extraParams = 'snippet_name=' + snippet.parentNode.dataset.snippetId;
+                if (donationURL.indexOf('?') !== -1) {
+                    donationURL += '&' + extraParams;
+                } else {
+                    donationURL += '?' + extraParams;
+                }
 
                 // Element cache :
 
