@@ -1,0 +1,103 @@
+<div class="snippet" id="ffos-{{ snippet_id }}-logo-snippet">
+  <style>
+      #ffos-{{ snippet_id }}-container {
+          position: relative;
+          margin: 0 auto;
+          width: 160px;
+          height: 256px;
+          pointer-events: auto;
+          overflow: hidden;
+          opacity: 0;
+          transition-duration: 400ms;
+          transition-property: opacity;
+          display: none;
+      }
+
+      #ffos-{{ snippet_id }}-container a {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: auto;
+      }
+
+      #ffos-{{ snippet_id }}-handset {
+          pointer-events: none;
+      }
+
+      #ffos-{{ snippet_id }}-animation-clip {
+          position: absolute;
+          top: 30px;
+          left: 0;
+          width: 160px;
+          height: 172px;
+          pointer-events: none;
+          z-index: 10;
+          overflow: hidden;
+      }
+
+      #ffos-{{ snippet_id }}-animation {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          width: 7040px;
+          height: 172px;
+          pointer-events: none;
+
+          animation: ffos-{{ snippet_id }}-frames 3.00s infinite;
+          animation-timing-function: steps(43, end);
+      }
+
+      @keyframes ffos-{{ snippet_id }}-frames {
+          0% {
+              transform: translateX(0px);
+          }
+          100% {
+              transform: translateX(-6880px);
+          }
+      }
+
+      .ffos-{{ snippet_id }}-logo-snippet .icon {
+          margin-top: -0.4em !important;
+      }
+  </style>
+
+  <div id="ffos-{{ snippet_id }}-container">
+    {% if logo_url %}<a href="{{ logo_url }}"></a>{% endif %}
+    <img id="ffos-{{ snippet_id }}-handset" src="{{ handset_image }}" />
+    <div id="ffos-{{ snippet_id }}-animation-clip">
+      <img id="ffos-{{ snippet_id }}-animation" src="https://snippets.cdn.mozilla.net/media/files/8fba320c-3d97-44e7-8b1a-fe4ff5a8e3ce.png" />
+    </div>
+  </div>
+
+  {% if icon_url %}<a href="{{ icon_url|safe }}">{% endif %}
+    <img class="icon" src="{{ icon }}" />
+  {% if icon_url %}</a>{% endif %}
+  <p>{{ text|safe }}</p>
+
+  <script>
+      //<![CDATA[
+      (function() {
+          var snippet = document.getElementById('ffos-{{ snippet_id }}-logo-snippet');
+          snippet.addEventListener('show_snippet', function() {
+              var logoContainer = document.getElementById('brandLogo');
+              var topContainer = document.getElementById('topSection');
+
+              logoContainer.style.opacity = 1;
+              logoContainer.style.transitionProperty = 'opacity';
+              logoContainer.style.transitionDuration = '400ms';
+              logoContainer.style.opacity = '0';
+
+              var animation = document.getElementById('ffos-{{ snippet_id }}-container');
+              logoContainer.addEventListener('transitionend', function() {
+                  topContainer.removeChild(logoContainer);
+                  topContainer.insertBefore(animation, topContainer.firstChild);
+                  animation.style.display = 'block';
+                  animation.style.opacity = '1';
+              }, false);
+          }, false);
+      })();
+      //]]>
+  </script>
+</div>
