@@ -1,0 +1,278 @@
+<div class="snippet" id="mofo-eoy-fundraiser-{{ snippet_id }}">
+  <style type="text/css">
+      #mofo-eoy-fundraiser-{{ snippet_id }} {
+        margin: 20px auto;
+        font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+      }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .columns {
+          overflow: hidden;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .column {
+          float: left;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .column:first-child {
+          width: 10%;
+          margin: 0 2%;
+          height: 10%;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .column:nth-child(2) {
+          width: 86%;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .thumbnail img {
+          width: 100%;
+          height: auto;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} button::-moz-focus-inner {
+          border: 0;
+          padding: 0;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} p {
+          font-size: 12px;
+          line-height: 1.5em;
+          margin: 0 0 20px 0;
+          display: block;
+          height: auto;
+          padding: 5px 0 0 0;
+          width: auto;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} em {
+          transition: background 800ms linear;
+          font-style: normal;
+          padding: 1px 5px;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} em.active {
+          background: {{ highlightColor }};
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .button {
+          margin-top: 8px;
+          text-align: center;
+          text-decoration: none;
+          color: rgb(255, 255, 255);
+          font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+          font-size: 16px;
+          font-weight: 300;
+          text-shadow: 0 1px 0 rgba(135, 136, 136, 0.53);
+          background-color: rgb(170, 170, 170);
+          background-image: linear-gradient(to top, rgba(0, 1, 1, 0.09) 0%, rgba(255, 255, 255, 0.09) 100%);
+          border: 1px solid rgba(151, 152, 152, 0.9);
+          border-radius: 2px;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+          display: inline-block;
+          padding: 6px 0;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .button:hover {
+          cursor: pointer;
+          background-color: rgb(120, 120, 120);
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .button:focus {
+          text-decoration: underline;
+          outline: 0;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .button-red {
+          border: 1px solid rgba(230, 69, 61, 0.5);
+          background-color: rgb(193, 56, 50);
+          background-image: linear-gradient(to top, rgba(0, 1, 1, 0) 0%, rgba(255, 255, 255, 0) 100%);
+          font-size: 18px;
+          transition: background-color 400ms linear;
+        }
+        #mofo-eoy-fundraiser-{{ snippet_id }} .button-red:hover {
+          background-color: rgb(160, 39, 35);
+        }
+        #mofo-eoy-fundraiser-{{ snippet_id }} .button-red:active {
+          text-decoration: none;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .button-wide {
+          padding: 7px 35px;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .button-selected {
+          background: linear-gradient(rgb(75, 172, 238), rgb(2, 132, 225));
+          border: 1px solid rgba(75, 172, 238, 0.9);
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .button-selected:hover {
+          background: linear-gradient(rgb(55, 152, 218), rgb(2, 112, 205));
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .button img {
+          width: 79%;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} header {
+          margin-bottom: 10px;
+          color: #777;
+        }
+
+        /* Utilities */
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .center {
+          text-align: center;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .flex {
+          display: flex;
+          margin-bottom: 10px;
+        }
+          #mofo-eoy-fundraiser-{{ snippet_id }} .flex-2-50 > * {
+            width: 50%;
+            margin: 0 2px;
+          }
+          #mofo-eoy-fundraiser-{{ snippet_id }} .flex-3-33 > * {
+            width: 33%;
+            margin: 0 2px;
+          }
+
+  </style>
+
+    <div class="columns">
+      <div class="column thumbnail">
+        <img src="{{ thumbnailImg }}"/>
+      </div>
+      <div class="column">
+        <p>{{ text|safe }}</p>
+
+        <div class="flex flex-2-50">
+          <div class="donation-amounts">
+            <header>{{ selectAmount|safe }}</header>
+
+            <div class="flex flex-3-33">
+              <button class="button button-selected" data-amount="{{ donationAmountLeft|safe }}">${{ donationAmountLeft|safe }}</button>
+              <button class="button" data-amount="{{ donationAmountMiddle|safe }}">${{ donationAmountMiddle|safe }}</button>
+              <button class="button" data-amount="{{ donationAmountRight|safe }}">${{ donationAmountRight|safe }}</button>
+            </div>
+          </div>
+
+          <div class="payment-methods">
+            <header>{{ paymentMethod|safe }}</header>
+
+            <div class="flex flex-2-50">
+              <a href="#" class="button button-selected" data-payment="paypal">
+                <img src="{{ paypalImg }}"/>
+              </a>
+              <a href="#" class="button" data-payment="credit">
+                <img src="{{ creditCardImg }}"/>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="center">
+          <a class="button button-red button-wide donate-button" href="#" target="_blank">{{ donateNow|safe }} &#187;</a>
+        </div>
+      </div>
+    </div>
+
+  <script type="text/javascript">
+      //<![CDATA[
+      (function() {
+
+          // Component for creating custom radio/toggle groups
+          var ToggleGroup = function (elTarget, onSelectedCallback) {
+            var buttons = elTarget.querySelectorAll('.button');
+            var selectedButton = elTarget.querySelector('.button-selected');
+
+            function selectButton(element) {
+              if (!element.classList.contains('button-selected')) {
+                element.classList.add('button-selected');
+                selectedButton.classList.remove('button-selected');
+                selectedButton = element;
+
+                if (onSelectedCallback) {
+                  onSelectedCallback.call(this, element);
+                }
+              }
+            }
+
+            // Event binding
+            for(var i=0; i<buttons.length; i++) {
+              buttons[i].addEventListener('click', function (event) {
+                event.preventDefault();
+                selectButton(this);
+              });
+            }
+          }
+
+          var snippet = document.getElementById('mofo-eoy-fundraiser-{{ snippet_id }}');
+
+          snippet.addEventListener('show_snippet', function() {
+              (function () {
+                var donationURL = '{{ donationFormURL|safe }}';
+                var paypalURL = '{{ paypalURL|safe }}';
+                var extraParams = 'snippet_name=' + snippet.parentNode.dataset.snippetId;
+
+                var donationAmount = {{ donationAmountLeft|safe }};
+                var donationMethod = 'paypal';
+
+                if (donationURL.indexOf('?') !== -1) {
+                    donationURL += '&' + extraParams;
+                } else {
+                    donationURL += '?' + extraParams;
+                }
+
+                // Element cache :
+                var btnDonate = snippet.querySelector('.donate-button');
+                var elHighlighted = snippet.querySelector('em');
+
+                // Set URL of donate anchor/button in DOM
+                function setURL() {
+                  var url;
+
+                  if (donationMethod === 'paypal') {
+                    url = paypalURL + '&amount=';
+                    url += donationAmount;
+                  } else if (donationMethod === 'credit') {
+                    url = donationURL + '#cc-amount-';
+                    url += donationAmount;
+                  }
+
+
+                  btnDonate.attributes['href'].value = url.replace(/&amp;/g, '&');
+                }
+
+                setURL();
+
+                new ToggleGroup(snippet.querySelector('.donation-amounts'), function (element) {
+                  donationAmount = element.attributes['data-amount'].value;
+                  setURL();
+                });
+
+                new ToggleGroup(snippet.querySelector('.payment-methods'), function (element) {
+                  donationMethod = element.attributes['data-payment'].value;
+                  setURL();
+                });
+
+                // Event binding :
+
+                btnDonate.addEventListener('click', function (event) {
+                  btnDonate.blur();
+                });
+
+                // Fade in highlight on text
+                setTimeout(function() {
+                  if (elHighlighted) {
+                    elHighlighted.classList.add('active');
+                  }
+                }, 1000);
+
+              })();
+
+          }, false);
+
+      })();
+      //]]>
+  </script>
+</div>
