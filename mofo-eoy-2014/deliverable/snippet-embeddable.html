@@ -100,7 +100,7 @@
       <button class="button" data-amount="{{ donationAmountRight|safe }}">${{ donationAmountRight|safe }}</button>
     </div>
 
-    <a class="button button-red button-wide pull-right donate-button" href="{{ donationFormURL|safe }}#amount-{{ donationAmountLeft|safe }}" target="_blank">Donate</a>
+    <a class="button button-red button-wide pull-right donate-button" href="{{ donationFormURL|safe }}#amount-{{ donationAmountLeft|safe }}" target="_blank">{{ donateButtonText|safe }}</a>
 
   <script type="text/javascript">
       //<![CDATA[
