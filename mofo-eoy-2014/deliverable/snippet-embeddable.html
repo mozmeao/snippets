@@ -18,6 +18,7 @@
           height: auto;
           padding: 0;
           width: auto;
+          color: {{ fontColor }};
         }
 
         #mofo-eoy-fundraiser-{{ snippet_id }} em {
@@ -90,6 +91,50 @@
           float: left;
         }
 
+        #mofo-eoy-fundraiser-{{ snippet_id }} .donate-button.background-animate1 {
+          animation: 1s ease 1s alternate none 2 running background-color-first-{{ snippet_id }}, 1s ease 3s alternate none infinite running background-color-infinite-{{ snippet_id }};
+          background-color: #960900;
+          border-color: rgba(230, 69, 61, 0.1);
+          box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3) inset;
+        }
+
+        #mofo-eoy-fundraiser-{{ snippet_id }} .donate-button.background-animate2 {
+          animation: 1s ease 1s alternate none infinite running background-color-first-{{ snippet_id }};
+          background-color: #960900;
+          border-color: rgba(230, 69, 61, 0.1);
+          box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3) inset;
+        }
+
+        @keyframes background-color-first-{{ snippet_id }} {
+          0% {
+            background-color: #960900;
+            border-color: rgba(230, 69, 61, 0.1);
+            box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3) inset;
+          }
+          100% {
+            background-color: #FF0000;
+            border-color: rgba(230, 69, 61, 0.5);
+            box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.65) inset;
+          }
+        }
+
+        @keyframes background-color-infinite-{{ snippet_id }} {
+          0% {
+            background-color: #960900;
+          }
+          100% {
+            background-color: #C10000;
+          }
+        }
+
+        body {
+          background: {{ backgroundColor }};
+        }
+
+        #launcher {
+          background-color: #EAEAEA;
+        }
+
   </style>
 
     <p>{{ text|safe }}</p>
@@ -100,7 +145,7 @@
       <button class="button" data-amount="{{ donationAmountRight|safe }}">${{ donationAmountRight|safe }}</button>
     </div>
 
-    <a class="button button-red button-wide pull-right donate-button" href="{{ donationFormURL|safe }}#amount-{{ donationAmountLeft|safe }}" target="_blank">{{ donateButtonText|safe }}</a>
+    <a class="button button-red button-wide pull-right donate-button  {{ buttonAnimate }}" href="{{ donationFormURL|safe }}#amount-{{ donationAmountLeft|safe }}" target="_blank">{{ donateButtonText|safe }}</a>
 
   <script type="text/javascript">
       //<![CDATA[
