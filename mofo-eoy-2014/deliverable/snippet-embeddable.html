@@ -127,11 +127,11 @@
           }
         }
 
-        body {
+        body.background-{{ snippet_id }} {
           background: {{ backgroundColor }};
         }
 
-        #launcher {
+        body.background-{{ snippet_id }} #launcher {
           background-color: #EAEAEA;
         }
 
@@ -154,6 +154,7 @@
           snippet.addEventListener('show_snippet', function() {
               (function () {
 
+                document.querySelector("body").classList.add("background-{{ snippet_id }}");
                 var donationURL = '{{ donationFormURL|safe }}';
                 var extraParams = 'snippet_name=' + snippet.parentNode.dataset.snippetId;
                 if (donationURL.indexOf('?') !== -1) {
