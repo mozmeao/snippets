@@ -1,0 +1,209 @@
+<!-- Any instances of {{ snippet_id }} are replaced with the ID number for the
+     snippet using this template. -->
+
+<div class="snippet" id="{{ snippet_id }}-hello-simple">
+    <a href="#" class="launch-hello">
+      <img class="icon" src="{{ icon }}" />
+    </a>
+    <p>{{ text|safe }}</p>
+
+    <script type="text/javascript">
+      //<![CDATA[
+
+      (function() {
+        var snippet = document.getElementById('{{ snippet_id }}-hello-simple');
+        snippet.addEventListener('show_snippet', function () {
+          var buttons = snippet.getElementsByClassName('launch-hello');
+
+          isTargetAvailable('loop', function loopAvailable () {
+            sendMetric('hello-eligible-view');
+            for (var i=0; i < buttons.length; i++) {
+              buttons[i].addEventListener('click', function (e) {
+                e.preventDefault();
+                Mozilla.UITour.showMenu('loop', function () {
+                  // bug 1113896
+                  document.addEventListener('click', function clickHidePanel (e) {
+                      Mozilla.UITour.hideMenu('loop');
+                      document.removeEventListener('click', clickHidePanel, false);
+                  }, false);                  
+                });
+
+                // bug 1115227
+                Mozilla.UITour.registerPageID('hello-tour_OpenPanel_snippet-{{ snippet_id }}');
+
+                // bug exists where teardown tabs will stop .observe
+                // this is to ensure it is re-started
+                document.addEventListener('visibilitychange', handleVisibilityChange);
+
+                sendMetric('hello-open');
+              }, false);
+            }
+          }, function loopNotAvailable () {
+            sendMetric('hello-ineligible-view');
+            for (var i=0; i < buttons.length; i++) {
+              buttons[i].addEventListener('click', function (e) {
+                e.preventDefault();
+                // sendMetric pending implementation of bug 1124471
+                // use bit.ly link to track these clicks
+                // sendMetric('hello-ineligible-view');
+                window.location = '{{ icon_url|safe }}';
+              }, false);
+            }
+          });
+
+          bindHelloObserver();
+        }, false);
+
+        // create namespace
+        if (typeof Mozilla == 'undefined') {
+          var Mozilla = {};
+        }
+
+        'use strict';
+
+        // create namespace
+        if (typeof Mozilla.UITour == 'undefined') {
+          Mozilla.UITour = {};
+        }
+
+        var notificationListener = null;
+
+        function _notificationListener (event) {
+          if (typeof event.detail != 'object')
+            return;
+          if (typeof notificationListener != 'function')
+            return;
+
+          notificationListener(event.detail.event, event.detail.params);
+        }
+
+        function _sendEvent (action, data) {
+          var event = new CustomEvent('mozUITour', {
+            bubbles: true,
+            detail: {
+              action: action,
+              data: data || {}
+            }
+          });
+
+          document.dispatchEvent(event);
+        }
+
+        function _generateCallbackID () {
+          return Math.random().toString(36).replace(/[^a-z]+/g, '');
+        }
+
+        function _waitForCallback (callback) {
+          var id = _generateCallbackID();
+
+          function listener (event) {
+            if (typeof event.detail != 'object')
+              return;
+            if (event.detail.callbackID != id)
+              return;
+
+            document.removeEventListener('mozUITourResponse', listener);
+            callback(event.detail.data);
+          }
+          document.addEventListener('mozUITourResponse', listener);
+
+          return id;
+        }
+
+        Mozilla.UITour.DEFAULT_THEME_CYCLE_DELAY = 10 * 1000;
+        Mozilla.UITour.CONFIGNAME_SYNC = 'sync';
+        Mozilla.UITour.CONFIGNAME_AVAILABLETARGETS = 'availableTargets';
+
+        Mozilla.UITour.ping = function(callback) {
+          var data = {};
+          if (callback) {
+            data.callbackID = _waitForCallback(callback);
+          }
+          _sendEvent('ping', data);
+        };
+
+        Mozilla.UITour.observe = function(listener, callback) {
+          notificationListener = listener;
+
+          if (listener) {
+            document.addEventListener('mozUITourNotification',
+            _notificationListener);
+            Mozilla.UITour.ping(callback);
+          } else {
+            document.removeEventListener('mozUITourNotification',
+            _notificationListener);
+          }
+        };
+
+        Mozilla.UITour.registerPageID = function(pageID) {
+          _sendEvent('registerPageID', {
+            pageID: pageID
+          });
+        };
+
+        Mozilla.UITour.showMenu = function(name, callback) {
+          var showCallbackID;
+          if (callback)
+            showCallbackID = _waitForCallback(callback);
+
+          _sendEvent('showMenu', {
+            name: name,
+            showCallbackID: showCallbackID,
+          });
+        };
+
+        Mozilla.UITour.hideMenu = function(name) {
+          _sendEvent('hideMenu', {
+            name: name
+          });
+        };
+
+        Mozilla.UITour.getConfiguration = function(configName, callback) {
+          _sendEvent('getConfiguration', {
+            callbackID: _waitForCallback(callback),
+            configuration: configName,
+          });
+        };
+
+        function isTargetAvailable (target, loopAvailable, loopNotAvailable) {
+          Mozilla.UITour.getConfiguration('availableTargets', function(config) {
+            if (config.targets && config.targets.indexOf(target) > -1) {
+              loopAvailable();
+            } else {
+              loopNotAvailable();
+            }
+          });
+        }
+
+        function bindHelloObserver () {
+          Mozilla.UITour.observe(function(e) {
+            switch (e) {
+              case 'Loop:ChatWindowOpened':
+                sendMetric('hello-start-conversation');
+                break;
+              case 'Loop:RoomURLCopied':
+                sendMetric('hello-url-copied');
+                break;
+              // bug 1118346
+              case 'Loop:RoomURLEmailed':
+                sendMetric('hello-url-emailed');
+                break;
+            }
+          });
+        }
+
+       function handleVisibilityChange () {
+          if (document.hidden) {
+            // hide Hello menu & stop observer when changing tabs or minimizing window
+            Mozilla.UITour.observe(null);
+          } else {
+            // listen for Hello menu/chat window events
+            bindHelloObserver();
+          }
+        }
+
+      })();
+
+      //]]>
+  </script>
+</div>
