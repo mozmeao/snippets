@@ -1,5 +1,8 @@
 language: python
 python:
-- '2.7'
-- '3.3'
-- pypy
+- '2.6'
+# command to install dependencies
+install:
+  - "pip install -Ur requirements.txt"
+# command to run tests
+script: py.test tests/test_snippets.py -v --baseurl==https://snippets.mozilla.com --junitxml=results.xml
