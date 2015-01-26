@@ -22,10 +22,10 @@
                 e.preventDefault();
                 Mozilla.UITour.showMenu('loop', function () {
                   // bug 1113896
-                  document.addEventListener('click', function clickHidePanel (e) {
-                      Mozilla.UITour.hideMenu('loop');
-                      document.removeEventListener('click', clickHidePanel, false);
-                  }, false);                  
+                  document.addEventListener('click', hideHelloPanel, false);
+
+                  // bug 1091785
+                  window.addEventListener('resize', hideHelloPanel);        
                 });
 
                 // bug 1115227
@@ -200,6 +200,12 @@
             // listen for Hello menu/chat window events
             bindHelloObserver();
           }
+        }
+
+        function hideHelloPanel () {
+          Mozilla.UITour.hideMenu('loop');
+          document.removeEventListener('click', hideHelloPanel, false);
+          window.removeEventListener('resize', hideHelloPanel);
         }
 
       })();
