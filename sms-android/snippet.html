@@ -1,0 +1,220 @@
+<div class="snippet" id="firefox-android-sms-{{ snippet_id }}">
+  <style text="text/css">
+     div.switch-{{ snippet_id }}#brandLogo {
+         background-size: {{ width|default(192, true) }}px {{ height ~ 'px' if height else 'auto' }};
+     }
+
+     .switch-{{ snippet_id }}#brandLogo {
+         height: {{ height|default(192, true) }}px;
+         width: {{ width|default(192, true) }}px;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} {
+         background-color: white;
+         padding: 5px 20px;
+         border-radius: 5px;
+         box-shadow: 0 1px 3px rgba(72, 72, 72, 0.25);
+         font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+         font-size: 1em;
+         color: #484848;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} a {
+         color: #0073AA;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} p {
+         font-size: 1em;
+         display: block;
+         height: auto;
+         padding: 0;
+         width: auto;
+         margin: 10px 0 10px 0;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} .right-img {
+         float: right;
+         padding-left: 6px;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} .text {
+         margin-top: 0px;
+         font-size: 1.05em;
+         line-height: 1.4;
+         margin-bottom: 20px;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} h1 {
+         font-size: 1.4em;
+         margin-bottom: 0px;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} .footer {
+         font-size: 0.78em;
+         margin: 0px;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} hr {
+         border-top: 1px dotted #c3c3c3;
+         height: 1px;
+         margin: 20px 0 20px 0;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} .button, .button:link, .button:visited {
+         display: inline-block;
+         *display: inline;
+         *zoom: 1;
+         border-radius: 0.25em;
+         box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.2), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
+         background-color: #277ac1;
+         background-repeat: repeat-x;
+         color: #ffffff;
+         text-align: center;
+         font-size: 11px;
+         font-weight: bold;
+         padding: 5px 10px;
+         line-height: 1.1;
+         text-decoration: none;
+         min-width: 80px;
+         border: 0;
+         text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+         font-family: 'Open Sans', X-LocaleSpecific, sans-serif;
+         transition: all linear 0.25s;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} .button:hover,
+     .button:link:hover,
+     .button:visited:hover,
+     .button.hover,
+     .button:link.hover,
+     .button:visited.hover,
+     .button:focus,
+     .button:link:focus,
+     .button:visited:focus,
+     .button.focus,
+     .button:link.focus,
+     .button:visited.focus {
+         box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.2), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3), inset 0px 12px 24px 2px #38a9ed;
+         color: #ffffff;
+         text-decoration: none;
+         transition: all linear 0.25s;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} .button:focus,
+     .button:link:focus,
+     .button:visited:focus,
+     .button.focus,
+     .button:link.focus,
+     .button:visited.focus {
+         outline-color: #484848;
+         box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.2), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3), inset 0px 12px 24px 2px #38a9ed, 0 0 0 2px rgba(73, 173, 227, 0.4);
+     }
+
+     #firefox-android-sms-{{ snippet_id }} .button:active,
+     .button:link:active,
+     .button:visited:active,
+     .button.active,
+     .button:link.active,
+     .button:visited.active {
+         box-shadow: inset 0px 2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 6px rgba(0, 0, 0, 0.2), inset 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+         color: #ffffff;
+         text-decoration: none;
+         transition: all linear 0.25s;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} .button.insensitive,
+     .button:link.insensitive,
+     .button:visited.insensitive,
+     .button.insensitive:hover,
+     .button:link.insensitive:hover,
+     .button:visited.insensitive:hover,
+     .button.insensitive:focus,
+     .button:link.insensitive:focus,
+     .button:visited.insensitive:focus {
+         background-color: #9ca3aa;
+         background-repeat: repeat-x;
+         box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.2), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
+         color: #eee;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} .button.arrow span {
+         display: block;
+         margin-right: -12px;
+         padding: 0 30px 0 0;
+         background: url(https://www.mozilla.org/media/img/sandstone/buttons/arrow-go-r.png) right center no-repeat;
+     }
+
+     #firefox-android-sms-{{ snippet_id }} .number {
+         height: 22px;
+         width: 180px;
+         background: #fff;
+         border-color: #b2b2b2;
+         border-style: solid;
+         border-width: 1px;
+         padding: 0px 6.6px;
+         border-radius: 3px;
+         box-shadow: 0 1px rgba(255, 255, 255, 0.5);
+     }
+  </style>
+  <script type="text/javascript">
+   //<![CDATA[
+   (function() {
+       var snippet = document.getElementById('firefox-android-sms-{{ snippet_id }}');
+       snippet.addEventListener('show_snippet', function() {
+           var input = document.querySelector('#firefox-android-sms-{{ snippet_id }} .number');
+           var button = document.querySelector('#firefox-android-sms-{{ snippet_id }} .submit-button');
+           input.addEventListener('input', function() {
+               if (input.value.length >= 10) {
+                   button.disabled = false;
+                   button.classList.remove('insensitive');
+               }
+               else {
+                   button.disabled = true;
+                   button.classList.add('insensitive');
+               }
+           });
+           var form = document.getElementById('snippet-{{ snippet_id }}-sms-send');
+           button.addEventListener('click', function(event) {
+               event.preventDefault();
+               sendMetric('sms-subscribe', function() { form.submit(); });
+           });
+
+           // Logo change.
+           {% if replacement_logo %}
+             var newLogo = '{{ replacement_logo }}';
+             var brandLogo = document.getElementById('brandLogo');
+             if (brandLogo.src !== undefined) {
+                 brandLogo.src = newLogo;
+             } else {
+                 brandLogo.style.backgroundImage = 'url(' + newLogo + ')';
+             }
+             brandLogo.className += ' switch-{{ snippet_id }}';
+           {% endif %}
+       });
+   })();
+   //]]>
+  </script>
+
+  <form id="snippet-{{ snippet_id }}-sms-send" method="post" action="https://www.mozilla.org/en-US/firefox/sms/">
+    <img class="right-img" src="{{ image }}"/>
+    <h1>{{ header }}</h1>
+    <p class="text">{{ text|safe }}</p>
+
+    <p class="input">
+      <input type="tel" maxlength="14" class="number"
+             name="number" placeholder="Enter your phone number" value="" />
+      <button type="submit" class="submit-button button arrow insensitive" disabled="disabled">
+        <span>Send me the link</span>
+      </button>
+    </p>
+
+    <hr/>
+    <p class="footer">
+      Also available from <a href="http://mzl.la/OgZo6k" rel="external">Google Play</a>.
+    </p>
+    <p class="footer">
+      SMS &amp; data rates may apply. The intended recipient of the
+      SMS must have consented. <a href="https://www.mozilla.org/en-US/privacy/firefox/#snippets">Learn More</a>.
+    </p>
+  </form>
+</div>
