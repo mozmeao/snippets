@@ -66,11 +66,11 @@
     var snippetContents = document.getElementById('snippet-{{ snippet_id }}-contents');
     var contentDelay = 10000; // Delay before showing text/button
 
-    // Preload the new animation image from the CDN 
+    // Preload the new animation image from the CDN
     var animationImg = new Image();
-    animationImg.src = 'https://snippets.allizom.org/media/files/08f669b5-5e85-4b68-8025-d27f76913ad0.gif';
- 
-    // Wait for animation to load before 
+    animationImg.src = '{{ animation_cdn_url }}';
+
+    // Wait for animation to load before
     animationImg.addEventListener("load", function() {
       var brandLogo = document.getElementById('brandLogo');
       brandLogo.style.backgroundImage = 'url(' + animationImg.src + ')';
@@ -95,7 +95,7 @@
           document.addEventListener('click', hideHelloPanel, false);
 
           // bug 1091785
-          window.addEventListener('resize', hideHelloPanel);        
+          window.addEventListener('resize', hideHelloPanel);
         });
 
         // bug 1115227
