@@ -1,0 +1,269 @@
+<!-- Any instances of {{ snippet_id }} are replaced with the ID number for the
+     snippet using this template. -->
+<div class="snippet" id="snippet-{{ snippet_id }}">
+  <style>
+    /* All CSS should be preceeded by the ID selector for this individual
+       snippet. */
+    #snippet-{{ snippet_id }}-contents {
+      opacity: 0;
+      position: absolute;
+      bottom: -10px;
+      left: -50px;
+      width: 547px;
+      text-align: center;
+      color: #3c3c3c;
+      transition: opacity .4s ease-in .2s;
+    }
+    #snippet-{{ snippet_id }}-contents p {
+      margin: 1rem 0;
+      font-size: 80%;
+    }
+    #snippet-{{ snippet_id }}-contents a {
+      background: #00b7e2;
+      color: #fff;
+      display: inline-block;
+      padding: .8rem 2rem;
+      border-radius: .2rem;
+      transition: background ease-in .2s;
+    }
+    #snippet-{{ snippet_id }}-contents a:hover {
+        background: #00d1ef;
+    }
+    #snippet-{{ snippet_id }}-contents a:active {
+        background: #009dd5;
+    }
+    .show-contents-{{ snippet_id }} #snippet-{{ snippet_id }}-contents {
+      opacity: 1;
+    }
+    div.switch-{{ snippet_id }}#brandLogo {
+      position: relative;
+      background-size: auto;
+      height: 192px;
+      width: 447px;
+      transition: background-position .3s ease-in-out;
+      background-image: url({{ animation }});
+    }
+    div.show-contents-{{ snippet_id }}#brandLogo {
+      /* move finished animation up to make room for text and button */
+      background-position: 0 -50px;
+    }
+  </style>
+
+  <div id="snippet-{{ snippet_id }}-contents">
+    <p>{{ text|safe }}</p>
+    <a href="{{ fallbackUrl|safe }}" id="snippet-{{ snippet_id }}-button">
+      {{ buttonLabel|safe }}
+    </a>
+  </div>
+</div>
+
+<script>
+//<![CDATA[
+(function() {
+
+  var snippet = document.getElementById('snippet-{{ snippet_id }}');
+
+  snippet.addEventListener('show_snippet', function() {
+
+    var snippetContents = document.getElementById('snippet-{{ snippet_id }}-contents');
+    var contentDelay = 10000; // Delay before showing text/button
+
+
+    var brandLogo = document.getElementById('brandLogo');
+    brandLogo.className += ' switch-{{ snippet_id }}';
+    brandLogo.appendChild(snippetContents);
+    setTimeout(function() {
+      brandLogo.className += ' show-contents-{{ snippet_id }}';
+    }, contentDelay);
+
+
+    // Begin UITour shinanigins
+    isTargetAvailable('loop', function loopAvailable () {
+      sendMetric('hello-eligible-view');
+
+      var button = document.getElementById('snippet-{{ snippet_id }}-button');
+
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+        Mozilla.UITour.showMenu('loop', function () {
+          // bug 1113896
+          document.addEventListener('click', hideHelloPanel, false);
+
+          // bug 1091785
+          window.addEventListener('resize', hideHelloPanel);
+        });
+
+        // bug 1115227
+        Mozilla.UITour.registerPageID('hello-tour_OpenPanel_snippet-{{ snippet_id }}');
+
+        // bug exists where teardown tabs will stop .observe
+        // this is to ensure it is re-started
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        sendMetric('hello-open');
+      }, false);
+
+    }, function loopNotAvailable () {
+      sendMetric('hello-ineligible-view');
+    });
+
+    bindHelloObserver();
+  }, false);
+
+  // create namespace
+  if (typeof Mozilla == 'undefined') {
+    var Mozilla = {};
+  }
+
+  'use strict';
+
+  // create namespace
+  if (typeof Mozilla.UITour == 'undefined') {
+    Mozilla.UITour = {};
+  }
+
+  var notificationListener = null;
+
+  function _notificationListener (event) {
+    if (typeof event.detail != 'object')
+      return;
+    if (typeof notificationListener != 'function')
+      return;
+
+    notificationListener(event.detail.event, event.detail.params);
+  }
+
+  function _sendEvent (action, data) {
+    var event = new CustomEvent('mozUITour', {
+      bubbles: true,
+      detail: {
+        action: action,
+        data: data || {}
+      }
+    });
+
+    document.dispatchEvent(event);
+  }
+
+  function _generateCallbackID () {
+    return Math.random().toString(36).replace(/[^a-z]+/g, '');
+  }
+
+  function _waitForCallback (callback) {
+    var id = _generateCallbackID();
+
+    function listener (event) {
+      if (typeof event.detail != 'object')
+        return;
+      if (event.detail.callbackID != id)
+        return;
+
+      document.removeEventListener('mozUITourResponse', listener);
+      callback(event.detail.data);
+    }
+    document.addEventListener('mozUITourResponse', listener);
+
+    return id;
+  }
+
+  Mozilla.UITour.DEFAULT_THEME_CYCLE_DELAY = 10 * 1000;
+  Mozilla.UITour.CONFIGNAME_SYNC = 'sync';
+  Mozilla.UITour.CONFIGNAME_AVAILABLETARGETS = 'availableTargets';
+
+  Mozilla.UITour.ping = function(callback) {
+    var data = {};
+    if (callback) {
+      data.callbackID = _waitForCallback(callback);
+    }
+    _sendEvent('ping', data);
+  };
+
+  Mozilla.UITour.observe = function(listener, callback) {
+    notificationListener = listener;
+
+    if (listener) {
+      document.addEventListener('mozUITourNotification',
+      _notificationListener);
+      Mozilla.UITour.ping(callback);
+    } else {
+      document.removeEventListener('mozUITourNotification',
+      _notificationListener);
+    }
+  };
+
+  Mozilla.UITour.registerPageID = function(pageID) {
+    _sendEvent('registerPageID', {
+      pageID: pageID
+    });
+  };
+
+  Mozilla.UITour.showMenu = function(name, callback) {
+    var showCallbackID;
+    if (callback)
+      showCallbackID = _waitForCallback(callback);
+
+    _sendEvent('showMenu', {
+      name: name,
+      showCallbackID: showCallbackID,
+    });
+  };
+
+  Mozilla.UITour.hideMenu = function(name) {
+    _sendEvent('hideMenu', {
+      name: name
+    });
+  };
+
+  Mozilla.UITour.getConfiguration = function(configName, callback) {
+    _sendEvent('getConfiguration', {
+      callbackID: _waitForCallback(callback),
+      configuration: configName,
+    });
+  };
+
+  function isTargetAvailable (target, loopAvailable, loopNotAvailable) {
+    Mozilla.UITour.getConfiguration('availableTargets', function(config) {
+      if (config.targets && config.targets.indexOf(target) > -1) {
+        loopAvailable();
+      } else {
+        loopNotAvailable();
+      }
+    });
+  }
+
+  function bindHelloObserver () {
+    Mozilla.UITour.observe(function(e) {
+      switch (e) {
+        case 'Loop:ChatWindowOpened':
+          sendMetric('hello-start-conversation');
+          break;
+        case 'Loop:RoomURLCopied':
+          sendMetric('hello-url-copied');
+          break;
+        // bug 1118346
+        case 'Loop:RoomURLEmailed':
+          sendMetric('hello-url-emailed');
+          break;
+      }
+    });
+  }
+
+ function handleVisibilityChange () {
+    if (document.hidden) {
+      // hide Hello menu & stop observer when changing tabs or minimizing window
+      Mozilla.UITour.observe(null);
+    } else {
+      // listen for Hello menu/chat window events
+      bindHelloObserver();
+    }
+  }
+
+  function hideHelloPanel () {
+    Mozilla.UITour.hideMenu('loop');
+    document.removeEventListener('click', hideHelloPanel, false);
+    window.removeEventListener('resize', hideHelloPanel);
+  }
+
+})();
+//]]>
+</script>
