@@ -1,24 +1,9 @@
 <div class="snippet" id="mofo-mass-surveillance-{{ snippet_id }}">
   <style type="text/css">
-    #mofo-mass-surveillance-{{ snippet_id }} .privacy-svg {
-      display: none;
-    }
-    #mofo-mass-surveillance-{{ snippet_id }} .privacy-svg.show {
-      display: block;
-    }
-    #mofo-mass-surveillance-{{ snippet_id }} .privacy-gif {
-      display: show;
-    }
-    #mofo-mass-surveillance-{{ snippet_id }} .privacy-gif.hide {
-      display: none;
-    }
 
     #mofo-mass-surveillance-{{ snippet_id }} .front {
       height: 100%;
       width: 100%;
-    }
-
-    #mofo-mass-surveillance-{{ snippet_id }} .privacy-gif .eyelid {
     }
 
     #mofo-mass-surveillance-{{ snippet_id }} .privacy-eye {
@@ -31,6 +16,8 @@
       width: 35px;
       flex-shrink: 0;
       margin-right: 20px;
+      border-radius: 50%;
+      box-shadow: 0 2px 2px #CACACA;
     }
 
     #mofo-mass-surveillance-{{ snippet_id }} .container {
@@ -49,23 +36,21 @@
       margin: 0 auto;
       position: relative;
       width: 100%;
+      border-radius: 50%;
       overflow: hidden;
     }
     #mofo-mass-surveillance-{{ snippet_id }} .eyelid::before,
     #mofo-mass-surveillance-{{ snippet_id }} .eyelid::after {
-      background: #F2F2F2;
-      border: 0 solid transparent;
-      border-radius: 33%;
+      background: #E7E7E7;
       content: '';
       display: block;
-      left: -11.5%;
       height: 50%;
       position: absolute;
-      width: 121%;
-      -webkit-animation: real-eyelids 7s infinite;
-      -o-animation: real-eyelids 7s infinite;
-      -moz-animation: real-eyelids 7s infinite;
-      animation: real-eyelids 7s infinite;
+      width: 100%;
+      -webkit-animation: real-eyelids-{{ snippet_id }} 7s infinite;
+      -o-animation: real-eyelids-{{ snippet_id }} 7s infinite;
+      -moz-animation: real-eyelids-{{ snippet_id }} 7s infinite;
+      animation: real-eyelids-{{ snippet_id }} 7s infinite;
     }
     #mofo-mass-surveillance-{{ snippet_id }} .eyelid::before {
       top: 0;
@@ -90,6 +75,8 @@
       position: relative;
       top: 17.5%;
       left: 17.5%;
+    }
+    #mofo-mass-surveillance-{{ snippet_id }} .privacy-eye.wander .iris {
       -webkit-animation: searching-eye-{{ snippet_id }} 7s infinite;
       -o-animation: searching-eye-{{ snippet_id }} 7s infinite;
       -moz-animation: searching-eye-{{ snippet_id }} 7s infinite;
@@ -113,7 +100,7 @@
       top: 10%;
       right: 10%;
     }
-    @-webkit-keyframes real-eyelids {
+    @-webkit-keyframes real-eyelids-{{ snippet_id }} {
       0%,
       90%,
       100% {
@@ -123,7 +110,7 @@
         height: 60%;
       }
     }
-    @-o-keyframes real-eyelids {
+    @-o-keyframes real-eyelids-{{ snippet_id }} {
       0%,
       90%,
       100% {
@@ -133,7 +120,7 @@
         height: 60%;
       }
     }
-    @-moz-keyframes real-eyelids {
+    @-moz-keyframes real-eyelids-{{ snippet_id }} {
       0%,
       90%,
       100% {
@@ -143,7 +130,7 @@
         height: 60%;
       }
     }
-    @keyframes real-eyelids {
+    @keyframes real-eyelids-{{ snippet_id }} {
       0%,
       90%,
       100% {
@@ -284,44 +271,11 @@
   </style>
   <div class="container">
     <div class="eye-container">
-      <div class="privacy-eye privacy-svg">
-        <div class="front">
-          <svg width="35" height="35" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-           <style type="text/css">.st0 {
-                          fill: #1B1E27;
-                        }
-
-                        .st1 {
-                          fill: #FFFFFF;
-                        }
-
-                        .st2 {
-                          fill: {{ eye_color }};
-                        }</style>
-
-           <g>
-            <title>Layer 1</title>
-            <g id="eye-white">
-             <g id="svg_1">
-              <path id="svg_2" d="m33.60064,17.51991c0,9.42174 -7.37537,17.0807 -16.52082,17.0807c-9.14545,0 -16.57982,-7.59818 -16.57982,-17.01991c0,-9.42174 7.37537,-17.0807 16.52082,-17.0807c9.08645,0 16.52082,7.59818 16.57982,17.01991" class="st1"/>
-             </g>
-            </g>
-            <g id="iris-pupil">
-             <g id="svg_3">
-              <path id="svg_4" d="m28.5,17.61773c0,6.09186 -4.92563,11.01719 -11.01787,11.08199c-6.09223,0 -11.01787,-4.92533 -11.08268,-11.01718c0,-6.09186 4.92564,-11.01719 11.01787,-11.08199c6.15705,-0.06481 11.08268,4.92533 11.08268,11.01718" class="st2"/>
-              <path id="svg_5" d="m22.92626,17.94177c0,3.24035 -2.59244,5.83263 -5.83299,5.83263c-3.24055,0 -5.83299,-2.59228 -5.83299,-5.83263c0,-3.24035 2.59244,-5.83263 5.83299,-5.83263c3.17574,0 5.83299,2.59228 5.83299,5.83263" class="st0"/>
-              <path id="svg_6" d="m21.4356,13.47009c0,1.16652 -0.90735,2.07382 -2.07395,2.07382c-1.1666,0 -2.07395,-0.9073 -2.07395,-2.07382c0,-1.16652 0.90735,-2.07382 2.07395,-2.07382s2.07395,0.9073 2.07395,2.07382" class="st1"/>
-             </g>
-            </g>
-           </g>
-          </svg>
-        </div>
-      </div>
-      <div class="privacy-eye privacy-gif">
+      <div class="privacy-eye">
         <div class="front">
           <div class="eyelid">
             <div class="sclera">
-              <div class="iris">
+              <div id="iris-pupil" class="iris">
                 <div class="pupil">
                   &nbsp;
                 </div>
@@ -373,20 +327,19 @@
                 }
 
                 function translatePupil(coords) {
-                  var transform = 'translate(' + coords.x + ', ' + coords.y + ')';
-                  document.getElementById('iris-pupil').setAttribute('transform', transform);
+                  var transform = 'translate(' + Math.round(coords.x) + 'px, ' + Math.round(coords.y) + 'px)';
+                  document.getElementById('iris-pupil').style.transform = transform;
                 }
 
                 var mousemoveTime = Date.now();
-                var eyeGif = document.querySelector('.privacy-gif');
-                var eyeSVG = document.querySelector('.privacy-svg');
+                var eye = document.querySelector('.privacy-eye');
 
                 function checkMovement() {
                   var nowTime = Date.now();
                   var diffTime = (nowTime - mousemoveTime) / 1000;
                   if (diffTime > 3) {
-                    eyeSVG.classList.remove('show');
-                    eyeGif.classList.remove('hide');
+                    document.getElementById('iris-pupil').style.transform = 'translate(0, 0)';
+                    eye.classList.add('wander');
                   }
 
                   setTimeout(checkMovement, 1000);
@@ -397,8 +350,7 @@
                 if (document.getElementById('iris-pupil')) {
                   window.onmousemove = function (e) {
                     mousemoveTime = Date.now();
-                    eyeSVG.classList.add('show');
-                    eyeGif.classList.add('hide');
+                    eye.classList.remove('wander');
                     measureThings();
                     translatePupil(doMaths(e.pageX - center.x, e.pageY - center.y, radius));
                   };
