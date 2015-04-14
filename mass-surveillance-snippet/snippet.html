@@ -1,0 +1,374 @@
+<div class="snippet" id="mofo-mass-surveillance-{{ snippet_id }}">
+  <style type="text/css">
+    #mofo-mass-surveillance-{{ snippet_id }} .front {
+      height: 100%;
+      width: 100%;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} .privacy-eye {
+      height: 100%;
+      width: 100%;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} .eye-container {
+      height: 35px;
+      width: 35px;
+      flex-shrink: 0;
+      margin-right: 20px;
+      border-radius: 50%;
+      box-shadow: 0 2px 2px #CACACA;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} .container {
+      display: flex;
+      align-items: center;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} * {
+      box-sizing: border-box;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} .eyelid {
+      height: 100%;
+      margin: 0 auto;
+      position: relative;
+      width: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} .eyelid::before,
+    #mofo-mass-surveillance-{{ snippet_id }} .eyelid::after {
+      background: #E7E7E7;
+      content: '';
+      display: block;
+      height: 50%;
+      position: absolute;
+      width: 100%;
+      -webkit-animation: real-eyelids-{{ snippet_id }} 7s infinite;
+      -o-animation: real-eyelids-{{ snippet_id }} 7s infinite;
+      -moz-animation: real-eyelids-{{ snippet_id }} 7s infinite;
+      animation: real-eyelids-{{ snippet_id }} 7s infinite;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} .eyelid::before {
+      top: 0;
+      z-index: 100;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} .eyelid::after {
+      bottom: 0;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} .sclera {
+      background: #ffffff;
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} .iris {
+      background: {{ eye_color|default('#3F9FD8', true) }};
+      border-radius: 50%;
+      height: 65%;
+      width: 65%;
+      padding: 15%;
+      position: relative;
+      top: 17.5%;
+      left: 17.5%;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} .privacy-eye.wander .iris {
+      -webkit-animation: searching-eye-{{ snippet_id }} 7s infinite;
+      -o-animation: searching-eye-{{ snippet_id }} 7s infinite;
+      -moz-animation: searching-eye-{{ snippet_id }} 7s infinite;
+      animation: searching-eye-{{ snippet_id }} 7s infinite;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} .pupil {
+      background: #000000;
+      border-radius: 50%;
+      height: 100%;
+      width: 100%;
+      position: relative;
+    }
+
+    #mofo-mass-surveillance-{{ snippet_id }} .pupil::after {
+      display: block;
+      content: '';
+      background: #ffffff;
+      border-radius: 50%;
+      height: 32%;
+      width: 32%;
+      position: absolute;
+      top: 10%;
+      right: 10%;
+    }
+
+    @-webkit-keyframes real-eyelids-{{ snippet_id }} {
+      0%,
+      90%,
+      100% {
+        height: 0;
+      }
+      95% {
+        height: 60%;
+      }
+    }
+
+    @-o-keyframes real-eyelids-{{ snippet_id }} {
+      0%,
+      90%,
+      100% {
+        height: 0;
+      }
+      95% {
+        height: 60%;
+      }
+    }
+
+    @-moz-keyframes real-eyelids-{{ snippet_id }} {
+      0%,
+      90%,
+      100% {
+        height: 0;
+      }
+      95% {
+        height: 60%;
+      }
+    }
+
+    @keyframes real-eyelids-{{ snippet_id }} {
+      0%,
+      90%,
+      100% {
+        height: 0;
+      }
+      95% {
+        height: 60%;
+      }
+    }
+
+    @-webkit-keyframes searching-eye-{{ snippet_id }} {
+      0%,
+      85.714285716%,
+      100% {
+        top: 17.5%;
+        left: 17.5%;
+      }
+      14.285714286% {
+        top: 17.5%;
+        left: 8%;
+      }
+      28.571428572% {
+        top: 30%;
+        left: 8%;
+      }
+      42.857142858% {
+        top: 30%;
+        left: 30%;
+      }
+      57.142857144% {
+        top: 8%;
+        left: 30%;
+      }
+      71.42857143% {
+        top: 8%;
+        left: 8%;
+      }
+      85.7142857% {
+        top: 0;
+        left: 17.5%;
+      }
+    }
+
+    @-o-keyframes searching-eye-{{ snippet_id }} {
+      0%,
+      85.714285716%,
+      100% {
+        top: 17.5%;
+        left: 17.5%;
+      }
+      14.285714286% {
+        top: 17.5%;
+        left: 8%;
+      }
+      28.571428572% {
+        top: 30%;
+        left: 8%;
+      }
+      42.857142858% {
+        top: 30%;
+        left: 30%;
+      }
+      57.142857144% {
+        top: 8%;
+        left: 30%;
+      }
+      71.42857143% {
+        top: 8%;
+        left: 8%;
+      }
+      85.7142857% {
+        top: 0;
+        left: 17.5%;
+      }
+    }
+
+    @-moz-keyframes searching-eye-{{ snippet_id }} {
+      0%,
+      85.714285716%,
+      100% {
+        top: 17.5%;
+        left: 17.5%;
+      }
+      14.285714286% {
+        top: 17.5%;
+        left: 8%;
+      }
+      28.571428572% {
+        top: 30%;
+        left: 8%;
+      }
+      42.857142858% {
+        top: 30%;
+        left: 30%;
+      }
+      57.142857144% {
+        top: 8%;
+        left: 30%;
+      }
+      71.42857143% {
+        top: 8%;
+        left: 8%;
+      }
+      85.7142857% {
+        top: 0;
+        left: 17.5%;
+      }
+    }
+
+    @keyframes searching-eye-{{ snippet_id }} {
+      0%,
+      85.714285716%,
+      100% {
+        top: 17.5%;
+        left: 17.5%;
+      }
+      14.285714286% {
+        top: 17.5%;
+        left: 8%;
+      }
+      28.571428572% {
+        top: 30%;
+        left: 8%;
+      }
+      42.857142858% {
+        top: 30%;
+        left: 30%;
+      }
+      57.142857144% {
+        top: 8%;
+        left: 30%;
+      }
+      71.42857143% {
+        top: 8%;
+        left: 8%;
+      }
+      85.7142857% {
+        top: 0;
+        left: 17.5%;
+      }
+    }
+  </style>
+  <div class="container">
+    <div class="eye-container">
+      <div class="privacy-eye">
+        <div class="front">
+          <div class="eyelid">
+            <div class="sclera">
+              <div id="iris-pupil" class="iris">
+                <div class="pupil">
+                  &#160;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-container">
+      {{ body|safe }}
+    </div>
+  </div>
+
+  <script type="text/javascript">
+      //<![CDATA[
+      (function() {
+          var snippet = document.getElementById('mofo-mass-surveillance-{{ snippet_id }}');
+          snippet.addEventListener('show_snippet', function() {
+              (function () {
+
+                var
+                rectangle,
+                  radius = 4.5,
+                  center;
+
+                function measureThings() {
+                  rectangle = document.getElementById('iris-pupil').getBoundingClientRect();
+                  center = {
+                    x: (rectangle.width / 2) + (rectangle.left),
+                    y: (rectangle.height / 2) + (rectangle.top)
+                  };
+                }
+
+                function doMaths(x, y, radius) {
+                  var
+                  pythagoras = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)),
+                    coordinates = {
+                      x: x,
+                      y: y
+                    };
+                  if (pythagoras !== 0) {
+                    coordinates.x = x * radius / pythagoras;
+                    coordinates.y = y * radius / pythagoras;
+                  }
+                  return coordinates;
+                }
+
+                function translatePupil(coords) {
+                  var transform = 'translate(' + Math.round(coords.x) + 'px, ' + Math.round(coords.y) + 'px)';
+                  document.getElementById('iris-pupil').style.transform = transform;
+                }
+
+                var mousemoveTime = Date.now();
+                var eye = document.querySelector('.privacy-eye');
+
+                function checkMovement() {
+                  var nowTime = Date.now();
+                  var diffTime = (nowTime - mousemoveTime) / 1000;
+                  if (diffTime > 3) {
+                    document.getElementById('iris-pupil').style.transform = 'translate(0, 0)';
+                    eye.classList.add('wander');
+                  }
+
+                  setTimeout(checkMovement, 1000);
+                }
+
+                checkMovement();
+
+                if (document.getElementById('iris-pupil')) {
+                  window.onmousemove = function (e) {
+                    mousemoveTime = Date.now();
+                    eye.classList.remove('wander');
+                    measureThings();
+                    translatePupil(doMaths(e.pageX - center.x, e.pageY - center.y, radius));
+                  };
+                }
+              })();
+          }, false);
+      })();
+      //]]>
+  </script>
+</div>
