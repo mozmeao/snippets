@@ -1,0 +1,233 @@
+<style>
+    div.switch-{{ snippet_id }}#brandLogo {
+        background-size: {{ width|default(192, true) }}px {{ height ~ 'px' if height else 'auto' }};   
+    }
+    
+    a.logo-link-{{ snippet_id }} {
+        display: inline-block;
+    }
+    
+    .switch-{{ snippet_id }}#brandLogo {
+        height: {{ height|default(192, true) }}px;
+        width: {{ width|default(192, true) }}px;
+    }
+
+    #logo-replacement-share-snippet-{{ snippet_id }} {
+        width: 480px;
+        margin: 0 auto;
+        display: inline-block;
+        text-align: start;
+        margin: 12px 0;
+        font-size: 75%;
+        border-radius: 2.5px;
+    }
+
+    #logo-replacement-share-snippet-{{ snippet_id }} .message {
+        display: block;
+        padding: 20px 10px 20px 20px;
+        font-size: 14px;
+        line-height: 18px;
+        width: 330px;
+        transition: opacity 0.3s ease-out;
+        opacity: 1;
+    }
+
+    #logo-replacement-share-snippet-{{ snippet_id }} .message .post-share {
+        display: none;
+    }
+
+    #logo-replacement-share-snippet-{{ snippet_id }} .strings {
+        display: none;
+    }
+
+    #logo-replacement-share-snippet-{{ snippet_id }} .social {
+        width: 38px;
+        height: 38px;
+        display: inline-block;
+        margin-right: 15px;
+        border: 1px solid rgba(23, 147, 229, 1);
+        box-shadow: 0px 0px 1px rgba(0,0,0,0.25),
+        inset 0px 1px 0px rgba(255,255,255,0.4);
+        background-color: rgba(255,255,255,0);
+        border-radius: 4px;
+    }
+
+    #logo-replacement-share-snippet-snippet-{{ snippet_id }} .social:hover {
+        box-shadow: 0px 2px 2px rgba(0,0,0,0.2),
+        inset 0px 1px 0px rgba(255,255,255,0.4),
+        inset 0px 1px 12px rgba(255,255,255,0.3);
+        background-color: rgba(255,255,255,0.2);
+        transition-property: background-color, box-shadow;
+        transition-duration: 0.1s;
+        transition-timing-function: ease-out;
+    }
+
+    #logo-replacement-share-snippet-{{ snippet_id }} .social:active {
+        box-shadow: inset 0px 2px 2px rgba(0,0,0,0.4),
+        inset 0px -1px 0px rgba(255,255,255,0.4);
+        background-color: rgba(0,0,0,0.1);
+        border: 1px solid rgba(23, 147, 229, 0);
+        transition-property: background-color, box-shadow;
+        transition-duration: 0.1s;
+        transition-timing-function: ease-out;
+    }
+
+    #logo-replacement-share-snippet-{{ snippet_id }} .fb {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAQAAAAm93DmAAAA7ElEQVR4Ae3WoW3FMBDGcYPCB0LLAh73Bp2gC0QlHaEjFERdILQDOLgTGGWE4PLK4FFL+VcKsOpEV9V2KgX4+1B00k9KDuTU6VODxuD4WxwGjYobP3Z40uLpZFCncYHUEmjIi5FAx+/54pMb+zgJlDPzRINae+EBS5xEcOKCijqUgAtX1KYfJaBF7TqXgAMq9I13el7wJWAf5veElICvYd6Wg4+0NGF+R7tW579ywDZdjgUbOBa85oMTlucfW7Zr53/ccgUr6DJBJ4EmExyR/8sZoEenXQ4yKFwOcTXj5lv2IugY5dsmvxU8P/gNqXzv26a5D3AAAAAASUVORK5CYII="), linear-gradient(rgba(76, 177, 255, 1), rgba(23, 147, 229, 1));
+        background-size: 40px auto;
+        background-position: center center;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        transform: scale(0.95);
+    }
+
+    #logo-replacement-share-snippet-{{ snippet_id }} .fb:hover {
+        transform: scale(1);
+        transform: translateY(-1px);
+        transition-property: transform;
+        transition-duration: 0.1s;
+        transition-timing-function: ease-out;
+    }
+
+    #logo-replacement-share-snippet-{{ snippet_id }} .twitter {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAAAYFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////98JRy6AAAAHnRSTlMAtmD57NfgHAr8BYOUVOUTfM8qPfOLnUeoxMIkbzfVn4SqAAAAyElEQVQYGe3BR3LDMBAEwCEymDMVa/7/S5ccigC5PuqmbuDjjbrFRT08AuArj9TdjdhNht+suujokVrY3vFnnLmrn0hdSTPhV8GEbpGyJGNf4sUzFTekbnxxqgTQMBEVMhV/mLXxiokGOa8pG5EpraHMI6cpiyVyN8osDhrKahwVFG04CgUFbYkTS0GPs4pnJuAsWJ4oSLzlwQWy8HBMDQGy5xqZGDqc1fVatMwUAYJKM2cUZH6ZuXN9h3+Frb6ayNkV1YSPd/kCAwozo8pJSGgAAAAASUVORK5CYII="), linear-gradient(rgba(76, 177, 255, 1), rgba(23, 147, 229, 1));
+        background-size: 40px auto;
+        background-position: center center;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        transform: scale(0.95);
+    }
+
+    #logo-replacement-share-snippet-{{ snippet_id }} .twitter:hover {
+        transform: scale(1);
+        transform: translateY(-1px);
+        transition-property: transform;
+        transition-duration: 0.1s;
+        transition-timing-function: ease-out;
+    }
+
+    #logo-replacement-share-snippet-{{ snippet_id }} .snippet-box {
+        position: relative;
+        background-color: rgba(255,255,255,0);
+        opacity:1;
+        background-position: 65%;
+        box-shadow: 0px 1px 1.5px rgba(0,0,0,0.15),
+        inset 0px 1px 0px rgba(255,255,255,1);
+        display: flex;
+        align-items: center;
+        transform: scale(1);
+    }
+
+    #logo-replacement-share-snippet-{{ snippet_id }} .snippet-box:hover {
+        background-color: rgba(255,255,255,0.4);
+    }
+</style>
+<div id="logo-replacement-share-snippet-{{ snippet_id }}" class="snippet" data-url="{{ logo_url|safe }}">
+  <div class="strings" data-tweet-text="{{ tweet_text|escape }}" data-tweet-hashtag="{{ tweet_hashtag|escape }}"></div>
+  <div class="snippet-box">
+    <div class="message">
+        <span class="pre-share">{{ text|safe }}</span>
+        <span class="post-share">{{ postShareMessage|safe }}</span>
+    </div>
+    <div class="social-container">
+      <span class="social fb"></span>
+      <span class="social twitter"></span>
+    </div>
+  </div>
+</div>
+<script>
+//<![CDATA[
+(function() {
+    var snippet = document.getElementById('logo-replacement-share-snippet-{{ snippet_id }}');
+    var stringElement = snippet.querySelector('.strings');
+    var message = snippet.querySelector('.message');
+    var newLogo = '{{ replacement_logo }}';
+    snippet.addEventListener('show_snippet', function(e) {
+        var brandLogo = document.getElementById('brandLogo');
+        if (newLogo !== '') {
+            if (brandLogo.src !== undefined) {
+                brandLogo.src = newLogo;
+            } else {
+                brandLogo.style.backgroundImage = 'url(' + newLogo + ')';
+            }
+            brandLogo.className += ' switch-{{ snippet_id }}';
+        }
+        var url = snippet.getAttribute('data-url');
+        if (url) {
+            var parent = brandLogo.parentElement;
+            var searchContainer = document.getElementById('searchContainer');
+            var brandLogo = parent.removeChild(brandLogo);
+            var link = document.createElement('a');
+            link.className = 'logo-link-{{ snippet_id }}';
+            link.href = url;
+            link.appendChild(brandLogo);
+            parent.insertBefore(link, searchContainer);
+        }
+    });
+
+    function getString(id) {
+        return stringElement.dataset[id];
+    }
+
+    function postShare() {
+        if (!postShare.runOnce) {
+            message.style.opacity = 0;
+            afterEvent(message, 'transitionend', function() {
+                message.querySelector('.pre-share').style.display = 'none';
+                message.querySelector('.post-share').style.display = 'inline';
+                message.style.opacity = 1;
+            });
+        }
+        postShare.runOnce = true;
+    }
+    postShare.runOnce = false;
+
+    function afterEvent(element, eventName, callback) {
+        function oneTimeCallback(e) {
+            element.removeEventListener(eventName, oneTimeCallback);
+            callback.call(this, e);
+        }
+
+        element.addEventListener(eventName, oneTimeCallback);
+    }
+
+    var FACEBOOK_APPID = encodeURIComponent('307233949472123');
+    var HREF_FB = encodeURIComponent('{{ facebook_share_url|replace('&amp;', '&')|safe }}');
+    var HREF_TW = encodeURIComponent('{{ twitter_share_url|replace('&amp;', '&')|safe }}');
+    var REDIRECT_URL = encodeURIComponent('https://snippets.mozilla.com/static/html/close.html');
+    var TWITTER_TEXT = encodeURIComponent(getString('tweetText'));
+    var TWITTER_HASHTAG = encodeURIComponent(getString('tweetHashtag'));
+    var DIALOG_WINDOW_NAME = 'share_window';
+    var DIALOG_DIMENSIONS = 'height=400,width=500';
+
+    var facebook_url = ('https://www.facebook.com/dialog/feed?app_id=' +
+                        FACEBOOK_APPID + '&display=popup&link=' + HREF_FB +
+                        '&redirect_uri=' + REDIRECT_URL);
+    var twitter_url = ('https://twitter.com/share?url=' + HREF_TW +
+                       '&original_referer=' + HREF_TW + '&text=' +
+                       TWITTER_TEXT + '&hashtags=' + TWITTER_HASHTAG);
+
+    function showShareDialog(url) {
+        var dialog_obj = window.open(url, DIALOG_WINDOW_NAME, DIALOG_DIMENSIONS);
+        var dialog_interval_id = window.setInterval(function () {
+            if (dialog_obj == null || dialog_obj.closed){
+                postShare();
+                window.clearInterval(dialog_interval_id);
+            }
+        }, 100);
+    }
+
+    // Facebook click
+    snippet.querySelector('.fb').onclick = function(){
+        sendMetric('share-logo-replacement-fb-click');
+        showShareDialog(facebook_url);
+    }
+
+    // Twitter click
+    snippet.querySelector('.twitter').onclick = function(){
+        sendMetric('share-logo-replacement-twitter-click');
+        showShareDialog(twitter_url);
+    }
+})();
+//]]>
+</script>
