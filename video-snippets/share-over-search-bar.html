@@ -282,7 +282,7 @@
     video.addEventListener('playing', function() {
         if (!hasPlayed) {
             hasPlayed = true;
-            sendMetric('share-video-play');
+            sendMetric('click-video-play');
         }
 
         replay.classList.remove('show');
@@ -297,7 +297,7 @@
             for (var k = 0; k < thresholds.length; k++) {
                 var threshold = thresholds[k];
                 if (lastProgress < threshold && threshold <= currentProgress) {
-                    sendMetric('simple-video-threshold-' + threshold);
+                    sendMetric('video-threshold-' + threshold);
                     break;
                 }
             }
@@ -312,7 +312,7 @@
 
     // Replay video when replay is clicked.
     replay.addEventListener('click', function() {
-        sendMetric('share-video-replay');
+        sendMetric('click-video-replay');
         video.play();
     });
 
@@ -366,13 +366,13 @@
 
     // Facebook click
     snippet.querySelector('.fb').onclick = function(){
-        sendMetric('share-video-fb-click');
+        sendMetric('conversion-video-facebook');
         showShareDialog(facebook_url);
     }
 
     // Twitter click
     snippet.querySelector('.twitter').onclick = function(){
-        sendMetric('share-video-twitter-click');
+        sendMetric('conversion-video-twitter');
         showShareDialog(twitter_url);
     }
 })();
