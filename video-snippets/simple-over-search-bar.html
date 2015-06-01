@@ -178,7 +178,7 @@
     video.addEventListener('playing', function() {
         if (!hasPlayed) {
             hasPlayed = true;
-            sendMetric('simple-video-play');
+            sendMetric('click-video-play');
         }
 
         replay.classList.remove('show');
@@ -193,7 +193,7 @@
             for (var k = 0; k < thresholds.length; k++) {
                 var threshold = thresholds[k];
                 if (lastProgress < threshold && threshold <= currentProgress) {
-                    sendMetric('simple-video-threshold-' + threshold);
+                    sendMetric('video-threshold-' + threshold);
                     break;
                 }
             }
@@ -208,7 +208,7 @@
 
     // Replay video when replay is clicked.
     replay.addEventListener('click', function() {
-        sendMetric('simple-video-replay');
+        sendMetric('click-video-replay');
         video.play();
     });
 })();
