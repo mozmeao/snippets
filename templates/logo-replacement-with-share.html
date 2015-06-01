@@ -219,13 +219,13 @@
 
     // Facebook click
     snippet.querySelector('.fb').onclick = function(){
-        sendMetric('share-logo-replacement-fb-click');
+        sendMetric('conversion-share-facebook');
         showShareDialog(facebook_url);
     }
 
     // Twitter click
     snippet.querySelector('.twitter').onclick = function(){
-        sendMetric('share-logo-replacement-twitter-click');
+        sendMetric('conversion-share-twitter');
         showShareDialog(twitter_url);
     }
 })();
