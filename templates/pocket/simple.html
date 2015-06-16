@@ -1,0 +1,183 @@
+<!-- Any instances of {{ snippet_id }} are replaced with the ID number for the
+     snippet using this template. -->
+
+<div class="snippet" id="{{ snippet_id }}-pocket-simple">
+    <a href="#" class="launch-pocket">
+      <img class="icon" src="{{ icon }}" />
+    </a>
+    <p>{{ text|safe }}</p>
+
+    <script type="text/javascript">
+      //<![CDATA[
+
+      (function() {
+        var snippet = document.getElementById('{{ snippet_id }}-pocket-simple');
+        snippet.addEventListener('show_snippet', function () {
+          var buttons = snippet.getElementsByClassName('launch-pocket');
+
+          isTargetAvailable('pocket', function pocketAvailable () {
+            sendMetric('impression-pocket-view');
+            for (var i=0; i < buttons.length; i++) {
+              buttons[i].addEventListener('click', function (e) {
+                e.preventDefault();
+                Mozilla.UITour.showMenu('pocket', function () {
+                  // bug 1113896
+                  document.addEventListener('click', hidePocketPanel, false);
+
+                  // bug 1091785
+                  window.addEventListener('resize', hidePocketPanel);        
+                });
+
+                // bug exists where teardown tabs will stop .observe
+                // this is to ensure it is re-started
+                document.addEventListener('visibilitychange', handleVisibilityChange);
+
+                sendMetric('click-pocket-open');
+              }, false);
+            }
+          }, function pocketNotAvailable () {
+            for (var i=0; i < buttons.length; i++) {
+              buttons[i].addEventListener('click', function (e) {
+                e.preventDefault();
+                sendMetric('click-pocket-icon-url', function () {
+                  window.location = '{{ icon_url|safe }}';
+                });
+              }, false);
+            }
+          });
+        }, false);
+
+        // create namespace
+        if (typeof Mozilla == 'undefined') {
+          var Mozilla = {};
+        }
+
+        'use strict';
+
+        // create namespace
+        if (typeof Mozilla.UITour == 'undefined') {
+          Mozilla.UITour = {};
+        }
+
+        var notificationListener = null;
+
+        function _notificationListener (event) {
+          if (typeof event.detail != 'object')
+            return;
+          if (typeof notificationListener != 'function')
+            return;
+
+          notificationListener(event.detail.event, event.detail.params);
+        }
+
+        function _sendEvent (action, data) {
+          var event = new CustomEvent('mozUITour', {
+            bubbles: true,
+            detail: {
+              action: action,
+              data: data || {}
+            }
+          });
+
+          document.dispatchEvent(event);
+        }
+
+        function _generateCallbackID () {
+          return Math.random().toString(36).replace(/[^a-z]+/g, '');
+        }
+
+        function _waitForCallback (callback) {
+          var id = _generateCallbackID();
+
+          function listener (event) {
+            if (typeof event.detail != 'object')
+              return;
+            if (event.detail.callbackID != id)
+              return;
+
+            document.removeEventListener('mozUITourResponse', listener);
+            callback(event.detail.data);
+          }
+          document.addEventListener('mozUITourResponse', listener);
+
+          return id;
+        }
+
+        Mozilla.UITour.DEFAULT_THEME_CYCLE_DELAY = 10 * 1000;
+        Mozilla.UITour.CONFIGNAME_SYNC = 'sync';
+        Mozilla.UITour.CONFIGNAME_AVAILABLETARGETS = 'availableTargets';
+
+        Mozilla.UITour.ping = function(callback) {
+          var data = {};
+          if (callback) {
+            data.callbackID = _waitForCallback(callback);
+          }
+          _sendEvent('ping', data);
+        };
+
+        Mozilla.UITour.observe = function(listener, callback) {
+          notificationListener = listener;
+
+          if (listener) {
+            document.addEventListener('mozUITourNotification',
+            _notificationListener);
+            Mozilla.UITour.ping(callback);
+          } else {
+            document.removeEventListener('mozUITourNotification',
+            _notificationListener);
+          }
+        };
+
+        Mozilla.UITour.showMenu = function(name, callback) {
+          var showCallbackID;
+          if (callback)
+            showCallbackID = _waitForCallback(callback);
+
+          _sendEvent('showMenu', {
+            name: name,
+            showCallbackID: showCallbackID,
+          });
+        };
+
+        Mozilla.UITour.hideMenu = function(name) {
+          _sendEvent('hideMenu', {
+            name: name
+          });
+        };
+
+        Mozilla.UITour.getConfiguration = function(configName, callback) {
+          _sendEvent('getConfiguration', {
+            callbackID: _waitForCallback(callback),
+            configuration: configName,
+          });
+        };
+
+        function isTargetAvailable (target, pocketAvailable, pocketNotAvailable) {
+          Mozilla.UITour.getConfiguration('availableTargets', function(config) {
+            if (config.targets && config.targets.indexOf(target) > -1) {
+              pocketAvailable();
+            } else {
+              pocketNotAvailable();
+            }
+          });
+        }
+
+       function handleVisibilityChange () {
+          if (document.hidden) {
+            // hide Pocket menu & stop observer when changing tabs or minimizing window
+            //
+            Mozilla.UITour.observe(null);
+          }
+        }
+
+        function hidePocketPanel () {
+          Mozilla.UITour.hideMenu('pocket');
+          document.removeEventListener('click', hidePocketPanel, false);
+          window.removeEventListener('resize', hidePocketPanel);
+        }
+
+      })();
+
+      //]]>
+  </script>
+</div>
