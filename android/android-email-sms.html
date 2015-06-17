@@ -1,0 +1,320 @@
+<div class="snippet" id="firefox-android-sms-email-{{ snippet_id }}">
+  <style text="text/css">
+     div.switch-{{ snippet_id }}#brandLogo {
+         background-size: auto;
+     }
+
+     .switch-{{ snippet_id }}#brandLogo {
+         height: 192px;
+         width: 192px;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} {
+         background-color: white;
+         padding: 5px 20px;
+         border-radius: 5px;
+         box-shadow: 0 1px 3px rgba(72, 72, 72, 0.25);
+         font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+         font-size: 1em;
+         color: #484848;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} a {
+         color: #0073AA;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} p {
+         font-size: 1em;
+         display: block;
+         height: auto;
+         padding: 0;
+         width: auto;
+         margin: 10px 0 10px 0;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} .right-img {
+         float: right;
+         padding-left: 6px;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} .text {
+         margin-top: 0px;
+         font-size: 1.05em;
+         line-height: 1.4;
+         margin-bottom: 20px;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} h1 {
+         font-size: 1.4em;
+         margin-bottom: 0px;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} .footer {
+         font-size: 0.78em;
+         margin: 0px;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} hr {
+         border-top: 1px dotted #c3c3c3;
+         height: 1px;
+         margin: 20px 0 20px 0;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} .button, .button:link, .button:visited {
+         display: inline-block;
+         *display: inline;
+         *zoom: 1;
+         border-radius: 0.25em;
+         box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.2), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
+         background-color: #277ac1;
+         background-repeat: repeat-x;
+         color: #ffffff;
+         text-align: center;
+         font-size: 11px;
+         font-weight: bold;
+         padding: 5px 10px;
+         line-height: 1.1;
+         text-decoration: none;
+         min-width: 80px;
+         border: 0;
+         text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+         font-family: 'Open Sans', X-LocaleSpecific, sans-serif;
+         transition: all linear 0.25s;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} .button:hover,
+     .button:link:hover,
+     .button:visited:hover,
+     .button.hover,
+     .button:link.hover,
+     .button:visited.hover,
+     .button:focus,
+     .button:link:focus,
+     .button:visited:focus,
+     .button.focus,
+     .button:link.focus,
+     .button:visited.focus {
+         box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.2), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3), inset 0px 12px 24px 2px #38a9ed;
+         color: #ffffff;
+         text-decoration: none;
+         transition: all linear 0.25s;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} .button:focus,
+     .button:link:focus,
+     .button:visited:focus,
+     .button.focus,
+     .button:link.focus,
+     .button:visited.focus {
+         outline-color: #484848;
+         box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.2), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3), inset 0px 12px 24px 2px #38a9ed, 0 0 0 2px rgba(73, 173, 227, 0.4);
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} .button:active,
+     .button:link:active,
+     .button:visited:active,
+     .button.active,
+     .button:link.active,
+     .button:visited.active {
+         box-shadow: inset 0px 2px 0px 0px rgba(0, 0, 0, 0.2), inset 0px 12px 24px 6px rgba(0, 0, 0, 0.2), inset 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
+         color: #ffffff;
+         text-decoration: none;
+         transition: all linear 0.25s;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} .button.insensitive,
+     .button:link.insensitive,
+     .button:visited.insensitive,
+     .button.insensitive:hover,
+     .button:link.insensitive:hover,
+     .button:visited.insensitive:hover,
+     .button.insensitive:focus,
+     .button:link.insensitive:focus,
+     .button:visited.insensitive:focus {
+         background-color: #9ca3aa;
+         background-repeat: repeat-x;
+         box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.2), inset 0px -1px 0px 0px rgba(0, 0, 0, 0.3);
+         color: #eee;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} .button.arrow span {
+         display: block;
+         margin-right: -12px;
+         padding: 0 30px 0 0;
+         background: url(https://www.mozilla.org/media/img/sandstone/buttons/arrow-go-r.png) right center no-repeat;
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} .number {
+         height: 22px;
+         width: 210px;
+         background: #fff;
+         border-color: #b2b2b2;
+         border-style: solid;
+         border-width: 1px;
+         padding: 0px 6.6px;
+         border-radius: 3px;
+         box-shadow: 0 1px rgba(255, 255, 255, 0.5);
+     }
+
+     #firefox-android-sms-email-{{ snippet_id }} #thank-you {
+        display: none;
+        font-size: 1.5em;
+     }
+     #firefox-android-sms-email-{{ snippet_id }} #error {
+        display: none;
+        font-size: 1.5em;
+     } 
+  </style>
+  <script type="text/javascript">
+   //<![CDATA[
+   (function() {
+       var snippet = document.getElementById('firefox-android-sms-email-{{ snippet_id }}');
+       snippet.addEventListener('show_snippet', function() {
+           var input = document.querySelector('#firefox-android-sms-email-{{ snippet_id }} .number');
+           var button = document.querySelector('#firefox-android-sms-email-{{ snippet_id }} .submit-button');
+           var input_type;
+
+           // Checking input
+           input.addEventListener('input', function() {
+               input_type = checkInput(input.value);
+               if (input_type) {
+                   button.disabled = false;
+                   button.classList.remove('insensitive');
+               }
+               else {
+                   button.disabled = true;
+                   button.classList.add('insensitive');
+               }
+           });
+
+           // Submitting the form
+           var form = document.getElementById('snippet-{{ snippet_id }}-sms-email-send');
+           button.addEventListener('click', function(event) {
+               event.preventDefault();
+               if (input_type === 'email') {
+                   sendMetric('conversion-fennec-email', 
+                    function() { 
+                        sendEmailToBasket();
+                    });
+               } else if (input_type === 'phone') {
+                   sendMetric('conversion-fennec-sms', 
+                    function() { 
+                        sendSMSToBasket();
+                    });
+               }
+           });
+
+           // Logo change.
+           {% if replacement_logo %}
+             var newLogo = '{{ replacement_logo }}';
+             var brandLogo = document.getElementById('brandLogo');
+             if (brandLogo.src !== undefined) {
+                 brandLogo.src = newLogo;
+             } else {
+                 brandLogo.style.backgroundImage = 'url(' + newLogo + ')';
+             }
+             brandLogo.className += ' switch-{{ snippet_id }}';
+           {% endif %}
+
+           // Check if it is a valid email or phone number or neither
+           function checkInput (inp) {
+                var email_re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                var check_email = email_re.test(inp);
+                // Light check for a valid US phone number
+                var check_phone = inp.length>=10 && !isNaN(inp);
+
+                if (check_email) {
+                    return 'email';
+                } else if (check_phone && '{{ include_sms }}' === 'True') {
+                    return 'phone';
+                } else {
+                    return false;
+                }
+           }
+
+           function sendSMSToBasket () {
+                var url = 'https://basket.mozilla.org/news/subscribe_sms/';
+                var r = new XMLHttpRequest();
+
+                var thanks = document.getElementById('thank-you');
+                var welcome = document.getElementById('welcome');
+                var error = document.getElementById('error');
+
+                var params = 'mobile_number=' + input.value + '&msg_name=android-snippet-38';
+
+                welcome.style.display = 'none';
+                r.onreadystatechange = function() {
+                    if (r.readyState == 4) {
+                        if (r.status == 200) {
+                            thanks.style.display = 'block';
+                        } else {
+                            error.style.display = 'block';                                
+                        }
+                    }
+                }
+                r.open('POST', url);
+                r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                r.send(params);
+           }
+
+           function sendEmailToBasket () {
+                var locale = document.getElementById('snippet_set').getAttribute('data-locale');
+                var url = 'https://basket.mozilla.org/news/subscribe/';
+                var newsletters = 'download-firefox-androidsn';
+                var source_url = 'https://snippets.mozilla.com/{{ snippet_id }}';
+                source_url = encodeURIComponent(source_url);
+                var email = input.value;
+                var params = 'newsletters=' + newsletters + '&source_url=' + source_url + '&email=' + email;
+                
+                var r = new XMLHttpRequest();
+                var thanks = document.getElementById('thank-you');
+                var welcome = document.getElementById('welcome');
+                var error = document.getElementById('error');
+
+                welcome.style.display = 'none';
+                r.onreadystatechange = function() {
+                    if (r.readyState == 4) {
+                        if (r.status == 200) {
+                            thanks.style.display = 'block';
+                        } else {
+                            error.style.display = 'block';                                
+                        }
+                    }
+                }
+                
+                r.open('POST', url);
+                r.send(params);
+           }
+       });
+   })();
+   //]]>
+  </script>
+
+  <form id="snippet-{{ snippet_id }}-sms-email-send" method="post">
+    <img class="right-img" src="{{ image }}"/>
+    <h1>{{ header }}</h1>
+    <p class="text">{{ text|safe }}</p>
+    <div id="welcome">
+        <p class="input">
+          <input type="tel" maxlength="75" class="number"
+                 name="number" placeholder="{{ input_placeholder }}" value="" />
+          <button type="submit" class="submit-button button arrow insensitive" disabled="disabled">
+            <span>{{ button_copy }}</span>
+          </button>
+        </p>
+    </div>
+    <div id="thank-you">
+      {{ thank_you_message }}
+    </div>
+    <div id="error">
+      {{ error_message }}
+    </div>
+    <hr/>
+    <p class="footer">
+      {{ google_play_footer|safe }}
+    </p>
+    <p class="footer">
+      {{ terms_footer|safe }}
+    </p>
+  </form>
+</div>
