@@ -25,7 +25,7 @@
                   document.addEventListener('click', hidePocketPanel, false);
 
                   // bug 1091785
-                  window.addEventListener('resize', hidePocketPanel);        
+                  window.addEventListener('resize', hidePocketPanel);
                 });
 
                 // bug exists where teardown tabs will stop .observe
@@ -40,7 +40,7 @@
               buttons[i].addEventListener('click', function (e) {
                 e.preventDefault();
                 sendMetric('click-pocket-icon-url', function () {
-                  window.location = '{{ icon_url|safe }}';
+                  window.location = '{{ fallback_url|safe }}';
                 });
               }, false);
             }
