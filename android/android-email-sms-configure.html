@@ -258,13 +258,14 @@
            }
 
            function sendEmailToBasket () {
-                var locale = document.getElementById('snippet_set').getAttribute('data-locale');
+                //TODO: get language from data-locale
+                var lang = '{{ language }}';
                 var url = 'https://basket.mozilla.org/news/subscribe/';
                 var newsletters = '{{ email_id }}';
                 var source_url = 'https://snippets.mozilla.com/{{ snippet_id }}';
                 source_url = encodeURIComponent(source_url);
                 var email = input.value;
-                var params = 'newsletters=' + newsletters + '&source_url=' + source_url + '&email=' + email;
+                var params = 'newsletters=' + newsletters + '&source_url=' + source_url + '&lang=' + lang + '&email=' + email;
                 
                 var r = new XMLHttpRequest();
                 var thanks = document.getElementById('thank-you');
