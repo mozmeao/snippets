@@ -1,0 +1,128 @@
+<!-- Any instances of {{ snippet_id }} are replaced with the ID number for the
+     snippet using this template. -->
+
+<div class="snippet" id="{{ snippet_id }}-fx-default">
+    <div id="{{ snippet_id }}-content"></div>
+
+    <script type="text/javascript">
+      //<![CDATA[
+
+      (function() {
+        var snippet = document.getElementById('{{ snippet_id }}-fx-default');
+        snippet.addEventListener('show_snippet', function () {
+          var buttons = snippet.getElementsByClassName('launch-default');
+          var snippet_content = document.getElementById('{{ snippet_id }}-content');
+
+          isDefault('appinfo', function yesDefault () {
+            sendMetric('impression-is-default');
+            snippet_content.innerHTML = '<a href="#" class="launch-default"><img class="icon" src="{{ icon_default }}" /></a><p>{{ text_default|escape }}</p>';
+
+            for (var i=0; i < buttons.length; i++) {
+              buttons[i].addEventListener('click', function (e) {
+                e.preventDefault();
+                sendMetric('conversion-is-default-click', function () {
+                  window.location = '{{ url_default|safe }}';
+                });
+              }, false);
+            }
+          }, function noDefault () {
+            sendMetric('impression-is-not-default');
+            snippet_content.innerHTML = '<a href="#" class="launch-default"><img class="icon" src="{{ icon_default }}" /></a><p>{{ text_not_default|escape }}</p>';
+
+            for (var i=0; i < buttons.length; i++) {
+              buttons[i].addEventListener('click', function (e) {
+                e.preventDefault();
+                Mozilla.UITour.setConfiguration('defaultBrowser');
+                sendMetric('conversion-is-not-default-click');
+              }, false);
+            }
+          });
+        }, false);
+
+        // create namespace
+        if (typeof Mozilla == 'undefined') {
+          var Mozilla = {};
+        }
+
+        'use strict';
+
+        // create namespace
+        if (typeof Mozilla.UITour == 'undefined') {
+          Mozilla.UITour = {};
+        }
+
+        var notificationListener = null;
+
+        function _notificationListener (event) {
+          if (typeof event.detail != 'object')
+            return;
+          if (typeof notificationListener != 'function')
+            return;
+
+          notificationListener(event.detail.event, event.detail.params);
+        }
+
+        function _sendEvent (action, data) {
+          var event = new CustomEvent('mozUITour', {
+            bubbles: true,
+            detail: {
+              action: action,
+              data: data || {}
+            }
+          });
+
+          document.dispatchEvent(event);
+        }
+
+        function _generateCallbackID () {
+          return Math.random().toString(36).replace(/[^a-z]+/g, '');
+        }
+
+        function _waitForCallback (callback) {
+          var id = _generateCallbackID();
+
+          function listener (event) {
+            if (typeof event.detail != 'object')
+              return;
+            if (event.detail.callbackID != id)
+              return;
+
+            document.removeEventListener('mozUITourResponse', listener);
+            callback(event.detail.data);
+          }
+          document.addEventListener('mozUITourResponse', listener);
+
+          return id;
+        }
+
+        Mozilla.UITour.getConfiguration = function(configName, callback) {
+          _sendEvent('getConfiguration', {
+            callbackID: _waitForCallback(callback),
+            configuration: configName,
+          });
+        };
+
+        Mozilla.UITour.setConfiguration = function(configName, configValue) {
+            _sendEvent('setConfiguration', {
+                configuration: configName,
+                value: configValue
+            });
+        };
+
+        function isDefault(target, yesDefault, noDefault) {
+          Mozilla.UITour.getConfiguration(target, function(config) {
+              if (config && config.defaultBrowser === true) {
+                  yesDefault();
+              } else if (config && config.defaultBrowser === false) {
+                  noDefault();
+              } else {
+                  yesDefault();
+              }
+          });
+        }
+        
+      })();
+
+      //]]>
+  </script>
+</div>
