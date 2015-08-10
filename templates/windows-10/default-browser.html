@@ -2,7 +2,10 @@
      snippet using this template. -->
 
 <div class="snippet" id="{{ snippet_id }}-fx-default">
-    <div id="{{ snippet_id }}-content"></div>
+    <div>
+      <a href="#" class="launch-default"><img class="icon" id="{{ snippet_id }}-icon"/></a>
+      <div id="{{ snippet_id }}-text"></div>
+    </div>
 
     <script type="text/javascript">
       //<![CDATA[
@@ -11,32 +14,77 @@
         var snippet = document.getElementById('{{ snippet_id }}-fx-default');
         snippet.addEventListener('show_snippet', function () {
           var buttons = snippet.getElementsByClassName('launch-default');
-          var snippet_content = document.getElementById('{{ snippet_id }}-content');
+          var snippet_text = document.getElementById('{{ snippet_id }}-text');
+          var snippet_icon = document.getElementById('{{ snippet_id }}-icon');
+          var poll_retry = 0;
+          var check_default_timeout;
+          var last_check;
+          var cta_clicked = false;
 
-          isDefault('appinfo', function yesDefault () {
+          isDefault(function yesDefault () {
             sendMetric('impression-is-default');
-            snippet_content.innerHTML = '<a href="#" class="launch-default"><img class="icon" src="{{ icon_default }}" /></a><p>{{ text_default|escape }}</p>';
-
-            for (var i=0; i < buttons.length; i++) {
-              buttons[i].addEventListener('click', function (e) {
-                e.preventDefault();
-                sendMetric('conversion-is-default-click', function () {
-                  window.location = '{{ url_default|safe }}';
-                });
-              }, false);
-            }
+            showDefaultContent();
+            last_check = true;
           }, function noDefault () {
             sendMetric('impression-is-not-default');
-            snippet_content.innerHTML = '<a href="#" class="launch-default"><img class="icon" src="{{ icon_default }}" /></a><p>{{ text_not_default|escape }}</p>';
-
-            for (var i=0; i < buttons.length; i++) {
-              buttons[i].addEventListener('click', function (e) {
-                e.preventDefault();
-                Mozilla.UITour.setConfiguration('defaultBrowser');
-                sendMetric('conversion-is-not-default-click');
-              }, false);
-            }
+            showNonDefaultContent();
+            last_check = false;
           });
+
+          var check_default_timeout = window.setInterval(function () {
+            if (poll_retry > 500) {
+              clearInterval(check_default_timeout);
+            }
+            poll_retry ++;
+            isDefault(function yesDefault () {
+              //Default has switched while the snippet is opened
+              if (last_check !== true) {
+                showDefaultContent();
+                snippet_text.innerHTML = "<p>{{ text_default_success|safe }}</p>";
+                last_check = true;
+                if (cta_clicked === true) {
+                  sendMetric('conversion-is-default-changed-after-click');
+                } else {
+                  sendMetric('conversion-is-default-changed-without-click');
+                }
+                clearInterval(check_default_timeout);
+              }
+            }, function noDefault () {
+              if (last_check !== false) {
+                showNonDefaultContent();
+                last_check = false;
+              }
+            });
+          }, 2000);
+
+          function showDefaultContent () {
+              snippet_text.innerHTML = "<p>{{ text_default|safe }}</p>";
+              snippet_icon.src = "{{ icon_default }}";
+
+              for (var i=0; i < buttons.length; i++) {
+                buttons[i].addEventListener('click', function (e) {
+                  e.preventDefault();
+                  sendMetric('conversion-is-default-click', function () {
+                    window.location = '{{ url_default|safe }}';
+                  });
+                }, false);
+              }
+          }
+
+          function showNonDefaultContent () {
+              snippet_text.innerHTML = "<p>{{ text_not_default|safe }}</p>";
+              snippet_icon.src = "{{ icon_not_default }}";
+
+              for (var i=0; i < buttons.length; i++) {
+                buttons[i].addEventListener('click', function (e) {
+                  e.preventDefault();
+                  Mozilla.UITour.setConfiguration('defaultBrowser');
+                  sendMetric('conversion-is-not-default-click');
+                  cta_clicked = true;
+                }, false);
+              }    
+          }
+
         }, false);
 
         // create namespace
@@ -109,8 +157,8 @@
             });
         };
 
-        function isDefault(target, yesDefault, noDefault) {
-          Mozilla.UITour.getConfiguration(target, function(config) {
+        function isDefault (yesDefault, noDefault) {
+          Mozilla.UITour.getConfiguration('appinfo', function(config) {
               if (config && config.defaultBrowser === true) {
                   yesDefault();
               } else if (config && config.defaultBrowser === false) {
