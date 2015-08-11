@@ -4,7 +4,7 @@
 <div class="snippet" id="{{ snippet_id }}-fx-default">
     <div>
       <a href="#" class="launch-default"><img class="icon" id="{{ snippet_id }}-icon"/></a>
-      <div id="{{ snippet_id }}-text"></div>
+      <p id="{{ snippet_id }}-text"></p>
     </div>
 
     <script type="text/javascript">
@@ -17,31 +17,30 @@
           var snippet_text = document.getElementById('{{ snippet_id }}-text');
           var snippet_icon = document.getElementById('{{ snippet_id }}-icon');
           var poll_retry = 0;
-          var check_default_timeout;
-          var last_check;
+          var check_default_timeout = undefined;
+          var is_firefox_default = undefined;
           var cta_clicked = false;
 
           isDefault(function yesDefault () {
             sendMetric('impression-is-default');
             showDefaultContent();
-            last_check = true;
+            is_firefox_default = true;
           }, function noDefault () {
             sendMetric('impression-is-not-default');
             showNonDefaultContent();
-            last_check = false;
+            is_firefox_default = false;
           });
 
           var check_default_timeout = window.setInterval(function () {
             if (poll_retry > 500) {
               clearInterval(check_default_timeout);
             }
-            poll_retry ++;
+            poll_retry++;
             isDefault(function yesDefault () {
               //Default has switched while the snippet is opened
-              if (last_check !== true) {
-                showDefaultContent();
-                snippet_text.innerHTML = "<p>{{ text_default_success|safe }}</p>";
-                last_check = true;
+              if (is_firefox_default !== true) {
+                showSuccessContent();
+                is_firefox_default = true;
                 if (cta_clicked === true) {
                   sendMetric('conversion-is-default-changed-after-click');
                 } else {
@@ -50,15 +49,29 @@
                 clearInterval(check_default_timeout);
               }
             }, function noDefault () {
-              if (last_check !== false) {
+              if (is_firefox_default !== false) {
                 showNonDefaultContent();
-                last_check = false;
+                is_firefox_default = false;
               }
             });
-          }, 2000);
+          }, 1000);
 
           function showDefaultContent () {
-              snippet_text.innerHTML = "<p>{{ text_default|safe }}</p>";
+              snippet_text.innerHTML = "{{ text_default|safe }}";
+              snippet_icon.src = "{{ icon_default }}";
+
+              for (var i=0; i < buttons.length; i++) {
+                buttons[i].addEventListener('click', function (e) {
+                  e.preventDefault();
+                  sendMetric('conversion-is-default-click', function () {
+                    window.location = '{{ url_default|safe }}';
+                  });
+                }, false);
+              }
+          }
+
+          function showSuccessContent () {
+              snippet_text.innerHTML = "{{ text_default_success|safe }}";
               snippet_icon.src = "{{ icon_default }}";
 
               for (var i=0; i < buttons.length; i++) {
@@ -72,7 +85,7 @@
           }
 
           function showNonDefaultContent () {
-              snippet_text.innerHTML = "<p>{{ text_not_default|safe }}</p>";
+              snippet_text.innerHTML = "{{ text_not_default|safe }}";
               snippet_icon.src = "{{ icon_not_default }}";
 
               for (var i=0; i < buttons.length; i++) {
