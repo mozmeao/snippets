@@ -4,7 +4,9 @@
 <div class="snippet" id="{{ snippet_id }}-fx-default">
     <div>
       <a href="#" class="launch-default"><img class="icon" id="{{ snippet_id }}-icon"/></a>
-      <p id="{{ snippet_id }}-text"></p>
+      <p id="{{ snippet_id }}-text-default" style="display:none;">{{ text_default|safe }}</p>
+      <p id="{{ snippet_id }}-text-not-default" style="display:none;">{{ text_not_default|safe }}</p>
+      <p id="{{ snippet_id }}-text-success" style="display:none;">{{ text_default_success|safe }}</p>
     </div>
 
     <script type="text/javascript">
@@ -14,7 +16,9 @@
         var snippet = document.getElementById('{{ snippet_id }}-fx-default');
         snippet.addEventListener('show_snippet', function () {
           var buttons = snippet.getElementsByClassName('launch-default');
-          var snippet_text = document.getElementById('{{ snippet_id }}-text');
+          var snippet_text_default = document.getElementById('{{ snippet_id }}-text-default');
+          var snippet_text_not_default = document.getElementById('{{ snippet_id }}-text-not-default');
+          var snippet_text_success = document.getElementById('{{ snippet_id }}-text-success');
           var snippet_icon = document.getElementById('{{ snippet_id }}-icon');
           var poll_retry = 0;
           var check_default_timeout = undefined;
@@ -57,7 +61,10 @@
           }, 1000);
 
           function showDefaultContent () {
-              snippet_text.innerHTML = "{{ text_default|safe }}";
+              snippet_text_default.style.display = 'block';
+              snippet_text_not_default.style.display = 'none';
+              snippet_text_success.style.display = 'none';
+
               snippet_icon.src = "{{ icon_default }}";
 
               for (var i=0; i < buttons.length; i++) {
@@ -71,7 +78,10 @@
           }
 
           function showSuccessContent () {
-              snippet_text.innerHTML = "{{ text_default_success|safe }}";
+              snippet_text_default.style.display = 'none';
+              snippet_text_not_default.style.display = 'none';
+              snippet_text_success.style.display = 'block';
+
               snippet_icon.src = "{{ icon_default }}";
 
               for (var i=0; i < buttons.length; i++) {
@@ -85,7 +95,10 @@
           }
 
           function showNonDefaultContent () {
-              snippet_text.innerHTML = "{{ text_not_default|safe }}";
+              snippet_text_default.style.display='none';
+              snippet_text_not_default.style.display='block';
+              snippet_text_success.style.display='none';
+
               snippet_icon.src = "{{ icon_not_default }}";
 
               for (var i=0; i < buttons.length; i++) {
