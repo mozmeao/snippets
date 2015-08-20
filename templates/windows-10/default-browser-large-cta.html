@@ -1,0 +1,236 @@
+<style>
+
+  .button-flat-{{ snippet_id}} {
+    display: inline-block;
+    border-radius: 5px;
+    transition: all 0.25s linear 0s;
+    font-family: "Open Sans",sans-serif;
+    text-align: center;
+    padding: 9px 40px;
+    margin-bottom: 20px;
+    color: #FFF;
+    font-size: 0.875rem;
+    border: 2px solid #0d99d6;
+    cursor: pointer;
+    background: #0d99d6 none repeat scroll 0% 0%;
+  }
+
+  .button-flat-{{ snippet_id}}::after {
+      content: " \00bb";
+      white-space: nowrap;
+  }
+
+  .button-flat-{{ snippet_id}}:hover {
+    background: #F2F2F2 none repeat scroll 0% 0%;
+    color: #0d99d6;
+  }
+
+  .text-not-default-{{ snippet_id }} {
+    padding: 0px 45px;
+    padding-bottom: 20px;
+    line-height: 17px;
+  }
+
+</style>
+
+<div class="snippet" id="{{ snippet_id }}-fx-default">
+    <div id="{{ snippet_id }}-content-default" style="display:none;">
+      <a href="#" class="launch-default"><img class="icon" id="{{ snippet_id }}-icon"/></a>
+      <p id="{{ snippet_id }}-text-default" style="display:none;">{{ text_default|safe }}</p>
+      <p id="{{ snippet_id }}-text-success" style="display:none;">{{ text_default_success|safe }}</p>
+    </div>
+    <div id="{{ snippet_id }}-content-not-default" style="display:none;text-align: center;">
+      <div id="{{ snippet_id }}-text-not-default" class="text-not-default-{{ snippet_id }}">{{ text_not_default|safe }}</div>
+      <a href="#" class="launch-default button-flat-{{ snippet_id}}">{{ cta_text|safe }}</a>
+    </div>
+
+    <script type="text/javascript">
+      //<![CDATA[
+
+      (function() {
+        var snippet = document.getElementById('{{ snippet_id }}-fx-default');
+        snippet.addEventListener('show_snippet', function () {
+          var buttons = snippet.getElementsByClassName('launch-default');
+          var snippet_content_default = document.getElementById('{{ snippet_id }}-content-default');
+          var snippet_content_not_default = document.getElementById('{{ snippet_id }}-content-not-default');
+          var snippet_text_default = document.getElementById('{{ snippet_id }}-text-default');
+          var snippet_text_success = document.getElementById('{{ snippet_id }}-text-success');
+          var snippet_icon = document.getElementById('{{ snippet_id }}-icon');
+
+          var poll_retry = 0;
+          var check_default_timeout = undefined;
+          var is_firefox_default = undefined;
+          var cta_clicked = false;
+
+          isDefault(function yesDefault () {
+            sendMetric('impression-is-default');
+            showDefaultContent();
+            is_firefox_default = true;
+          }, function noDefault () {
+            sendMetric('impression-is-not-default');
+            showNonDefaultContent();
+            is_firefox_default = false;
+          });
+
+          var check_default_timeout = window.setInterval(function () {
+            if (poll_retry > 500) {
+              clearInterval(check_default_timeout);
+            }
+            poll_retry++;
+            isDefault(function yesDefault () {
+              //Default has switched while the snippet is opened
+              if (is_firefox_default !== true) {
+                showSuccessContent();
+                is_firefox_default = true;
+                if (cta_clicked === true) {
+                  sendMetric('conversion-is-default-changed-after-click');
+                } else {
+                  sendMetric('conversion-is-default-changed-without-click');
+                }
+                clearInterval(check_default_timeout);
+              }
+            }, function noDefault () {
+              if (is_firefox_default !== false) {
+                showNonDefaultContent();
+                is_firefox_default = false;
+              }
+            });
+          }, 1000);
+
+          function showDefaultContent () {
+              snippet_text_default.style.display = 'block';
+              snippet_text_success.style.display = 'none';
+              snippet_content_default.style.display = 'block';
+              snippet_content_not_default.style.display = 'none';
+              snippet_icon.src = '{{ icon }}';
+
+              for (var i=0; i < buttons.length; i++) {
+                buttons[i].addEventListener('click', function (e) {
+                  e.preventDefault();
+                  sendMetric('conversion-is-default-click', function () {
+                    window.location = '{{ url_default|safe }}';
+                  });
+                }, false);
+              }
+          }
+
+          function showSuccessContent () {
+              snippet_text_default.style.display = 'none';
+              snippet_text_success.style.display = 'block';
+              snippet_content_default.style.display = 'block';
+              snippet_content_not_default.style.display = 'none';
+              snippet_icon.src = '{{ icon }}';
+
+              for (var i=0; i < buttons.length; i++) {
+                buttons[i].addEventListener('click', function (e) {
+                  e.preventDefault();
+                  sendMetric('conversion-is-default-click', function () {
+                    window.location = '{{ url_default|safe }}';
+                  });
+                }, false);
+              }
+          }
+
+          function showNonDefaultContent () {
+              snippet_content_default.style.display = 'none';
+              snippet_content_not_default.style.display = 'block';
+
+              for (var i=0; i < buttons.length; i++) {
+                buttons[i].addEventListener('click', function (e) {
+                  e.preventDefault();
+                  Mozilla.UITour.setConfiguration('defaultBrowser');
+                  sendMetric('conversion-is-not-default-click');
+                  cta_clicked = true;
+                }, false);
+              }    
+          }
+
+        }, false);
+
+        // create namespace
+        if (typeof Mozilla == 'undefined') {
+          var Mozilla = {};
+        }
+
+        'use strict';
+
+        // create namespace
+        if (typeof Mozilla.UITour == 'undefined') {
+          Mozilla.UITour = {};
+        }
+
+        var notificationListener = null;
+
+        function _notificationListener (event) {
+          if (typeof event.detail != 'object')
+            return;
+          if (typeof notificationListener != 'function')
+            return;
+
+          notificationListener(event.detail.event, event.detail.params);
+        }
+
+        function _sendEvent (action, data) {
+          var event = new CustomEvent('mozUITour', {
+            bubbles: true,
+            detail: {
+              action: action,
+              data: data || {}
+            }
+          });
+
+          document.dispatchEvent(event);
+        }
+
+        function _generateCallbackID () {
+          return Math.random().toString(36).replace(/[^a-z]+/g, '');
+        }
+
+        function _waitForCallback (callback) {
+          var id = _generateCallbackID();
+
+          function listener (event) {
+            if (typeof event.detail != 'object')
+              return;
+            if (event.detail.callbackID != id)
+              return;
+
+            document.removeEventListener('mozUITourResponse', listener);
+            callback(event.detail.data);
+          }
+          document.addEventListener('mozUITourResponse', listener);
+
+          return id;
+        }
+
+        Mozilla.UITour.getConfiguration = function(configName, callback) {
+          _sendEvent('getConfiguration', {
+            callbackID: _waitForCallback(callback),
+            configuration: configName,
+          });
+        };
+
+        Mozilla.UITour.setConfiguration = function(configName, configValue) {
+            _sendEvent('setConfiguration', {
+                configuration: configName,
+                value: configValue
+            });
+        };
+
+        function isDefault (yesDefault, noDefault) {
+          Mozilla.UITour.getConfiguration('appinfo', function(config) {
+              if (config && config.defaultBrowser === true) {
+                  yesDefault();
+              } else if (config && config.defaultBrowser === false) {
+                  noDefault();
+              } else {
+                  yesDefault();
+              }
+          });
+        }
+        
+      })();
+
+      //]]>
+  </script>
+</div>
