@@ -24,16 +24,16 @@
        z-index: -10;
        border-radius: 9pt;
        visibility: hidden;
-       border: solid 0pt white;
-       box-shadow: 0pt 0pt 0pt white;
+       border: solid 0 white;
+       box-shadow: 0 0 0 white;
    }
  {% endif %}
 
  {% if clickable %}
    .block-snippet-overlay-glow-{{ snippet_id }} {
        visibility: visible;
-       border: solid 2pt white;
-       box-shadow: 0pt 0pt 10pt #7ac1f9;
+       border: 2pt solid  white;
+       box-shadow: 0 0 10pt #7ac1f9;
    }
 
    #snippet-{{ snippet_id }}:hover {
@@ -74,8 +74,8 @@
    .block-snippet-overlay-close-{{ snippet_id }} {
      visibility: visible;
      background-color: #eaeaea;
-     border: solid 0pt white;
-     box-shadow: 0pt 0pt 0pt white;
+     border: solid 0 white;
+     box-shadow: 0 0 0 white;
    }
  {% endif %}
 </style>
@@ -141,7 +141,7 @@
           brandLogo.insertAdjacentHTML(
             'afterbegin', '<div class="block-snippet-button block-snippet-button-{{ snippet_id }}"></div>');
 
-          var xbuttons = document.getElementsByClassName('block-snippet-button-{{ snippet_id }}');
+          var xbuttons = document.querySelectorAll('.block-snippet-button-{{ snippet_id }}');
           var mouseover = function(event) {
               overlay.classList.add('block-snippet-overlay-close-{{ snippet_id }}');
               brandLogo.style.opacity = 0.6;
@@ -150,7 +150,7 @@
               overlay.classList.remove('block-snippet-overlay-close-{{ snippet_id }}');
               brandLogo.style.opacity = 1;
           };
-          for (var k=0; k < xbuttons.length; k++) {
+          for (var k = 0, l = xbuttons.length; k < l; k++) {
               var xbutton = xbuttons[k];
               xbutton.addEventListener('mouseover', mouseover, false)
               xbutton.addEventListener('mouseout', mouseout, false);
