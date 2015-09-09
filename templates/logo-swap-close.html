@@ -132,7 +132,7 @@
             overlay.classList.remove('block-snippet-overlay-glow-{{ snippet_id }}');
           });
           snippet.addEventListener('click', function () {
-              var links = snippet.getElementsByTagName('a');
+              var links = snippet.querySelectorAll('a');
               if (links.length) {
                   links[0].click();
               }
