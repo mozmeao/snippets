@@ -1,0 +1,327 @@
+<div class="snippet" id="mofo-eoy-fundraiser-{{ snippet_id }}">
+  <style type="text/css">
+      #mofo-eoy-fundraiser-{{ snippet_id }} {
+        position: relative;
+        margin: 0 auto 20px;
+        font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} button::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} p {
+        font-size: 14px;
+        line-height: 21px;
+        margin: 0 20px 20px 5px;
+        display: block;
+        height: auto;
+        padding: 0;
+        width: auto;
+        color: {{ fontColor|default("inherit", true) }};
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} em {
+        transition: background 800ms linear;
+        font-style: normal;
+        box-decoration-break: clone;
+        margin: 0px -5px;
+        padding: 2px 5px;
+        font-weight: bold;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} em.active {
+        background: {{ highlightColor|default("#FFF8D0", true) }};
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button {
+        margin: 0 8px 0 0;
+        width: 57px;
+        height: 38px;
+        text-align: center;
+        padding: 7px 0 9px;
+        text-decoration: none;
+        word-spacing: -1px;
+        color: rgb(255, 255, 255);
+        font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-size: 20px;
+        line-height: 1;
+        text-shadow: 0 1px 0 rgba(135, 136, 136, 0.53);
+        background-color: #A7AAB3;
+        box-sizing: border-box;
+        background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+        float: left;
+        border: 1px solid rgba(151, 152, 152, 0.9);
+        border-radius: 2px;
+        box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 0px 0px 1px rgba(255, 255, 255, 0.1) inset, 0px 1px 0px rgba(23, 51, 78, 0.03), 0px 0px 4px rgba(0, 57, 102, 0.2);
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button:hover {
+        cursor: pointer;
+        background-color: #B3B6BF;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button.button-red {
+        border: 1px solid rgba(230, 69, 61, 0.5);
+        background-color: #F65E6C;
+        margin: 0;
+      }
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button.button-red:hover {
+        background-color: #FF7B87;
+      }
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button-wide {
+        width: 170px;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .monthly-checkbox-container {
+        overflow: hidden;
+        margin: 11px 0 0;
+        font-size: 12px;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .monthly-checkbox {
+        float: left;
+        margin: 2px 5px 0 0;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .monthly-checkbox-label {
+        float: left;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button.button-selected {
+        background-color: #49AFFD;
+        border: 1px solid rgba(75, 172, 238, 0.9);
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .background-container {
+        background: #EAEAEA;
+        padding: 18px 20px 11px;
+        border-radius: 4px;
+        position: relative;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .donation-amounts {
+        overflow: hidden;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .donate-button.background-animate1 {
+        animation: 1s ease 1s alternate none 2 running background-color-first-{{ snippet_id }}, 1s ease 3s alternate none infinite running background-color-infinite-{{ snippet_id }};
+        background-color: #960900;
+        border-color: rgba(230, 69, 61, 0.1);
+        box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3) inset;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .donate-button.background-animate2 {
+        animation: 1s ease 1s alternate none infinite running background-color-first-{{ snippet_id }};
+        background-color: #960900;
+        border-color: rgba(230, 69, 61, 0.1);
+        box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3) inset;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .image-container {
+        right: 100%;
+        bottom: 0;
+        margin-right: -12px;
+        position: absolute;
+      }
+
+      @keyframes background-color-first-{{ snippet_id }} {
+        0% {
+          background-color: #960900;
+          border-color: rgba(230, 69, 61, 0.1);
+          box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3) inset;
+        }
+        100% {
+          background-color: #FF0000;
+          border-color: rgba(230, 69, 61, 0.5);
+          box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.65) inset;
+        }
+      }
+
+      @keyframes background-color-infinite-{{ snippet_id }} {
+        0% {
+          background-color: #960900;
+        }
+        100% {
+          background-color: #C10000;
+        }
+      }
+
+      body.background-{{ snippet_id }} {
+        background: {{ backgroundColor|default("inherit", true) }};
+      }
+
+      body.background-{{ snippet_id }} #launcher {
+        background-color: #EAEAEA;
+      }
+
+
+    {% if blockable %}
+      #xbutton-{{ snippet_id }} {
+         cursor: pointer;
+         border: none;
+         position: absolute;
+         right: 0;
+         top: 0;
+         z-index: 10;
+         opacity: 0;
+         height: 20px;
+         width: 20px;
+         background-color: rgba(0,0,0,0);
+         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAeFBMVEUAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAAAAAAAAADDw8OQkJAAAAAAAAAAAAAAAAD9/f38/Pz6+vr5+fnt7e3i4uLd3d3Z2dmgoKBdXV0mJibv7++amprNzc2amprv7+////9zc3OwsLD29vaPj4+xsbHCwsLBwcHrzmRyAAAAIHRSTlMABAg9HhEMNxkir38xLCkV/Pr39OHTzceOYUrliLuJ5ik+KlgAAAGhSURBVEjHnZbrdoIwDIAXWii3UuV+0wV0+v5vOEBH2ajg8v3y6PlO2pgm+TAAYD0B+HgDsBxbuXzCVbZj7VgAju16USjYhAgjz7WdrVjgKC5FHfh5kxwOSZP7QS0kVw68PJLNJQuKIy44FgGT3LbAHMKNWJviirRlkWsKNIQIqwyNZFU4BFobnihjfEFcCm92tMF83MBnfxwYjBNuchocWN6cCx938AVf5MBywxJ3KUPX0seKqnhfiavIhvlYLMM3yNjP0UDJFmcuN/zF7aI/t1I9lCFIqo1r1y+Nr+6qnXQI87iJDJZGNzra6JZOIG2Y0iWK+bt7N9JrY+Q+/1yIKWmOVy9qt3862lgGPdaeM2U4QDQ52tAEY55BhT4aHS1r/FDBeJUcTY7JwHy8jMVZgybHZGDD+KQkuHbMBiZP5YBrx2zggaCQDka5PiHJhL9yq2B6c8FslmVvKsud4u8Nxb/3xPr1E9t9yP3qIf+vXZylAkJTIrQ+QoMltHHCsCCMJMLgo49XPcTPpiF+1kOcsCrsLSSfeiGhrj305Yqwwn0Dwi/I5rQKpwMAAAAASUVORK5CYII=");
+         background-repeat: no-repeat;
+         background-size: 20px 20px;
+      }
+      #xbutton-{{ snippet_id }}:hover {
+         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAABAQEAAACQkJAAAADDw8P9/f38/Pz6+vr5+fni4uLZ2dmgoKCampomJibv7+/d3d3ExMRcXFzt7e3t7e3Nzc0AAABeXl7c3Nzv7+/////DOzLdkYz78/LlqaXPYlveko1iPwM8AAAAInRSTlMACwceOhcRBCo+NH8ir/z69/TTx46ISuXNsGHh4LskYszmffUm0QAAAbBJREFUSMelluuSgjAMRrdtegW84/22AXXf/wlXcNzAGEC755fjeCYfmDb5YrBWihpp7dcbWCmM1qpGa3PX3vh96kIAfwdCcOmAJYVWDpZJdl5NR6Pp6pwlS3BKC9lVQhjlfDIfY4PxPPFOGWE7SjjI9/jCPgfHFpJGhe0MWWbboIx8NVJYTLCDyQLSp0PGETLsIYPj06EaB+zl0K5jhYINDrAB1XhvQocFDrIIWlAst50MK5OtM5JizfANZn/RpHY5fX+5YovrhT7nTj/KCOX3ZNyKsmn8FDdydl6JOpdxSdMoKoeMoukkztg6F8wpRlFRklFBUedQJxPpstG7JTm10S46XqaCcjEOGe1kVocMWYdkIgvaVo+yRs7hDFxXDyMUrJBzOANXoMRd8VNkHTKIqX8oI2QdMohRjBIVLOLxI15yxF/Z1zAl3zC9bVlybTnQ/CXT/ENHrGSO2OMg7zoPcvlykCOui88upXsR+9nVd3JGRlywEdd4xLCIGEnRg4/G66lrvJ6q8coPcZ/vuCHuaYjHrQr8QrKuF5Lv9YYWkqG1Bx5rD9Da87/lKmKF+wUdVNNtsJwP7gAAAABJRU5ErkJggg==");
+      }
+      #xbutton-{{ snippet_id }}:active {
+         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAABAQEAAAAAAAAAAAD9/f3Dw8MAAAAAAACRkZH6+vr5+fnv7+/i4uLd3d3Z2dmgoKBdXV0mJiYAAAAAAACPj4/t7e3t7e2ampoAAACamprOzs7MzMyYmJj///8QEBB5eXnw8PCWlpZAQEB2Ec74AAAAI3RSTlMABgseOio+GRA0+68iEn/39OXTzceOYUoWFX/h4Igjiby5hsu+k6AAAAGoSURBVEjHnZbpYoIwEISbZEMIl8oNam27eLz/E9YY22DdgmR+efAxGxJ2540SY/wmxog/ycvDVombVBvOY4ynKpFaQ3AVaC0TlXI2CXRCQtPHxWYdRetNEWcNSNFZiHYQMsjKCEeKyiyQwjiRhJKw3+GTdl8gFcWwUOg6R1J5rUXInokEqhX+o1UFiWXGxDvEOKEY3i0z9vjESX08+jAurMe0j+CO4UpXOKtKK/5rksp6NY+sapmyHxMBOb6gHAS/m3Ry734/nfFB55P7vJcdu5sEO0dchuOYOA4Xx2wDwe8r6cfEYBhHDGMms6thCkpXxmB0dISRK7UEZRCeNNHotpYhvhhFTWIqC01dBEMQiL0Mr3W1OkaCIQmMdcvMUgqkGIrAwiyGC9ggxVAEbkBwsytrJBiSwHVgkQgJhiQw8kG8CvNYvsdD9thKc2Cy1w9MJkOPY+l3+Fkqs4WvmNmZ7YIXeVm7OMiOLWxKxsSj9Xk0WI827jEsPEaSx+DzHq9uiAeHLTHED4Eb4lRU6P9Ghd5GhelAkhGBZDb2gI09QMQer3DlEeG+AWkO2NrlPO+kAAAAAElFTkSuQmCC");
+      }
+      #mofo-eoy-fundraiser-{{ snippet_id }}:hover #xbutton-{{ snippet_id }} {
+         opacity: 1;
+      }
+      #xbutton-{{ snippet_id }} + #block-snippet-overlay-{{ snippet_id }} {
+        opacity: 0;
+        transition: opacity 100ms linear;
+      }
+      #xbutton-{{ snippet_id }}:hover + #block-snippet-overlay-{{ snippet_id }} {
+        opacity: 0.03;
+        background-color: #000000;
+        box-shadow: 0pt 0pt 0pt white;
+        border: solid 0pt white;
+        position: absolute;
+        border-radius: 4px;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+      }
+    {% endif %}
+
+  </style>
+
+  <p>{{ text|safe }}</p>
+
+  <div class="background-container">
+
+    {% if thisReallyHelpsUsImage %}
+    <div class="image-container">
+      <img height="97" width="188" src="{{ thisReallyHelpsUsImage }}"/>
+    </div>
+    {% endif %}
+    <div class="donation-amounts">
+      <button class="button donation-amount donation-amount-first" data-amount="{{ donationAmountFirst }}">
+        {{ donationAmountFirst }} {{ currencySymbol|default("$", true) }}
+      </button>
+      <button class="button donation-amount donation-amount-second" data-amount="{{ donationAmountSecond }}">
+        {{ donationAmountSecond }} {{ currencySymbol|default("$", true) }}
+      </button>
+      <button class="button donation-amount donation-amount-third" data-amount="{{ donationAmountThird }}">
+        {{ donationAmountThird }} {{ currencySymbol|default("$", true) }}
+      </button>
+      <button class="button donation-amount donation-amount-fourth" data-amount="{{ donationAmountFourth }}">
+        {{ donationAmountFourth }} {{ currencySymbol|default("$", true) }}
+      </button>
+
+      <a class="button button-red button-wide donate-button  {{ buttonAnimate|default("", true) }}" target="_blank" href="#">
+        {{ donateButtonText }}
+      </a>
+    </div>
+    <div class="monthly-checkbox-container">
+      <input id="monthly-checkbox" class="monthly-checkbox" type="checkbox"/>
+      <label for="monthly-checkbox" class="monthly-checkbox-label">
+        {{ monthlyCheckboxLabelText }}
+      </label>
+    </div>
+  </div>
+
+  {% if blockable %}
+    <button title="{{ closeButtonTitle }}" class="block-snippet-button" id="xbutton-{{ snippet_id }}"></button>
+    <div id="block-snippet-overlay-{{ snippet_id }}"></div>
+  {% endif %}
+
+
+  <script type="text/javascript">
+      //<![CDATA[
+      (function() {
+          var snippet = document.getElementById('mofo-eoy-fundraiser-{{ snippet_id }}');
+          snippet.addEventListener('show_snippet', function() {
+              (function () {
+                document.querySelector("body").classList.add("background-{{ snippet_id }}");
+                var donationURL = '{{ donationFormURL }}';
+                var currencyCode = '{{ currencyCode|default('usd', true) }}';
+                var extraParams = 'snippet_name={{ snippet_id }}';
+
+                // Element cache :
+
+                var btnAmounts = snippet.querySelectorAll('.donation-amount');
+                var btnSelected;
+                var amount;
+                var btnDonate = snippet.querySelector('.donate-button');
+                var elHighlighted = snippet.querySelector('em');
+                var monthlyCheckbox = document.querySelector('#monthly-checkbox');
+                var frequency = "";
+
+                function updateFrequency() {
+                  frequency = "single";
+                  if (monthlyCheckbox.checked) {
+                    frequency = 'monthly';
+                  }
+                  updateLink();
+                }
+                updateFrequency();
+
+                // View functions
+
+                function selectAmount(element) {
+                  if (!element) {
+                    return;
+                  }
+                  element.classList.add('button-selected');
+                  if (btnSelected) {
+                    btnSelected.classList.remove('button-selected');
+                  }
+                  btnSelected = element;
+                  amount = element.attributes['data-amount'].value;
+                  updateLink();
+                }
+
+                var selected = "{{ selectedButton|default("donation-amount-second", true) }}";
+                selectAmount(snippet.querySelector("." + selected));
+
+                function updateLink() {
+                  btnDonate.attributes['href'].value = donationURL + '?amount=' + amount + "&frequency=" + frequency + "&currency=" + currencyCode + '&snippet_name={{ snippet_id }}';
+                }
+                updateLink();
+
+                // Event binding :
+
+                for(var i=0; i<btnAmounts.length; i++) {
+                  btnAmounts[i].addEventListener('click', function (event) {
+                    if (!event.target.classList.contains('button-selected')) {
+                      selectAmount(event.target);
+                    }
+                  });
+                }
+                monthlyCheckbox.addEventListener('change', updateFrequency);
+
+                btnDonate.addEventListener('click', function (event) {
+                  btnDonate.blur();
+                });
+
+                // Fade in highlight on text
+                setTimeout(function() {
+                  if (elHighlighted) {
+                    elHighlighted.classList.add('active');
+                  }
+                }, 1000);
+
+              })();
+
+          }, false);
+      })();
+      //]]>
+  </script>
+</div>
