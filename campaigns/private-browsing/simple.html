@@ -1,0 +1,138 @@
+<style>
+  .snippet .icon {
+    top: 10px;
+  }
+
+ {% if clickable or blockable %}
+   #block-snippet-overlay-{{ snippet_id }} {
+       position: absolute;
+       height: 100%;
+       width: 100%;
+       left: 0px;
+       top: 0px;
+       padding-top: 5px;
+       padding-bottom: 5px;
+       z-index: -10;
+       border-radius: 9pt;
+       visibility: hidden;
+   }
+ {% endif %}
+
+ {% if clickable %}
+   #simple-snippet-{{ snippet_id }}:hover > #block-snippet-overlay-{{ snippet_id }} {
+       visibility: visible;
+       border: solid 2pt white;
+       box-shadow: 0pt 0pt 10pt #7ac1f9;
+   }
+
+   #simple-snippet-{{ snippet_id }}:hover {
+       cursor: pointer;
+   }
+ {% endif %}
+
+ {% if blockable %}
+   #xbutton-{{ snippet_id }} {
+       float: right;
+       z-index: 10;
+       visibility: hidden;
+       height: 28px;
+       width: 28px;
+       margin-right: 5px;
+       margin-top: 5px;
+       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAeFBMVEUAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAAAAAAAAADDw8OQkJAAAAAAAAAAAAAAAAD9/f38/Pz6+vr5+fnt7e3i4uLd3d3Z2dmgoKBdXV0mJibv7++amprNzc2amprv7+////9zc3OwsLD29vaPj4+xsbHCwsLBwcHrzmRyAAAAIHRSTlMABAg9HhEMNxkir38xLCkV/Pr39OHTzceOYUrliLuJ5ik+KlgAAAGhSURBVEjHnZbrdoIwDIAXWii3UuV+0wV0+v5vOEBH2ajg8v3y6PlO2pgm+TAAYD0B+HgDsBxbuXzCVbZj7VgAju16USjYhAgjz7WdrVjgKC5FHfh5kxwOSZP7QS0kVw68PJLNJQuKIy44FgGT3LbAHMKNWJviirRlkWsKNIQIqwyNZFU4BFobnihjfEFcCm92tMF83MBnfxwYjBNuchocWN6cCx938AVf5MBywxJ3KUPX0seKqnhfiavIhvlYLMM3yNjP0UDJFmcuN/zF7aI/t1I9lCFIqo1r1y+Nr+6qnXQI87iJDJZGNzra6JZOIG2Y0iWK+bt7N9JrY+Q+/1yIKWmOVy9qt3862lgGPdaeM2U4QDQ52tAEY55BhT4aHS1r/FDBeJUcTY7JwHy8jMVZgybHZGDD+KQkuHbMBiZP5YBrx2zggaCQDka5PiHJhL9yq2B6c8FslmVvKsud4u8Nxb/3xPr1E9t9yP3qIf+vXZylAkJTIrQ+QoMltHHCsCCMJMLgo49XPcTPpiF+1kOcsCrsLSSfeiGhrj305Yqwwn0Dwi/I5rQKpwMAAAAASUVORK5CYII=");
+       background-repeat: no-repeat;
+       background-size: 28px 28px;
+   }
+   #xbutton-{{ snippet_id }}:hover {
+       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAABAQEAAACQkJAAAADDw8P9/f38/Pz6+vr5+fni4uLZ2dmgoKCampomJibv7+/d3d3ExMRcXFzt7e3t7e3Nzc0AAABeXl7c3Nzv7+/////DOzLdkYz78/LlqaXPYlveko1iPwM8AAAAInRSTlMACwceOhcRBCo+NH8ir/z69/TTx46ISuXNsGHh4LskYszmffUm0QAAAbBJREFUSMelluuSgjAMRrdtegW84/22AXXf/wlXcNzAGEC755fjeCYfmDb5YrBWihpp7dcbWCmM1qpGa3PX3vh96kIAfwdCcOmAJYVWDpZJdl5NR6Pp6pwlS3BKC9lVQhjlfDIfY4PxPPFOGWE7SjjI9/jCPgfHFpJGhe0MWWbboIx8NVJYTLCDyQLSp0PGETLsIYPj06EaB+zl0K5jhYINDrAB1XhvQocFDrIIWlAst50MK5OtM5JizfANZn/RpHY5fX+5YovrhT7nTj/KCOX3ZNyKsmn8FDdydl6JOpdxSdMoKoeMoukkztg6F8wpRlFRklFBUedQJxPpstG7JTm10S46XqaCcjEOGe1kVocMWYdkIgvaVo+yRs7hDFxXDyMUrJBzOANXoMRd8VNkHTKIqX8oI2QdMohRjBIVLOLxI15yxF/Z1zAl3zC9bVlybTnQ/CXT/ENHrGSO2OMg7zoPcvlykCOui88upXsR+9nVd3JGRlywEdd4xLCIGEnRg4/G66lrvJ6q8coPcZ/vuCHuaYjHrQr8QrKuF5Lv9YYWkqG1Bx5rD9Da87/lKmKF+wUdVNNtsJwP7gAAAABJRU5ErkJggg==");
+   }
+   #xbutton-{{ snippet_id }}:active {
+       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAABAQEAAAAAAAAAAAD9/f3Dw8MAAAAAAACRkZH6+vr5+fnv7+/i4uLd3d3Z2dmgoKBdXV0mJiYAAAAAAACPj4/t7e3t7e2ampoAAACamprOzs7MzMyYmJj///8QEBB5eXnw8PCWlpZAQEB2Ec74AAAAI3RSTlMABgseOio+GRA0+68iEn/39OXTzceOYUoWFX/h4Igjiby5hsu+k6AAAAGoSURBVEjHnZbpYoIwEISbZEMIl8oNam27eLz/E9YY22DdgmR+efAxGxJ2540SY/wmxog/ycvDVombVBvOY4ynKpFaQ3AVaC0TlXI2CXRCQtPHxWYdRetNEWcNSNFZiHYQMsjKCEeKyiyQwjiRhJKw3+GTdl8gFcWwUOg6R1J5rUXInokEqhX+o1UFiWXGxDvEOKEY3i0z9vjESX08+jAurMe0j+CO4UpXOKtKK/5rksp6NY+sapmyHxMBOb6gHAS/m3Ry734/nfFB55P7vJcdu5sEO0dchuOYOA4Xx2wDwe8r6cfEYBhHDGMms6thCkpXxmB0dISRK7UEZRCeNNHotpYhvhhFTWIqC01dBEMQiL0Mr3W1OkaCIQmMdcvMUgqkGIrAwiyGC9ggxVAEbkBwsytrJBiSwHVgkQgJhiQw8kG8CvNYvsdD9thKc2Cy1w9MJkOPY+l3+Fkqs4WvmNmZ7YIXeVm7OMiOLWxKxsSj9Xk0WI827jEsPEaSx+DzHq9uiAeHLTHED4Eb4lRU6P9Ghd5GhelAkhGBZDb2gI09QMQer3DlEeG+AWkO2NrlPO+kAAAAAElFTkSuQmCC");
+   }
+   #simple-snippet-{{ snippet_id }}:hover > #xbutton-{{ snippet_id }} {
+       visibility: visible;
+   }
+   #xbutton-{{ snippet_id }}:hover + #block-snippet-overlay-{{ snippet_id }} {
+       visibility: visible;
+       background-color: #eaeaea;
+       box-shadow: 0pt 0pt 0pt white;
+       border: solid 0pt white;
+   }
+ {% endif %}
+</style>
+
+<div class="snippet" id="simple-snippet-{{ snippet_id }}">
+  {% if blockable %}
+    <div class="block-snippet-button" id="xbutton-{{ snippet_id }}">
+    </div>
+  {% endif %}
+  {% if blockable or clickable %}
+    <div id="block-snippet-overlay-{{ snippet_id }}">
+    </div>
+  {% endif %}
+  <a href="{{ icon_url|safe }}" class="launch-pb-{{ snippet_id }}">
+    <img class="icon" src="{{ icon }}" />
+  </a>
+  <p>{{ text|safe }}</p>
+</div>
+
+  <script type="text/javascript">
+   //<![CDATA[
+   (function() {
+       var snippet = document.getElementById('simple-snippet-{{ snippet_id }}');
+       snippet.addEventListener('show_snippet', function () {
+
+          var buttons = snippet.getElementsByClassName('launch-pb-{{ snippet_id }}');
+          
+          isTargetAvailable('privateWindow', function targetAvailable () {
+            sendMetric('impression-pb-available');
+            {% if clickable %}
+              snippet.addEventListener('click', function (e) {
+                e.preventDefault();
+                Mozilla.UITour.showHighlight('privateWindow','wobble');
+                sendMetric('conversion-pb-click');
+              });    
+            {% else %}
+              for (var i=0, k=buttons.length; i < k; i++) {
+                buttons[i].addEventListener('click', function (e) {
+                  e.preventDefault();
+                  Mozilla.UITour.showHighlight('privateWindow','wobble');
+                  sendMetric('conversion-pb-click');
+                }, false);
+              }
+            {% endif %}
+          }, function targetNotAvailable () {
+            sendMetric('impression-pb-not-available');
+            {% if clickable %}
+              snippet.addEventListener('click', function (e) {
+                e.preventDefault();
+                sendMetric('conversion-pb-not-available-click', function () {
+                  window.location = '{{ icon_url|safe }}';
+                });
+              });    
+            {% else %}
+              for (var i=0, k=buttons.length; i < k; i++) {
+                buttons[i].addEventListener('click', function (e) {
+                  e.preventDefault();
+                  sendMetric('conversion-pb-not-available-click', function () {
+                    window.location = '{{ icon_url|safe }}';
+                  });
+                }, false);
+              }
+            {% endif %}
+
+          });
+
+          function isTargetAvailable (target, targetAvailable, targetNotAvailable) {
+            Mozilla.UITour.getConfiguration('availableTargets', function(config) {
+              if (config.targets && config.targets.indexOf(target) > -1) {
+                targetAvailable();
+              } else {
+                targetNotAvailable();
+              }
+            });
+          }
+       });
+   })();
+   //]]>
+  </script>
