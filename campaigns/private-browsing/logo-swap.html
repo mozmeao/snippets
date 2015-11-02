@@ -120,7 +120,7 @@
           snippet.addEventListener('mouseout', function(e) {
             overlay.classList.remove('block-snippet-overlay-glow-{{ snippet_id }}');
           });
-          snippet.addEventListener('click', function () {
+          snippet.addEventListener('click', function (e) {
               var links = snippet.querySelectorAll('a');
               if (links.length) {
                   links[0].click();
@@ -148,45 +148,47 @@
           }
         {% endif %}
 
-        var buttons = snippet.getElementsByClassName('launch-pb-{{ snippet_id }}');
+        var buttons = snippet.querySelectorAll('.launch-pb-{{ snippet_id }}');
+        function chrome_action (e) {
+            if (e.target.className.indexOf("block-snippet-button") !== -1)
+                return;
+            e.preventDefault();
+            Mozilla.UITour.showHighlight('privateWindow','wobble');
+            sendMetric('conversion-pb-click');
+        };
 
-        isTargetAvailable('privateWindow', function targetAvailable () {
-          sendMetric('impression-pb-available');
-         for (var i=0, k=buttons.length; i < k; i++) {
-            buttons[i].addEventListener('click', function (e) {
-              e.preventDefault();
-              Mozilla.UITour.showHighlight('privateWindow','wobble');
-              sendMetric('conversion-pb-click');
-            }, false);
-          }
-          {% if logo_clickable %}
-            brandLogo.style.cursor = 'pointer';
-            brandLogo.addEventListener('click', function (e) {
-              e.preventDefault();
-              Mozilla.UITour.showHighlight('privateWindow','wobble');
-              sendMetric('conversion-pb-click');
-            }, false);
-          {% endif %}
-        }, function targetNotAvailable () {
-          sendMetric('impression-pb-not-available');
-          for (var i=0, k=buttons.length; i < k; i++) {
-            buttons[i].addEventListener('click', function (e) {
-              e.preventDefault();
-              sendMetric('conversion-pb-not-available-click', function () {
+        function fallback_action (e) {
+            if (e.target.className.indexOf("block-snippet-button") !== -1)
+                return;
+            e.preventDefault();
+            sendMetric('conversion-pb-not-available-click', function () {
                 window.location = '{{ fallback_url|safe }}';
-              });
-            }, false);
-          }
-          {% if logo_clickable %}
-            brandLogo.style.cursor = 'pointer';
-            brandLogo.addEventListener('click', function (e) {
-              e.preventDefault();
-              sendMetric('conversion-pb-not-available-click', function () {
-                window.location = '{{ fallback_url|safe }}';
-              });
-            }, false);
-          {% endif %}
-        });
+            });
+        };
+
+        isTargetAvailable(
+            'privateWindow',
+            function targetAvailable () {
+                sendMetric('impression-pb-available');
+                for (var i=0, k=buttons.length; i < k; i++) {
+                    buttons[i].addEventListener('click', chrome_action);
+                }
+                {% if logo_clickable %}
+                  brandLogo.style.cursor = 'pointer';
+                  brandLogo.addEventListener('click', chrome_action);
+                {% endif %}
+            },
+            function targetNotAvailable () {
+                sendMetric('impression-pb-not-available');
+                for (var i=0, k=buttons.length; i < k; i++) {
+                    buttons[i].addEventListener('click', fallback_action);
+                }
+                {% if logo_clickable %}
+                  brandLogo.style.cursor = 'pointer';
+                  brandLogo.addEventListener('click', fallback_action);
+                {% endif %}
+            }
+        );
 
         function isTargetAvailable (target, targetAvailable, targetNotAvailable) {
           Mozilla.UITour.getConfiguration('availableTargets', function(config) {
