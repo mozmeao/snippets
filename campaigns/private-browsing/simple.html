@@ -82,43 +82,41 @@
        var snippet = document.getElementById('simple-snippet-{{ snippet_id }}');
        snippet.addEventListener('show_snippet', function () {
 
-          var buttons = snippet.getElementsByClassName('launch-pb-{{ snippet_id }}');
-          
+          var buttons = snippet.querySelectorAll('.launch-pb-{{ snippet_id }}');
+
           isTargetAvailable('privateWindow', function targetAvailable () {
-            sendMetric('impression-pb-available');
-            {% if clickable %}
-              snippet.addEventListener('click', function (e) {
-                e.preventDefault();
-                Mozilla.UITour.showHighlight('privateWindow','wobble');
-                sendMetric('conversion-pb-click');
-              });    
-            {% else %}
+              sendMetric('impression-pb-available');
               for (var i=0, k=buttons.length; i < k; i++) {
-                buttons[i].addEventListener('click', function (e) {
-                  e.preventDefault();
-                  Mozilla.UITour.showHighlight('privateWindow','wobble');
-                  sendMetric('conversion-pb-click');
-                }, false);
+                  buttons[i].addEventListener('click', function (e) {
+                      e.preventDefault();
+                      Mozilla.UITour.showHighlight('privateWindow','wobble');
+                      sendMetric('conversion-pb-click');
+                  }, false);
               }
-            {% endif %}
-          }, function targetNotAvailable () {
-            sendMetric('impression-pb-not-available');
-            {% if clickable %}
-              snippet.addEventListener('click', function (e) {
-                e.preventDefault();
-                sendMetric('conversion-pb-not-available-click', function () {
-                  window.location = '{{ icon_url|safe }}';
+              {% if clickable %}
+                snippet.addEventListener('click', function (e) {
+                    if (e.target.className.indexOf("block-snippet-button") !== -1)
+                        return;
+                    buttons[0].click();
                 });
-              });    
-            {% else %}
+              {% endif %}
+          }, function targetNotAvailable () {
+              sendMetric('impression-pb-not-available');
               for (var i=0, k=buttons.length; i < k; i++) {
-                buttons[i].addEventListener('click', function (e) {
-                  e.preventDefault();
-                  sendMetric('conversion-pb-not-available-click', function () {
-                    window.location = '{{ icon_url|safe }}';
-                  });
-                }, false);
+                  buttons[i].addEventListener('click', function (e) {
+                      e.preventDefault();
+                      sendMetric('conversion-pb-not-available-click', function () {
+                          window.location = '{{ icon_url|safe }}';
+                      });
+                  }, false);
               }
+
+            {% if clickable %}
+              snippet.addEventListener('click', function (e) {
+                  if (e.target.className.indexOf("block-snippet-button") !== -1)
+                      return;
+                  buttons[0].click();
+              });
             {% endif %}
 
           });
