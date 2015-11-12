@@ -1,8 +1,10 @@
 <style>
-  .snippet .icon {
+/*
+#snippet-icon-{{ snippet_id }} {
     top: 10px;
   }
 
+*/
  {% if clickable or blockable %}
    #block-snippet-overlay-{{ snippet_id }} {
        position: absolute;
@@ -71,7 +73,7 @@
     </div>
   {% endif %}
   <a href="{{ icon_url|safe }}" class="launch-pb-{{ snippet_id }}">
-    <img class="icon" src="{{ icon }}" />
+    <img id="snippet-icon-{{ snippet_id }}" class="icon" src="{{ icon }}" />
   </a>
   <p>{{ text|safe }}</p>
 </div>

@@ -7,11 +7,11 @@
     height: {{ height|default(192, true) }}px;
     width: {{ width|default(192, true) }}px;
   }
-
-  .snippet .icon {
+/*
+  #snippet-icon-{{ snippet_id }} {
     top: 10px;
   }
-
+*/
  {% if clickable or blockable %}
    .block-snippet-overlay-{{ snippet_id }} {
        position: absolute;
@@ -91,7 +91,7 @@
     </div>
   {% endif %}
   <a href="{{ fallback_url|safe }}" class="launch-pb-{{ snippet_id }}">
-    <img class="icon" src="{{ icon }}" />
+    <img id="snippet-icon-{{ snippet_id }}" class="icon" src="{{ icon }}" />
   </a>
   <p>{{ text|safe }}</p>
 </div>
@@ -120,12 +120,6 @@
           snippet.addEventListener('mouseout', function(e) {
             overlay.classList.remove('block-snippet-overlay-glow-{{ snippet_id }}');
           });
-          snippet.addEventListener('click', function (e) {
-              var links = snippet.querySelectorAll('a');
-              if (links.length) {
-                  links[0].click();
-              }
-          });
         {% endif %}
 
         {% if blockable %}
@@ -153,6 +147,7 @@
             if (e.target.className.indexOf("block-snippet-button") !== -1)
                 return;
             e.preventDefault();
+            e.stopPropagation();
             Mozilla.UITour.showHighlight('privateWindow','wobble');
             sendMetric('conversion-pb-click');
         };
@@ -161,6 +156,7 @@
             if (e.target.className.indexOf("block-snippet-button") !== -1)
                 return;
             e.preventDefault();
+            e.stopPropagation();
             sendMetric('conversion-pb-not-available-click', function () {
                 window.location = '{{ fallback_url|safe }}';
             });
@@ -170,9 +166,17 @@
             'privateWindow',
             function targetAvailable () {
                 sendMetric('impression-pb-available');
-                for (var i=0, k=buttons.length; i < k; i++) {
-                    buttons[i].addEventListener('click', chrome_action);
-                }
+                {% if clickable %}
+                  snippet.addEventListener('click', function (e) {
+                      if (e.target.className.indexOf("block-snippet-button") !== -1)
+                          return;
+                      chrome_action(e);
+                  });
+                {% else %}
+                  for (var i=0, k=buttons.length; i < k; i++) {
+                      buttons[i].addEventListener('click', chrome_action);
+                  }
+                {% endif %}
                 {% if logo_clickable %}
                   brandLogo.style.cursor = 'pointer';
                   brandLogo.addEventListener('click', chrome_action);
@@ -180,9 +184,18 @@
             },
             function targetNotAvailable () {
                 sendMetric('impression-pb-not-available');
-                for (var i=0, k=buttons.length; i < k; i++) {
-                    buttons[i].addEventListener('click', fallback_action);
-                }
+
+                {% if clickable %}
+                  snippet.addEventListener('click', function (e) {
+                      if (e.target.className.indexOf("block-snippet-button") !== -1)
+                          return;
+                      fallback_action(e);
+                  });
+                {% else %}
+                  for (var i=0, k=buttons.length; i < k; i++) {
+                      buttons[i].addEventListener('click', fallback_action);
+                  }
+                {% endif %}
                 {% if logo_clickable %}
                   brandLogo.style.cursor = 'pointer';
                   brandLogo.addEventListener('click', fallback_action);
