@@ -230,18 +230,18 @@
 
   <section id="send-to-device-{{ snippet_id }}" class="logo title">
     <div class="form-container">
-      <h2 class="form-heading" id="welcome-header">
+      <h2 class="form-heading" id="welcome-header-{{ snippet_id }}">
         {{ header }}
       </h2>
-      <h2 class="thank-you hidden" id="thank-you-message">{{ thank_you_message }}</h2>
+      <h2 class="thank-you hidden" id="thank-you-message-{{ snippet_id }}">{{ thank_you_message }}</h2>
       <form id="send-to-device-form-{{ snippet_id }}" action="#" method="post">
-        <ul class="error-list hidden" id="error">
+        <ul class="error-list hidden" id="error-{{ snippet_id }}">
           <li>{{ error_message }}</li>
         </ul>
-        <ul class="error-list hidden" id="error-toomany">
+        <ul class="error-list hidden" id="error-toomany-{{ snippet_id }}">
           <li>Too many requests</li>
         </ul>
-        <div class="input" id="form-input">
+        <div class="input" id="form-input-{{ snippet_id }}">
           <div class="inline-field">
             <label id="form-input-label" for="id-input">{{ sub_header }}</label>
             <div class="form-input">
@@ -255,7 +255,7 @@
             {{ terms_footer|safe }}
           </div>
         </div>
-        <div class="thank-you hidden" id="thank-you-sub-message">
+        <div class="thank-you hidden" id="thank-you-sub-message-{{ snippet_id }}">
           <div>{{ thank_you_sub_message }}</div>
         </div>
       </form>
@@ -381,26 +381,26 @@
 
          function changeState (status) {
             if (status === 200) {
-              document.getElementById('welcome-header').style.display = 'none';
-              document.getElementById('thank-you-message').style.display = 'block';
-              document.getElementById('form-input').style.display = 'none';
-              document.getElementById('thank-you-sub-message').style.display = 'block';
-              document.getElementById('error').style.display = 'none';
-              document.getElementById('error-toomany').style.display = 'none';
+              document.getElementById('welcome-header-{{ snippet_id }}').style.display = 'none';
+              document.getElementById('thank-you-message-{{ snippet_id }}').style.display = 'block';
+              document.getElementById('form-input-{{ snippet_id }}').style.display = 'none';
+              document.getElementById('thank-you-sub-message-{{ snippet_id }}').style.display = 'block';
+              document.getElementById('error-{{ snippet_id }}').style.display = 'none';
+              document.getElementById('error-toomany-{{ snippet_id }}').style.display = 'none';
             } else if (status === 429) {
-              document.getElementById('welcome-header').style.display = 'block';
-              document.getElementById('thank-you-message').style.display = 'none';
-              document.getElementById('form-input').style.display = 'block';
-              document.getElementById('thank-you-sub-message').style.display = 'none';
-              document.getElementById('error').style.display = 'none';
-              document.getElementById('error-toomany').style.display = 'block';
+              document.getElementById('welcome-header-{{ snippet_id }}').style.display = 'block';
+              document.getElementById('thank-you-message-{{ snippet_id }}').style.display = 'none';
+              document.getElementById('form-input-{{ snippet_id }}').style.display = 'block';
+              document.getElementById('thank-you-sub-message-{{ snippet_id }}').style.display = 'none';
+              document.getElementById('error-{{ snippet_id }}').style.display = 'none';
+              document.getElementById('error-toomany-{{ snippet_id }}').style.display = 'block';
             } else {
-              document.getElementById('welcome-header').style.display = 'block';
-              document.getElementById('thank-you-message').style.display = 'none';
-              document.getElementById('form-input').style.display = 'block';
-              document.getElementById('thank-you-sub-message').style.display = 'none';
-              document.getElementById('error').style.display = 'block';
-              document.getElementById('error-toomany').style.display = 'none';
+              document.getElementById('welcome-header-{{ snippet_id }}').style.display = 'block';
+              document.getElementById('thank-you-message-{{ snippet_id }}').style.display = 'none';
+              document.getElementById('form-input-{{ snippet_id }}').style.display = 'block';
+              document.getElementById('thank-you-sub-message-{{ snippet_id }}').style.display = 'none';
+              document.getElementById('error-{{ snippet_id }}').style.display = 'block';
+              document.getElementById('error-toomany-{{ snippet_id }}').style.display = 'none';
             }
          }
      });
