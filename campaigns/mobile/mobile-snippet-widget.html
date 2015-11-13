@@ -300,14 +300,15 @@
          var form = document.getElementById('send-to-device-form-{{ snippet_id }}');
          button.addEventListener('click', function(event) {
              event.preventDefault();
+             changeState(000); //loading
              if (input_type === 'email') {
-                 sendMetric('conversion-mobile-activation-email', 
-                  function() { 
+                 sendMetric('conversion-mobile-activation-email',
+                  function() {
                       sendEmailToBasket();
                   });
              } else if (input_type === 'phone') {
-                 sendMetric('conversion-mobile-activation-sms', 
-                  function() { 
+                 sendMetric('conversion-mobile-activation-sms',
+                  function() {
                       sendSMSToBasket();
                   });
              }
@@ -366,7 +367,7 @@
               source_url = encodeURIComponent(source_url);
               var email = input.value;
               var params = 'newsletters=' + newsletters + '&source_url=' + source_url + '&lang=' + lang + '&email=' + email;
-              
+
               var request = new XMLHttpRequest();
 
               request.onreadystatechange = function() {
@@ -374,7 +375,7 @@
                     changeState(request.status);
                   }
               }
-              
+
               request.open('POST', url);
               request.send(params);
          }
@@ -387,6 +388,8 @@
               document.getElementById('thank-you-sub-message-{{ snippet_id }}').style.display = 'block';
               document.getElementById('error-{{ snippet_id }}').style.display = 'none';
               document.getElementById('error-toomany-{{ snippet_id }}').style.display = 'none';
+              button.disabled = true;
+              button.classList.add('insensitive');
             } else if (status === 429) {
               document.getElementById('welcome-header-{{ snippet_id }}').style.display = 'block';
               document.getElementById('thank-you-message-{{ snippet_id }}').style.display = 'none';
@@ -394,6 +397,12 @@
               document.getElementById('thank-you-sub-message-{{ snippet_id }}').style.display = 'none';
               document.getElementById('error-{{ snippet_id }}').style.display = 'none';
               document.getElementById('error-toomany-{{ snippet_id }}').style.display = 'block';
+              button.disabled = false;
+              button.classList.remove('insensitive');
+            } else if (status === 000) {
+            	//loading
+                button.disabled = true;
+                button.classList.add('insensitive');
             } else {
               document.getElementById('welcome-header-{{ snippet_id }}').style.display = 'block';
               document.getElementById('thank-you-message-{{ snippet_id }}').style.display = 'none';
@@ -401,6 +410,8 @@
               document.getElementById('thank-you-sub-message-{{ snippet_id }}').style.display = 'none';
               document.getElementById('error-{{ snippet_id }}').style.display = 'block';
               document.getElementById('error-toomany-{{ snippet_id }}').style.display = 'none';
+              button.disabled = false;
+              button.classList.remove('insensitive');
             }
          }
      });
