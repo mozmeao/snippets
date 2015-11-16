@@ -36,16 +36,20 @@
 {% endif %}
 
 {% if clickable %}
-  .block-snippet-overlay-glow-{{ snippet_id }} {
-      visibility: visible;
-      border: 2px solid  white;
-      box-shadow: 0 0 6px 2px #4CB1FF;
-      border-radius: 12px;
-  }
+ .block-snippet-overlay-glow-{{ snippet_id }} {
+     visibility: visible;
+     border: 2px solid  white;
+     box-shadow: 0 0 6px 2px #4CB1FF;
+     border-radius: 12px;
+ }
 
-  #simple-snippet-{{ snippet_id }}:hover {
-      cursor: pointer;
-  }
+ #simple-snippet-{{ snippet_id }}:hover {
+     cursor: pointer;
+ }
+
+ #global-link-{{ snippet_id }} {
+     color: unset;
+ }
 {% endif %}
 
 {% if blockable %}
@@ -81,33 +85,38 @@
       border-radius: 12px;
   }
 {% endif %}
+
 </style>
+{% if clickable %}
+<a id="global-link-{{ snippet_id }}" href="{{ icon_url | safe }}">
+{% endif %}
+  <div class="snippet" id="simple-snippet-{{ snippet_id }}">
+    {% if blockable or clickable %}
+      <div id="block-snippet-overlay-{{ snippet_id }}" class="block-snippet-overlay-{{ snippet_id }}">
+    {% endif %}
 
-<div class="snippet" id="simple-snippet-{{ snippet_id }}">
-  {% if blockable or clickable %}
-    <div id="block-snippet-overlay-{{ snippet_id }}" class="block-snippet-overlay-{{ snippet_id }}">
-  {% endif %}
+    {% if icon_url %}
+      <a href="{{ icon_url|safe }}">
+    {% endif %}
+          <img class="icon" src="{{ icon }}" />
+    {% if icon_url %}
+      </a>
+    {% endif %}
 
-  {% if icon_url %}
-    <a href="{{ icon_url|safe }}">
-  {% endif %}
-        <img class="icon" src="{{ icon }}" />
-  {% if icon_url %}
-    </a>
-  {% endif %}
+    <p>{{ text|safe }}</p>
 
-  <p>{{ text|safe }}</p>
+    {% if blockable or clickable %}
+      </div>
+    {% endif %}
 
-  {% if blockable or clickable %}
-    </div>
-  {% endif %}
-
-  {% if blockable %}
-    <button class="block-snippet-button" id="xbutton-{{ snippet_id }}">
-    </button>
-  {% endif %}
-</div>
-
+    {% if blockable %}
+      <button class="block-snippet-button" id="xbutton-{{ snippet_id }}">
+      </button>
+    {% endif %}
+  </div>
+{% if clickable %}
+  </a>
+{% endif %}
 <script type="text/javascript">
  //<![CDATA[
  (function() {
@@ -124,12 +133,6 @@
              overlay.classList.remove('block-snippet-overlay-glow-{{ snippet_id }}');
          });
 
-         snippet.addEventListener('click', function () {
-             var links = snippet.querySelectorAll('a');
-             if (links.length) {
-                 links[0].click();
-             }
-         });
          {% endif %}
 
          {% if blockable %}
