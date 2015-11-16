@@ -225,7 +225,7 @@
         {{ donationAmountFourth }} {{ currencySymbol|default("$", true) }}
       </button>
 
-      <a class="button button-red button-wide donate-button  {{ buttonAnimate|default("", true) }}" href="#">
+      <a class="button button-red button-wide donate-button  {% if buttonAnimate %} {{ buttonAnimate }} {% endif %}" href="#">
         {{ donateButtonText }}
       </a>
     </div>
