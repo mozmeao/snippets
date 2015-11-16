@@ -225,7 +225,7 @@
         {{ donationAmountFourth }} {{ currencySymbol|default("$", true) }}
       </button>
 
-      <a class="button button-red button-wide donate-button  {{ buttonAnimate|default("", true) }}" target="_blank" href="#">
+      <a class="button button-red button-wide donate-button  {{ buttonAnimate|default("", true) }}" href="#">
         {{ donateButtonText }}
       </a>
     </div>
@@ -250,15 +250,21 @@
           snippet.addEventListener('show_snippet', function() {
               (function () {
                 document.querySelector("body").classList.add("background-{{ snippet_id }}");
-                var donationURL = '{{ donationFormURL }}';
+                var donationURL = '{{ donationFormURL|safe }}';
                 var currencyCode = '{{ currencyCode|default('usd', true) }}';
                 var extraParams = 'snippet_name={{ snippet_id }}';
+                if (donationURL.indexOf('?') >= 0) {
+                    donationURL += '&' + extraParams;
+                } else {
+                    donationURL += '?' + extraParams;
+                }
 
                 // Element cache :
 
                 var btnAmounts = snippet.querySelectorAll('.donation-amount');
                 var btnSelected;
                 var amount;
+                var presets = '{{donationAmountFirst}},{{donationAmountSecond}},{{donationAmountThird}},{{donationAmountFourth}}';
                 var btnDonate = snippet.querySelector('.donate-button');
                 var elHighlighted = snippet.querySelector('em');
                 var monthlyCheckbox = document.querySelector('#monthly-checkbox');
@@ -292,7 +298,7 @@
                 selectAmount(snippet.querySelector("." + selected));
 
                 function updateLink() {
-                  btnDonate.attributes['href'].value = donationURL + '?amount=' + amount + "&frequency=" + frequency + "&currency=" + currencyCode + '&snippet_name={{ snippet_id }}';
+                  btnDonate.attributes['href'].value = donationURL + '&amount=' + amount + "&frequency=" + frequency + "&currency=" + currencyCode + '&presets=' + presets;
                 }
                 updateLink();
 
