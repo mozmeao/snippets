@@ -225,7 +225,7 @@
         {{ donationAmountFourth }} {{ currencySymbol|default("$", true) }}
       </button>
 
-      <a class="button button-red button-wide donate-button  {% if buttonAnimate %} {{ buttonAnimate }} {% endif %}" href="#">
+      <a class="button button-red button-wide donate-button  {% if buttonAnimate %} {{ buttonAnimate }} {% endif %}" href="{{ donationFormURL|safe }}">
         {{ donateButtonText }}
       </a>
     </div>
@@ -250,7 +250,8 @@
           snippet.addEventListener('show_snippet', function() {
               (function () {
                 document.querySelector("body").classList.add("background-{{ snippet_id }}");
-                var donationURL = '{{ donationFormURL|safe }}';
+                var btnDonate = snippet.querySelector('.donate-button');
+                var donationURL = btnDonate.attributes['href'].value;
                 var currencyCode = '{{ currencyCode|default('usd', true) }}';
                 var extraParams = 'snippet_name={{ snippet_id }}';
                 if (donationURL.indexOf('?') >= 0) {
@@ -265,7 +266,6 @@
                 var btnSelected;
                 var amount;
                 var presets = '{{donationAmountFirst}},{{donationAmountSecond}},{{donationAmountThird}},{{donationAmountFourth}}';
-                var btnDonate = snippet.querySelector('.donate-button');
                 var elHighlighted = snippet.querySelector('em');
                 var monthlyCheckbox = document.querySelector('#monthly-checkbox');
                 var frequency = "";
