@@ -37,7 +37,7 @@
 
       #mofo-eoy-fundraiser-{{ snippet_id }} .button {
         margin: 0 8px 0 0;
-        width: 57px;
+        width: 60px;
         height: 38px;
         text-align: center;
         padding: 7px 0 9px;
@@ -71,7 +71,7 @@
         background-color: #FF7B87;
       }
       #mofo-eoy-fundraiser-{{ snippet_id }} .button-wide {
-        width: 170px;
+        width: 158px;
       }
 
       #mofo-eoy-fundraiser-{{ snippet_id }} .monthly-checkbox-container {
@@ -212,18 +212,10 @@
     </div>
     {% endif %}
     <div class="donation-amounts">
-      <button class="button donation-amount donation-amount-first" data-amount="{{ donationAmountFirst }}">
-        {{ donationAmountFirst }} {{ currencySymbol|default("$", true) }}
-      </button>
-      <button class="button donation-amount donation-amount-second" data-amount="{{ donationAmountSecond }}">
-        {{ donationAmountSecond }} {{ currencySymbol|default("$", true) }}
-      </button>
-      <button class="button donation-amount donation-amount-third" data-amount="{{ donationAmountThird }}">
-        {{ donationAmountThird }} {{ currencySymbol|default("$", true) }}
-      </button>
-      <button class="button donation-amount donation-amount-fourth" data-amount="{{ donationAmountFourth }}">
-        {{ donationAmountFourth }} {{ currencySymbol|default("$", true) }}
-      </button>
+      <button class="button donation-amount donation-amount-first" data-amount="{{ donationAmountFirst }}"></button>
+      <button class="button donation-amount donation-amount-second" data-amount="{{ donationAmountSecond }}"></button>
+      <button class="button donation-amount donation-amount-third" data-amount="{{ donationAmountThird }}"></button>
+      <button class="button donation-amount donation-amount-fourth" data-amount="{{ donationAmountFourth }}"></button>
 
       <a class="button button-red button-wide donate-button  {% if buttonAnimate %} {{ buttonAnimate }} {% endif %}" href="{{ donationFormURL|safe }}">
         {{ donateButtonText }}
@@ -266,6 +258,15 @@
                 var btnSelected;
                 var amount;
                 var presets = '{{donationAmountFirst}},{{donationAmountSecond}},{{donationAmountThird}},{{donationAmountFourth}}';
+                var numberFormat = new Intl.NumberFormat('{{ locale|default("en-US", true) }}', {
+                  style:'currency',
+                  currency:'{{currencyCode}}',
+                  minimumFractionDigits: 0
+                });
+                document.querySelector('.donation-amount-first').textContent = numberFormat.format('{{donationAmountFirst}}');
+                document.querySelector('.donation-amount-second').textContent = numberFormat.format('{{donationAmountSecond}}');
+                document.querySelector('.donation-amount-third').textContent = numberFormat.format('{{donationAmountThird}}');
+                document.querySelector('.donation-amount-fourth').textContent = numberFormat.format('{{donationAmountFourth}}');
                 var elHighlighted = snippet.querySelector('em');
                 var monthlyCheckbox = document.querySelector('#monthly-checkbox');
                 var frequency = "";
