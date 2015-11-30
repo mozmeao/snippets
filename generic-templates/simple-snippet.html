@@ -28,7 +28,7 @@
 }
 
 {% if clickable or blockable %}
-  .block-snippet-overlay-{{ snippet_id }} {
+  .block-snippet-overlay {
       border: 2px solid transparent;
       height: 100%;
       width: 100%;
@@ -36,24 +36,24 @@
 {% endif %}
 
 {% if clickable %}
- .block-snippet-overlay-glow-{{ snippet_id }} {
+ .block-snippet-overlay-glow {
      visibility: visible;
      border: 2px solid  white;
      box-shadow: 0 0 6px 2px #4CB1FF;
      border-radius: 12px;
  }
 
- #simple-snippet-{{ snippet_id }}:hover {
+ #simple-snippet:hover {
      cursor: pointer;
  }
 
- #global-link-{{ snippet_id }} {
+ #global-link {
      color: unset;
  }
 {% endif %}
 
 {% if blockable %}
-  #xbutton-{{ snippet_id }} {
+  #xbutton {
       position: absolute;
       top: 5px;
       right: 0px;
@@ -67,17 +67,17 @@
       background-color: transparent;
       border: 0;
   }
-  #xbutton-{{ snippet_id }}:hover {
+  #xbutton:hover {
       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAABAQEAAACQkJAAAADDw8P9/f38/Pz6+vr5+fni4uLZ2dmgoKCampomJibv7+/d3d3ExMRcXFzt7e3t7e3Nzc0AAABeXl7c3Nzv7+/////DOzLdkYz78/LlqaXPYlveko1iPwM8AAAAInRSTlMACwceOhcRBCo+NH8ir/z69/TTx46ISuXNsGHh4LskYszmffUm0QAAAbBJREFUSMelluuSgjAMRrdtegW84/22AXXf/wlXcNzAGEC755fjeCYfmDb5YrBWihpp7dcbWCmM1qpGa3PX3vh96kIAfwdCcOmAJYVWDpZJdl5NR6Pp6pwlS3BKC9lVQhjlfDIfY4PxPPFOGWE7SjjI9/jCPgfHFpJGhe0MWWbboIx8NVJYTLCDyQLSp0PGETLsIYPj06EaB+zl0K5jhYINDrAB1XhvQocFDrIIWlAst50MK5OtM5JizfANZn/RpHY5fX+5YovrhT7nTj/KCOX3ZNyKsmn8FDdydl6JOpdxSdMoKoeMoukkztg6F8wpRlFRklFBUedQJxPpstG7JTm10S46XqaCcjEOGe1kVocMWYdkIgvaVo+yRs7hDFxXDyMUrJBzOANXoMRd8VNkHTKIqX8oI2QdMohRjBIVLOLxI15yxF/Z1zAl3zC9bVlybTnQ/CXT/ENHrGSO2OMg7zoPcvlykCOui88upXsR+9nVd3JGRlywEdd4xLCIGEnRg4/G66lrvJ6q8coPcZ/vuCHuaYjHrQr8QrKuF5Lv9YYWkqG1Bx5rD9Da87/lKmKF+wUdVNNtsJwP7gAAAABJRU5ErkJggg==");
   }
-  #xbutton-{{ snippet_id }}:active {
+  #xbutton:active {
       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAABAQEAAAAAAAAAAAD9/f3Dw8MAAAAAAACRkZH6+vr5+fnv7+/i4uLd3d3Z2dmgoKBdXV0mJiYAAAAAAACPj4/t7e3t7e2ampoAAACamprOzs7MzMyYmJj///8QEBB5eXnw8PCWlpZAQEB2Ec74AAAAI3RSTlMABgseOio+GRA0+68iEn/39OXTzceOYUoWFX/h4Igjiby5hsu+k6AAAAGoSURBVEjHnZbpYoIwEISbZEMIl8oNam27eLz/E9YY22DdgmR+efAxGxJ2540SY/wmxog/ycvDVombVBvOY4ynKpFaQ3AVaC0TlXI2CXRCQtPHxWYdRetNEWcNSNFZiHYQMsjKCEeKyiyQwjiRhJKw3+GTdl8gFcWwUOg6R1J5rUXInokEqhX+o1UFiWXGxDvEOKEY3i0z9vjESX08+jAurMe0j+CO4UpXOKtKK/5rksp6NY+sapmyHxMBOb6gHAS/m3Ry734/nfFB55P7vJcdu5sEO0dchuOYOA4Xx2wDwe8r6cfEYBhHDGMms6thCkpXxmB0dISRK7UEZRCeNNHotpYhvhhFTWIqC01dBEMQiL0Mr3W1OkaCIQmMdcvMUgqkGIrAwiyGC9ggxVAEbkBwsytrJBiSwHVgkQgJhiQw8kG8CvNYvsdD9thKc2Cy1w9MJkOPY+l3+Fkqs4WvmNmZ7YIXeVm7OMiOLWxKxsSj9Xk0WI827jEsPEaSx+DzHq9uiAeHLTHED4Eb4lRU6P9Ghd5GhelAkhGBZDb2gI09QMQer3DlEeG+AWkO2NrlPO+kAAAAAElFTkSuQmCC");
   }
-  #simple-snippet-{{ snippet_id }}:hover > #xbutton-{{ snippet_id }} {
+  #simple-snippet:hover > #xbutton {
       visibility: visible;
   }
 
-  .block-snippet-overlay-close-{{ snippet_id }} {
+  .block-snippet-overlay-close {
       visibility: visible;
       background-color: #eaeaea;
       border: 2px solid transparent;
@@ -88,11 +88,11 @@
 
 </style>
 {% if clickable %}
-<a id="global-link-{{ snippet_id }}" href="{{ icon_url | safe }}">
+<a id="global-link" href="{{ icon_url | safe }}">
 {% endif %}
-  <div class="snippet" id="simple-snippet-{{ snippet_id }}">
+  <div class="snippet" id="simple-snippet">
     {% if blockable or clickable %}
-      <div id="block-snippet-overlay-{{ snippet_id }}" class="block-snippet-overlay-{{ snippet_id }}">
+      <div id="block-snippet-overlay" class="block-snippet-overlay">
     {% endif %}
 
     {% if icon_url %}
@@ -110,7 +110,7 @@
     {% endif %}
 
     {% if blockable %}
-      <button class="block-snippet-button" id="xbutton-{{ snippet_id }}">
+      <button class="block-snippet-button" id="xbutton">
       </button>
     {% endif %}
   </div>
@@ -120,27 +120,27 @@
 <script type="text/javascript">
  //<![CDATA[
  (function() {
-     var snippet = document.getElementById('simple-snippet-{{ snippet_id }}');
+     var snippet = document.getElementById('simple-snippet');
      snippet.addEventListener('show_snippet', function () {
-         var overlay = document.getElementById('block-snippet-overlay-{{ snippet_id }}');
-         var xbutton = document.getElementById('xbutton-{{ snippet_id }}');
+         var overlay = document.getElementById('block-snippet-overlay');
+         var xbutton = document.getElementById('xbutton');
 
          {% if clickable %}
          snippet.addEventListener('mouseover', function(e) {
-             overlay.classList.add('block-snippet-overlay-glow-{{ snippet_id }}');
+             overlay.classList.add('block-snippet-overlay-glow');
          });
          snippet.addEventListener('mouseout', function(e) {
-             overlay.classList.remove('block-snippet-overlay-glow-{{ snippet_id }}');
+             overlay.classList.remove('block-snippet-overlay-glow');
          });
 
          {% endif %}
 
          {% if blockable %}
          var mouseover = function(event) {
-             overlay.classList.add('block-snippet-overlay-close-{{ snippet_id }}');
+             overlay.classList.add('block-snippet-overlay-close');
          };
          var mouseout = function(event) {
-             overlay.classList.remove('block-snippet-overlay-close-{{ snippet_id }}');
+             overlay.classList.remove('block-snippet-overlay-close');
          };
          xbutton.addEventListener('mouseover', mouseover, false);
          xbutton.addEventListener('mouseout', mouseout, false);
