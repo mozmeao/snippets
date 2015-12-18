@@ -47,14 +47,24 @@
         font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
         font-size: 20px;
         line-height: 1;
-        text-shadow: 0 1px 0 rgba(135, 136, 136, 0.53);
         background-color: #A7AAB3;
         box-sizing: border-box;
         background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
         float: left;
-        border: 1px solid rgba(151, 152, 152, 0.9);
+        border: none;
         border-radius: 2px;
-        box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 0px 0px 1px rgba(255, 255, 255, 0.1) inset, 0px 1px 0px rgba(23, 51, 78, 0.03), 0px 0px 4px rgba(0, 57, 102, 0.2);
+        position: relative;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button:before {
+        content: "";
+        position: absolute;
+        border-radius: 2px;
+        top: 1px;
+        right: 1px;
+        bottom: 1px;
+        left: 1px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
       }
 
       #mofo-eoy-fundraiser-{{ snippet_id }} .button:hover {
@@ -63,7 +73,6 @@
       }
 
       #mofo-eoy-fundraiser-{{ snippet_id }} .button.button-red {
-        border: 1px solid rgba(230, 69, 61, 0.5);
         background-color: #F65E6C;
         margin: 0;
       }
@@ -91,7 +100,6 @@
 
       #mofo-eoy-fundraiser-{{ snippet_id }} .button.button-selected {
         background-color: #49AFFD;
-        border: 1px solid rgba(75, 172, 238, 0.9);
       }
 
       #mofo-eoy-fundraiser-{{ snippet_id }} .background-container {
@@ -105,47 +113,11 @@
         overflow: hidden;
       }
 
-      #mofo-eoy-fundraiser-{{ snippet_id }} .donate-button.background-animate1 {
-        animation: 1s ease 1s alternate none 2 running background-color-first-{{ snippet_id }}, 1s ease 3s alternate none infinite running background-color-infinite-{{ snippet_id }};
-        background-color: #960900;
-        border-color: rgba(230, 69, 61, 0.1);
-        box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3) inset;
-      }
-
-      #mofo-eoy-fundraiser-{{ snippet_id }} .donate-button.background-animate2 {
-        animation: 1s ease 1s alternate none infinite running background-color-first-{{ snippet_id }};
-        background-color: #960900;
-        border-color: rgba(230, 69, 61, 0.1);
-        box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3) inset;
-      }
-
       #mofo-eoy-fundraiser-{{ snippet_id }} .image-container {
         right: 100%;
         bottom: 0;
         margin-right: -12px;
         position: absolute;
-      }
-
-      @keyframes background-color-first-{{ snippet_id }} {
-        0% {
-          background-color: #960900;
-          border-color: rgba(230, 69, 61, 0.1);
-          box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.3) inset;
-        }
-        100% {
-          background-color: #FF0000;
-          border-color: rgba(230, 69, 61, 0.5);
-          box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.65) inset;
-        }
-      }
-
-      @keyframes background-color-infinite-{{ snippet_id }} {
-        0% {
-          background-color: #960900;
-        }
-        100% {
-          background-color: #C10000;
-        }
       }
 
       body.background-{{ snippet_id }} {
@@ -217,7 +189,7 @@
       <button class="button donation-amount donation-amount-third" data-amount="{{ donationAmountThird }}"></button>
       <button class="button donation-amount donation-amount-fourth" data-amount="{{ donationAmountFourth }}"></button>
 
-      <a class="button button-red button-wide donate-button  {% if buttonAnimate %} {{ buttonAnimate }} {% endif %}" href="{{ donationFormURL|safe }}">
+      <a class="button button-red button-wide donate-button" href="{{ donationFormURL|safe }}">
         {{ donateButtonText }}
       </a>
     </div>
