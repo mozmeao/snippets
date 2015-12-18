@@ -1,0 +1,300 @@
+<div class="snippet" id="mofo-eoy-fundraiser-{{ snippet_id }}">
+  <style type="text/css">
+      #mofo-eoy-fundraiser-{{ snippet_id }} {
+        position: relative;
+        margin: 0 auto 20px;
+        font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} button::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} p {
+        font-size: 14px;
+        line-height: 21px;
+        display: block;
+        height: auto;
+        padding: 0;
+        width: 100%;
+        color: {{ fontColor|default("inherit", true) }};
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button {
+        margin: 0 8px 0 0;
+        width: 62px;
+        height: 38px;
+        text-align: center;
+        padding: 7px 0 9px;
+        text-decoration: none;
+        word-spacing: -1px;
+        color: rgb(255, 255, 255);
+        font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-size: 20px;
+        line-height: 1;
+        background-color: #A7AAB3;
+        box-sizing: border-box;
+        background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+        float: left;
+        border: none;
+        border-radius: 2px;
+        position: relative;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button:before {
+        content: "";
+        position: absolute;
+        border-radius: 2px;
+        top: 1px;
+        right: 1px;
+        bottom: 1px;
+        left: 1px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button:hover {
+        cursor: pointer;
+        background-color: #B3B6BF;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button.button-red {
+        background-color: #F65E6C;
+        margin: 0;
+      }
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button.button-red:hover {
+        background-color: #FF7B87;
+      }
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button-wide {
+        width: 190px;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .monthly-checkbox-container {
+        overflow: hidden;
+        margin: 11px 0 0;
+        font-size: 12px;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .monthly-checkbox {
+        float: left;
+        margin: 2px 5px 0 0;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .monthly-checkbox-label {
+        float: left;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .button.button-selected {
+        background-color: #49AFFD;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .background-container {
+        text-align: center;
+        padding: 30px 28px 27px;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .main-wrapper {
+        position: relative;
+        background-color: #FFFFFF;
+        color: #1A1A1A;
+        margin-left: -75px;
+        margin-right: -75px;
+        padding-bottom: 15px;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .donation-container {
+        width: 470px;
+        margin: 0 auto;
+      }
+      #mofo-eoy-fundraiser-{{ snippet_id }} .donation-amounts {
+        overflow: hidden;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .image-container {
+        right: 100%;
+        bottom: 0;
+        margin-right: -12px;
+        position: absolute;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} .header-text {
+        font-size: 20px;
+        line-height: 28px;
+      }
+      #mofo-eoy-fundraiser-{{ snippet_id }} .body-text {
+        font-size: 20px;
+        line-height: 28px;
+        font-weight: bold;
+      }
+
+      body.background-{{ snippet_id }} {
+        background: {{ backgroundColor|default("inherit", true) }};
+        background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4wLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCA0MTggMzAxIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0MTggMzAxIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxkZWZzPg0KCQk8cmVjdCBpZD0iU1ZHSURfMV8iIHdpZHRoPSI0MTgiIGhlaWdodD0iMzAxIi8+DQoJPC9kZWZzPg0KCTxjbGlwUGF0aCBpZD0iU1ZHSURfMl8iPg0KCQk8dXNlIHhsaW5rOmhyZWY9IiNTVkdJRF8xXyIgIG92ZXJmbG93PSJ2aXNpYmxlIi8+DQoJPC9jbGlwUGF0aD4NCgk8ZyBjbGlwLXBhdGg9InVybCgjU1ZHSURfMl8pIj4NCgkJPGc+DQoJCQk8cG9seWdvbiBmaWxsPSIjRjI2RTI1IiBwb2ludHM9IjE2OC43LDM0My44IDI5Ny41LDM1MiA0MTYuNSwzMDIuMSAzODEuMyw5OSAxMzQuNSwxNDAuNyAJCQkiLz4NCgkJCTxwb2x5Z29uIGZpbGw9IiNGMjZFMjUiIHBvaW50cz0iMzkzLjcsMTY4LjUgMzc0LjUsNTQuNiAzMTMuNywxMTAuNyAJCQkiLz4NCgkJCTxwb2x5Z29uIGZpbGw9IiNGMjZFMjUiIHBvaW50cz0iMTQ0LjgsMjAyLjUgMTM0LjEsMTM2LjQgMTI3LjYsOTYuNiAyMDIuMywxMzAuNCAJCQkiLz4NCgkJCTxwb2x5Z29uIGZpbGw9IiMyNzI3MjQiIHBvaW50cz0iMjcwLjcsMjcwLjggMjk3LjIsMjY2LjMgMzIyLjgsMjM0LjggMjUyLjMsMjQ2LjYgCQkJIi8+DQoJCQk8cGF0aCBmaWxsPSIjRUNERUNBIiBkPSJNMjcwLjcsMjcwLjhjLTEwLjEtNTkuOC03Mi45LTEzMS43LTEzNC45LTEyMS4zbDE4LjQsMTA5LjNMMjcwLjcsMjcwLjh6Ii8+DQoJCQk8cGF0aCBmaWxsPSIjRUNERUNBIiBzdHJva2U9IiNFQ0RFQ0EiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgZD0iTTI5OC4yLDI2Ni4zYy0xMC4xLTU5LjgsMjMuOS0xNDgsODUuMy0xNTguM2wxOC40LDEwOS4zDQoJCQkJTDI5OC4yLDI2Ni4zeiIvPg0KCQkJPGc+DQoJCQkJPHBhdGggZmlsbD0iIzI3MjcyNCIgZD0iTTE5My45LDIyNS41YzQuNCwzLjEsMTAuNSwyLjEsMTMuNi0yLjNjMy4xLTQuNCwyLjEtMTAuNS0yLjMtMTMuNmMtNC40LTMuMS0xMC41LTIuMS0xMy42LDIuMw0KCQkJCQlDMTg4LjUsMjE2LjMsMTg5LjUsMjIyLjQsMTkzLjksMjI1LjV6Ii8+DQoJCQkJPHBhdGggZmlsbD0iIzI3MjcyNCIgZD0iTTM1Ni45LDE5OC4xYy0zLjEsNC40LTkuMiw1LjQtMTMuNiwyLjNjLTQuNC0zLjEtNS40LTkuMi0yLjMtMTMuNmMzLjEtNC40LDkuMi01LjQsMTMuNi0yLjMNCgkJCQkJQzM1OSwxODcuNiwzNjAsMTkzLjcsMzU2LjksMTk4LjF6Ii8+DQoJCQk8L2c+DQoJCTwvZz4NCgkJPGc+DQoJCQk8cGF0aCBmaWxsPSIjMjcyNzI0IiBkPSJNMjE0LjMsMTU5LjFjMTIuNi0xMS40LDI0LjEtMjMuMSwzNC0zNC42YzE4LjctMjEuNywzMi00Mi42LDM4LjItNTkuNWM0LjItMTEuNSwzLjYtMjAuOC0xLTMzLjQNCgkJCQljLTAuMy0wLjctMC45LTEuMS0xLjUtMC43Yy0zLjIsMi4zLTExLjIsNy45LTEzLjgsOS41Yy0yLjQsMS40LTMyLjcsMjIuMi0zMi44LDIyLjFsLTE4LjgtMjAuOGMtMC4zLTAuNC0wLjctMC45LTEtMS4zDQoJCQkJYy0xNi40LTE4LjItNTcuNC03LjktOTEuNSwyM1M3Ny40LDEzMy45LDkzLjgsMTUyYzAuMywwLjMsMC42LDAuNiwwLjksMC45bDE5LjQsMjEuNGwtMzIuOSw0My4xYzEuMywxLjUsMi45LDIuNiw0LjcsMy41DQoJCQkJQzEwNy41LDIzMiwxNjIuMiwyMDYuMiwyMTQuMywxNTkuMXoiLz4NCgkJCTxwYXRoIGQ9Ik0yMTQuMywxNTkuMWMxMi42LTExLjQsMjQuMS0yMy4xLDM0LTM0LjZjMTguNy0yMS43LDMyLTQyLjYsMzguMi01OS41YzQuMi0xMS41LDMuNi0yMC44LTEtMzMuNA0KCQkJCWMtMC4zLTAuNy0wLjktMS4xLTEuNS0wLjdjLTMuMiwyLjMtMTEuMiw3LjktMTMuOCw5LjVjLTIuNCwxLjQtMzIuNywyMi4yLTMyLjgsMjIuMWwtMTguOC0yMC44Yy0wLjMtMC40LTAuNy0wLjktMS0xLjMNCgkJCQljLTE2LjQtMTguMi01Ny40LTcuOS05MS41LDIzUzc3LjQsMTMzLjksOTMuOCwxNTJjMC4zLDAuMywwLjYsMC42LDAuOSwwLjlsMTkuNCwyMS40bC0zMi45LDQzLjFjMS4zLDEuNSwyLjksMi42LDQuNywzLjUNCgkJCQlDMTA3LjUsMjMyLDE2Mi4yLDIwNi4yLDIxNC4zLDE1OS4xeiIvPg0KCQk8L2c+DQoJCTxnPg0KCQkJDQoJCQkJPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRjI2RTI1IiBzdHJva2Utd2lkdGg9IjM5LjY1NjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBkPSINCgkJCQlNMTE1LjksMzI4LjJjLTMuNy0xMi41LTUuMy0yNS44LTQuOC0zOS42bDItNDcuNiIvPg0KCQkJPHBhdGggZmlsbD0iI0VDREVDQSIgZD0iTTkyLjUsMjU4LjJsMS41LTM1LjVjMC40LTEwLjMsOS44LTE4LjcsMjAuOC0xOC44YzExLTAuMSwxOS42LDguMiwxOS4yLDE4LjVsLTEuNSwzNS41Ii8+DQoJCTwvZz4NCgk8L2c+DQo8L2c+DQo8L3N2Zz4NCg==);
+        background-repeat: no-repeat;
+        background-size: 300px 216px;
+        background-position: calc(50% + 425px) calc(100% - 118px);
+      }
+
+      body.background-{{ snippet_id }} #launcher {
+        background-color: #EAEAEA;
+      }
+
+    {% if blockable %}
+      #xbutton-{{ snippet_id }} {
+         cursor: pointer;
+         border: none;
+         margin-left: 10px;
+         opacity: 0;
+         height: 20px;
+         width: 20px;
+         background-color: rgba(0,0,0,0);
+         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAeFBMVEUAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAAAAAAAAADDw8OQkJAAAAAAAAAAAAAAAAD9/f38/Pz6+vr5+fnt7e3i4uLd3d3Z2dmgoKBdXV0mJibv7++amprNzc2amprv7+////9zc3OwsLD29vaPj4+xsbHCwsLBwcHrzmRyAAAAIHRSTlMABAg9HhEMNxkir38xLCkV/Pr39OHTzceOYUrliLuJ5ik+KlgAAAGhSURBVEjHnZbrdoIwDIAXWii3UuV+0wV0+v5vOEBH2ajg8v3y6PlO2pgm+TAAYD0B+HgDsBxbuXzCVbZj7VgAju16USjYhAgjz7WdrVjgKC5FHfh5kxwOSZP7QS0kVw68PJLNJQuKIy44FgGT3LbAHMKNWJviirRlkWsKNIQIqwyNZFU4BFobnihjfEFcCm92tMF83MBnfxwYjBNuchocWN6cCx938AVf5MBywxJ3KUPX0seKqnhfiavIhvlYLMM3yNjP0UDJFmcuN/zF7aI/t1I9lCFIqo1r1y+Nr+6qnXQI87iJDJZGNzra6JZOIG2Y0iWK+bt7N9JrY+Q+/1yIKWmOVy9qt3862lgGPdaeM2U4QDQ52tAEY55BhT4aHS1r/FDBeJUcTY7JwHy8jMVZgybHZGDD+KQkuHbMBiZP5YBrx2zggaCQDka5PiHJhL9yq2B6c8FslmVvKsud4u8Nxb/3xPr1E9t9yP3qIf+vXZylAkJTIrQ+QoMltHHCsCCMJMLgo49XPcTPpiF+1kOcsCrsLSSfeiGhrj305Yqwwn0Dwi/I5rQKpwMAAAAASUVORK5CYII=");
+         background-repeat: no-repeat;
+         background-size: 20px 20px;
+      }
+      #xbutton-{{ snippet_id }}:hover {
+         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAABAQEAAACQkJAAAADDw8P9/f38/Pz6+vr5+fni4uLZ2dmgoKCampomJibv7+/d3d3ExMRcXFzt7e3t7e3Nzc0AAABeXl7c3Nzv7+/////DOzLdkYz78/LlqaXPYlveko1iPwM8AAAAInRSTlMACwceOhcRBCo+NH8ir/z69/TTx46ISuXNsGHh4LskYszmffUm0QAAAbBJREFUSMelluuSgjAMRrdtegW84/22AXXf/wlXcNzAGEC755fjeCYfmDb5YrBWihpp7dcbWCmM1qpGa3PX3vh96kIAfwdCcOmAJYVWDpZJdl5NR6Pp6pwlS3BKC9lVQhjlfDIfY4PxPPFOGWE7SjjI9/jCPgfHFpJGhe0MWWbboIx8NVJYTLCDyQLSp0PGETLsIYPj06EaB+zl0K5jhYINDrAB1XhvQocFDrIIWlAst50MK5OtM5JizfANZn/RpHY5fX+5YovrhT7nTj/KCOX3ZNyKsmn8FDdydl6JOpdxSdMoKoeMoukkztg6F8wpRlFRklFBUedQJxPpstG7JTm10S46XqaCcjEOGe1kVocMWYdkIgvaVo+yRs7hDFxXDyMUrJBzOANXoMRd8VNkHTKIqX8oI2QdMohRjBIVLOLxI15yxF/Z1zAl3zC9bVlybTnQ/CXT/ENHrGSO2OMg7zoPcvlykCOui88upXsR+9nVd3JGRlywEdd4xLCIGEnRg4/G66lrvJ6q8coPcZ/vuCHuaYjHrQr8QrKuF5Lv9YYWkqG1Bx5rD9Da87/lKmKF+wUdVNNtsJwP7gAAAABJRU5ErkJggg==");
+      }
+      #xbutton-{{ snippet_id }}:active {
+         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAABAQEAAAAAAAAAAAD9/f3Dw8MAAAAAAACRkZH6+vr5+fnv7+/i4uLd3d3Z2dmgoKBdXV0mJiYAAAAAAACPj4/t7e3t7e2ampoAAACamprOzs7MzMyYmJj///8QEBB5eXnw8PCWlpZAQEB2Ec74AAAAI3RSTlMABgseOio+GRA0+68iEn/39OXTzceOYUoWFX/h4Igjiby5hsu+k6AAAAGoSURBVEjHnZbpYoIwEISbZEMIl8oNam27eLz/E9YY22DdgmR+efAxGxJ2540SY/wmxog/ycvDVombVBvOY4ynKpFaQ3AVaC0TlXI2CXRCQtPHxWYdRetNEWcNSNFZiHYQMsjKCEeKyiyQwjiRhJKw3+GTdl8gFcWwUOg6R1J5rUXInokEqhX+o1UFiWXGxDvEOKEY3i0z9vjESX08+jAurMe0j+CO4UpXOKtKK/5rksp6NY+sapmyHxMBOb6gHAS/m3Ry734/nfFB55P7vJcdu5sEO0dchuOYOA4Xx2wDwe8r6cfEYBhHDGMms6thCkpXxmB0dISRK7UEZRCeNNHotpYhvhhFTWIqC01dBEMQiL0Mr3W1OkaCIQmMdcvMUgqkGIrAwiyGC9ggxVAEbkBwsytrJBiSwHVgkQgJhiQw8kG8CvNYvsdD9thKc2Cy1w9MJkOPY+l3+Fkqs4WvmNmZ7YIXeVm7OMiOLWxKxsSj9Xk0WI827jEsPEaSx+DzHq9uiAeHLTHED4Eb4lRU6P9Ghd5GhelAkhGBZDb2gI09QMQer3DlEeG+AWkO2NrlPO+kAAAAAElFTkSuQmCC");
+      }
+      #mofo-eoy-fundraiser-{{ snippet_id }}:hover #xbutton-{{ snippet_id }} {
+         opacity: 1;
+      }
+      #mofo-eoy-fundraiser-{{ snippet_id }} #block-snippet-container-{{ snippet_id }} {
+        position: absolute;
+        width: 30px;
+        height: 100%;
+        top: 0;
+        right: -105px;
+      }
+    {% endif %}
+
+  </style>
+
+  <div class="main-wrapper">
+    <div class="background-container">
+      <div class="header-text">{{ headerText|safe }}</div>
+      <div class="body-text">{{ bodyText|safe }}</div>
+    </div>
+
+    <div class="donation-container">
+      {% if thisReallyHelpsUsImage %}
+      <div class="image-container">
+        <img height="97" width="188" src="{{ thisReallyHelpsUsImage }}"/>
+      </div>
+      {% endif %}
+      <div class="donation-amounts">
+        <button class="button donation-amount donation-amount-first" data-amount="{{ donationAmountFirst }}"></button>
+        <button class="button donation-amount donation-amount-second" data-amount="{{ donationAmountSecond }}"></button>
+        <button class="button donation-amount donation-amount-third" data-amount="{{ donationAmountThird }}"></button>
+        <button class="button donation-amount donation-amount-fourth" data-amount="{{ donationAmountFourth }}"></button>
+
+        <a class="button button-red button-wide donate-button" href="{{ donationFormURL|safe }}">
+          {{ donateButtonText }}
+        </a>
+      </div>
+      <div class="monthly-checkbox-container">
+        <input id="monthly-checkbox" class="monthly-checkbox" type="checkbox"/>
+        <label for="monthly-checkbox" class="monthly-checkbox-label">
+          {{ monthlyCheckboxLabelText }}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  {% if blockable %}
+    <div id="block-snippet-container-{{ snippet_id }}">
+      <button title="{{ closeButtonTitle }}" class="block-snippet-button" id="xbutton-{{ snippet_id }}"></button>
+    </div>
+  {% endif %}
+
+  <script type="text/javascript">
+      //<![CDATA[
+      (function() {
+          var snippet = document.getElementById('mofo-eoy-fundraiser-{{ snippet_id }}');
+          snippet.addEventListener('show_snippet', function() {
+              (function () {
+                document.querySelector("body").classList.add("background-{{ snippet_id }}");
+                var btnDonate = snippet.querySelector('.donate-button');
+                var donationURL = btnDonate.attributes['href'].value;
+                var currencyCode = '{{ currencyCode|default('usd', true) }}';
+                var extraParams = 'snippet_name={{ snippet_id }}';
+                if (donationURL.indexOf('?') >= 0) {
+                    donationURL += '&' + extraParams;
+                } else {
+                    donationURL += '?' + extraParams;
+                }
+
+                // Element cache :
+
+                var btnAmounts = snippet.querySelectorAll('.donation-amount');
+                var btnSelected;
+                var amount;
+                var presets = '{{donationAmountFirst}},{{donationAmountSecond}},{{donationAmountThird}},{{donationAmountFourth}}';
+                var numberFormat = new Intl.NumberFormat('{{ locale|default("en-US", true) }}', {
+                  style:'currency',
+                  currency:'{{currencyCode}}',
+                  minimumFractionDigits: 0
+                });
+                document.querySelector('.donation-amount-first').textContent = numberFormat.format('{{donationAmountFirst}}');
+                document.querySelector('.donation-amount-second').textContent = numberFormat.format('{{donationAmountSecond}}');
+                document.querySelector('.donation-amount-third').textContent = numberFormat.format('{{donationAmountThird}}');
+                document.querySelector('.donation-amount-fourth').textContent = numberFormat.format('{{donationAmountFourth}}');
+                var elHighlighted = snippet.querySelector('em');
+                var monthlyCheckbox = document.querySelector('#monthly-checkbox');
+                var frequency = "";
+
+                function updateFrequency() {
+                  frequency = "single";
+                  if (monthlyCheckbox.checked) {
+                    frequency = 'monthly';
+                  }
+                  updateLink();
+                }
+                updateFrequency();
+
+                // View functions
+
+                function selectAmount(element) {
+                  if (!element) {
+                    return;
+                  }
+                  element.classList.add('button-selected');
+                  if (btnSelected) {
+                    btnSelected.classList.remove('button-selected');
+                  }
+                  btnSelected = element;
+                  amount = element.attributes['data-amount'].value;
+                  updateLink();
+                }
+
+                var selected = "{{ selectedButton|default("donation-amount-second", true) }}";
+                selectAmount(snippet.querySelector("." + selected));
+
+                function updateLink() {
+                  btnDonate.attributes['href'].value = donationURL + '&amount=' + amount + "&frequency=" + frequency + "&currency=" + currencyCode + '&presets=' + presets;
+                }
+                updateLink();
+
+                // Event binding :
+
+                for(var i=0; i<btnAmounts.length; i++) {
+                  btnAmounts[i].addEventListener('click', function (event) {
+                    if (!event.target.classList.contains('button-selected')) {
+                      selectAmount(event.target);
+                    }
+                  });
+                }
+                monthlyCheckbox.addEventListener('change', updateFrequency);
+
+                btnDonate.addEventListener('click', function (event) {
+                  btnDonate.blur();
+                });
+              })();
+
+          }, false);
+      })();
+      //]]>
+  </script>
+</div>
