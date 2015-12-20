@@ -26,7 +26,7 @@
         width: 62px;
         height: 38px;
         text-align: center;
-        padding: 7px 0 9px;
+        padding: 8px 0;
         text-decoration: none;
         word-spacing: -1px;
         color: rgb(255, 255, 255);
@@ -59,11 +59,13 @@
       }
 
       #mofo-eoy-fundraiser-{{ snippet_id }} .button.button-red {
-        background-color: #F65E6C;
+        background-color: #F95D6A;
+        background-image: linear-gradient(#F95D6A, #E4263C);
         margin: 0;
       }
       #mofo-eoy-fundraiser-{{ snippet_id }} .button.button-red:hover {
         background-color: #FF7B87;
+        background-image: linear-gradient(transparent, rgba(0,0,0,0.2));
       }
       #mofo-eoy-fundraiser-{{ snippet_id }} .button-wide {
         width: 190px;
@@ -90,10 +92,10 @@
 
       #mofo-eoy-fundraiser-{{ snippet_id }} .background-container {
         text-align: center;
-        background-color: #F65E6C;
+        background-color: #F95D6A;
         color: #FFFFFF;
         padding: 30px 28px 50px;
-        background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+        background-image: linear-gradient(#F95D6A, #E4263C);
       }
 
       #mofo-eoy-fundraiser-{{ snippet_id }} .arrow-side {
@@ -143,6 +145,10 @@
       #mofo-eoy-fundraiser-{{ snippet_id }} .body-text {
         font-size: 15px;
         line-height: 24px;
+        color: #F5BEC4;
+      }
+      #mofo-eoy-fundraiser-{{ snippet_id }} .body-text b {
+        color: #FFFFFF;
       }
 
       body.background-{{ snippet_id }} {
