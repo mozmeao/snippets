@@ -91,7 +91,7 @@
       }
 
       #mofo-eoy-fundraiser-{{ snippet_id }} .background-container {
-        text-align: center;
+        text-align: {{ textAlign|default("center", true) }};
         background-color: #F95D6A;
         color: #FFFFFF;
         padding: 30px 28px 50px;

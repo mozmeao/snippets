@@ -21,6 +21,19 @@
         color: {{ fontColor|default("inherit", true) }};
       }
 
+      #mofo-eoy-fundraiser-{{ snippet_id }} em {
+        transition: background 800ms linear;
+        font-style: normal;
+        box-decoration-break: clone;
+        margin: 0px -5px;
+        padding: 2px 5px;
+        font-weight: bold;
+      }
+
+      #mofo-eoy-fundraiser-{{ snippet_id }} em.active {
+        background: {{ highlightColor|default("#FFF8D0", true) }};
+      }
+
       #mofo-eoy-fundraiser-{{ snippet_id }} .button {
         margin: 0 8px 0 0;
         width: 62px;
@@ -91,7 +104,7 @@
       }
 
       #mofo-eoy-fundraiser-{{ snippet_id }} .background-container {
-        text-align: center;
+        text-align: {{ textAlign|default("center", true) }};
         padding: 30px 28px 27px;
       }
 
@@ -119,14 +132,9 @@
         position: absolute;
       }
 
-      #mofo-eoy-fundraiser-{{ snippet_id }} .header-text {
-        font-size: 20px;
-        line-height: 28px;
-      }
       #mofo-eoy-fundraiser-{{ snippet_id }} .body-text {
         font-size: 20px;
         line-height: 28px;
-        font-weight: bold;
       }
 
       body.background-{{ snippet_id }} {
@@ -176,7 +184,6 @@
 
   <div class="main-wrapper">
     <div class="background-container">
-      <div class="header-text">{{ headerText|safe }}</div>
       <div class="body-text">{{ bodyText|safe }}</div>
     </div>
 
@@ -293,6 +300,13 @@
                 btnDonate.addEventListener('click', function (event) {
                   btnDonate.blur();
                 });
+
+                // Fade in highlight on text
+                setTimeout(function() {
+                  if (elHighlighted) {
+                    elHighlighted.classList.add('active');
+                  }
+                }, 1000);
               })();
 
           }, false);
