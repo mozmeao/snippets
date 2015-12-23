@@ -139,14 +139,108 @@
 
       body.background-{{ snippet_id }} {
         background: {{ backgroundColor|default("inherit", true) }};
+        position: relative;
+        overflow: hidden;
+      }
+
+      body.background-{{ snippet_id }}::before {
+        content: '';
+        position: absolute;
+        bottom: 118px;
+        left: calc(50% + 290px);
+        width: 300px;
+        height: 216px;
         background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4wLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCA0MTggMzAxIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0MTggMzAxIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxkZWZzPg0KCQk8cmVjdCBpZD0iU1ZHSURfMV8iIHdpZHRoPSI0MTgiIGhlaWdodD0iMzAxIi8+DQoJPC9kZWZzPg0KCTxjbGlwUGF0aCBpZD0iU1ZHSURfMl8iPg0KCQk8dXNlIHhsaW5rOmhyZWY9IiNTVkdJRF8xXyIgIG92ZXJmbG93PSJ2aXNpYmxlIi8+DQoJPC9jbGlwUGF0aD4NCgk8ZyBjbGlwLXBhdGg9InVybCgjU1ZHSURfMl8pIj4NCgkJPGc+DQoJCQk8cG9seWdvbiBmaWxsPSIjRjI2RTI1IiBwb2ludHM9IjE2OC43LDM0My44IDI5Ny41LDM1MiA0MTYuNSwzMDIuMSAzODEuMyw5OSAxMzQuNSwxNDAuNyAJCQkiLz4NCgkJCTxwb2x5Z29uIGZpbGw9IiNGMjZFMjUiIHBvaW50cz0iMzkzLjcsMTY4LjUgMzc0LjUsNTQuNiAzMTMuNywxMTAuNyAJCQkiLz4NCgkJCTxwb2x5Z29uIGZpbGw9IiNGMjZFMjUiIHBvaW50cz0iMTQ0LjgsMjAyLjUgMTM0LjEsMTM2LjQgMTI3LjYsOTYuNiAyMDIuMywxMzAuNCAJCQkiLz4NCgkJCTxwb2x5Z29uIGZpbGw9IiMyNzI3MjQiIHBvaW50cz0iMjcwLjcsMjcwLjggMjk3LjIsMjY2LjMgMzIyLjgsMjM0LjggMjUyLjMsMjQ2LjYgCQkJIi8+DQoJCQk8cGF0aCBmaWxsPSIjRUNERUNBIiBkPSJNMjcwLjcsMjcwLjhjLTEwLjEtNTkuOC03Mi45LTEzMS43LTEzNC45LTEyMS4zbDE4LjQsMTA5LjNMMjcwLjcsMjcwLjh6Ii8+DQoJCQk8cGF0aCBmaWxsPSIjRUNERUNBIiBzdHJva2U9IiNFQ0RFQ0EiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgZD0iTTI5OC4yLDI2Ni4zYy0xMC4xLTU5LjgsMjMuOS0xNDgsODUuMy0xNTguM2wxOC40LDEwOS4zDQoJCQkJTDI5OC4yLDI2Ni4zeiIvPg0KCQkJPGc+DQoJCQkJPHBhdGggZmlsbD0iIzI3MjcyNCIgZD0iTTE5My45LDIyNS41YzQuNCwzLjEsMTAuNSwyLjEsMTMuNi0yLjNjMy4xLTQuNCwyLjEtMTAuNS0yLjMtMTMuNmMtNC40LTMuMS0xMC41LTIuMS0xMy42LDIuMw0KCQkJCQlDMTg4LjUsMjE2LjMsMTg5LjUsMjIyLjQsMTkzLjksMjI1LjV6Ii8+DQoJCQkJPHBhdGggZmlsbD0iIzI3MjcyNCIgZD0iTTM1Ni45LDE5OC4xYy0zLjEsNC40LTkuMiw1LjQtMTMuNiwyLjNjLTQuNC0zLjEtNS40LTkuMi0yLjMtMTMuNmMzLjEtNC40LDkuMi01LjQsMTMuNi0yLjMNCgkJCQkJQzM1OSwxODcuNiwzNjAsMTkzLjcsMzU2LjksMTk4LjF6Ii8+DQoJCQk8L2c+DQoJCTwvZz4NCgkJPGc+DQoJCQk8cGF0aCBmaWxsPSIjMjcyNzI0IiBkPSJNMjE0LjMsMTU5LjFjMTIuNi0xMS40LDI0LjEtMjMuMSwzNC0zNC42YzE4LjctMjEuNywzMi00Mi42LDM4LjItNTkuNWM0LjItMTEuNSwzLjYtMjAuOC0xLTMzLjQNCgkJCQljLTAuMy0wLjctMC45LTEuMS0xLjUtMC43Yy0zLjIsMi4zLTExLjIsNy45LTEzLjgsOS41Yy0yLjQsMS40LTMyLjcsMjIuMi0zMi44LDIyLjFsLTE4LjgtMjAuOGMtMC4zLTAuNC0wLjctMC45LTEtMS4zDQoJCQkJYy0xNi40LTE4LjItNTcuNC03LjktOTEuNSwyM1M3Ny40LDEzMy45LDkzLjgsMTUyYzAuMywwLjMsMC42LDAuNiwwLjksMC45bDE5LjQsMjEuNGwtMzIuOSw0My4xYzEuMywxLjUsMi45LDIuNiw0LjcsMy41DQoJCQkJQzEwNy41LDIzMiwxNjIuMiwyMDYuMiwyMTQuMywxNTkuMXoiLz4NCgkJCTxwYXRoIGQ9Ik0yMTQuMywxNTkuMWMxMi42LTExLjQsMjQuMS0yMy4xLDM0LTM0LjZjMTguNy0yMS43LDMyLTQyLjYsMzguMi01OS41YzQuMi0xMS41LDMuNi0yMC44LTEtMzMuNA0KCQkJCWMtMC4zLTAuNy0wLjktMS4xLTEuNS0wLjdjLTMuMiwyLjMtMTEuMiw3LjktMTMuOCw5LjVjLTIuNCwxLjQtMzIuNywyMi4yLTMyLjgsMjIuMWwtMTguOC0yMC44Yy0wLjMtMC40LTAuNy0wLjktMS0xLjMNCgkJCQljLTE2LjQtMTguMi01Ny40LTcuOS05MS41LDIzUzc3LjQsMTMzLjksOTMuOCwxNTJjMC4zLDAuMywwLjYsMC42LDAuOSwwLjlsMTkuNCwyMS40bC0zMi45LDQzLjFjMS4zLDEuNSwyLjksMi42LDQuNywzLjUNCgkJCQlDMTA3LjUsMjMyLDE2Mi4yLDIwNi4yLDIxNC4zLDE1OS4xeiIvPg0KCQk8L2c+DQoJCTxnPg0KCQkJDQoJCQkJPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRjI2RTI1IiBzdHJva2Utd2lkdGg9IjM5LjY1NjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBkPSINCgkJCQlNMTE1LjksMzI4LjJjLTMuNy0xMi41LTUuMy0yNS44LTQuOC0zOS42bDItNDcuNiIvPg0KCQkJPHBhdGggZmlsbD0iI0VDREVDQSIgZD0iTTkyLjUsMjU4LjJsMS41LTM1LjVjMC40LTEwLjMsOS44LTE4LjcsMjAuOC0xOC44YzExLTAuMSwxOS42LDguMiwxOS4yLDE4LjVsLTEuNSwzNS41Ii8+DQoJCTwvZz4NCgk8L2c+DQo8L2c+DQo8L3N2Zz4NCg==);
         background-repeat: no-repeat;
-        background-size: 300px 216px;
-        background-position: calc(50% + 425px) calc(100% - 118px);
+
+        animation-iteration-count: 3;
+        animation-duration: .2s;
+        animation-delay: 0s;
+        animation-timing-function: ease-out;
+        transform-origin: bottom;
       }
+
+    {% if animate %}
+      body.background-{{ snippet_id }}.giggle::before {
+        animation-name: giggle-{{ snippet_id }};
+      }
+
+      body.background-{{ snippet_id }}.giggle .blink-{{ snippet_id }} {
+        animation-name: blink-{{ snippet_id }};
+      }
+
+      .blink-{{ snippet_id }} {
+        position: absolute;
+        height: 25px;
+        width: 134px;
+        left: calc(50% + 422px);
+        bottom: 176px;
+        transform: rotate(-10deg);
+        opacity: 0;
+
+        animation-iteration-count: 3;
+        animation-duration: .2s;
+        animation-delay: 0s;
+        animation-timing-function: ease-out;
+        transform-origin: bottom;
+      }
+
+      .blink-{{ snippet_id }} .eye {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background: #ECDECA;
+      }
+
+      .blink-{{ snippet_id }} .eye .eye-slit {
+        border-radius: 50%;
+        border: solid 4px #ECDECA;
+        border-top: solid 4px #272727;
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        margin-top: 10px;
+      }
+
+      .blink-{{ snippet_id }} .right-eye {
+        left: 0;
+      }
+
+      .blink-{{ snippet_id }} .left-eye {
+        right: 0;
+      }
+
+      @keyframes giggle-{{ snippet_id }} {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(6px) scaleX(.985);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes blink-{{ snippet_id }} {
+        0% {
+          transform: translateY(0px) rotate(-9.25deg);
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(6px) scaleX(.985) rotate(-9.25deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0) rotate(-9.25deg);
+          opacity: 1;
+        }
+      }
+    {% endif %}
 
       body.background-{{ snippet_id }} #launcher {
         background-color: #EAEAEA;
+        position: relative;
       }
 
     {% if blockable %}
@@ -224,9 +318,11 @@
           var snippet = document.getElementById('mofo-eoy-fundraiser-{{ snippet_id }}');
           snippet.addEventListener('show_snippet', function() {
               (function () {
-                document.querySelector("body").classList.add("background-{{ snippet_id }}");
+                var body = document.querySelector("body");
+                body.classList.add("background-{{ snippet_id }}");
                 var btnDonate = snippet.querySelector('.donate-button');
                 var donationURL = btnDonate.attributes['href'].value;
+
                 var currencyCode = '{{ currencyCode|default('usd', true) }}';
                 var extraParams = 'snippet_name={{ snippet_id }}';
                 if (donationURL.indexOf('?') >= 0) {
@@ -300,6 +396,36 @@
                 btnDonate.addEventListener('click', function (event) {
                   btnDonate.blur();
                 });
+
+              {% if animate %}
+
+                var blink = document.createElement("div");
+                blink.classList.add("blink-{{ snippet_id }}");
+                var leftEye = document.createElement("div");
+                leftEye.classList.add("eye");
+                leftEye.classList.add("left-eye");
+                var leftEyeSlit = document.createElement("div");
+                leftEyeSlit.classList.add("eye-slit");
+                var rightEye = document.createElement("div");
+                rightEye.classList.add("eye");
+                rightEye.classList.add("right-eye");
+                var rightEyeSlit = document.createElement("div");
+                rightEyeSlit.classList.add("eye-slit");
+
+                rightEye.appendChild(rightEyeSlit);
+                leftEye.appendChild(leftEyeSlit);
+                blink.appendChild(rightEye);
+                blink.appendChild(leftEye);
+                body.appendChild(blink);
+
+                btnDonate.addEventListener('mouseover', function (event) {
+                  body.classList.add("giggle");
+                });
+
+                btnDonate.addEventListener('mouseout', function (event) {
+                  body.classList.remove("giggle");
+                });
+              {% endif %}
 
                 // Fade in highlight on text
                 setTimeout(function() {
