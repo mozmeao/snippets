@@ -327,6 +327,12 @@
          var button = document.querySelector('#firefox-mobile-activation-{{ snippet_id }} .submit-button');
          var input_type;
 
+         // Bug 1238092. Got fixed in Fx45. We can drop this when Fx44
+         // usage drops significantly.
+         input.addEventListener('keypress', function(event) {
+             event.stopPropagation();
+         })
+
          // Checking input
          input.addEventListener('input', function() {
              input_type = checkInput(input.value);
