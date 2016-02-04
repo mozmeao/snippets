@@ -1,0 +1,1491 @@
+<div class="snippet" id="signup-snippet-{{ snippet_id }}">
+  <style type="text/css">
+    @font-face {
+      font-family: 'fontello-{{ snippet_id }}';
+      src: url('data:application/octet-stream;base64,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') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    #signup-snippet-{{ snippet_id }} {
+      position: relative;
+    }
+
+    #signup-snippet-{{ snippet_id }} .text-content {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      line-height: 21px;
+      text-align: {{ textAlign|default("center", true) }};
+      color: {{ fontColor|default("inherit", true) }};
+    }
+    #signup-snippet-{{ snippet_id }} .success-message .text-content {
+      text-align: center;
+      margin: 0;
+    }
+
+    #signup-snippet-{{ snippet_id }} em {
+      transition: background 800ms linear;
+      font-style: normal;
+      box-decoration-break: clone;
+      margin: 0px -5px;
+      padding: 2px 5px;
+      font-weight: bold;
+    }
+
+    #signup-snippet-{{ snippet_id }} em.active {
+      background: {{ highlightColor|default("#FFF8D0", true) }};
+    }
+
+    #signup-snippet-{{ snippet_id }} .container {
+      background: #EAEAEA;
+      padding: 14px 16px;
+      border-radius: 6px;
+    }
+
+    #signup-snippet-{{ snippet_id }} .container.success {
+      margin: 0 auto;
+      height: 231px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+    }
+
+    #signup-snippet-{{ snippet_id }} .container.success .form-container {
+      display: none;
+    }
+
+    #signup-snippet-{{ snippet_id }} #form {
+      margin: 0;
+    }
+
+    #signup-snippet-{{ snippet_id }} .row {
+      padding: 2px 0;
+    }
+    #signup-snippet-{{ snippet_id }} input,
+    #signup-snippet-{{ snippet_id }} select {
+      line-height: 36px;
+    }
+    #signup-snippet-{{ snippet_id }} label {
+      line-height: 28px;
+    }
+
+    #signup-snippet-{{ snippet_id }} .error-message {
+      color: #C13931;
+    }
+    #signup-snippet-{{ snippet_id }} .error-container {
+      padding-bottom: 8px;
+    }
+
+    #signup-snippet-{{ snippet_id }} .error-message,
+    #signup-snippet-{{ snippet_id }} .success-message {
+      transition: max-height .3s,
+                  opacity .6s;
+      max-height: 65px;
+      overflow: hidden;
+      opacity: 1;
+    }
+
+    #signup-snippet-{{ snippet_id }} .error-message.hidden,
+    #signup-snippet-{{ snippet_id }} .success-message.hidden {
+      transition: max-height .3s,
+                  opacity .1s;
+      max-height: 0;
+      opacity: 0;
+    }
+
+    #signup-snippet-{{ snippet_id }} .success-message {
+      color: #0C99D5;
+    }
+
+    #signup-snippet-{{ snippet_id }} input[type="text"],
+    #signup-snippet-{{ snippet_id }} input[type="email"],
+    #signup-snippet-{{ snippet_id }} select {
+      background-color: #FFFFFF;
+      border: 1px solid #C6CCD1;
+      border-radius: 2px;
+      height: 36px;
+      font-size: 14px;
+    }
+
+    #signup-snippet-{{ snippet_id }} input[type="text"],
+    #signup-snippet-{{ snippet_id }} input[type="email"] {
+      padding: 0 14px;
+    }
+
+    #signup-snippet-{{ snippet_id }} select {
+      padding: 0 10px;
+      box-shadow: none;
+    }
+    #signup-snippet-{{ snippet_id }} input:focus,
+    #signup-snippet-{{ snippet_id }} select:focus {
+      border-color: #06AAEA;
+    }
+
+    #signup-snippet-{{ snippet_id }} input[type="text"],
+    #signup-snippet-{{ snippet_id }} input[type="email"],
+    #signup-snippet-{{ snippet_id }} select {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #signup-snippet-{{ snippet_id }} input[type="checkbox"] {
+      vertical-align: middle;
+      margin-right: 10px;
+      margin-left: 0;
+      margin-bottom: 6px;
+    }
+
+    #signup-snippet-{{ snippet_id }} select option[value] {
+      color: #3C3C3C;
+    }
+
+    #signup-snippet-{{ snippet_id }} select option[value=""],
+    #signup-snippet-{{ snippet_id }} select:invalid {
+      color: #8F9394;
+    }
+
+    #signup-snippet-{{ snippet_id }} .button {
+      width: 100%;
+      text-align: center;
+      padding: 8px 0;
+      text-decoration: none;
+      word-spacing: -1px;
+      color: rgb(255, 255, 255);
+      font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+      font-size: 19px;
+      line-height: 1;
+      background-color: #A7AAB3;
+      box-sizing: border-box;
+      background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+      border: none;
+      border-radius: 2px;
+      position: relative;
+      margin-top: 10px;
+      min-height: 36px;
+    }
+
+    #signup-snippet-{{ snippet_id }} .button::before {
+      content: "";
+      position: absolute;
+      border-radius: 2px;
+      top: 1px;
+      right: 1px;
+      bottom: 1px;
+      left: 1px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    #signup-snippet-{{ snippet_id }} .button:hover {
+      cursor: pointer;
+      background-color: #B3B6BF;
+    }
+
+    #signup-snippet-{{ snippet_id }} .button.button-red {
+      background-color: #F95D6A;
+      background-image: linear-gradient(#F95D6A, #E4263C);
+    }
+    #signup-snippet-{{ snippet_id }} .button.button-red:hover {
+      background-color: #FF7B87;
+      background-image: linear-gradient(transparent, rgba(0,0,0,0.2));
+    }
+
+    #signup-snippet-{{ snippet_id }} .button::after {
+      content: '{{ submit  }}';
+    }
+
+    #signup-snippet-{{ snippet_id }} .loading.button::after {
+      font-family: fontello-{{ snippet_id }};
+      content: '';
+      position: absolute;
+      line-height: 0;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      border-left: 3px solid #FFFFFF;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      margin: -10px 0 0 -10px;
+      box-sizing: border-box;
+      animation: 1.5s linear 0s infinite spin-{{ snippet_id }};
+    }
+
+  {% if video_url %}
+    #logo-replacement-{{ snippet_id }} {
+        margin: 22px auto 0 auto;
+        width: 666px;
+        height: 0;
+        overflow: visible;
+        position: relative;
+        pointer-events: none;
+        opacity: 0;
+        display: none;
+    }
+    #logo-replacement-{{ snippet_id }}.show {
+        display: block;
+        opacity: 1;
+        height: 310px;
+    }
+
+    #logo-replacement-{{ snippet_id }} .video-container {
+        width: 480px;
+        margin: 0 auto;
+    }
+    #logo-replacement-{{ snippet_id }} .video-container video {
+        pointer-events: all;
+        cursor: pointer;
+        width: 480px;
+        height: 270px;
+    }
+
+    #logo-replacement-{{ snippet_id }} .video-container video.played {
+        cursor: auto;
+    }
+
+    #logo-replacement-{{ snippet_id }} .video-overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    #logo-replacement-{{ snippet_id }} .video-overlay .button {
+        display: none;
+        cursor: pointer;
+        background: none;
+        border: 0;
+        color: #FFF;
+        font-weight: bold;
+        font-size: 16px;
+        letter-spacing: -.05em;
+        text-transform: uppercase;
+        text-align: center;
+        margin: 75px auto 0;
+    }
+    #logo-replacement-{{ snippet_id }} .replay {
+        pointer-events: auto;
+    }
+    #logo-replacement-{{ snippet_id }} .video-overlay .button.show {
+        display: block;
+    }
+    #logo-replacement-{{ snippet_id }} .video-overlay .button::before {
+        display: block;
+        color: #FFF;
+        cursor: pointer;
+        font-size: 42px;
+        box-sizing: border-box;
+        text-align: center;
+        margin: 0 auto 20px;
+        padding-top: 22px;
+        border-radius: 50%;
+        background: #0C99D5;
+        border: 3px solid #B2E5FB;
+        height: 94px;
+        width: 94px;
+        transition: all 0.2s ease;
+        font-family: fontello-{{ snippet_id }};
+    }
+    #logo-replacement-{{ snippet_id }} .replay::before {
+      content: '\e800';  /* Replay icon */
+    }
+    #logo-replacement-{{ snippet_id }} .play::before {
+      content: '\e801';  /* Play icon */
+      padding-left: 10px;
+    }
+  {% endif %}
+
+    @-moz-keyframes spin-{{ snippet_id }} {
+        from { -moz-transform: rotate(0deg); }
+        to { -moz-transform: rotate(360deg); }
+    }
+
+    @keyframes spin-{{ snippet_id }} {
+        from {transform:rotate(0deg);}
+        to {transform:rotate(360deg);}
+    }
+
+    {% if blockable %}
+      #xbutton-{{ snippet_id }} {
+         cursor: pointer;
+         border: none;
+         margin-top: 10px;
+         opacity: 0;
+         height: 20px;
+         width: 20px;
+         background-color: rgba(0,0,0,0);
+         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAeFBMVEUAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAAAAAAAAADDw8OQkJAAAAAAAAAAAAAAAAD9/f38/Pz6+vr5+fnt7e3i4uLd3d3Z2dmgoKBdXV0mJibv7++amprNzc2amprv7+////9zc3OwsLD29vaPj4+xsbHCwsLBwcHrzmRyAAAAIHRSTlMABAg9HhEMNxkir38xLCkV/Pr39OHTzceOYUrliLuJ5ik+KlgAAAGhSURBVEjHnZbrdoIwDIAXWii3UuV+0wV0+v5vOEBH2ajg8v3y6PlO2pgm+TAAYD0B+HgDsBxbuXzCVbZj7VgAju16USjYhAgjz7WdrVjgKC5FHfh5kxwOSZP7QS0kVw68PJLNJQuKIy44FgGT3LbAHMKNWJviirRlkWsKNIQIqwyNZFU4BFobnihjfEFcCm92tMF83MBnfxwYjBNuchocWN6cCx938AVf5MBywxJ3KUPX0seKqnhfiavIhvlYLMM3yNjP0UDJFmcuN/zF7aI/t1I9lCFIqo1r1y+Nr+6qnXQI87iJDJZGNzra6JZOIG2Y0iWK+bt7N9JrY+Q+/1yIKWmOVy9qt3862lgGPdaeM2U4QDQ52tAEY55BhT4aHS1r/FDBeJUcTY7JwHy8jMVZgybHZGDD+KQkuHbMBiZP5YBrx2zggaCQDka5PiHJhL9yq2B6c8FslmVvKsud4u8Nxb/3xPr1E9t9yP3qIf+vXZylAkJTIrQ+QoMltHHCsCCMJMLgo49XPcTPpiF+1kOcsCrsLSSfeiGhrj305Yqwwn0Dwi/I5rQKpwMAAAAASUVORK5CYII=");
+         background-repeat: no-repeat;
+         background-size: 20px 20px;
+      }
+      #xbutton-{{ snippet_id }}:hover {
+         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAABAQEAAACQkJAAAADDw8P9/f38/Pz6+vr5+fni4uLZ2dmgoKCampomJibv7+/d3d3ExMRcXFzt7e3t7e3Nzc0AAABeXl7c3Nzv7+/////DOzLdkYz78/LlqaXPYlveko1iPwM8AAAAInRSTlMACwceOhcRBCo+NH8ir/z69/TTx46ISuXNsGHh4LskYszmffUm0QAAAbBJREFUSMelluuSgjAMRrdtegW84/22AXXf/wlXcNzAGEC755fjeCYfmDb5YrBWihpp7dcbWCmM1qpGa3PX3vh96kIAfwdCcOmAJYVWDpZJdl5NR6Pp6pwlS3BKC9lVQhjlfDIfY4PxPPFOGWE7SjjI9/jCPgfHFpJGhe0MWWbboIx8NVJYTLCDyQLSp0PGETLsIYPj06EaB+zl0K5jhYINDrAB1XhvQocFDrIIWlAst50MK5OtM5JizfANZn/RpHY5fX+5YovrhT7nTj/KCOX3ZNyKsmn8FDdydl6JOpdxSdMoKoeMoukkztg6F8wpRlFRklFBUedQJxPpstG7JTm10S46XqaCcjEOGe1kVocMWYdkIgvaVo+yRs7hDFxXDyMUrJBzOANXoMRd8VNkHTKIqX8oI2QdMohRjBIVLOLxI15yxF/Z1zAl3zC9bVlybTnQ/CXT/ENHrGSO2OMg7zoPcvlykCOui88upXsR+9nVd3JGRlywEdd4xLCIGEnRg4/G66lrvJ6q8coPcZ/vuCHuaYjHrQr8QrKuF5Lv9YYWkqG1Bx5rD9Da87/lKmKF+wUdVNNtsJwP7gAAAABJRU5ErkJggg==");
+      }
+      #xbutton-{{ snippet_id }}:active {
+         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAABAQEAAAAAAAAAAAD9/f3Dw8MAAAAAAACRkZH6+vr5+fnv7+/i4uLd3d3Z2dmgoKBdXV0mJiYAAAAAAACPj4/t7e3t7e2ampoAAACamprOzs7MzMyYmJj///8QEBB5eXnw8PCWlpZAQEB2Ec74AAAAI3RSTlMABgseOio+GRA0+68iEn/39OXTzceOYUoWFX/h4Igjiby5hsu+k6AAAAGoSURBVEjHnZbpYoIwEISbZEMIl8oNam27eLz/E9YY22DdgmR+efAxGxJ2540SY/wmxog/ycvDVombVBvOY4ynKpFaQ3AVaC0TlXI2CXRCQtPHxWYdRetNEWcNSNFZiHYQMsjKCEeKyiyQwjiRhJKw3+GTdl8gFcWwUOg6R1J5rUXInokEqhX+o1UFiWXGxDvEOKEY3i0z9vjESX08+jAurMe0j+CO4UpXOKtKK/5rksp6NY+sapmyHxMBOb6gHAS/m3Ry734/nfFB55P7vJcdu5sEO0dchuOYOA4Xx2wDwe8r6cfEYBhHDGMms6thCkpXxmB0dISRK7UEZRCeNNHotpYhvhhFTWIqC01dBEMQiL0Mr3W1OkaCIQmMdcvMUgqkGIrAwiyGC9ggxVAEbkBwsytrJBiSwHVgkQgJhiQw8kG8CvNYvsdD9thKc2Cy1w9MJkOPY+l3+Fkqs4WvmNmZ7YIXeVm7OMiOLWxKxsSj9Xk0WI827jEsPEaSx+DzHq9uiAeHLTHED4Eb4lRU6P9Ghd5GhelAkhGBZDb2gI09QMQer3DlEeG+AWkO2NrlPO+kAAAAAElFTkSuQmCC");
+      }
+      #signup-snippet-{{ snippet_id }}:hover #xbutton-{{ snippet_id }} {
+         opacity: 1;
+      }
+      #xbutton-{{ snippet_id }} {
+        margin-top: 0;
+        margin-left: 10px;
+      }
+      #signup-snippet-{{ snippet_id }} #block-snippet-container-{{ snippet_id }} {
+        position: absolute;
+        width: 30px;
+        top: 0;
+        height: 100%;
+        right: -30px;
+      }
+    {% endif %}
+
+  </style>
+
+  <div class="text-content">{{ text|safe }}</div>
+  <div class="container">
+    <form id="form"></form>
+  {% if video_url %}
+    <div id="logo-replacement-{{ snippet_id }}">
+      <div class="video-container">
+        <div class="video-overlay">
+          <button class="button replay"></button>
+          <button class="button play show"></button>
+        </div>
+        <video poster="{{ video_poster }}" src="{{ video_url }}" />
+      </div>
+    </div>
+  {% endif %}
+    <div class="success-message hidden">
+      <div class="text-content">{{ successMessage }}</div>
+    </div>
+    <div class="form-container">
+      <div class="error-message basket-error hidden">
+        <div class="error-container">{{ basketError }}</div>
+      </div>
+      <div class="row">
+        <input form="form" class="email-input" type="email" required="required" placeholder="{{ emailPlaceholder }}"></input>
+      </div>
+      <div class="row">
+        <input class="first-name-input" type="text" placeholder="{{ firstnamePlaceholder }}"></input>
+      </div>
+      <div class="row">
+        <select class="country-input" required="required">
+          <option value="" selected="selected">
+            {{ countryPlaceholder }}
+          </option>
+
+          <option value="US">
+            United States
+          </option>
+
+          <option value="AF">
+            Afghanistan
+          </option>
+
+          <option value="AL">
+            Albania
+          </option>
+
+          <option value="DZ">
+            Algeria
+          </option>
+
+          <option value="AS">
+            American Samoa
+          </option>
+
+          <option value="AD">
+            Andorra
+          </option>
+
+          <option value="AO">
+            Angola
+          </option>
+
+          <option value="AI">
+            Anguilla
+          </option>
+
+          <option value="AG">
+            Antigua and Barbuda
+          </option>
+
+          <option value="AR">
+            Argentina
+          </option>
+
+          <option value="AM">
+            Armenia
+          </option>
+
+          <option value="AW">
+            Aruba
+          </option>
+
+          <option value="AU">
+            Australia
+          </option>
+
+          <option value="AT">
+            Austria
+          </option>
+
+          <option value="AZ">
+            Azerbaijan
+          </option>
+
+          <option value="BS">
+            Bahamas
+          </option>
+
+          <option value="BH">
+            Bahrain
+          </option>
+
+          <option value="BD">
+            Bangladesh
+          </option>
+
+          <option value="BB">
+            Barbados
+          </option>
+
+          <option value="BY">
+            Belarus
+          </option>
+
+          <option value="BE">
+            Belgium
+          </option>
+
+          <option value="BZ">
+            Belize
+          </option>
+
+          <option value="BJ">
+            Benin
+          </option>
+
+          <option value="BM">
+            Bermuda
+          </option>
+
+          <option value="BT">
+            Bhutan
+          </option>
+
+          <option value="BO">
+            Bolivia
+          </option>
+
+          <option value="BA">
+            Bosnia and Herzegovina
+          </option>
+
+          <option value="BW">
+            Botswana
+          </option>
+
+          <option value="BR">
+            Brazil
+          </option>
+
+          <option value="VG">
+            British Virgin Islands
+          </option>
+
+          <option value="IO">
+            British Indian Ocean Territory
+          </option>
+
+          <option value="BN">
+            Brunei
+          </option>
+
+          <option value="BG">
+            Bulgaria
+          </option>
+
+          <option value="BF">
+            Burkina Faso
+          </option>
+
+          <option value="BI">
+            Burundi
+          </option>
+
+          <option value="KH">
+            Cambodia
+          </option>
+
+          <option value="CM">
+            Cameroon
+          </option>
+
+          <option value="CA">
+            Canada
+          </option>
+
+          <option value="CV">
+            Cape Verde
+          </option>
+
+          <option value="KY">
+            Cayman Islands
+          </option>
+
+          <option value="CF">
+            Central African Republic
+          </option>
+
+          <option value="TD">
+            Chad
+          </option>
+
+          <option value="CL">
+            Chile
+          </option>
+
+          <option value="CN">
+            China
+          </option>
+
+          <option value="CX">
+            Christmas Island
+          </option>
+
+          <option value="CO">
+            Colombia
+          </option>
+
+          <option value="KM">
+            Comoros Islands
+          </option>
+
+          <option value="CD">
+            Congo, Democratic Republic of the
+          </option>
+
+          <option value="CG">
+            Congo, Republic of the
+          </option>
+
+          <option value="CK">
+            Cook Islands
+          </option>
+
+          <option value="CR">
+            Costa Rica
+          </option>
+
+          <option value="CI">
+            Cote D'ivoire
+          </option>
+
+          <option value="HR">
+            Croatia
+          </option>
+
+          <option value="CU">
+            Cuba
+          </option>
+
+          <option value="CY">
+            Cyprus
+          </option>
+
+          <option value="CZ">
+            Czech Republic
+          </option>
+
+          <option value="DK">
+            Denmark
+          </option>
+
+          <option value="DJ">
+            Djibouti
+          </option>
+
+          <option value="DM">
+            Dominica
+          </option>
+
+          <option value="DO">
+            Dominican Republic
+          </option>
+
+          <option value="TP">
+            East Timor
+          </option>
+
+          <option value="EC">
+            Ecuador
+          </option>
+
+          <option value="EG">
+            Egypt
+          </option>
+
+          <option value="SV">
+            El Salvador
+          </option>
+
+          <option value="GQ">
+            Equatorial Guinea
+          </option>
+
+          <option value="ER">
+            Eritrea
+          </option>
+
+          <option value="EE">
+            Estonia
+          </option>
+
+          <option value="ET">
+            Ethiopia
+          </option>
+
+          <option value="FK">
+            Falkland Islands (Malvinas)
+          </option>
+
+          <option value="FO">
+            Faroe Islands
+          </option>
+
+          <option value="FJ">
+            Fiji
+          </option>
+
+          <option value="FI">
+            Finland
+          </option>
+
+          <option value="FR">
+            France
+          </option>
+
+          <option value="GF">
+            French Guiana
+          </option>
+
+          <option value="PF">
+            French Polynesia
+          </option>
+
+          <option value="TF">
+            French Southern Territories
+          </option>
+
+          <option value="GA">
+            Gabon
+          </option>
+
+          <option value="GM">
+            Gambia
+          </option>
+
+          <option value="GE">
+            Georgia
+          </option>
+
+          <option value="DE">
+            Germany
+          </option>
+
+          <option value="GH">
+            Ghana
+          </option>
+
+          <option value="GI">
+            Gibraltar
+          </option>
+
+          <option value="GR">
+            Greece
+          </option>
+
+          <option value="GL">
+            Greenland
+          </option>
+
+          <option value="GD">
+            Grenada
+          </option>
+
+          <option value="GP">
+            Guadeloupe
+          </option>
+
+          <option value="GU">
+            Guam
+          </option>
+
+          <option value="GT">
+            Guatemala
+          </option>
+
+          <option value="GN">
+            Guinea
+          </option>
+
+          <option value="GW">
+            Guinea-Bissau
+          </option>
+
+          <option value="GY">
+            Guyana
+          </option>
+
+          <option value="HT">
+            Haiti
+          </option>
+
+          <option value="VA">
+            Holy See (Vatican City State)
+          </option>
+
+          <option value="HN">
+            Honduras
+          </option>
+
+          <option value="HK">
+            Hong Kong
+          </option>
+
+          <option value="HU">
+            Hungary
+          </option>
+
+          <option value="IS">
+            Iceland
+          </option>
+
+          <option value="IN">
+            India
+          </option>
+
+          <option value="ID">
+            Indonesia
+          </option>
+
+          <option value="IR">
+            Iran
+          </option>
+
+          <option value="IQ">
+            Iraq
+          </option>
+
+          <option value="IE">
+            Republic of Ireland
+          </option>
+
+          <option value="IL">
+            Israel
+          </option>
+
+          <option value="IT">
+            Italy
+          </option>
+
+          <option value="JM">
+            Jamaica
+          </option>
+
+          <option value="JP">
+            Japan
+          </option>
+
+          <option value="JO">
+            Jordan
+          </option>
+
+          <option value="KZ">
+            Kazakhstan
+          </option>
+
+          <option value="KE">
+            Kenya
+          </option>
+
+          <option value="KI">
+            Kiribati
+          </option>
+
+          <option value="KR">
+            South Korea
+          </option>
+
+          <option value="XK">
+            Kosovo
+          </option>
+
+          <option value="KW">
+            Kuwait
+          </option>
+
+          <option value="KG">
+            Kyrgyzstan
+          </option>
+
+          <option value="LA">
+            Laos
+          </option>
+
+          <option value="LV">
+            Latvia
+          </option>
+
+          <option value="LB">
+            Lebanon
+          </option>
+
+          <option value="LS">
+            Lesotho
+          </option>
+
+          <option value="LR">
+            Liberia
+          </option>
+
+          <option value="LY">
+            Libya
+          </option>
+
+          <option value="LI">
+            Liechtenstein
+          </option>
+
+          <option value="LT">
+            Lithuania
+          </option>
+
+          <option value="LU">
+            Luxembourg
+          </option>
+
+          <option value="MO">
+            Macau
+          </option>
+
+          <option value="MK">
+            Macedonia
+          </option>
+
+          <option value="MG">
+            Madagascar
+          </option>
+
+          <option value="MW">
+            Malawi
+          </option>
+
+          <option value="MY">
+            Malaysia
+          </option>
+
+          <option value="MV">
+            Maldives
+          </option>
+
+          <option value="ML">
+            Mali
+          </option>
+
+          <option value="MT">
+            Malta
+          </option>
+
+          <option value="MH">
+            Marshall Islands
+          </option>
+
+          <option value="MQ">
+            Martinique
+          </option>
+
+          <option value="MR">
+            Mauritania
+          </option>
+
+          <option value="MU">
+            Mauritius
+          </option>
+
+          <option value="YT">
+            Mayotte
+          </option>
+
+          <option value="MX">
+            Mexico
+          </option>
+
+          <option value="FM">
+            Micronesia
+          </option>
+
+          <option value="MD">
+            Moldova, Republic of
+          </option>
+
+          <option value="MC">
+            Monaco
+          </option>
+
+          <option value="MN">
+            Mongolia
+          </option>
+
+          <option value="ME">
+            Montenegro
+          </option>
+
+          <option value="MS">
+            Montserrat
+          </option>
+
+          <option value="MA">
+            Morocco
+          </option>
+
+          <option value="MZ">
+            Mozambique
+          </option>
+
+          <option value="MM">
+            Myanmar
+          </option>
+
+          <option value="NA">
+            Namibia
+          </option>
+
+          <option value="NR">
+            Nauru
+          </option>
+
+          <option value="NP">
+            Nepal
+          </option>
+
+          <option value="NL">
+            Netherlands
+          </option>
+
+          <option value="AN">
+            Netherlands Antilles
+          </option>
+
+          <option value="NC">
+            New Caledonia
+          </option>
+
+          <option value="NZ">
+            New Zealand
+          </option>
+
+          <option value="NI">
+            Nicaragua
+          </option>
+
+          <option value="NE">
+            Niger
+          </option>
+
+          <option value="NG">
+            Nigeria
+          </option>
+
+          <option value="NU">
+            Niue
+          </option>
+
+          <option value="NF">
+            Norfolk Island
+          </option>
+
+          <option value="MP">
+            Northern Mariana Islands
+          </option>
+
+          <option value="NO">
+            Norway
+          </option>
+
+          <option value="OM">
+            Oman
+          </option>
+
+          <option value="PK">
+            Pakistan
+          </option>
+
+          <option value="PW">
+            Palau
+          </option>
+
+          <option value="PA">
+            Panama
+          </option>
+
+          <option value="PG">
+            Papua New Guinea
+          </option>
+
+          <option value="PY">
+            Paraguay
+          </option>
+
+          <option value="PE">
+            Peru
+          </option>
+
+          <option value="PH">
+            Philippines
+          </option>
+
+          <option value="PN">
+            Pitcairn Island
+          </option>
+
+          <option value="PL">
+            Poland
+          </option>
+
+          <option value="PT">
+            Portugal
+          </option>
+
+          <option value="PR">
+            Puerto Rico
+          </option>
+
+          <option value="QA">
+            Qatar
+          </option>
+
+          <option value="RE">
+            Reunion
+          </option>
+
+          <option value="RO">
+            Romania
+          </option>
+
+          <option value="RU">
+            Russian Federation
+          </option>
+
+          <option value="RW">
+            Rwanda
+          </option>
+
+          <option value="KN">
+            Saint Kitts and Nevis
+          </option>
+
+          <option value="LC">
+            Saint Lucia
+          </option>
+
+          <option value="VC">
+            Saint Vincent and the Grenadines
+          </option>
+
+          <option value="WS">
+            Samoa
+          </option>
+
+          <option value="SM">
+            San Marino
+          </option>
+
+          <option value="ST">
+            Sao Tome and Principe
+          </option>
+
+          <option value="SA">
+            Saudi Arabia
+          </option>
+
+          <option value="SN">
+            Senegal
+          </option>
+
+          <option value="RS">
+            Serbia
+          </option>
+
+          <option value="SC">
+            Seychelles
+          </option>
+
+          <option value="SL">
+            Sierra Leone
+          </option>
+
+          <option value="SG">
+            Singapore
+          </option>
+
+          <option value="SK">
+            Slovakia
+          </option>
+
+          <option value="SI">
+            Slovenia
+          </option>
+
+          <option value="SB">
+            Solomon Islands
+          </option>
+
+          <option value="SO">
+            Somalia
+          </option>
+
+          <option value="ZA">
+            South Africa
+          </option>
+
+          <option value="SS">
+            South Sudan
+          </option>
+
+          <option value="ES">
+            Spain
+          </option>
+
+          <option value="LK">
+            Sri Lanka
+          </option>
+
+          <option value="SH">
+            St. Helena
+          </option>
+
+          <option value="PM">
+            St. Pierre and Miquelon
+          </option>
+
+          <option value="SD">
+            Sudan
+          </option>
+
+          <option value="SR">
+            Suriname
+          </option>
+
+          <option value="SY">
+            Syria
+          </option>
+
+          <option value="SZ">
+            Swaziland
+          </option>
+
+          <option value="SE">
+            Sweden
+          </option>
+
+          <option value="CH">
+            Switzerland
+          </option>
+
+          <option value="TW">
+            Taiwan
+          </option>
+
+          <option value="TJ">
+            Tajikistan
+          </option>
+
+          <option value="TZ">
+            Tanzania
+          </option>
+
+          <option value="TH">
+            Thailand
+          </option>
+
+          <option value="TG">
+            Togo
+          </option>
+
+          <option value="TK">
+            Tokelau
+          </option>
+
+          <option value="TO">
+            Tonga
+          </option>
+
+          <option value="TT">
+            Trinidad and Tobago
+          </option>
+
+          <option value="TN">
+            Tunisia
+          </option>
+
+          <option value="TR">
+            Turkey
+          </option>
+
+          <option value="TM">
+            Turkmenistan
+          </option>
+
+          <option value="TC">
+            Turks and Caicos Islands
+          </option>
+
+          <option value="TV">
+            Tuvalu
+          </option>
+
+          <option value="UG">
+            Uganda
+          </option>
+
+          <option value="UA">
+            Ukraine
+          </option>
+
+          <option value="AE">
+            United Arab Emirates
+          </option>
+
+          <option value="GB">
+            United Kingdom
+          </option>
+
+          <option value="UY">
+            Uruguay
+          </option>
+
+          <option value="UZ">
+            Uzbekistan
+          </option>
+
+          <option value="VU">
+            Vanuatu
+          </option>
+
+          <option value="VE">
+            Venezuela
+          </option>
+
+          <option value="VN">
+            Viet Nam
+          </option>
+
+          <option value="VI">
+            Virgin Islands (U.S.)
+          </option>
+
+          <option value="WF">
+            Wallis and Futuna Islands
+          </option>
+
+          <option value="EH">
+            Western Sahara
+          </option>
+
+          <option value="YE">
+            Yemen
+          </option>
+
+          <option value="ZM">
+            Zambia
+          </option>
+
+          <option value="ZW">
+            Zimbabwe
+          </option>
+        </select>
+      </div>
+      <div class="row">
+        <label><input form="form" class="privacy-checkbox" required="required" type="checkbox"></input>{{ privacyPolicy|safe }}</label>
+      </div>
+      <div class="row">
+        <button form="form" type="submit" class="submit-button button button-red"></button>
+      </div>
+    </div>
+  </div>
+
+  {% if blockable %}
+    <div id="block-snippet-container-{{ snippet_id }}">
+      <button title="{{ closeButtonTitle }}" class="block-snippet-button" id="xbutton-{{ snippet_id }}"></button>
+    </div>
+  {% endif %}
+
+
+  <script type="text/javascript">
+      //<![CDATA[
+      (function() {
+          var snippet = document.getElementById('signup-snippet-{{ snippet_id }}');
+        {% if video_url %}
+          var logoContainer = document.getElementById('brandLogo');
+          var topContainer = document.getElementById("topSection");
+          var logoReplacement = document.getElementById('logo-replacement-{{ snippet_id }}');
+          var video = logoReplacement.querySelector('video');
+          var replay = logoReplacement.querySelector('.replay');
+        {% endif %}
+          snippet.addEventListener('show_snippet', function() {
+              (function () {
+                document.querySelector("body").classList.add("background-{{ snippet_id }}");
+                var button = snippet.querySelector('.submit-button');
+                var form = snippet.querySelector("#form");
+                var mainContainer = snippet.querySelector('.container');
+                var emailInput = snippet.querySelector('.email-input');
+                var countryInput = snippet.querySelector('.country-input');
+                var firstNameInput = snippet.querySelector('.first-name-input');
+                var privacyCheckbox = snippet.querySelector('.privacy-checkbox');
+                var basketError = snippet.querySelector('.basket-error');
+                var successMessage = snippet.querySelector('.success-message');
+
+                function sendCustomMetric(label, callback) {
+                  sendMetric(label + "-{{snippet_id}}", callback);
+                }
+
+                // Bug 1238092
+                function onKeyPress(e) {
+                  e.stopPropagation();
+                }
+                emailInput.addEventListener('keypress', onKeyPress);
+                firstNameInput.addEventListener('keypress', onKeyPress);
+                countryInput.addEventListener('keypress', onKeyPress);
+
+              {% if video_url %}
+                // Fade out logo and insert video.
+                logoContainer.style.opacity = 1;
+                logoContainer.style.transitionProperty = 'opacity';
+                logoContainer.style.transitionDuration = '400ms';
+                topContainer.insertBefore(logoReplacement, topContainer.firstChild);
+                // Once the logo fades out, show the video.
+                logoContainer.addEventListener('transitionend', function() {
+                    topContainer.removeChild(logoContainer);
+                    logoReplacement.classList.add('show');
+                    videoVisible = true;
+                });
+                logoContainer.style.opacity = 0;
+
+                var hiddenAll = false;
+                video.addEventListener('click', function() {
+                    if (!hiddenAll) {
+                        logoReplacement.querySelector('.play').classList.remove('show');
+                        hiddenAll = true;
+                        video.play();
+                        video.controls = 'controls';
+                        video.classList.add('played');
+                    }
+                });
+
+                // Track when the video is first played.
+                var hasPlayed = false;
+                var hasEnded = false;
+                video.addEventListener('playing', function() {
+                    if (!hasPlayed) {
+                        sendCustomMetric("signup-video-played");
+                        hasPlayed = true;
+                    }
+                    replay.classList.remove('show');
+                });
+
+                // Show replay button when the video ends.
+                video.addEventListener('ended', function() {
+                  if (!hasEnded) {
+                    sendCustomMetric("signup-video-ended");
+                    hasEnded = true;
+                  }
+                  replay.classList.add('show');
+                });
+
+                function trackHalfWay() {
+                  if (video.currentTime / video.duration >= 0.5) {
+                    sendCustomMetric("signup-video-halfway");
+                    video.removeEventListener('timeupdate', trackHalfWay);
+                  }
+                }
+
+                video.addEventListener('timeupdate', trackHalfWay);
+
+                // Replay video when replay is clicked.
+                replay.addEventListener('click', function() {
+                  sendCustomMetric("signup-video-replay");
+                  video.play();
+                });
+              {% endif %}
+
+                document.querySelector("#form").addEventListener("submit", function(e) {
+                  e.preventDefault();
+                  if (button.classList.contains('loading')) {
+                    return;
+                  }
+                  changeState(000);
+                  sendEmailToBasket();
+                });
+
+                function sendEmailToBasket() {
+                    var lang = '{{ lang }}';
+                    var url = "{{ basketHost|default('https://basket.mozilla.org', true) }}" + "/news/subscribe/";
+                    var newsletters = '{{ newsletters }}';
+                    var source_url = 'https://snippets.mozilla.com/{{ snippet_id }}';
+                    source_url = encodeURIComponent(source_url);
+                    var email = emailInput.value;
+                    var country = countryInput.value;
+                    var firstName = firstNameInput.value;
+                    var params = 'newsletters=' + newsletters + '&source_url=' + source_url + '&lang=' + lang + '&email=' + email + '&trigger_welcome=N';
+                    if (country) {
+                      params += "&country=" + country;
+                    }
+                    if (firstName) {
+                      params += "&first_name=" + firstName;
+                    }
+                    var request = new XMLHttpRequest();
+                    request.onreadystatechange = function() {
+                        if (request.readyState == 4) {
+                          changeState(request.status);
+                        }
+                    }
+                    request.open('POST', url);
+                    request.send(params);
+                }
+                function changeState(status) {
+                  if (status === 200) {
+                    button.classList.remove('loading');
+                    basketError.classList.add("hidden");
+                    successMessage.classList.remove("hidden");
+                    mainContainer.classList.add("success");
+                    sendCustomMetric("signup-success");
+                  } else if (status === 000) {
+                    //loading
+                    button.classList.add('loading');
+                    basketError.classList.add("hidden");
+                    successMessage.classList.add("hidden");
+                  } else {
+                    basketError.classList.remove("hidden");
+                    button.classList.remove('loading');
+                    successMessage.classList.add("hidden");
+                    sendCustomMetric("signup-error");
+                  }
+                }
+
+                // Fade in highlight on text
+                var elHighlighted = snippet.querySelector('em');
+                setTimeout(function() {
+                  if (elHighlighted) {
+                    elHighlighted.classList.add('active');
+                  }
+                }, 1000);
+
+              })();
+
+          }, false);
+      })();
+      //]]>
+  </script>
+</div>
