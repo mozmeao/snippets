@@ -11,14 +11,14 @@
       position: relative;
     }
 
-    #signup-snippet-{{ snippet_id }} p {
+    #signup-snippet-{{ snippet_id }} .text-content {
       margin: 0 0 12px 0;
       font-size: 14px;
       line-height: 21px;
       text-align: {{ textAlign|default("center", true) }};
       color: {{ fontColor|default("inherit", true) }};
     }
-    #signup-snippet-{{ snippet_id }} .success-message p {
+    #signup-snippet-{{ snippet_id }} .success-message .text-content {
       text-align: center;
     }
 
@@ -51,6 +51,10 @@
 
     #signup-snippet-{{ snippet_id }} .container.success .form-container {
       display: none;
+    }
+
+    #signup-snippet-{{ snippet_id }} #form {
+      margin: 0;
     }
 
     #signup-snippet-{{ snippet_id }} .row {
@@ -120,6 +124,7 @@
     #signup-snippet-{{ snippet_id }} input[type="email"],
     #signup-snippet-{{ snippet_id }} select {
       width: 100%;
+      box-sizing: border-box;
     }
 
     #signup-snippet-{{ snippet_id }} input[type="checkbox"] {
@@ -196,6 +201,7 @@
       animation: 1.5s linear 0s infinite spin-{{ snippet_id }};
     }
 
+  {% if video_url %}
     #logo-replacement-{{ snippet_id }} {
         margin: 22px auto 0 auto;
         width: 666px;
@@ -277,6 +283,7 @@
       content: '\e800';  /* Play icon */
       padding-left: 10px;
     }
+  {% endif %}
 
     @-moz-keyframes spin-{{ snippet_id }} {
         from { -moz-transform: rotate(0deg); }
@@ -325,9 +332,10 @@
 
   </style>
 
-  <p>{{ text|safe }}</p>
+  <div class="text-content">{{ text|safe }}</div>
   <div class="container">
     <form id="form"></form>
+  {% if video_url %}
     <div id="logo-replacement-{{ snippet_id }}">
       <div class="video-container">
         <div class="video-overlay">
@@ -337,8 +345,9 @@
         <video poster="{{ video_poster }}" src="{{ video_url }}" />
       </div>
     </div>
+  {% endif %}
     <div class="success-message hidden">
-      <p>{{ successMessage }}</p>
+      <div class="text-content">{{ successMessage }}</div>
     </div>
     <div class="form-container">
       <div class="error-message basket-error hidden">
@@ -1309,11 +1318,13 @@
       //<![CDATA[
       (function() {
           var snippet = document.getElementById('signup-snippet-{{ snippet_id }}');
+        {% if video_url %}
           var logoContainer = document.getElementById('brandLogo');
           var topContainer = document.getElementById("topSection");
           var logoReplacement = document.getElementById('logo-replacement-{{ snippet_id }}');
           var video = logoReplacement.querySelector('video');
           var replay = logoReplacement.querySelector('.replay');
+        {% endif %}
           snippet.addEventListener('show_snippet', function() {
               (function () {
                 document.querySelector("body").classList.add("background-{{ snippet_id }}");
@@ -1321,12 +1332,24 @@
                 var form = snippet.querySelector("#form");
                 var mainContainer = snippet.querySelector('.container');
                 var emailInput = snippet.querySelector('.email-input');
+                var countryInput = snippet.querySelector('.country-input');
+                var firstNameInput = snippet.querySelector('.first-name-input');
                 var privacyCheckbox = snippet.querySelector('.privacy-checkbox');
                 var basketError = snippet.querySelector('.basket-error');
                 var successMessage = snippet.querySelector('.success-message');
-                var countryInput = snippet.querySelector('.country-input');
-                var firstNameInput = snippet.querySelector('.first-name-input');
 
+                function sendCustomMetric(label, callback) {
+                  sendMetric(label + "-{{snippet_id}}", callback);
+                }
+
+                function onKeyPress(e) {
+                  e.stopPropagation();
+                }
+
+                emailInput.addEventListener('keypress', onKeyPress);
+                firstNameInput.addEventListener('keypress', onKeyPress);
+
+              {% if video_url %}
                 // Fade out logo and insert video.
                 logoContainer.style.opacity = 1;
                 logoContainer.style.transitionProperty = 'opacity';
@@ -1350,10 +1373,6 @@
                         video.classList.add('played');
                     }
                 });
-
-                function sendCustomMetric(label, callback) {
-                  sendMetric(label + "-{{snippet_id}}", callback);
-                }
 
                 // Track when the video is first played.
                 var hasPlayed = false;
@@ -1389,6 +1408,7 @@
                   sendCustomMetric("signup-video-replay");
                   video.play();
                 });
+              {% endif %}
 
                 document.querySelector("#form").addEventListener("submit", function(e) {
                   e.preventDefault();
