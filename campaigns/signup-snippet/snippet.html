@@ -345,14 +345,14 @@
         <div class="error-container">{{ basketError }}</div>
       </div>
       <div class="row">
-        <input form="form" class="email-input" type="email" required placeholder="{{ emailPlaceholder }}"></input>
+        <input form="form" class="email-input" type="email" required="required" placeholder="{{ emailPlaceholder }}"></input>
       </div>
       <div class="row">
         <input class="first-name-input" type="text" placeholder="{{ firstnamePlaceholder }}"></input>
       </div>
       <div class="row">
-        <select class="country-input" required>
-          <option value="" selected>
+        <select class="country-input" required="required">
+          <option value="" selected="selected">
             {{ countryPlaceholder }}
           </option>
 
@@ -1290,7 +1290,7 @@
         </select>
       </div>
       <div class="row">
-        <label><input form="form" class="privacy-checkbox" required type="checkbox"></input>{{ privacyPolicy|safe }}</label>
+        <label><input form="form" class="privacy-checkbox" required="required" type="checkbox"></input>{{ privacyPolicy|safe }}</label>
       </div>
       <div class="row">
         <button form="form" type="submit" class="submit-button button button-red"></button>
