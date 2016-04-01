@@ -1,5 +1,6 @@
-<!-- Simple and Logo Swap Snippet with Block and Click -->
-<!--
+{#
+Simple and Logo Swap Snippet with Block and Click
+
 Variables:
 
   @block_button_text - small text - Text to display while hovering over opt out button. Default 'Remove this'
@@ -13,7 +14,7 @@ Variables:
   @logo_height: small_text - Logo height. Defaults to 192px
   @logo_width: small_text -  Logo width. Defaults to 192px
 
--->
+#}
 <style>
 div.switch#brandLogo {
    background-size: {{ width|default(192, true) }}px {{ height ~ 'px' if height else 'auto' }};
