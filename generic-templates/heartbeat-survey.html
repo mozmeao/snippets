@@ -1,0 +1,101 @@
+{#
+Snippet for prompting users with a UITour survey
+
+Variables:
+
+  @message - small text - Survey message text
+  @thankyouMessage - small text - Thanks message text shown after the user
+    interacts with the prompt
+  @engagementURL - URL - URL to open in a new tab after the user interacts with
+    the prompt
+  @engagementButtonLabel - small text - If blank, show a 5-star rating in the
+    prompt, otherwise show a button with this text
+  @learnMoreURL - URL - URL to open when the Learn More link is clicked
+  @learnMoreLabel - small text - Label for the Learn More link
+
+#}
+<div class="snippet" id="surveysnippet-{{ snippet_id }}"></div>
+<script type="text/javascript">
+//<![CDATA[
+(function() {
+  var ID = 'surveysnippet-{{ snippet_id }}';
+  var snippet = document.getElementById(ID);
+
+  snippet.addEventListener('show_snippet', function() {
+    addToBlockList({{ snippet_id }});
+    annotateUrl('{{ engagementURL|escapejs|safe }}').then(function(engagementURL) {
+      document.dispatchEvent(new CustomEvent('mozUITour', {
+        bubbles: true,
+        detail: {
+  	      action: 'showHeartbeat',
+  	      data: {
+            message: '{{ message|escapejs|safe }}',
+            thankyouMessage: '{{ thankyouMessage|escapejs|safe }}',
+            flowId: 'fake-flowid-snippet-survey',
+            engagementURL: engagementURL,
+            learnMoreLabel: '{{ learnMoreLabel|escapejs|safe }}',
+            learnMoreURL: '{{ learnMoreURL|escapejs|safe }}',
+            engagementButtonLabel: '{{ engagementButtonLabel|escapejs|safe }}'
+          }
+        }
+      }));
+    });
+  });
+
+  function annotateUrl(url) {
+    return getClientInfo().then(function(client) {
+      var args = {
+        source: 'snippet',
+        surveyversion: 52,
+        updateChannel: client.channel,
+        fxVersion: client.version,
+        isDefaultBrowser: client.isDefaultBrowser ? 1 : 0,
+        searchEngine: client.searchEngine,
+        syncSetup: client.syncSetup ? 1 : 0,
+      };
+
+      var annotatedUrl = new URL(url);
+      for (var key in args) {
+          annotatedUrl.searchParams.set(key, args[key]);
+      }
+
+      return annotatedUrl.href;
+    });
+  }
+
+  function getClientInfo() {
+    return new Promise(function(resolve) {
+      var client = {};
+
+      // Keys are UITour configs, functions are given the data
+      // returned by UITour for that config.
+      var wantedConfigs = {
+        appinfo: function(data) {
+          client.version = data.version;
+          client.channel = data.defaultUpdateChannel;
+          client.isDefaultBrowser = data.defaultBrowser;
+        },
+        selectedSearchEngine: function(data) {
+          client.searchEngine = data.searchEngineIdentifier;
+        },
+        sync: function(data) {
+          client.syncSetup = data.setup;
+        }
+      };
+
+      var retrievedConfigs = 0;
+      var wantedConfigNames = Object.keys(wantedConfigs);
+      wantedConfigNames.forEach(function(configName) {
+        Mozilla.UITour.getConfiguration(configName, function(data) {
+          wantedConfigs[configName](data);
+          retrievedConfigs++;
+          if (retrievedConfigs >= wantedConfigNames.length) {
+            resolve(client);
+          }
+        });
+      });
+    });
+  }
+})();
+//]]>
+</script>
