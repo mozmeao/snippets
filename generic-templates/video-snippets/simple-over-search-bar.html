@@ -28,9 +28,8 @@
 #logo-replacement-{{ snippet_id }} {
     position: relative;
     top: 0px;
-    left: 10px;
-    margin: 22px auto 0 auto;
-    width: 666px;
+    margin: 22px auto 31px;
+    width: 470px;
     height: 0;
     overflow: visible;
     pointer-events: none;
@@ -41,21 +40,19 @@
 #logo-replacement-{{ snippet_id }}.show {
     display: block;
     opacity: 1;
-    height: 310px;
+    height: 192px;
 }
 
 #logo-replacement-{{ snippet_id }} .video-container {
-    width: 480px;
-    position: absolute;
-    left: 84px;
-    top: 15px;
+    width: 100%;
+    height: 100%;
 }
 
 #logo-replacement-{{ snippet_id }} .video-container video {
     pointer-events: all;
     cursor: pointer;
-    width: 480px;
-    height: 270px;
+    width: 100%;
+    height: 100%;
 }
 
 #logo-replacement-{{ snippet_id }} .video-container video.played {
@@ -81,7 +78,7 @@
     letter-spacing: -.05em;
     text-transform: uppercase;
     text-align: center;
-    margin: 75px auto 0;
+    margin: 45px auto;
 }
 
 #logo-replacement-{{ snippet_id }} .replay {
@@ -99,22 +96,24 @@
     line-height: 94px;
     font-size: 42px;
     text-align: center;
-    margin: 0 auto 20px;
+    margin: 0 auto;
     border-radius: 50%;
     background: #0C99D5;
     border: 3px solid #B2E5FB;
     height: 94px;
-    width: 94px;
     transition: all 0.2s ease;
     font-family: fontello-{{ snippet_id }};
 }
 
 #logo-replacement-{{ snippet_id }} .replay::before {
     content: '\e800';  /* Replay icon */
+    width: 94px;
 }
 
 #logo-replacement-{{ snippet_id }} .play::before {
     content: '\e801';  /* Play icon */
+    width: 84px;
+    padding-left: 10px;
 }
 </style>
 
