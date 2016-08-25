@@ -1,5 +1,5 @@
 {#
-Simple and Logo Swap Snippet with Block and Click
+Simple and Logo Swap Snippet with Block, Link Button and Click
 
 Variables:
 
@@ -10,6 +10,7 @@ Variables:
   @icon_url: text - URL linked from icon and whole snippet when snippet is clickable. (optional / required when snippet is clickable)
   @link_logo: checkbox - Check to make replacement logo clickable.
   @replacement_logo: image - Optional. Replace logo.
+  @snippet_button_text: small text - Optional. Text for a button that links to icon_url.
   @text: main text - Text of snippet.
   @logo_height: small_text - Logo height. Defaults to 192px
   @logo_width: small_text -  Logo width. Defaults to 192px
@@ -78,6 +79,35 @@ div.switch#brandLogo {
  }
 {% endif %}
 
+ .flex-container {
+     display: flex;
+     align-items: center;
+     width: 100%;
+ }
+
+ .flex-start {
+     justify-content: flex-start;
+ }
+
+ .flex-space-between {
+     justify-content: space-between;
+ }
+
+ .button-link {
+     white-space: nowrap;
+     margin: 5px;
+     background: #D3D9DD;
+     color: #000;
+     font-size: 16px;
+     padding: 5px 13px;
+     border-radius: 6px;
+ }
+
+ .button-link:hover {
+     background: #2B9EEF;
+     color: #FFF;
+ }
+
  {% if blockable %}
    .block-snippet-button {
        position: absolute;
@@ -127,17 +157,23 @@ div.switch#brandLogo {
     {% if blockable or clickable %}
       <div id="block-snippet-overlay" class="block-snippet-overlay">
     {% endif %}
+    <div class="flex-container flex-start">
+      {% if icon_url %}
+        <a href="{{ icon_url|safe }}">
+      {% endif %}
+            <img class="icon" src="{{ icon }}" />
+      {% if icon_url %}
+        </a>
+      {% endif %}
 
-    {% if icon_url %}
-      <a href="{{ icon_url|safe }}">
-    {% endif %}
-          <img class="icon" src="{{ icon }}" />
-    {% if icon_url %}
-      </a>
-    {% endif %}
+      <div class="flex-container flex-space-between">
+        <p>{{ text|safe }}</p>
 
-    <p>{{ text|safe }}</p>
-
+        {% if snippet_button_text %}
+        <a class="button-link" href="{{ icon_url|safe }}">{{snippet_button_text}}</a>
+        {% endif %}
+      </div>
+    </div>
     {% if blockable or clickable %}
       </div>
     {% endif %}
