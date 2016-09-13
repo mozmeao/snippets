@@ -1,0 +1,321 @@
+{#
+2016 fundraising snippet.
+
+Variables:
+
+  @text: main text - Text of snippet.
+  @icon: image - Snippet icon. 64x64px. SVG or PNG preferred.
+  @button_label: Required. Text for donate button.
+  @donation_form_url: Required. Url to the donation form.
+
+  @button_color: Default blue. Red and green also options.
+
+  @locale: Default en-US. String for the locale code.
+  @currency_code: Default usd. The code for the currency. Examle gbp, cad, usd.
+
+  @small_buttons: checkbock - Scales the buttons down.
+  @donation_amount_first: number. Required. The amount for the first button.
+  @donation_amount_second: number. Required. The amount for the second button.
+  @donation_amount_third: number. Required. The amount for the third button.
+  @donation_amount_fouth: number. Required. The amount for the fourth button.
+  @selected_button: Default donation_amount_second. Donation amount button that's selected by default.
+
+  @blockable: checkbox - Check to allow user to block this snippet.
+  @block_button_text - small text - Text to display while hovering over opt out button. Default 'Remove this'
+
+#}
+<div class="snippet" id="mofo-eoy-fundraiser-{{ snippet_id }}">
+<style>
+
+#snippetContainer div.snippet img.icon {
+    margin: 5px 8px 5px 0;
+    float: none;
+}
+
+.snippet p {
+    padding-left: 0;
+}
+
+#mofo-eoy-fundraiser-{{ snippet_id }} {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  margin-top: 6px;
+}
+
+.snippet .icon {
+    position: relative;
+    right: 0;
+    top: 0;
+    display: inline-block;
+    height: auto;
+    max-height: 64px;
+    vertical-align: middle;
+}
+
+{% if blockable %}
+  .block-snippet-overlay {
+      height: 100%;
+      width: 100%;
+  }
+{% endif %}
+
+ .snippet .display-item {
+     display: table-cell;
+     vertical-align: middle;
+ }
+ .snippet .display-container {
+     display: table;
+ }
+
+ .button-link {
+     background: #2FA0F0;
+     color: #FFFFFF;
+ }
+
+ .button-link:hover {
+     background: #A5D6F9;
+     color: #FFFFFF;
+ }
+
+{% if button_color == 'red' %}
+
+ .button-link {
+     background: #C94C4A;
+ }
+
+ .button-link:hover {
+     background: #E8B2B2;
+ }
+{% endif %}
+
+{% if button_color == 'green' %}
+
+ .button-link {
+     background: #69C9A2;
+ }
+
+ .button-link:hover {
+     background: #BEE8D7;
+ }
+{% endif %}
+
+ .top-button-link {
+     white-space: nowrap;
+     padding: 5px 13px;
+     margin: 5px 0 5px 5px;
+ }
+
+ .bottom-button-link {
+    padding: 7px 0;
+    min-width: 122px;
+     float: right;
+ }
+
+ .donation-amount {
+     padding: 6px 0;
+     min-width: 73px;
+     float: left;
+     margin-right: 8px;
+     background: #D5DADE;
+     color: #3C3C3C;
+  }
+
+ .donation-amount:hover {
+     background: rgba(213, 218, 222, .6);
+  }
+
+ .donation-amount.button-selected {
+     background: #9EA9B2;
+     color: #FFFFFF;
+  }
+
+  .donation-amounts {
+    margin: 0 0 12px 0;
+    overflow: hidden;
+  }
+{% if small_buttons %}
+
+  .donation-amounts {
+    transform: scale(0.795);
+  }
+{% endif %}
+
+ .button {
+     font-size: 16px;
+     border-radius: 6px;
+     border: none;
+     cursor: pointer;
+     text-align: center;
+ }
+
+ {% if blockable %}
+   .block-snippet-button {
+       position: absolute;
+       top: 5px;
+       right: 0;
+       z-index: 10;
+       visibility: hidden;
+       height: 24px;
+       width: 24px;
+       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAeFBMVEUAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAAAAAAAAADDw8OQkJAAAAAAAAAAAAAAAAD9/f38/Pz6+vr5+fnt7e3i4uLd3d3Z2dmgoKBdXV0mJibv7++amprNzc2amprv7+////9zc3OwsLD29vaPj4+xsbHCwsLBwcHrzmRyAAAAIHRSTlMABAg9HhEMNxkir38xLCkV/Pr39OHTzceOYUrliLuJ5ik+KlgAAAGhSURBVEjHnZbrdoIwDIAXWii3UuV+0wV0+v5vOEBH2ajg8v3y6PlO2pgm+TAAYD0B+HgDsBxbuXzCVbZj7VgAju16USjYhAgjz7WdrVjgKC5FHfh5kxwOSZP7QS0kVw68PJLNJQuKIy44FgGT3LbAHMKNWJviirRlkWsKNIQIqwyNZFU4BFobnihjfEFcCm92tMF83MBnfxwYjBNuchocWN6cCx938AVf5MBywxJ3KUPX0seKqnhfiavIhvlYLMM3yNjP0UDJFmcuN/zF7aI/t1I9lCFIqo1r1y+Nr+6qnXQI87iJDJZGNzra6JZOIG2Y0iWK+bt7N9JrY+Q+/1yIKWmOVy9qt3862lgGPdaeM2U4QDQ52tAEY55BhT4aHS1r/FDBeJUcTY7JwHy8jMVZgybHZGDD+KQkuHbMBiZP5YBrx2zggaCQDka5PiHJhL9yq2B6c8FslmVvKsud4u8Nxb/3xPr1E9t9yP3qIf+vXZylAkJTIrQ+QoMltHHCsCCMJMLgo49XPcTPpiF+1kOcsCrsLSSfeiGhrj305Yqwwn0Dwi/I5rQKpwMAAAAASUVORK5CYII=");
+       background-repeat: no-repeat;
+       background-size: 24px 24px;
+       background-color: transparent;
+       border: 0;
+   }
+
+   .block-snippet-button:hover {
+       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAABAQEAAACQkJAAAADDw8P9/f38/Pz6+vr5+fni4uLZ2dmgoKCampomJibv7+/d3d3ExMRcXFzt7e3t7e3Nzc0AAABeXl7c3Nzv7+/////DOzLdkYz78/LlqaXPYlveko1iPwM8AAAAInRSTlMACwceOhcRBCo+NH8ir/z69/TTx46ISuXNsGHh4LskYszmffUm0QAAAbBJREFUSMelluuSgjAMRrdtegW84/22AXXf/wlXcNzAGEC755fjeCYfmDb5YrBWihpp7dcbWCmM1qpGa3PX3vh96kIAfwdCcOmAJYVWDpZJdl5NR6Pp6pwlS3BKC9lVQhjlfDIfY4PxPPFOGWE7SjjI9/jCPgfHFpJGhe0MWWbboIx8NVJYTLCDyQLSp0PGETLsIYPj06EaB+zl0K5jhYINDrAB1XhvQocFDrIIWlAst50MK5OtM5JizfANZn/RpHY5fX+5YovrhT7nTj/KCOX3ZNyKsmn8FDdydl6JOpdxSdMoKoeMoukkztg6F8wpRlFRklFBUedQJxPpstG7JTm10S46XqaCcjEOGe1kVocMWYdkIgvaVo+yRs7hDFxXDyMUrJBzOANXoMRd8VNkHTKIqX8oI2QdMohRjBIVLOLxI15yxF/Z1zAl3zC9bVlybTnQ/CXT/ENHrGSO2OMg7zoPcvlykCOui88upXsR+9nVd3JGRlywEdd4xLCIGEnRg4/G66lrvJ6q8coPcZ/vuCHuaYjHrQr8QrKuF5Lv9YYWkqG1Bx5rD9Da87/lKmKF+wUdVNNtsJwP7gAAAABJRU5ErkJggg==");
+   }
+
+   .block-snippet-button:active {
+       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAABAQEAAAAAAAAAAAD9/f3Dw8MAAAAAAACRkZH6+vr5+fnv7+/i4uLd3d3Z2dmgoKBdXV0mJiYAAAAAAACPj4/t7e3t7e2ampoAAACamprOzs7MzMyYmJj///8QEBB5eXnw8PCWlpZAQEB2Ec74AAAAI3RSTlMABgseOio+GRA0+68iEn/39OXTzceOYUoWFX/h4Igjiby5hsu+k6AAAAGoSURBVEjHnZbpYoIwEISbZEMIl8oNam27eLz/E9YY22DdgmR+efAxGxJ2540SY/wmxog/ycvDVombVBvOY4ynKpFaQ3AVaC0TlXI2CXRCQtPHxWYdRetNEWcNSNFZiHYQMsjKCEeKyiyQwjiRhJKw3+GTdl8gFcWwUOg6R1J5rUXInokEqhX+o1UFiWXGxDvEOKEY3i0z9vjESX08+jAurMe0j+CO4UpXOKtKK/5rksp6NY+sapmyHxMBOb6gHAS/m3Ry734/nfFB55P7vJcdu5sEO0dchuOYOA4Xx2wDwe8r6cfEYBhHDGMms6thCkpXxmB0dISRK7UEZRCeNNHotpYhvhhFTWIqC01dBEMQiL0Mr3W1OkaCIQmMdcvMUgqkGIrAwiyGC9ggxVAEbkBwsytrJBiSwHVgkQgJhiQw8kG8CvNYvsdD9thKc2Cy1w9MJkOPY+l3+Fkqs4WvmNmZ7YIXeVm7OMiOLWxKxsSj9Xk0WI827jEsPEaSx+DzHq9uiAeHLTHED4Eb4lRU6P9Ghd5GhelAkhGBZDb2gI09QMQer3DlEeG+AWkO2NrlPO+kAAAAAElFTkSuQmCC");
+   }
+
+   #snippet:hover > .block-snippet-button {
+       visibility: visible;
+   }
+
+   #brandLogo:hover > .block-snippet-button {
+       visibility: visible;
+   }
+
+  .block-snippet-overlay-close {
+      visibility: visible;
+      background-color: #eaeaea;
+      box-shadow: 0 0 0 transparent;
+      border-radius: 12px;
+   }
+ {% endif %}
+
+</style>
+  {% if blockable %}
+    <div id="block-snippet-overlay" class="block-snippet-overlay">
+  {% endif %}
+      <div class="display-container">
+        {% if icon %}
+          <div class="display-item">
+            <img class="icon" src="{{ icon }}" />
+          </div>
+        {% endif %}
+
+        <p class="display-item">{{ text|safe }}</p>
+
+        {% if not donation_amount_first %}
+          <div class="display-item">
+            <a class="top-button-link button button-link" href="{{ donation_form_url|safe }}">
+              {{ button_label }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+      {% if donation_amount_first %}
+        <div class="donation-amounts">
+          <button class="button donation-amount donation-amount-first" data-amount="{{ donation_amount_first }}"></button>
+          <button class="button donation-amount donation-amount-second" data-amount="{{ donation_amount_second }}"></button>
+          <button class="button donation-amount donation-amount-third" data-amount="{{ donation_amount_third }}"></button>
+          <button class="button donation-amount donation-amount-fourth" data-amount="{{ donation_amount_fourth }}"></button>
+
+          <a class="bottom-button-link button button-link" href="{{ donation_form_url|safe }}">
+            {{ button_label }}
+          </a>
+        </div>
+      {% endif %}
+  {% if blockable %}
+    </div>
+
+    <button class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}">
+    </button>
+  {% endif %}
+<script type="text/javascript">
+  //<![CDATA[
+  (function() {
+    var snippet = document.getElementById('mofo-eoy-fundraiser-{{ snippet_id }}');
+
+    snippet.addEventListener('show_snippet', function () {
+      setTimeout( function() {
+        {% if donation_amount_first %}
+
+          var btnAmounts = snippet.querySelectorAll('.donation-amount');
+          var btnSelected;
+          var amount;
+          var frequency = 'single';
+
+          var locale = '{{ locale|default("en-US", true) }}';
+          var currencyCode = '{{ currency_code|default('usd', true) }}';
+          var btnDonate = snippet.querySelector('.button-link');
+
+          var donationURL = btnDonate.attributes['href'].value;
+          var delimiter = "?";
+          if (donationURL.indexOf('?') >= 0) {
+            delimiter = '&';
+          }
+          var dAmountFirst = '{{donation_amount_first}}';
+          var dAmountSecond = '{{donation_amount_second}}';
+          var dAmountThird = '{{donation_amount_third}}';
+          var dAmountFourth = '{{donation_amount_fourth}}';
+          var presets = [dAmountFirst, dAmountSecond, dAmountThird, dAmountFourth];
+
+          var numberFormat = new Intl.NumberFormat(locale, {
+            style: 'currency',
+            currency: currencyCode,
+            minimumFractionDigits: 0
+          });
+          var dAmountFirstEl = snippet.querySelector('.donation-amount-first');
+          var dAmountSecondEl = snippet.querySelector('.donation-amount-second');
+          var dAmountThirdEl = snippet.querySelector('.donation-amount-third');
+          var dAmountFourthEl = snippet.querySelector('.donation-amount-fourth');
+
+          dAmountFirstEl.textContent = numberFormat.format(dAmountFirst);
+          dAmountSecondEl.textContent = numberFormat.format(dAmountSecond);
+          dAmountThirdEl.textContent = numberFormat.format(dAmountThird);
+          dAmountFourthEl.textContent = numberFormat.format(dAmountFourth);
+
+          function selectAmount(element) {
+            if (!element) {
+              return;
+            }
+            element.classList.add('button-selected');
+            if (btnSelected) {
+              btnSelected.classList.remove('button-selected');
+            }
+            btnSelected = element;
+            amount = element.attributes['data-amount'].value;
+            updateLink();
+          }
+          function updateLink() {
+            btnDonate.attributes['href'].value = donationURL + delimiter + 'amount=' + amount + "&frequency=" + frequency + "&currency=" + currencyCode + '&presets=' + presets;
+          }
+          var selected = "{{ selected_button|default("donation-amount-second", true) }}";
+          selectAmount(snippet.querySelector("." + selected));
+
+          for(var i=0; i<btnAmounts.length; i++) {
+            btnAmounts[i].addEventListener('click', function (event) {
+              if (!event.target.classList.contains('button-selected')) {
+                selectAmount(event.target);
+              }
+            });
+          }
+        {% endif %}
+
+        {% if blockable %}
+           var overlay = document.getElementById('block-snippet-overlay');
+           var xbuttons = document.querySelectorAll('.block-snippet-button');
+           var mouseover = function(event) {
+               overlay.classList.add('block-snippet-overlay-close');
+           };
+
+           var mouseout = function(event) {
+               overlay.classList.remove('block-snippet-overlay-close');
+           };
+           for (var k = 0, l = xbuttons.length; k < l; k++) {
+               var xbutton = xbuttons[k];
+               xbutton.addEventListener('mouseover', mouseover, false);
+               xbutton.addEventListener('mouseout', mouseout, false);
+           }
+         {% endif %}
+       });
+     });
+ })();
+ //]]>
+</script>
+</div>
