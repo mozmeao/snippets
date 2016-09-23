@@ -21,7 +21,7 @@ Variables:
   @selected_button: Default donation_amount_second. Donation amount button that's selected by default.
 
   @blockable: checkbox - Check to allow user to block this snippet.
-  @block_button_text - small text - Text to display while hovering over opt out button. Default 'Remove this'
+  @block_button_text - small text - Text to display while hovering over opt out button. Default "Remove this"
 
 #}
 <div class="snippet" id="mofo-eoy-fundraiser-{{ snippet_id }}">
@@ -67,16 +67,14 @@ Variables:
  }
 
  .button-link {
-     background: #2FA0F0;
      color: #FFFFFF;
  }
 
  .button-link:hover {
-     background: #A5D6F9;
      color: #FFFFFF;
  }
 
-{% if button_color == 'red' %}
+{% if button_color == "red" %}
 
  .button-link {
      background: #C94C4A;
@@ -85,9 +83,7 @@ Variables:
  .button-link:hover {
      background: #E8B2B2;
  }
-{% endif %}
-
-{% if button_color == 'green' %}
+{% elif button_color == "green" %}
 
  .button-link {
      background: #69C9A2;
@@ -95,6 +91,15 @@ Variables:
 
  .button-link:hover {
      background: #BEE8D7;
+ }
+{% else %}
+
+ .button-link {
+     background: #2FA0F0;
+ }
+
+ .button-link:hover {
+     background: #A5D6F9;
  }
 {% endif %}
 
@@ -156,6 +161,7 @@ Variables:
        visibility: hidden;
        height: 24px;
        width: 24px;
+       cursor: pointer;
        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAeFBMVEUAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAAAAAAAAADDw8OQkJAAAAAAAAAAAAAAAAD9/f38/Pz6+vr5+fnt7e3i4uLd3d3Z2dmgoKBdXV0mJibv7++amprNzc2amprv7+////9zc3OwsLD29vaPj4+xsbHCwsLBwcHrzmRyAAAAIHRSTlMABAg9HhEMNxkir38xLCkV/Pr39OHTzceOYUrliLuJ5ik+KlgAAAGhSURBVEjHnZbrdoIwDIAXWii3UuV+0wV0+v5vOEBH2ajg8v3y6PlO2pgm+TAAYD0B+HgDsBxbuXzCVbZj7VgAju16USjYhAgjz7WdrVjgKC5FHfh5kxwOSZP7QS0kVw68PJLNJQuKIy44FgGT3LbAHMKNWJviirRlkWsKNIQIqwyNZFU4BFobnihjfEFcCm92tMF83MBnfxwYjBNuchocWN6cCx938AVf5MBywxJ3KUPX0seKqnhfiavIhvlYLMM3yNjP0UDJFmcuN/zF7aI/t1I9lCFIqo1r1y+Nr+6qnXQI87iJDJZGNzra6JZOIG2Y0iWK+bt7N9JrY+Q+/1yIKWmOVy9qt3862lgGPdaeM2U4QDQ52tAEY55BhT4aHS1r/FDBeJUcTY7JwHy8jMVZgybHZGDD+KQkuHbMBiZP5YBrx2zggaCQDka5PiHJhL9yq2B6c8FslmVvKsud4u8Nxb/3xPr1E9t9yP3qIf+vXZylAkJTIrQ+QoMltHHCsCCMJMLgo49XPcTPpiF+1kOcsCrsLSSfeiGhrj305Yqwwn0Dwi/I5rQKpwMAAAAASUVORK5CYII=");
        background-repeat: no-repeat;
        background-size: 24px 24px;
@@ -171,7 +177,7 @@ Variables:
        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAABAQEAAAAAAAAAAAD9/f3Dw8MAAAAAAACRkZH6+vr5+fnv7+/i4uLd3d3Z2dmgoKBdXV0mJiYAAAAAAACPj4/t7e3t7e2ampoAAACamprOzs7MzMyYmJj///8QEBB5eXnw8PCWlpZAQEB2Ec74AAAAI3RSTlMABgseOio+GRA0+68iEn/39OXTzceOYUoWFX/h4Igjiby5hsu+k6AAAAGoSURBVEjHnZbpYoIwEISbZEMIl8oNam27eLz/E9YY22DdgmR+efAxGxJ2540SY/wmxog/ycvDVombVBvOY4ynKpFaQ3AVaC0TlXI2CXRCQtPHxWYdRetNEWcNSNFZiHYQMsjKCEeKyiyQwjiRhJKw3+GTdl8gFcWwUOg6R1J5rUXInokEqhX+o1UFiWXGxDvEOKEY3i0z9vjESX08+jAurMe0j+CO4UpXOKtKK/5rksp6NY+sapmyHxMBOb6gHAS/m3Ry734/nfFB55P7vJcdu5sEO0dchuOYOA4Xx2wDwe8r6cfEYBhHDGMms6thCkpXxmB0dISRK7UEZRCeNNHotpYhvhhFTWIqC01dBEMQiL0Mr3W1OkaCIQmMdcvMUgqkGIrAwiyGC9ggxVAEbkBwsytrJBiSwHVgkQgJhiQw8kG8CvNYvsdD9thKc2Cy1w9MJkOPY+l3+Fkqs4WvmNmZ7YIXeVm7OMiOLWxKxsSj9Xk0WI827jEsPEaSx+DzHq9uiAeHLTHED4Eb4lRU6P9Ghd5GhelAkhGBZDb2gI09QMQer3DlEeG+AWkO2NrlPO+kAAAAAElFTkSuQmCC");
    }
 
-   #snippet:hover > .block-snippet-button {
+   #mofo-eoy-fundraiser-{{ snippet_id }}:hover > .block-snippet-button {
        visibility: visible;
    }
 
@@ -229,41 +235,40 @@ Variables:
 <script type="text/javascript">
   //<![CDATA[
   (function() {
-    var snippet = document.getElementById('mofo-eoy-fundraiser-{{ snippet_id }}');
+    var snippet = document.getElementById("mofo-eoy-fundraiser-{{ snippet_id }}");
 
-    snippet.addEventListener('show_snippet', function () {
+    snippet.addEventListener("show_snippet", function () {
       setTimeout( function() {
         {% if donation_amount_first %}
 
-          var btnAmounts = snippet.querySelectorAll('.donation-amount');
+          var btnAmounts = snippet.querySelectorAll(".donation-amount");
           var btnSelected;
           var amount;
-          var frequency = 'single';
 
-          var locale = '{{ locale|default("en-US", true) }}';
-          var currencyCode = '{{ currency_code|default('usd', true) }}';
-          var btnDonate = snippet.querySelector('.button-link');
+          var locale = "{{ locale|default('en-US', true) }}";
+          var currencyCode = "{{ currency_code|default('usd', true) }}";
+          var btnDonate = snippet.querySelector(".button-link");
 
-          var donationURL = btnDonate.attributes['href'].value;
+          var donationURL = btnDonate.attributes["href"].value;
           var delimiter = "?";
-          if (donationURL.indexOf('?') >= 0) {
-            delimiter = '&';
+          if (donationURL.indexOf("?") >= 0) {
+            delimiter = "&";
           }
-          var dAmountFirst = '{{donation_amount_first}}';
-          var dAmountSecond = '{{donation_amount_second}}';
-          var dAmountThird = '{{donation_amount_third}}';
-          var dAmountFourth = '{{donation_amount_fourth}}';
+          var dAmountFirst = "{{ donation_amount_first }}";
+          var dAmountSecond = "{{ donation_amount_second }}";
+          var dAmountThird = "{{ donation_amount_third }}";
+          var dAmountFourth = "{{ donation_amount_fourth }}";
           var presets = [dAmountFirst, dAmountSecond, dAmountThird, dAmountFourth];
 
           var numberFormat = new Intl.NumberFormat(locale, {
-            style: 'currency',
+            style: "currency",
             currency: currencyCode,
             minimumFractionDigits: 0
           });
-          var dAmountFirstEl = snippet.querySelector('.donation-amount-first');
-          var dAmountSecondEl = snippet.querySelector('.donation-amount-second');
-          var dAmountThirdEl = snippet.querySelector('.donation-amount-third');
-          var dAmountFourthEl = snippet.querySelector('.donation-amount-fourth');
+          var dAmountFirstEl = snippet.querySelector(".donation-amount-first");
+          var dAmountSecondEl = snippet.querySelector(".donation-amount-second");
+          var dAmountThirdEl = snippet.querySelector(".donation-amount-third");
+          var dAmountFourthEl = snippet.querySelector(".donation-amount-fourth");
 
           dAmountFirstEl.textContent = numberFormat.format(dAmountFirst);
           dAmountSecondEl.textContent = numberFormat.format(dAmountSecond);
@@ -274,23 +279,23 @@ Variables:
             if (!element) {
               return;
             }
-            element.classList.add('button-selected');
+            element.classList.add("button-selected");
             if (btnSelected) {
-              btnSelected.classList.remove('button-selected');
+              btnSelected.classList.remove("button-selected");
             }
             btnSelected = element;
-            amount = element.attributes['data-amount'].value;
+            amount = element.attributes["data-amount"].value;
             updateLink();
           }
           function updateLink() {
-            btnDonate.attributes['href'].value = donationURL + delimiter + 'amount=' + amount + "&frequency=" + frequency + "&currency=" + currencyCode + '&presets=' + presets;
+            btnDonate.attributes["href"].value = donationURL + delimiter + "amount=" + amount + "&currency=" + currencyCode + "&presets=" + presets;
           }
-          var selected = "{{ selected_button|default("donation-amount-second", true) }}";
+          var selected = "{{ selected_button|default('donation-amount-second', true) }}";
           selectAmount(snippet.querySelector("." + selected));
 
           for(var i=0; i<btnAmounts.length; i++) {
-            btnAmounts[i].addEventListener('click', function (event) {
-              if (!event.target.classList.contains('button-selected')) {
+            btnAmounts[i].addEventListener("click", function (event) {
+              if (!event.target.classList.contains("button-selected")) {
                 selectAmount(event.target);
               }
             });
@@ -298,19 +303,19 @@ Variables:
         {% endif %}
 
         {% if blockable %}
-           var overlay = document.getElementById('block-snippet-overlay');
-           var xbuttons = document.querySelectorAll('.block-snippet-button');
+           var overlay = document.getElementById("block-snippet-overlay");
+           var xbuttons = document.querySelectorAll(".block-snippet-button");
            var mouseover = function(event) {
-               overlay.classList.add('block-snippet-overlay-close');
+               overlay.classList.add("block-snippet-overlay-close");
            };
 
            var mouseout = function(event) {
-               overlay.classList.remove('block-snippet-overlay-close');
+               overlay.classList.remove("block-snippet-overlay-close");
            };
            for (var k = 0, l = xbuttons.length; k < l; k++) {
                var xbutton = xbuttons[k];
-               xbutton.addEventListener('mouseover', mouseover, false);
-               xbutton.addEventListener('mouseout', mouseout, false);
+               xbutton.addEventListener("mouseover", mouseover, false);
+               xbutton.addEventListener("mouseout", mouseout, false);
            }
          {% endif %}
        });
@@ -319,3 +324,5 @@ Variables:
  //]]>
 </script>
 </div>
+
+
