@@ -14,21 +14,21 @@ Variables:
   @currency_code: Default usd. The code for the currency. Examle gbp, cad, usd.
 
   @small_buttons: checkbock - Scales the buttons down.
-  @donation_amount_first: number. Required. The amount for the first button.
-  @donation_amount_second: number. Required. The amount for the second button.
-  @donation_amount_third: number. Required. The amount for the third button.
-  @donation_amount_fouth: number. Required. The amount for the fourth button.
+  @donation_amount_first: number. Optional. The amount for the first button.
+  @donation_amount_second: number. Optional. The amount for the second button.
+  @donation_amount_third: number. Optional. The amount for the third button.
+  @donation_amount_fouth: number. Optional. The amount for the fourth button.
   @selected_button: Default donation_amount_second. Donation amount button that's selected by default.
 
   @blockable: checkbox - Check to allow user to block this snippet.
   @block_button_text - small text - Text to display while hovering over opt out button. Default "Remove this"
 
 #}
-<div class="snippet" id="mofo-eoy-fundraiser-{{ snippet_id }}">
+<div class="snippet" id="mofo-eoy-fundraiser">
 <style>
 
 #snippetContainer div.snippet img.icon {
-    margin: 5px 8px 5px 0;
+    margin: 2px 8px 5px 0;
     float: none;
 }
 
@@ -36,7 +36,7 @@ Variables:
     padding-left: 0;
 }
 
-#mofo-eoy-fundraiser-{{ snippet_id }} {
+#mofo-eoy-fundraiser {
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   margin-top: 6px;
 }
@@ -50,13 +50,6 @@ Variables:
     max-height: 64px;
     vertical-align: middle;
 }
-
-{% if blockable %}
-  .block-snippet-overlay {
-      height: 100%;
-      width: 100%;
-  }
-{% endif %}
 
  .snippet .display-item {
      display: table-cell;
@@ -119,7 +112,7 @@ Variables:
      padding: 6px 0;
      min-width: 73px;
      float: left;
-     margin-right: 8px;
+     margin-right: 7px;
      background: #D5DADE;
      color: #3C3C3C;
   }
@@ -134,7 +127,6 @@ Variables:
   }
 
   .donation-amounts {
-    margin: 0 0 12px 0;
     overflow: hidden;
   }
 {% if small_buttons %}
@@ -156,7 +148,7 @@ Variables:
    .block-snippet-button {
        position: absolute;
        top: 5px;
-       right: 0;
+       right: 5px;
        z-index: 10;
        visibility: hidden;
        height: 24px;
@@ -169,6 +161,18 @@ Variables:
        border: 0;
    }
 
+  .block-snippet-overlay {
+      height: 100%;
+      width: 100%;
+      border-radius: 12px;
+      padding: 5px;
+      box-sizing: border-box;
+  }
+
+  .block-snippet-button:hover ~ .block-snippet-overlay {
+      background-color: #eaeaea;
+   }
+
    .block-snippet-button:hover {
        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAABAQEAAACQkJAAAADDw8P9/f38/Pz6+vr5+fni4uLZ2dmgoKCampomJibv7+/d3d3ExMRcXFzt7e3t7e3Nzc0AAABeXl7c3Nzv7+/////DOzLdkYz78/LlqaXPYlveko1iPwM8AAAAInRSTlMACwceOhcRBCo+NH8ir/z69/TTx46ISuXNsGHh4LskYszmffUm0QAAAbBJREFUSMelluuSgjAMRrdtegW84/22AXXf/wlXcNzAGEC755fjeCYfmDb5YrBWihpp7dcbWCmM1qpGa3PX3vh96kIAfwdCcOmAJYVWDpZJdl5NR6Pp6pwlS3BKC9lVQhjlfDIfY4PxPPFOGWE7SjjI9/jCPgfHFpJGhe0MWWbboIx8NVJYTLCDyQLSp0PGETLsIYPj06EaB+zl0K5jhYINDrAB1XhvQocFDrIIWlAst50MK5OtM5JizfANZn/RpHY5fX+5YovrhT7nTj/KCOX3ZNyKsmn8FDdydl6JOpdxSdMoKoeMoukkztg6F8wpRlFRklFBUedQJxPpstG7JTm10S46XqaCcjEOGe1kVocMWYdkIgvaVo+yRs7hDFxXDyMUrJBzOANXoMRd8VNkHTKIqX8oI2QdMohRjBIVLOLxI15yxF/Z1zAl3zC9bVlybTnQ/CXT/ENHrGSO2OMg7zoPcvlykCOui88upXsR+9nVd3JGRlywEdd4xLCIGEnRg4/G66lrvJ6q8coPcZ/vuCHuaYjHrQr8QrKuF5Lv9YYWkqG1Bx5rD9Da87/lKmKF+wUdVNNtsJwP7gAAAABJRU5ErkJggg==");
    }
@@ -177,24 +181,15 @@ Variables:
        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAABAQEAAAAAAAAAAAD9/f3Dw8MAAAAAAACRkZH6+vr5+fnv7+/i4uLd3d3Z2dmgoKBdXV0mJiYAAAAAAACPj4/t7e3t7e2ampoAAACamprOzs7MzMyYmJj///8QEBB5eXnw8PCWlpZAQEB2Ec74AAAAI3RSTlMABgseOio+GRA0+68iEn/39OXTzceOYUoWFX/h4Igjiby5hsu+k6AAAAGoSURBVEjHnZbpYoIwEISbZEMIl8oNam27eLz/E9YY22DdgmR+efAxGxJ2540SY/wmxog/ycvDVombVBvOY4ynKpFaQ3AVaC0TlXI2CXRCQtPHxWYdRetNEWcNSNFZiHYQMsjKCEeKyiyQwjiRhJKw3+GTdl8gFcWwUOg6R1J5rUXInokEqhX+o1UFiWXGxDvEOKEY3i0z9vjESX08+jAurMe0j+CO4UpXOKtKK/5rksp6NY+sapmyHxMBOb6gHAS/m3Ry734/nfFB55P7vJcdu5sEO0dchuOYOA4Xx2wDwe8r6cfEYBhHDGMms6thCkpXxmB0dISRK7UEZRCeNNHotpYhvhhFTWIqC01dBEMQiL0Mr3W1OkaCIQmMdcvMUgqkGIrAwiyGC9ggxVAEbkBwsytrJBiSwHVgkQgJhiQw8kG8CvNYvsdD9thKc2Cy1w9MJkOPY+l3+Fkqs4WvmNmZ7YIXeVm7OMiOLWxKxsSj9Xk0WI827jEsPEaSx+DzHq9uiAeHLTHED4Eb4lRU6P9Ghd5GhelAkhGBZDb2gI09QMQer3DlEeG+AWkO2NrlPO+kAAAAAElFTkSuQmCC");
    }
 
-   #mofo-eoy-fundraiser-{{ snippet_id }}:hover > .block-snippet-button {
+   #mofo-eoy-fundraiser:hover > .block-snippet-button,
+   #brandLogo:hover ~ #snippetContainer .block-snippet-button {
        visibility: visible;
-   }
-
-   #brandLogo:hover > .block-snippet-button {
-       visibility: visible;
-   }
-
-  .block-snippet-overlay-close {
-      visibility: visible;
-      background-color: #eaeaea;
-      box-shadow: 0 0 0 transparent;
-      border-radius: 12px;
    }
  {% endif %}
 
 </style>
   {% if blockable %}
+    <button class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}"></button>
     <div id="block-snippet-overlay" class="block-snippet-overlay">
   {% endif %}
       <div class="display-container">
@@ -228,14 +223,11 @@ Variables:
       {% endif %}
   {% if blockable %}
     </div>
-
-    <button class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}">
-    </button>
   {% endif %}
 <script type="text/javascript">
   //<![CDATA[
   (function() {
-    var snippet = document.getElementById("mofo-eoy-fundraiser-{{ snippet_id }}");
+    var snippet = document.getElementById("mofo-eoy-fundraiser");
 
     snippet.addEventListener("show_snippet", function () {
       setTimeout( function() {
@@ -285,9 +277,6 @@ Variables:
             }
             btnSelected = element;
             amount = element.attributes["data-amount"].value;
-            updateLink();
-          }
-          function updateLink() {
             btnDonate.attributes["href"].value = donationURL + delimiter + "amount=" + amount + "&currency=" + currencyCode + "&presets=" + presets;
           }
           var selected = "{{ selected_button|default('donation-amount-second', true) }}";
@@ -301,23 +290,6 @@ Variables:
             });
           }
         {% endif %}
-
-        {% if blockable %}
-           var overlay = document.getElementById("block-snippet-overlay");
-           var xbuttons = document.querySelectorAll(".block-snippet-button");
-           var mouseover = function(event) {
-               overlay.classList.add("block-snippet-overlay-close");
-           };
-
-           var mouseout = function(event) {
-               overlay.classList.remove("block-snippet-overlay-close");
-           };
-           for (var k = 0, l = xbuttons.length; k < l; k++) {
-               var xbutton = xbuttons[k];
-               xbutton.addEventListener("mouseover", mouseover, false);
-               xbutton.addEventListener("mouseout", mouseout, false);
-           }
-         {% endif %}
        });
      });
  })();
