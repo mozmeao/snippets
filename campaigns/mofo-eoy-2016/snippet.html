@@ -14,10 +14,11 @@ Variables:
   @currency_code: Default usd. The code for the currency. Examle gbp, cad, usd.
 
   @small_buttons: checkbock - Scales the buttons down.
-  @donation_amount_first: number. Optional. The amount for the first button.
-  @donation_amount_second: number. Optional. The amount for the second button.
-  @donation_amount_third: number. Optional. The amount for the third button.
-  @donation_amount_fouth: number. Optional. The amount for the fourth button.
+  @show_donation_amount_buttons: checkbox. optional. Use donation_amount buttons or a simple button.
+  @donation_amount_first: number. Required if show_donation_amount_buttons is set. First button amount.
+  @donation_amount_second: number. Required if show_donation_amount_buttons is set. Second button amount.
+  @donation_amount_third: number. Required if show_donation_amount_buttons is set. Third button amount.
+  @donation_amount_fouth: number. Required if show_donation_amount_buttons is set. Fourth button amount.
   @selected_button: Default donation_amount_second. Donation amount button that's selected by default.
 
   @blockable: checkbox - Check to allow user to block this snippet.
@@ -199,7 +200,7 @@ Variables:
 
       <p class="display-item">{{ text|safe }}</p>
 
-      {% if not donation_amount_first %}
+      {% if not show_donation_amount_buttons %}
         <div class="display-item">
           <a class="top-button-link button button-link" href="{{ donation_form_url|safe }}">
             {{ button_label }}
@@ -207,7 +208,7 @@ Variables:
         </div>
       {% endif %}
     </div>
-    {% if donation_amount_first %}
+    {% if show_donation_amount_buttons %}
       <div class="donation-amounts">
         <button class="button donation-amount donation-amount-first" data-amount="{{ donation_amount_first }}"></button>
         <button class="button donation-amount donation-amount-second" data-amount="{{ donation_amount_second }}"></button>
@@ -230,7 +231,7 @@ Variables:
 
     snippet.addEventListener("show_snippet", function () {
       setTimeout( function() {
-        {% if donation_amount_first %}
+        {% if show_donation_amount_buttons %}
 
           var btnAmounts = snippet.querySelectorAll(".donation-amount");
           var btnSelected;
