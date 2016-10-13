@@ -8,7 +8,7 @@ Variables:
   @button_label: Required. Text for donate button.
   @donation_form_url: Required. Url to the donation form.
 
-  @button_color: Default blue. Red and green also options.
+  @button_color: Default blue. Red, green and gray are also options.
 
   @locale: Default en-US. String for the locale code.
   @currency_code: Default usd. The code for the currency. Examle gbp, cad, usd.
@@ -27,7 +27,7 @@ Variables:
 #}
 <style>
   #snippetContainer div.snippet img.icon {
-    margin: 2px 8px 5px 0;
+    margin: 0 8px 0 0;
     float: none;
   }
 
@@ -84,6 +84,17 @@ Variables:
   .button-link:hover {
     background: #BEE8D7;
   }
+{% elif button_color == "gray" %}
+
+  .button-link {
+    background: #D5DADE;
+    color: #3C3C3C;
+  }
+
+  .button-link:hover {
+    background: rgba(213, 218, 222, .6);
+    color: #3C3C3C;
+  }
 {% else %}
 
   .button-link {
@@ -127,6 +138,7 @@ Variables:
 
   .donation-amounts {
     overflow: hidden;
+    margin-top: 5px;
   }
 {% if small_buttons %}
 
