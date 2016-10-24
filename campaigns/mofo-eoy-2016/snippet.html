@@ -9,6 +9,7 @@ Variables:
   @donation_form_url: Required. Url to the donation form.
 
   @button_color: Default blue. Red, green and gray are also options.
+  @selected_amount_button_color: Default gray. Blue is also an option.
 
   @locale: Default en-US. String for the locale code.
   @currency_code: Default usd. The code for the currency. Examle gbp, cad, usd.
@@ -132,8 +133,12 @@ Variables:
   }
 
   .donation-amount.button-selected {
-    background: #9EA9B2;
     color: #FFFFFF;
+{% if selected_amount_button_color == "blue" %}
+    background: #2FA0F0;
+{% else %}
+    background: #9EA9B2;
+{% endif %}
   }
 
   .donation-amounts {
