@@ -21,6 +21,8 @@ Variables:
   @donation_amount_third: number. Required if show_donation_amount_buttons is set. Third button amount.
   @donation_amount_fouth: number. Required if show_donation_amount_buttons is set. Fourth button amount.
   @selected_button: Default donation_amount_second. Donation amount button that's selected by default.
+  @show_monthly_checkbox: checkbox. Optional. Requires show_donation_amount_buttons. Hides or displays a monthly checkbox.
+  @monthly_checkbox_label_text: Defaults to 'Make my donation monthly'. Label text for monthly chackbox.
 
   @blockable: checkbox - Check to allow user to block this snippet.
   @block_button_text - small text - Text to display while hovering over opt out button. Default "Remove this"
@@ -160,6 +162,15 @@ Variables:
     text-align: center;
   }
 
+  .monthly-checkbox-container {
+    margin: 11px 0 0;
+  }
+
+  .monthly-checkbox {
+    margin: 0 5px 0 0;
+    vertical-align: text-bottom;
+  }
+
 {% if blockable %}
   .block-snippet-button {
     position: absolute;
@@ -237,6 +248,14 @@ Variables:
           {{ button_label }}
         </a>
       </div>
+      {% if show_monthly_checkbox %}
+        <div class="monthly-checkbox-container">
+          <input id="monthly-checkbox" class="monthly-checkbox" type="checkbox"/>
+          <label for="monthly-checkbox" class="monthly-checkbox-label">
+            {{ monthly_checkbox_label_text|default('Make my donation monthly', true) }}
+          </label>
+        </div>
+      {% endif %}
     {% endif %}
   {% if blockable %}
     </div>
@@ -295,15 +314,36 @@ Variables:
             }
             btnSelected = element;
             amount = element.attributes["data-amount"].value;
-            btnDonate.attributes["href"].value = donationURL + delimiter + "amount=" + amount + "&currency=" + currencyCode + "&presets=" + presets;
           }
           var selected = "{{ selected_button|default('donation-amount-second', true) }}";
           selectAmount(snippet.querySelector("." + selected));
+
+          var frequency = "single";
+          {% if show_donation_amount_buttons and show_monthly_checkbox %}
+            var monthlyCheckbox = snippet.querySelector("#monthly-checkbox");
+            function updateFrequency() {
+              frequency = "single";
+              if (monthlyCheckbox.checked) {
+                frequency = "monthly";
+              }
+            }
+            updateFrequency();
+            monthlyCheckbox.addEventListener("change", function() {
+              updateFrequency();
+              updateLink();
+            });
+          {% endif %}
+
+          function updateLink() {
+            btnDonate.attributes["href"].value = donationURL + delimiter + "amount=" + amount + "&currency=" + currencyCode + "&presets=" + presets + "&frequency=" + frequency;
+          }
+          updateLink();
 
           for(var i=0; i<btnAmounts.length; i++) {
             btnAmounts[i].addEventListener("click", function (event) {
               if (!event.target.classList.contains("button-selected")) {
                 selectAmount(event.target);
+                updateLink();
               }
             });
           }
