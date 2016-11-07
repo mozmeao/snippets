@@ -9,7 +9,7 @@ Variables:
   @donation_form_url: Required. Url to the donation form.
 
   @button_color: Default blue. Red, green and gray are also options.
-  @selected_amount_button_color: Default gray. Blue is also an option.
+  @selected_amount_button_color: Default gray. Blue and darkgray are also options.
 
   @locale: Default en-US. String for the locale code.
   @currency_code: Default usd. The code for the currency. Examle gbp, cad, usd.
@@ -23,6 +23,9 @@ Variables:
   @selected_button: Default donation_amount_second. Donation amount button that's selected by default.
   @show_monthly_checkbox: checkbox. Optional. Requires show_donation_amount_buttons. Hides or displays a monthly checkbox.
   @monthly_checkbox_label_text: Defaults to 'Make my donation monthly'. Label text for monthly chackbox.
+
+  @highlight_color: Optional. Defaults to #FFE7AC.
+  @button_font_size: Options are small and large. Small is 16px, and large is 18px. Defaults to small.
 
   @blockable: checkbox - Check to allow user to block this snippet.
   @block_button_text - small text - Text to display while hovering over opt out button. Default "Remove this"
@@ -138,6 +141,8 @@ Variables:
     color: #FFFFFF;
 {% if selected_amount_button_color == "blue" %}
     background: #2FA0F0;
+{% elif selected_amount_button_color == "darkgray" %}
+    background: #7D868C;
 {% else %}
     background: #9EA9B2;
 {% endif %}
@@ -155,12 +160,21 @@ Variables:
 {% endif %}
 
   .button {
-    font-size: 16px;
     border-radius: 6px;
     border: none;
     cursor: pointer;
     text-align: center;
   }
+
+{% if button_font_size == "large" %}
+  .button {
+    font-size: 18px;
+  }
+{% else %}
+  .button {
+    font-size: 16px;
+  }
+{% endif %}
 
   .monthly-checkbox-container {
     margin: 11px 0 0;
@@ -169,6 +183,19 @@ Variables:
   .monthly-checkbox {
     margin: 0 5px 0 0;
     vertical-align: text-bottom;
+  }
+
+  em {
+    transition: background 800ms linear;
+    font-style: normal;
+    box-decoration-break: clone;
+    margin: 0px -2px;
+    padding: 2px 2px;
+    font-weight: bold;
+  }
+
+  em.active {
+    background: {{ highlight_color|default("#FFE7AC", true) }};
   }
 
 {% if blockable %}
@@ -222,9 +249,7 @@ Variables:
   {% endif %}
     <div class="display-container">
       {% if icon %}
-        <div class="display-item">
-          <img class="icon" src="{{ icon }}" />
-        </div>
+        <img class="icon" src="{{ icon }}" />
       {% endif %}
 
       <p class="display-item">{{ text|safe }}</p>
@@ -348,6 +373,14 @@ Variables:
             });
           }
         {% endif %}
+
+        var elHighlighted = snippet.querySelector('em');
+        // Fade in highlight on text
+        setTimeout(function() {
+          if (elHighlighted) {
+            elHighlighted.classList.add('active');
+          }
+        }, 1000);
        });
      });
  })();
