@@ -6,11 +6,11 @@ Variables:
   @text: main text - Text of snippet. Use `em` to hightlight text.
   @icon: image - Optional. Snippet icon. 64x64px. SVG or PNG preferred.
   @button_label: Required. Text for signup button.
+  @button_color: Optional. Defaults to #49AFFD (blue). Other suggestions #69C9A2 (green) and #C94C4A (red).
   @highlight_color: Optional. Defaults to #FFF8D0.
 
   @locale: Default en-US. String for the locale code.
 
-  @firstname_placeholder: Placeholder message for firstname input.
   @email_placeholder: Placeholder message for email input.
   @country_placeholder: Placeholder message for country input.
   @privacy_policy: Privacy policy message.
@@ -97,7 +97,7 @@ Variables:
   }
 
   .transition-track {
-    width: 1680px;
+    width: 1260px;
     transition: transform .2s ease-in-out;
     overflow: hidden;
   }
@@ -132,7 +132,6 @@ Variables:
     width: 362px;
   }
 
-  .first-name-input,
   .country-input {
     border-width: 1px;
     width: 324px;
@@ -141,11 +140,6 @@ Variables:
   .privacy-policy {
     font-size: 14px;
     padding-right: 8px;
-  }
-
-  .notes-container {
-    margin-top: 8px;
-    color: #969696;
   }
 
   .next-button,
@@ -221,17 +215,19 @@ Variables:
     text-transform: uppercase;
     padding: 6px 20px;
     position: relative;
+    min-width: 122px;
+    max-width: 132px;
   }
 
   .form-input:focus + .next-button,
   .submit-button {
-    background-color: #49AFFD;
+    background-color: {{ button_color|default("#49AFFD", true) }};
   }
 
   .submit-button:hover,
   .next-button:hover,
   .form-input:focus + .next-button:hover {
-    background-color: #49AFFD;
+    background-color: {{ button_color|default("#49AFFD", true) }};
     background-image: linear-gradient(rgba(255,255,255,.15),rgba(255,255,255,.15));
   }
 
@@ -351,11 +347,6 @@ Variables:
         <div class="transition-track">
           <div class="transition-item">
             <input class="email-input form-input" type="email" required="required" placeholder="{{ email_placeholder }}"></input>
-            <button class="next-button"></button>
-          </div>
-          <div class="transition-item">
-            <button class="back-button"></button>
-            <input class="first-name-input form-input" type="text" required="required" placeholder="{{ firstname_placeholder }}"></input>
             <button class="next-button"></button>
           </div>
           <div class="transition-item">
@@ -1311,9 +1302,6 @@ Variables:
             </div>
           </div>
         </div>
-        <div class="notes-container">
-          * Required fields
-        </div>
       </div>
     </div>
     <p class="basket-error hidden">
@@ -1339,7 +1327,6 @@ Variables:
         var mainContainer = snippet.querySelector(".form-container");
         var emailInput = snippet.querySelector(".email-input");
         var countryInput = snippet.querySelector(".country-input");
-        var firstNameInput = snippet.querySelector(".first-name-input");
         var basketError = snippet.querySelector(".basket-error");
         var successMessage = snippet.querySelector(".success-message");
 
@@ -1360,13 +1347,9 @@ Variables:
           source_url = encodeURIComponent(source_url);
           var email = emailInput.value;
           var country = countryInput.value;
-          var firstName = firstNameInput.value;
           var params = "newsletters=" + newsletters + "&source_url=" + source_url + "&lang=" + lang + "&email=" + email + "&trigger_welcome=N";
           if (country) {
             params += "&country=" + country;
-          }
-          if (firstName) {
-            params += "&first_name=" + firstName;
           }
           var request = new XMLHttpRequest();
           request.onreadystatechange = function() {
@@ -1407,9 +1390,6 @@ Variables:
         emailInput.addEventListener("focus", function() {
           emailInput.classList.remove("invalid");
         });
-        firstNameInput.addEventListener("focus", function() {
-          firstNameInput.classList.remove("invalid");
-        });
         countryInput.addEventListener("focus", function() {
           countryInput.classList.remove("invalid");
         });
@@ -1424,12 +1404,6 @@ Variables:
             }
           }
           if (currentIndex === 1) {
-            if (!firstNameInput.checkValidity()) {
-              firstNameInput.classList.add("invalid");
-              return;
-            }
-          }
-          if (currentIndex === 2) {
             if (!countryInput.checkValidity()) {
               countryInput.classList.add("invalid");
               return;
