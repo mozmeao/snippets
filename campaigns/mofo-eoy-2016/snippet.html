@@ -293,7 +293,18 @@ Variables:
     var snippet = document.getElementById("mofo-eoy-fundraiser");
 
     snippet.addEventListener("show_snippet", function () {
-      setTimeout( function() {
+        var btnDonate = snippet.querySelector(".button-link");
+        btnDonate.addEventListener("click", function(event) {
+            if (!btnDonate.getAttribute("disabled")) {
+                event.preventDefault();
+                event.stopPropagation();
+                btnDonate.setAttribute("disabled", "disabled");
+                addToBlockList();
+                // Give some time to IndexedDB. Bug 1236090
+                setTimeout(function() { btnDonate.click() }, 500);
+            }
+        })
+
         {% if show_donation_amount_buttons %}
 
           var btnAmounts = snippet.querySelectorAll(".donation-amount");
@@ -302,7 +313,6 @@ Variables:
 
           var locale = "{{ locale|default('en-US', true) }}";
           var currencyCode = "{{ currency_code|default('usd', true) }}";
-          var btnDonate = snippet.querySelector(".button-link");
 
           var donationURL = btnDonate.attributes["href"].value;
           var delimiter = "?";
@@ -382,8 +392,7 @@ Variables:
                 elHighlighted.classList.add('active');
             }, 1000);
         }
-       });
-     });
+    });
  })();
  //]]>
 </script>
