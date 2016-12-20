@@ -8,8 +8,8 @@ Variables:
   @button_label: Required. Text for donate button.
   @donation_form_url: Required. Url to the donation form.
 
-  @button_color: Default blue. Red, green and gray are also options.
-  @selected_amount_button_color: Default gray. Blue and darkgray are also options.
+  @button_color: Default blue. Red, green, orange and gray are also options.
+  @selected_amount_button_color: Default gray. Hashcodes, blue and darkgray are also options.
 
   @locale: Default en-US. String for the locale code.
   @currency_code: Default usd. The code for the currency. Examle gbp, cad, usd.
@@ -26,24 +26,34 @@ Variables:
 
   @highlight_color: Optional. Defaults to #FFE7AC.
   @button_font_size: Default small. Changes the size of the single donation button. Options are small and large. Small is 16px, and large is 18px.
+  @text_color: Optional. Defaults to #3C3C3C. Colour for primary paragraph text.
+  @background_color: Optional. about:home background color.
 
   @blockable: checkbox - Check to allow user to block this snippet.
   @block_button_text - small text - Text to display while hovering over opt out button. Default "Remove this"
 
 #}
+
 <style>
   #snippetContainer div.snippet img.icon {
     margin: 0 8px 0 0;
     float: none;
   }
 
+  #snippets {
+    color: {{ text_color|default("#3C3C3C", true) }};
+  }
+
   .snippet p {
     padding-left: 0;
+    width: 100%;
+    line-height: 20px;
+    font-size: 14px;
   }
 
   #mofo-eoy-fundraiser {
     font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    margin-top: 6px;
+    margin: 10px 0 5px 0;
   }
 
   .snippet .icon {
@@ -63,6 +73,16 @@ Variables:
   .snippet .display-container {
     display: table;
   }
+
+{% if background_color %}
+  body {
+    background-color: {{ background_color }};
+  }
+
+  #launcher {
+    background: hsl(0,0%,95%);
+  }
+{% endif %}
 
   .button-link {
     color: #FFFFFF;
@@ -101,6 +121,15 @@ Variables:
     background: rgba(213, 218, 222, .6);
     color: #3C3C3C;
   }
+{% elif button_color == "orange" %}
+
+  .button-link {
+    background: #FF6E2E;
+  }
+
+  .button-link:hover {
+    background: #FF976E;
+  }
 {% else %}
 
   .button-link {
@@ -108,7 +137,7 @@ Variables:
   }
 
   .button-link:hover {
-    background: #A5D6F9;
+    background: #4ACCFF;
   }
 {% endif %}
 
@@ -145,13 +174,13 @@ Variables:
 {% elif selected_amount_button_color == "darkgray" %}
     background: #7D868C;
 {% else %}
-    background: #9EA9B2;
+    background: {{ selected_amount_button_color|default("#9EA9B2", true) }};
 {% endif %}
   }
 
   .donation-amounts {
     overflow: hidden;
-    margin-top: 5px;
+    margin-top: 15px;
   }
 {% if small_buttons %}
 
@@ -203,7 +232,7 @@ Variables:
   .block-snippet-button {
     position: absolute;
     top: 5px;
-    right: 5px;
+    right: 0;
     z-index: 10;
     visibility: hidden;
     height: 20px;
@@ -220,13 +249,16 @@ Variables:
     height: 100%;
     width: 100%;
     border-radius: 12px;
-    padding: 15px 5px 5px 5px;
-    margin-top: -6px;
-    box-sizing: border-box;
+    padding: 10px 5px 5px 5px;
+    margin-top: -10px;
+    margin-left: -5px;
+    margin-right: -5px;
+    margin-bottom: -5px;
+    box-sizing: content-box;
   }
 
   .block-snippet-button:hover ~ .block-snippet-overlay {
-    background-color: #eaeaea;
+    background-color: rgba(0, 0, 0, .04);
   }
 
   .block-snippet-button:hover {
@@ -286,6 +318,7 @@ Variables:
   {% if blockable %}
     </div>
   {% endif %}
+
 </div>
 <script type="text/javascript">
   //<![CDATA[
@@ -303,7 +336,7 @@ Variables:
                 // Give some time to IndexedDB. Bug 1236090
                 setTimeout(function() { btnDonate.click() }, 500);
             }
-        })
+        });
 
         {% if show_donation_amount_buttons %}
 
@@ -396,3 +429,4 @@ Variables:
  })();
  //]]>
 </script>
+
