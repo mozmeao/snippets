@@ -35,6 +35,7 @@ Variables:
   @special_image_second: Optional. Replace a few of the background images with special images.
   @special_image_third: Optional. Replace a few of the background images with special images.
   @special_image_fourth: Optional. Replace a few of the background images with special images.
+  @special_image_fifth: Optional. Replace a few of the background images with special images.
 
   @blockable: checkbox - Check to allow user to block this snippet.
   @block_button_text - small text - Text to display while hovering over opt out button. Default "Remove this"
@@ -391,14 +392,14 @@ Variables:
     <div class="heart-background-image-loader">
       <div class="heart-background-image-left-container">
         <div class="heart-background-row" style="width: 680px;">
-          <img src="{{ background_image }}"/>
-          <img src="{{ background_image }}"/>
-          <img src="{{ background_image }}"/>
         {% if special_image_first %}
           <img src="{{ special_image_first }}"/>
         {% else %}
           <img src="{{ background_image }}"/>
         {% endif %}
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
         </div>
         <div class="heart-background-row" style="width: 680px;">
           <img src="{{ background_image }}"/>
@@ -407,13 +408,13 @@ Variables:
           <img src="{{ background_image }}"/>
         </div>
         <div class="heart-background-row" style="width: 680px;">
-          <img src="{{ background_image }}"/>
           <img src="{{ background_image }}"/>
         {% if special_image_second %}
           <img src="{{ special_image_second }}"/>
         {% else %}
           <img src="{{ background_image }}"/>
         {% endif %}
+          <img src="{{ background_image }}"/>
           <img src="{{ background_image }}"/>
         </div>
         <div class="heart-background-row" style="width: 680px;">
@@ -441,7 +442,11 @@ Variables:
           <img src="{{ background_image }}"/>
         </div>
         <div class="heart-background-row" style="width: 680px;">
+        {% if special_image_fourth %}
+          <img src="{{ special_image_fourth }}"/>
+        {% else %}
           <img src="{{ background_image }}"/>
+        {% endif %}
           <img src="{{ background_image }}"/>
           <img src="{{ background_image }}"/>
           <img src="{{ background_image }}"/>
@@ -449,8 +454,8 @@ Variables:
         <div class="heart-background-row" style="width: 680px;">
           <img src="{{ background_image }}"/>
           <img src="{{ background_image }}"/>
-        {% if special_image_fourth %}
-          <img src="{{ special_image_fourth }}"/>
+        {% if special_image_fifth %}
+          <img src="{{ special_image_fifth }}"/>
         {% else %}
           <img src="{{ background_image }}"/>
         {% endif %}
