@@ -27,7 +27,14 @@ Variables:
   @highlight_color: Optional. Defaults to #FFE7AC.
   @button_font_size: Default small. Changes the size of the single donation button. Options are small and large. Small is 16px, and large is 18px.
   @text_color: Optional. Defaults to #3C3C3C. Colour for primary paragraph text.
+
   @background_color: Optional. about:home background color.
+  @background_image: Optional. about:home background image.
+  @background_image_animate: Optional. Gif animation for background image on button hover.
+  @special_image_first: Optional. Replace a few of the background images with special images.
+  @special_image_second: Optional. Replace a few of the background images with special images.
+  @special_image_third: Optional. Replace a few of the background images with special images.
+  @special_image_fourth: Optional. Replace a few of the background images with special images.
 
   @blockable: checkbox - Check to allow user to block this snippet.
   @block_button_text - small text - Text to display while hovering over opt out button. Default "Remove this"
@@ -73,6 +80,68 @@ Variables:
   .snippet .display-container {
     display: table;
   }
+
+{% if background_image %}
+  .heart-background-image-loader {
+    display: none;
+  }
+
+  .heart-background-image-left-container,
+  .heart-background-image-right-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+  }
+
+  #launcher {
+    position: relative;
+    z-index: 1;
+  }
+
+  #aboutMozilla {
+    z-index: 1;
+  }
+
+  .heart-background-image-left-container {
+    left: 0;
+    right: calc(50% + 255px);
+  }
+
+  .heart-background-image-right-container {
+    left: calc(50% + 255px);
+    right: 0;
+  }
+
+  .heart-background-row {
+    height: 115px;
+    margin-top: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .heart-background-row img {
+    width: 170px;
+    height: 115px;
+  }
+
+  .heart-background-image-left-container .heart-background-row {
+    background-position: 100% 0;
+    float: right;
+  }
+
+  .heart-background-image-right-container .heart-background-row {
+    background-position: 0 0;
+    float: left;
+  }
+
+  .heart-background-image-left-container .heart-background-row img {
+    float: right;
+  }
+
+  .heart-background-image-right-container .heart-background-row img {
+    float: left;
+  }
+{% endif %}
 
 {% if background_color %}
   body {
@@ -318,7 +387,78 @@ Variables:
   {% if blockable %}
     </div>
   {% endif %}
-
+  {% if background_image %}
+    <div class="heart-background-image-loader">
+      <div class="heart-background-image-left-container">
+        <div class="heart-background-row" style="width: 680px;">
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+        {% if special_image_first %}
+          <img src="{{ special_image_first }}"/>
+        {% else %}
+          <img src="{{ background_image }}"/>
+        {% endif %}
+        </div>
+        <div class="heart-background-row" style="width: 680px;">
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+        </div>
+        <div class="heart-background-row" style="width: 680px;">
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+        {% if special_image_second %}
+          <img src="{{ special_image_second }}"/>
+        {% else %}
+          <img src="{{ background_image }}"/>
+        {% endif %}
+          <img src="{{ background_image }}"/>
+        </div>
+        <div class="heart-background-row" style="width: 680px;">
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+        </div>
+      </div>
+      <div class="heart-background-image-right-container">
+        <div class="heart-background-row" style="width: 680px;">
+          <img src="{{ background_image }}"/>
+        {% if special_image_third %}
+          <img src="{{ special_image_third }}"/>
+        {% else %}
+          <img src="{{ background_image }}"/>
+        {% endif %}
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+        </div>
+        <div class="heart-background-row" style="width: 680px;">
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+        </div>
+        <div class="heart-background-row" style="width: 680px;">
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+        </div>
+        <div class="heart-background-row" style="width: 680px;">
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+        {% if special_image_fourth %}
+          <img src="{{ special_image_fourth }}"/>
+        {% else %}
+          <img src="{{ background_image }}"/>
+        {% endif %}
+          <img src="{{ background_image }}"/>
+        </div>
+      </div>
+    </div>
+  {% endif %}
 </div>
 <script type="text/javascript">
   //<![CDATA[
@@ -337,6 +477,67 @@ Variables:
                 setTimeout(function() { btnDonate.click() }, 500);
             }
         });
+
+        {% if background_image %}
+          var body = document.querySelector("body");
+          var imageLoader = body.querySelector(".heart-background-image-loader");
+          var leftImages = imageLoader.querySelector(".heart-background-image-left-container");
+          var rightImages = imageLoader.querySelector(".heart-background-image-right-container");
+          var topSection = document.querySelector("#topSection");
+          imageLoader.removeChild(leftImages);
+          imageLoader.removeChild(rightImages);
+          body.appendChild(leftImages);
+          body.appendChild(rightImages);
+
+          var heartRowHeight = 155;
+          var heartColWidth = 170;
+          var previousRows = 4;
+          var previousCols = 4;
+
+          function generateRow(numOfCols) {
+            var rowElement = document.createElement("div");
+            rowElement.classList.add("heart-background-row");
+            rowElement.style.width = numOfCols * heartColWidth + "px";
+            for (var i = 0; i < numOfCols; i++) {
+              rowElement.appendChild(generateImg());
+            }
+            return rowElement;
+          }
+
+          function generateImg() {
+            var image = document.createElement("img");
+            image.src = "{{ background_image }}";
+            return image;
+          }
+
+          function generateHearts() {
+            var clientHeight = document.documentElement.clientHeight;
+            var numOfRows = Math.ceil(clientHeight / heartRowHeight);
+
+            var colClientWidth = leftImages.clientWidth;
+            var numOfCols = Math.ceil(colClientWidth / heartColWidth);
+
+            if (previousCols < numOfCols) {
+              [].forEach.call(document.querySelectorAll(".heart-background-row"), function(imageRow) {
+                imageRow.style.width = numOfCols * heartColWidth + "px";
+                for (var i = previousCols; i < numOfCols; i++) {
+                  imageRow.appendChild(generateImg());
+                }
+              });
+            }
+
+            for (var i = previousRows; i < numOfRows; i++) {
+              leftImages.appendChild(generateRow(numOfCols));
+              rightImages.appendChild(generateRow(numOfCols));
+            }
+
+            previousRows = numOfRows;
+            previousCols = numOfCols;
+          }
+
+          generateHearts();
+          window.addEventListener("resize", generateHearts);
+        {% endif %}
 
         {% if show_donation_amount_buttons %}
 
@@ -407,6 +608,19 @@ Variables:
             btnDonate.attributes["href"].value = donationURL + delimiter + "amount=" + amount + "&currency=" + currencyCode + "&presets=" + presets + "&frequency=" + frequency;
           }
           updateLink();
+
+        {% if background_image_animate and background_image %}
+          btnDonate.addEventListener("mouseenter", function() {
+            [].forEach.call(document.querySelectorAll(".heart-background-row img"), function(imageElement) {
+              imageElement.src = "{{ background_image_animate }}";
+            });
+          });
+          btnDonate.addEventListener("mouseleave", function() {
+            [].forEach.call(document.querySelectorAll(".heart-background-row img"), function(imageElement) {
+              imageElement.src = "{{ background_image }}";
+            });
+          });
+        {% endif %}
 
           for(var i=0; i<btnAmounts.length; i++) {
             btnAmounts[i].addEventListener("click", function (event) {
