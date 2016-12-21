@@ -426,7 +426,6 @@ Variables:
       </div>
       <div class="heart-background-image-right-container">
         <div class="heart-background-row" style="width: 680px;">
-          <img src="{{ background_image }}"/>
         {% if special_image_third %}
           <img src="{{ special_image_third }}"/>
         {% else %}
@@ -434,14 +433,10 @@ Variables:
         {% endif %}
           <img src="{{ background_image }}"/>
           <img src="{{ background_image }}"/>
-        </div>
-        <div class="heart-background-row" style="width: 680px;">
-          <img src="{{ background_image }}"/>
-          <img src="{{ background_image }}"/>
-          <img src="{{ background_image }}"/>
           <img src="{{ background_image }}"/>
         </div>
         <div class="heart-background-row" style="width: 680px;">
+          <img src="{{ background_image }}"/>
         {% if special_image_fourth %}
           <img src="{{ special_image_fourth }}"/>
         {% else %}
@@ -449,16 +444,21 @@ Variables:
         {% endif %}
           <img src="{{ background_image }}"/>
           <img src="{{ background_image }}"/>
-          <img src="{{ background_image }}"/>
         </div>
         <div class="heart-background-row" style="width: 680px;">
           <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+          <img src="{{ background_image }}"/>
+        </div>
+        <div class="heart-background-row" style="width: 680px;">
           <img src="{{ background_image }}"/>
         {% if special_image_fifth %}
           <img src="{{ special_image_fifth }}"/>
         {% else %}
           <img src="{{ background_image }}"/>
         {% endif %}
+          <img src="{{ background_image }}"/>
           <img src="{{ background_image }}"/>
         </div>
       </div>
@@ -614,6 +614,16 @@ Variables:
           }
           updateLink();
 
+          for(var i=0; i<btnAmounts.length; i++) {
+            btnAmounts[i].addEventListener("click", function (event) {
+              if (!event.target.classList.contains("button-selected")) {
+                selectAmount(event.target);
+                updateLink();
+              }
+            });
+          }
+        {% endif %}
+
         {% if background_image_animate and background_image %}
           btnDonate.addEventListener("mouseenter", function() {
             [].forEach.call(document.querySelectorAll(".heart-background-row img"), function(imageElement) {
@@ -625,16 +635,6 @@ Variables:
               imageElement.src = "{{ background_image }}";
             });
           });
-        {% endif %}
-
-          for(var i=0; i<btnAmounts.length; i++) {
-            btnAmounts[i].addEventListener("click", function (event) {
-              if (!event.target.classList.contains("button-selected")) {
-                selectAmount(event.target);
-                updateLink();
-              }
-            });
-          }
         {% endif %}
 
         var elHighlighted = snippet.querySelector('em');
