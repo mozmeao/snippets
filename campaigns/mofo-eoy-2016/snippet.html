@@ -36,11 +36,18 @@ Variables:
   @special_image_third: Optional. Replace a few of the background images with special images.
   @special_image_fourth: Optional. Replace a few of the background images with special images.
   @special_image_fifth: Optional. Replace a few of the background images with special images.
+  @attribution: Optional. String to give credit for any assets used.
 
   @blockable: checkbox - Check to allow user to block this snippet.
   @block_button_text - small text - Text to display while hovering over opt out button. Default "Remove this"
 
 #}
+
+{% if attribution %}
+  <!--
+    {{ attribution }}
+  -->
+{% endif %}
 
 <style>
   #snippetContainer div.snippet img.icon {
