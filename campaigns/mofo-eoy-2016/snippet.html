@@ -40,7 +40,7 @@ Variables:
 
   @blockable: checkbox - Check to allow user to block this snippet.
   @block_button_text - small text - Text to display while hovering over opt out button. Default "Remove this"
-
+  @do_not_autoblock - Check to prevent auto-blocking when user takes action.
 #}
 
 {% if attribution %}
@@ -479,16 +479,22 @@ Variables:
 
     snippet.addEventListener("show_snippet", function () {
         var btnDonate = snippet.querySelector(".button-link");
-        btnDonate.addEventListener("click", function(event) {
-            if (!btnDonate.getAttribute("disabled")) {
+        {% if blockable and not do_not_autoblock %}
+          function buttonClickEvent(event) {
+             if (event.button === 0 && !(event.metaKey || event.ctrlKey)) {
                 event.preventDefault();
                 event.stopPropagation();
-                btnDonate.setAttribute("disabled", "disabled");
                 addToBlockList();
+                btnDonate.removeEventListener("click", buttonClickEvent);
                 // Give some time to IndexedDB. Bug 1236090
                 setTimeout(function() { btnDonate.click() }, 500);
-            }
-        });
+             }
+             else {
+                addToBlockList();
+             }
+          }
+          btnDonate.addEventListener("click", buttonClickEvent);
+        {% endif %}
 
         {% if background_image %}
           var body = document.querySelector("body");
