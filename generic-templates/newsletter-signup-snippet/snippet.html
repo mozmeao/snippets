@@ -435,10 +435,18 @@ Variables:
         var trackItemWidth = 420;
         var currentIndex = 0;
 
-        emailInput.addEventListener("focus", function() {
+        emailInput.addEventListener("click", function() {
           emailInput.classList.remove("invalid");
         });
-        function onNext(e) {
+
+        document.addEventListener("keydown", function(e) {
+          // Enter keyCode and make sure we do nothing for the search box.
+          if (e.keyCode === 13 && e.target.id !== "searchText") {
+            onNext();
+          }
+        });
+
+        function onNext() {
           if (currentIndex >= 2) {
             return;
           }
