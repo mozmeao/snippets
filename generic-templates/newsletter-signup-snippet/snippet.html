@@ -382,13 +382,17 @@ Variables:
         var basketError = snippet.querySelector(".basket-error");
         var successMessage = snippet.querySelector(".success-message");
 
-        document.querySelector("#form").addEventListener("submit", function(e) {
-          e.preventDefault();
+        function submit() {
           if (button.classList.contains("loading")) {
             return;
           }
           changeState(000);
           sendEmailToBasket();
+        }
+
+        document.querySelector("#form").addEventListener("submit", function(e) {
+          e.preventDefault();
+          submit();
         });
 
         function sendEmailToBasket() {
@@ -434,8 +438,9 @@ Variables:
         var transitionTrack = snippet.querySelector(".transition-track");
         var trackItemWidth = 420;
         var currentIndex = 0;
+        var numberOfTabs = 2;
 
-        emailInput.addEventListener("click", function() {
+        emailInput.addEventListener("input", function() {
           emailInput.classList.remove("invalid");
         });
 
@@ -447,12 +452,15 @@ Variables:
         });
 
         function onNext() {
-          if (currentIndex >= 2) {
+          if (currentIndex >= numberOfTabs - 1) {
+            // If we're at the last tab, try submitting.
+            submit();
             return;
           }
           if (currentIndex === 0) {
             if (!emailInput.checkValidity()) {
               emailInput.classList.add("invalid");
+              emailInput.focus();
               return;
             }
           }
@@ -489,3 +497,4 @@ Variables:
  })();
  //]]>
 </script>
+
