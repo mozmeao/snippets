@@ -465,6 +465,8 @@ Variables:
           }
           currentIndex--;
           transitionTrack.style.transform = "translate(-" + ( currentIndex * trackItemWidth ) + "px, 0px)";
+          basketError.classList.add("hidden");
+          successMessage.classList.add("hidden");
         }
 
         for (var nextIndex = 0; nextIndex < nextButtons.length; nextIndex++) {
