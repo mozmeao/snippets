@@ -7,6 +7,7 @@ Variables:
   @blockable: checkbox - Check to allow user to block this snippet.
 
   @text: main text - Text of snippet. Use `em` to hightlight text.
+  #headline_text: headline text - Line of text above main text. Optional.
   @highlight_color: Optional. Defaults to #FFE7AC.
   @icon: image - Snippet icon. 64x64px. SVG or PNG preferred.
   @button_label: Required. Text for signup button.
@@ -16,11 +17,11 @@ Variables:
   @basket_host: Default https://basket.mozilla.org. Where to send basket signups.
   @newsletters: Basket newsletter.
   @success_message: Signup success message.
-  @success_redirect: Signup success redirect url.
+  @success_redirect: Signup success redirect url. Optional.
   @error_message: Signup error message.
 
   @locale: Default en-US. String for the locale code.
-  @reveal: How to revel the form. Optional. Options are click or hover or nothing.
+  @reveal: How to reveal the form. Optional. Options are click or hover or nothing.
   @click_to_reveal_text: Required if @reveal is click. Text to put on button for click to reveal.
 
 #}
@@ -280,7 +281,7 @@ Variables:
           <div lang="de" class="form-container">
             <div class="input-container">
               <input form="form" class="email-input" type="email" required="required"  placeholder="{{ email_placeholder }}"/>
-              <button form="form" type="submit" class="button-link" href="{{ icon_url|safe }}"></button>
+              <button form="form" type="submit" class="button-link"></button>
             </div>
             <div class="privacy-policy">{{ privacy_policy|safe }}</div>
           </div>
@@ -363,19 +364,22 @@ Variables:
 
           function changeState(status) {
             if (status === 200) {
-              button.classList.remove("loading");
-              basketError.classList.add("hidden");
-              successMessage.classList.remove("hidden");
-              formContainer.classList.add("hidden");
-              sendMetric("signup-success");
+              sendMetric("signup-success", function() {
+                addToBlockList();
+                {% if success_redirect %}
+                  window.location.href = "{{ success_redirect }}";
+                {% else %}
+                  button.classList.remove("loading");
+                  basketError.classList.add("hidden");
+                  successMessage.classList.remove("hidden");
+                  formContainer.classList.add("hidden");
+                {% endif %}
+              });
             } else if (status === 000) {
               //loading
               button.classList.add("loading");
               basketError.classList.add("hidden");
               successMessage.classList.add("hidden");
-              {% if success_redirect %}
-                window.location.href = "{{ success_redirect }}";
-              {% endif %}
             } else {
               basketError.classList.remove("hidden");
               button.classList.remove("loading");
@@ -401,11 +405,11 @@ Variables:
 
           var elHighlighted = snippet.querySelector("em");
           // Fade in highlight on text
-          setTimeout(function() {
-            if (elHighlighted) {
+          if (elHighlighted) {
+            setTimeout(function() {
               elHighlighted.classList.add("active");
-            }
-          }, 1000);
+            }, 1000);
+          }
      });
  })();
  //]]>
