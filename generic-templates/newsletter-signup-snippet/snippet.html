@@ -7,7 +7,7 @@ Variables:
   @blockable: checkbox - Check to allow user to block this snippet.
 
   @text: main text - Text of snippet. Use `em` to hightlight text.
-  #headline_text: headline text - Line of text above main text. Optional.
+  @headline_text: headline text - Line of text above main text. Optional.
   @highlight_color: Optional. Defaults to #FFE7AC.
   @icon: image - Snippet icon. 64x64px. SVG or PNG preferred.
   @button_label: Required. Text for signup button.
@@ -16,13 +16,13 @@ Variables:
 
   @basket_host: Default https://basket.mozilla.org. Where to send basket signups.
   @newsletters: Basket newsletter.
-  @success_message: Signup success message.
+  @success_message: Signup success message. Ignored if success_redirect URL is set
   @success_redirect: Signup success redirect url. Optional.
-  @error_message: Signup error message.
+  @basket_error: Signup error message.
 
-  @locale: Default en-US. String for the locale code.
-  @reveal: How to reveal the form. Optional. Options are click or hover or nothing.
-  @click_to_reveal_text: Required if @reveal is click. Text to put on button for click to reveal.
+  @locale: Default en-US. String for the newsletter locale code.
+  @reveal: How to reveal the form. Optional. Options are click or hover or nothing.  If set to `click` set `click_to_reveal_text`
+  @click_to_reveal_text: Required if @reveal is clicked. Text to put on button for click to reveal.
 
 #}
 <style>
