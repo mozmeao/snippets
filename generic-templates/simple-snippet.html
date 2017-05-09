@@ -153,22 +153,42 @@ div.switch#brandLogo {
       <div id="block-snippet-overlay" class="block-snippet-overlay">
     {% endif %}
         <div class="display-container">
-          <div class="display-item">
-            {% if icon_url %}
-              <a href="{{ icon_url|safe }}">
+          {% if rtl %}
+            {% if button_label and icon_url %}
+              <div class="display-item">
+                <a class="button-link" href="{{ icon_url|safe }}">{{ button_label }}</a>
+              </div>
             {% endif %}
-                  <img class="icon" src="{{ icon }}" />
-            {% if icon_url %}
-              </a>
-            {% endif %}
-          </div>
+          {% else %}
+            <div class="display-item">
+              {% if icon_url %}
+                <a href="{{ icon_url|safe }}">
+              {% endif %}
+              <img class="icon" src="{{ icon }}" />
+              {% if icon_url %}
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
 
           <p class="display-item">{{ text|safe }}</p>
 
-          {% if button_label and icon_url %}
+          {% if rtl %}
             <div class="display-item">
-              <a class="button-link" href="{{ icon_url|safe }}">{{ button_label }}</a>
+              {% if icon_url %}
+                <a href="{{ icon_url|safe }}">
+              {% endif %}
+              <img class="icon" src="{{ icon }}" />
+              {% if icon_url %}
+                </a>
+              {% endif %}
             </div>
+          {% else %}
+            {% if button_label and icon_url %}
+              <div class="display-item">
+                <a class="button-link" href="{{ icon_url|safe }}">{{ button_label }}</a>
+              </div>
+            {% endif %}
           {% endif %}
         </div>
     {% if blockable or clickable %}
