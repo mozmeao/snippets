@@ -1,257 +1,92 @@
 {#
-Signup snippet.
+Newsletter signup snippet.
 
 Variables:
 
+  @block_button_text - small text - Text to display while hovering over opt out button. Default 'Remove this'
+  @blockable: checkbox - Check to allow user to block this snippet.
+
   @text: main text - Text of snippet. Use `em` to hightlight text.
-  @icon: image - Optional. Snippet icon. 64x64px. SVG or PNG preferred.
+  #headline_text: headline text - Line of text above main text. Optional.
+  @highlight_color: Optional. Defaults to #FFE7AC.
+  @icon: image - Snippet icon. 64x64px. SVG or PNG preferred.
   @button_label: Required. Text for signup button.
-  @button_color: Optional. Defaults to #49AFFD (blue). Other suggestions #69C9A2 (green) and #C94C4A (red).
-  @highlight_color: Optional. Defaults to #FFF8D0.
-
-  @locale: Default en-US. String for the locale code.
-
   @email_placeholder: Placeholder message for email input.
   @privacy_policy: Privacy policy message.
 
   @basket_host: Default https://basket.mozilla.org. Where to send basket signups.
   @newsletters: Basket newsletter.
   @success_message: Signup success message.
+  @success_redirect: Signup success redirect url. Optional.
   @error_message: Signup error message.
 
-  @blockable: checkbox - Check to allow user to block this snippet.
-  @block_button_text - small text - Text to display while hovering over opt out button. Default "Remove this"
+  @locale: Default en-US. String for the locale code.
+  @reveal: How to reveal the form. Optional. Options are click or hover or nothing.
+  @click_to_reveal_text: Required if @reveal is click. Text to put on button for click to reveal.
 
 #}
 <style>
-  #snippetContainer div.snippet img.icon {
+
+#snippetContainer div.snippet {
+   margin: 30px 0;
+   padding: 1px;
+ {% if blockable %}
+   margin: 10px 0;
+   padding: 0;
+ {% endif %}
+}
+
+#snippetContainer div.snippet img.icon {
     margin: 0 8px 0 0;
     float: none;
-  }
+}
 
-  .snippet p {
+.snippet .main-container {
     padding-left: 0;
+    font-size: 12px;
     width: 100%;
-  }
+}
 
-  #signup-snippet {
-    font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-    margin-top: 6px;
-  }
+.snippet .headline-text {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
 
-  @font-face {
-    font-family: "fontello-{{ snippet_id }}";
-    src: url(data:application/font-woff;base64,d09GRgABAAAAAAswAA8AAAAAE+gAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABWAAAADsAAABUIIwleU9TLzIAAAGUAAAAQwAAAFY+IEi5Y21hcAAAAdgAAABQAAABfohD7KljdnQgAAACKAAAABMAAAAgBtX/BGZwZ20AAAI8AAAFkAAAC3CKkZBZZ2FzcAAAB8wAAAAIAAAACAAAABBnbHlmAAAH1AAAALsAAAD+S//bfWhlYWQAAAiQAAAAMAAAADYLvjlZaGhlYQAACMAAAAAbAAAAJAc8A1ZobXR4AAAI3AAAAAwAAAAMCXwAAGxvY2EAAAjoAAAACAAAAAgAQAB/bWF4cAAACPAAAAAgAAAAIACmC5tuYW1lAAAJEAAAAXcAAALNzJ0cHnBvc3QAAAqIAAAAKwAAAEC6/SLgcHJlcAAACrQAAAB6AAAAhuVBK7x4nGNgZGBg4GIwYLBjYMpJLMlj4HNx8wlhkGJgYYAAkDwymzEnMz2RgQPGA8qxgGkOIGaDiAIAKVkFSAB4nGNgZNZknMDAysDAVMW0h4GBoQdCMz5gMGRkAooysDIzYAUBaa4pDA4vGF4wMgf9z2KIYg5imAYUZgTJAQDMhAtXAHic7ZCxDYAwDATPiaFAjEFBwTBU7F+yRfK2GYOX7qR/uTKwAF1cwsEejMit1XLvbLk7R9547K+NIRNW93STVv7s6fNrLf5U1OcK2gTMuAtdeJxjYEADEhDIHPQ/C4QBEmwD3QB4nK1WaXfTRhQdeUmchCwlCy1qYcTEabBGJmzBgAlBsmMgXZytlaCLFDvpvvGJ3+Bf82Tac+g3flrvGy8kkLTncJqTo3fnzdXM22USWpLYC+uRlJsvxdTWJo3sPAnphk3LUXwoO3shZYrJ3wVREK2W2rcdh0REIlC1rrBEEPseWZpkfOhRRsu2pFdNyi096S5b40G9Vd9+GjrKsTuhpGYzdGg9siVVGFWiSKY9UtKmZaj6K0krvL/CzFfNUMKITiJpvBnG0EjeG2e0ymg1tuMoimyy3ChSJJrhQRR5lNUS5+SKCQzKB82Q8sqnEeXD/Iis2KOcVrBLttP8vi95p3c5P7Ffb1G25EAfyI7s4Ox0JV+EW1th3LST7ShUEXbXd0Js2exU/2aP8ppGA7crMr3QjGCpfIUQKz+hzP4hWS2cT/mSR6NaspETQetlTuxLPoHW44gpcc0YWdDd0QkR1P2SMwz2mD4e/PHeKZYLEwJ4HMt6RyWcCBMpYXM0SdowcmAlZYsqqfWumDjldVrEW8J+7drRl85o41B3YjxbDx1bOVHJ8WhSp5lMndpJzaMpDaKUdCZ4zK8DKD+iSV5tYzWJlUfTOGbGhEQiAi3cS1NBLDuxpCkEzaMZvbkbprl2LVqkyQP13KP39OZWuLnTU9oO9LNGf1anYjrYC9PpaeQv8Wna5SJF6frpGX5M4kHWAjKRLTbDlIMHb/0O0svXlhyF1wbY7u3zK6h91kTwpAH7G9AeT9UpCUyFmFWIVkBirWtZlsnVrBapyNR3Q5pWvqzTBIpyHBfHvoxx/V8zM5aYEr7fidOzIy49c+1LCNMcfJt1PZrXqcVyAXFmeU6nWZbv6zTH8gOd5lme1+kIS1unoyw/1GmB5Uc6HWN5QQuadN/BkIsw5AIOkDCEpQNDWF6CISwVDGG5CENYFmEIyyUYwvJjGMJyGYawvKxl1dRTSePamVgGbEJgYo4eucxF5WoquVRCu2hUakOeEm6VVBTPqn9loF488oY5sBZIl8iaXzHOlY9G5fjWFS1vGjtXwLHqbx+O9jnxUtaLhT8F/9XWVCW9Ys3Dk6vwG4aebCeqNql4dE2Xz1U9uv5fVFRYC/QbSIVYKMqybHBnIoSPOp2GaqCVQ8xszDy063XLmp/D/TcxQhZQ/fg3FBoL3INOWUlZ7eCs1dfbstw7g3I4EyxJMTfz+lb4IiOz0n6RWcqej3wecAWMSmXYagOtFbzZJzEPmd4kzwRxW1E2SNrYzgSJDRzzgHnznQQmYeqqDeRO4YYN+AVhbsF5J1yieqMsh+5F7PMopPxbp+JE9qhojMCz2Rthr+9Cym9xDCQ0+aV+DFQVoakYNRXQNFJuqAZfxtm6bULGDvQjKnbDsqziw8cW95WSbRmEfKSI1aOjn9Zeok6q3H5mFJfvnb4FwSA1MX9733RxkMq7WskyR20DU7calVPXmkPjVYfq5lH1vePsEzlrmm66Jx56X9Oq28HFXCyw9m0O0lImF9T1YYUNosvFpVDqZTRJ77gHGBYY0O9Qio3/q/rYfJ4rVYXRcSTfTtS30edgDPwP2H9H9QPQ92Pocg0uz/eaE59u9OFsma6iF+un6Dcwa625WboG3NB0A+IhR62OuMoNfKcGcXqkuRzpIeBj3RXiAcAmgMXgE921jOZTAKP5jDk+wOfMYdBkDoMt5jDYZs4awA5zGOwyh8Eecxh8wZx1gC+ZwyBkDoOIOQyeMCcAeMocBl8xh8HXzGHwDXPuA3zLHAYxcxgkzGGwr+nWMMwtXtBdoLZBVaADU09Y3MPiUFNlyP6OF4b9vUHM/sEgpv6o6faQ+hMvDPVng5j6i0FM/VXTnSH1N14Y6u8GMfUPg5j6TL8Yy2UGv4x8lwoHlF1sPufvifcP28VAuQABAAH//wAPeJxjYGRg+H+AqYTZhUGEQXcrJyMDI6O79waVgAgHbgYGRoYCIJ+H0VPagRPIYcxnYGBIi9wiI8TEKqbNycimpM+oZmLOCSTsGc2MxBnFRJiy/iVxy3DHcnMzavy7wc0dyyXHxTiPizHzXyIXVyxQhlGTUQOiAKQQZAXI/hlQ+xmJsl9cHGw/k5gIP9AN6iA3AK2XB1nf9+86oybEJqD53ECr5bhiuZhW/bvx7zqYycU4H+wksNMAybYuhAB4nGNgZGBgAGL51HdP4/ltvjJwM78AijBcia7agaD/H2B+wewC5HIwMIFEAWkCDKx4nGNgZGBgDvqfBSRfMDCASUYGVMAMAFz3A5oAA+gAAALKAAACygAAAAAAAABAAH8AAQAAAAMAFQABAAAAAAACAAQAFABzAAAAKgtwAAAAAHicdZDLTsJAFIb/kYsKiRpN3DorAzGWSyILEhISDGx0QwxbU0ppS0qHTAcSXsN38GF8CZ/Fn3YwBmKb6XznmzNnTgfANb4hkD9PHDkLnDHK+QSn6Fku0D9bLpJfLJdQxZvlMv275QoeEFiu4gYfrCCK54wW+LQscCUuLZ/gQtxZLtA/Wi6Se5ZLuBWvlsv0nuUKJiK1XMW9+Bqo1VZHQWhkbVCX7WarI6dbqaiixI2luzah0qnsy7lKjB/HyvHUcs9jP1jHrt6H+3ni6zRSiWw5zb0a+YmvXePPdtXTTdA2Zi7nWi3l0GbIlVYL3zNOaMyq22j8PQ8DKKywhUbEqwphIFGjrXNuo4kWOqQpMyQz86wICVzENC7W3BFmKynjPsecUULrMyMmO/D4XR75MSng/phV9NHqYTwh7c6IMi/Zl8PuDrNGpCTLdDM7++09xYantWkNd+261FlXEsODGpL3sVtb0Hj0TnYrhraLBt9//u8H42mETwB4nGNgYoAALgbsgJmRiZGZkYWBqygzPaNEN78gNY8zJzUNwmJgAABkcwe2AHicY/DewXAiKGIjI2Nf5AbGnRwMHAzJBRsZWJ02MTAyaIEYm7mYGDkgLD4GMIvNaRfTAaA0J5DN7rSLwQHCZmZw2ajC2BEYscGhI2Ijc4rLRjUQbxdHAwMji0NHckgESEkkEGzmYWLk0drB+L91A0vvRiYGFwAMdiP0AAA=) format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
-
-  .snippet .icon {
+.snippet .icon {
     position: relative;
     right: 0;
     top: 0;
     display: inline-block;
     height: auto;
     max-height: 64px;
-    vertical-align: middle;
+}
+
+{% if blockable %}
+  .block-snippet-overlay {
+      border: 1px solid transparent;
+      height: 100%;
+      box-sizing: border-box;
+      margin: 0 -20px;
+      padding: 20px;
   }
 
-  .snippet .display-item {
-    display: table-cell;
-    vertical-align: middle;
-  }
-  .snippet .display-container {
-    display: table;
-  }
+  .block-snippet-overlay:hover,
+  .block-snippet-overlay-close {
+      visibility: visible;
+      border: 1px solid hsla(0,0%,0%,.1);
+      box-shadow: 0px 2px 2px -1px hsla(0,0%,0%,.1);
+      border-radius: 3px;
+   }
+{% endif %}
 
-  .button {
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    font-size: 16px;
-  }
-
-  .hidden {
-    display: none !important;
-  }
-
-  .basket-error {
-    font-size: 14px;
-    color: #FF0000;
-    padding-left: 25px;
-  }
-
-  .snippet p.success-message {
-    font-size: 14px;
-    width: 420px;
-    text-align: center;
-    padding-top: 12px;
-  }
-
-  .transition-container {
-    width: 420px;
-    overflow: hidden;
-    margin: 12px auto 0 auto;
-  }
-
-  .transition-track {
-    width: 840px;
-    transition: transform .2s ease-in-out;
-    overflow: hidden;
-  }
-
-  .transition-item {
-    width: 420px;
-    float: left;
-  }
-
-  .form-input {
-    margin-bottom: 0;
-    height: 36px;
-    color: #4a4a4a;
-    font-size: 16px;
-    float: left;
-    padding: 0 0 0 20px;
-    box-sizing: border-box;
-    background-color: #fff;
-    border-style: solid;
-    border-color: #969696;
-    box-shadow: none;
-    background: #FFFFFF;
-  }
-
-  .form-input.invalid {
-    border-color: #FF0000;
-  }
-
-  .email-input {
-    border-radius: 5px 0 0 5px;
-    border-width: 1px;
-    width: 362px;
-  }
-
-  .privacy-policy {
-    font-size: 14px;
-    padding-right: 8px;
-  }
-
-  .next-button,
-  .back-button,
-  .final-back-button,
-  .submit-button {
-    float: left;
-    box-sizing: border-box;
-    cursor: pointer;
-    border: none;
-  }
-
-  .submit-button.loading::before {
-    visibility: hidden;
-  }
-
-  .submit-button::before {
-    content: "{{ button_label }}";
-  }
-
-  .submit-button.loading::after {
-    font-family: fontello-0;
-    content: "";
-    position: absolute;
-    line-height: 0;
-    width: 20px;
-    height: 20px;
-    border-width: 3px;
-    border-style: solid;
-    border-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.2) rgb(255, 255, 255);
-    -moz-border-top-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    border-image: none;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    margin: -10px 0px 0px -10px;
-    box-sizing: border-box;
-    animation: 1.5s linear 0s normal none infinite running spin-0;
-  }
-
-  .next-button,
-  .back-button,
-  .final-back-button {
-    height: 36px;
-  }
-
-  .next-button {
-    width: 58px;
-    border-radius: 0 5px 5px 0;
-    background-color: rgba(255, 255, 255, 0.5);
-  }
-
-  .next-button::after {
-    content: "";
-    background: url("chrome://browser/skin/search-arrow-go.svg#search-arrow-go") no-repeat scroll center center;
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-
-  .next-button:hover::after,
-  .form-input:focus + button::after {
-    background: url("chrome://browser/skin/search-arrow-go.svg#search-arrow-go-inverted") no-repeat scroll center center;
-  }
-
-  .submit-button {
-    border-radius: 5px;
-    color: #FFFFFF;
-    font-size: 16px;
-    text-transform: uppercase;
-    padding: 6px 20px;
-    position: relative;
-    min-width: 122px;
-    max-width: 132px;
-  }
-
-  .form-input:focus + .next-button,
-  .submit-button {
-    background-color: {{ button_color|default("#49AFFD", true) }};
-  }
-
-  .submit-button:hover,
-  .next-button:hover,
-  .form-input:focus + .next-button:hover {
-    background-color: {{ button_color|default("#49AFFD", true) }};
-    background-image: linear-gradient(rgba(255,255,255,.15),rgba(255,255,255,.15));
-  }
-
-  .next-button {
-    border-style: solid;
-    border-color: #969696;
-    border-width: 1px 1px 1px 0;
-  }
-
-  .back-button,
-  .final-back-button {
-    width: 38px;
-    border-radius: 5px 0 0 5px;
-    border-style: solid;
-    border-color: #969696;
-    border-width: 1px 0 1px 1px;
-  }
-
-  .final-back-button {
-    border: none;
-    border-radius: 0;
-    background: transparent;
-  }
-
-  .back-button::before,
-  .final-back-button::before {
-    font-family: fontello-{{ snippet_id }};
-    content: "\e801";
-    color: #969696;
-  }
+ .snippet .display-item {
+     display: table-cell;
+     vertical-align: top;
+ }
+ .snippet .display-container {
+     display: table;
+ }
 
   em {
     transition: background 800ms linear;
@@ -261,238 +96,320 @@ Variables:
     padding: 2px 2px;
     font-weight: bold;
   }
-
   em.active {
     background: {{ highlight_color|default("#FFE7AC", true) }};
   }
 
+ .email-input {
+   height: 24px;
+   box-sizing: border-box;
+   border: 1px solid #C2C2C2;
+   padding: 0 6px;
+   vertical-align: middle;
+   background: #FBFBFB;
+   width: 100%;
+   margin-top: 6px;
+   box-shadow: none;
+ }
+
+ .input-container {
+   display: flex;
+ }
+
+ .form-container {
+   {% if reveal == "click" %}
+     display: none;
+   {% endif %}
+   {% if reveal == "hover" %}
+     visibility: hidden;
+   {% endif %}
+ }
+
+ #snippet:hover .form-container {
+   {% if reveal == "hover" %}
+     visibility: visible;
+   {% endif %}
+ }
+
+ .form-container.reveal {
+     display: block;
+ }
+
+ .click-to-reveal {
+   white-space: nowrap;
+   height: 24px;
+   vertical-align: middle;
+   border: 1px solid #C2C2C2;
+   background: #FBFBFB;
+   padding: 0 30px;
+   float: right;
+   margin-top: 6px;
+   border-radius: 5px;
+   cursor: pointer;
+ }
+
+ .click-to-reveal.hide {
+   display: none;
+ }
+
+ .hidden {
+   display: none !important;
+ }
+
+ .button-link {
+     position: relative;
+     white-space: nowrap;
+     height: 24px;
+     vertical-align: middle;
+     border: 1px solid #C2C2C2;
+     background: #FBFBFB;
+     padding: 0 16px;
+     float: right;
+     margin-left: 12px;
+     margin-top: 6px;
+     border-radius: 5px;
+     cursor: pointer;
+ }
+
+  .button-link.loading::before {
+    visibility: hidden;
+  }
+
+  .button-link.loading {
+     cursor: auto;
+  }
+  .button-link::before {
+    content: "{{ button_label }}";
+  }
+
+  .button-link.loading::after {
+    content: "";
+    position: absolute;
+    line-height: 0;
+    width: 16px;
+    height: 16px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.4);
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    margin: -8px 0px 0px -8px;
+    box-sizing: border-box;
+    animation: 1.5s linear 0s normal none infinite running spin-{{ snippet_id }};
+  }
 
   @-moz-keyframes spin-{{ snippet_id }} {
     from { -moz-transform: rotate(0deg); }
     to { -moz-transform: rotate(360deg); }
   }
-
   @keyframes spin-{{ snippet_id }} {
     from {transform:rotate(0deg);}
     to {transform:rotate(360deg);}
   }
 
-{% if blockable %}
-  .block-snippet-button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    z-index: 10;
-    visibility: hidden;
-    height: 20px;
-    width: 20px;
-    cursor: pointer;
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAeFBMVEUAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAAAAAAAAADDw8OQkJAAAAAAAAAAAAAAAAD9/f38/Pz6+vr5+fnt7e3i4uLd3d3Z2dmgoKBdXV0mJibv7++amprNzc2amprv7+////9zc3OwsLD29vaPj4+xsbHCwsLBwcHrzmRyAAAAIHRSTlMABAg9HhEMNxkir38xLCkV/Pr39OHTzceOYUrliLuJ5ik+KlgAAAGhSURBVEjHnZbrdoIwDIAXWii3UuV+0wV0+v5vOEBH2ajg8v3y6PlO2pgm+TAAYD0B+HgDsBxbuXzCVbZj7VgAju16USjYhAgjz7WdrVjgKC5FHfh5kxwOSZP7QS0kVw68PJLNJQuKIy44FgGT3LbAHMKNWJviirRlkWsKNIQIqwyNZFU4BFobnihjfEFcCm92tMF83MBnfxwYjBNuchocWN6cCx938AVf5MBywxJ3KUPX0seKqnhfiavIhvlYLMM3yNjP0UDJFmcuN/zF7aI/t1I9lCFIqo1r1y+Nr+6qnXQI87iJDJZGNzra6JZOIG2Y0iWK+bt7N9JrY+Q+/1yIKWmOVy9qt3862lgGPdaeM2U4QDQ52tAEY55BhT4aHS1r/FDBeJUcTY7JwHy8jMVZgybHZGDD+KQkuHbMBiZP5YBrx2zggaCQDka5PiHJhL9yq2B6c8FslmVvKsud4u8Nxb/3xPr1E9t9yP3qIf+vXZylAkJTIrQ+QoMltHHCsCCMJMLgo49XPcTPpiF+1kOcsCrsLSSfeiGhrj305Yqwwn0Dwi/I5rQKpwMAAAAASUVORK5CYII=");
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
-    background-color: transparent;
-    border: 0;
-  }
+ .basket-error {
+   margin-top: 6px;
+   color: #FF0000;
+ }
 
-  .block-snippet-overlay {
-    height: 100%;
-    width: 100%;
-    border-radius: 12px;
-    padding: 15px 5px 5px 5px;
-    margin-top: -6px;
-    margin-left: -5px;
-    margin-right: -5px;
-    box-sizing: content-box;
-  }
+ .success-message {
+   margin-top: 6px;
+ }
 
-  .block-snippet-button:hover ~ .block-snippet-overlay {
-    background-color: #eaeaea;
-  }
+ .privacy-policy {
+     margin-top: 6px;
+     color: #A5A5A5;
+ }
 
-  .block-snippet-button:hover {
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAABAQEAAACQkJAAAADDw8P9/f38/Pz6+vr5+fni4uLZ2dmgoKCampomJibv7+/d3d3ExMRcXFzt7e3t7e3Nzc0AAABeXl7c3Nzv7+/////DOzLdkYz78/LlqaXPYlveko1iPwM8AAAAInRSTlMACwceOhcRBCo+NH8ir/z69/TTx46ISuXNsGHh4LskYszmffUm0QAAAbBJREFUSMelluuSgjAMRrdtegW84/22AXXf/wlXcNzAGEC755fjeCYfmDb5YrBWihpp7dcbWCmM1qpGa3PX3vh96kIAfwdCcOmAJYVWDpZJdl5NR6Pp6pwlS3BKC9lVQhjlfDIfY4PxPPFOGWE7SjjI9/jCPgfHFpJGhe0MWWbboIx8NVJYTLCDyQLSp0PGETLsIYPj06EaB+zl0K5jhYINDrAB1XhvQocFDrIIWlAst50MK5OtM5JizfANZn/RpHY5fX+5YovrhT7nTj/KCOX3ZNyKsmn8FDdydl6JOpdxSdMoKoeMoukkztg6F8wpRlFRklFBUedQJxPpstG7JTm10S46XqaCcjEOGe1kVocMWYdkIgvaVo+yRs7hDFxXDyMUrJBzOANXoMRd8VNkHTKIqX8oI2QdMohRjBIVLOLxI15yxF/Z1zAl3zC9bVlybTnQ/CXT/ENHrGSO2OMg7zoPcvlykCOui88upXsR+9nVd3JGRlywEdd4xLCIGEnRg4/G66lrvJ6q8coPcZ/vuCHuaYjHrQr8QrKuF5Lv9YYWkqG1Bx5rD9Da87/lKmKF+wUdVNNtsJwP7gAAAABJRU5ErkJggg==");
-  }
+ .privacy-policy a {
+     color: #A5A5A5;
+     text-decoration: underline;
+ }
 
-  .block-snippet-button:active {
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAe1BMVEUAAAAAAAAAAAAAAAABAQEAAAABAQEAAAAAAAAAAAD9/f3Dw8MAAAAAAACRkZH6+vr5+fnv7+/i4uLd3d3Z2dmgoKBdXV0mJiYAAAAAAACPj4/t7e3t7e2ampoAAACamprOzs7MzMyYmJj///8QEBB5eXnw8PCWlpZAQEB2Ec74AAAAI3RSTlMABgseOio+GRA0+68iEn/39OXTzceOYUoWFX/h4Igjiby5hsu+k6AAAAGoSURBVEjHnZbpYoIwEISbZEMIl8oNam27eLz/E9YY22DdgmR+efAxGxJ2540SY/wmxog/ycvDVombVBvOY4ynKpFaQ3AVaC0TlXI2CXRCQtPHxWYdRetNEWcNSNFZiHYQMsjKCEeKyiyQwjiRhJKw3+GTdl8gFcWwUOg6R1J5rUXInokEqhX+o1UFiWXGxDvEOKEY3i0z9vjESX08+jAurMe0j+CO4UpXOKtKK/5rksp6NY+sapmyHxMBOb6gHAS/m3Ry734/nfFB55P7vJcdu5sEO0dchuOYOA4Xx2wDwe8r6cfEYBhHDGMms6thCkpXxmB0dISRK7UEZRCeNNHotpYhvhhFTWIqC01dBEMQiL0Mr3W1OkaCIQmMdcvMUgqkGIrAwiyGC9ggxVAEbkBwsytrJBiSwHVgkQgJhiQw8kG8CvNYvsdD9thKc2Cy1w9MJkOPY+l3+Fkqs4WvmNmZ7YIXeVm7OMiOLWxKxsSj9Xk0WI827jEsPEaSx+DzHq9uiAeHLTHED4Eb4lRU6P9Ghd5GhelAkhGBZDb2gI09QMQer3DlEeG+AWkO2NrlPO+kAAAAAElFTkSuQmCC");
-  }
+ {% if blockable %}
+   .block-snippet-button {
+       position: absolute;
+       top: -12px;
+       right: -30px;
+       z-index: 10;
+       transform: scale(0);
+       transition: transform 200ms;
+       transition-delay: 0ms;
+       height: 24px;
+       width: 24px;
+       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAeFBMVEUAAAAAAAAAAAABAQEAAAAAAAAAAAAAAAAAAAAAAADDw8OQkJAAAAAAAAAAAAAAAAD9/f38/Pz6+vr5+fnt7e3i4uLd3d3Z2dmgoKBdXV0mJibv7++amprNzc2amprv7+////9zc3OwsLD29vaPj4+xsbHCwsLBwcHrzmRyAAAAIHRSTlMABAg9HhEMNxkir38xLCkV/Pr39OHTzceOYUrliLuJ5ik+KlgAAAGhSURBVEjHnZbrdoIwDIAXWii3UuV+0wV0+v5vOEBH2ajg8v3y6PlO2pgm+TAAYD0B+HgDsBxbuXzCVbZj7VgAju16USjYhAgjz7WdrVjgKC5FHfh5kxwOSZP7QS0kVw68PJLNJQuKIy44FgGT3LbAHMKNWJviirRlkWsKNIQIqwyNZFU4BFobnihjfEFcCm92tMF83MBnfxwYjBNuchocWN6cCx938AVf5MBywxJ3KUPX0seKqnhfiavIhvlYLMM3yNjP0UDJFmcuN/zF7aI/t1I9lCFIqo1r1y+Nr+6qnXQI87iJDJZGNzra6JZOIG2Y0iWK+bt7N9JrY+Q+/1yIKWmOVy9qt3862lgGPdaeM2U4QDQ52tAEY55BhT4aHS1r/FDBeJUcTY7JwHy8jMVZgybHZGDD+KQkuHbMBiZP5YBrx2zggaCQDka5PiHJhL9yq2B6c8FslmVvKsud4u8Nxb/3xPr1E9t9yP3qIf+vXZylAkJTIrQ+QoMltHHCsCCMJMLgo49XPcTPpiF+1kOcsCrsLSSfeiGhrj305Yqwwn0Dwi/I5rQKpwMAAAAASUVORK5CYII=");
+       background-repeat: no-repeat;
+       background-size: 24px 24px;
+       background-color: transparent;
+       border: 0;
+       cursor: pointer;
+   }
 
-  #signup-snippet:hover > .block-snippet-button,
-  #brandLogo:hover ~ #snippetContainer .block-snippet-button {
-    visibility: visible;
-  }
-{% endif %}
+   #snippet:hover > .block-snippet-button {
+       transform: scale(1);
+   }
+
+   #brandLogo:hover > .block-snippet-button {
+       transform: scale(1);
+   }
+ {% endif %}
+
 </style>
-<div class="snippet" id="signup-snippet">
+
+<div class="snippet" id="snippet">
   {% if blockable %}
-    <button class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}"></button>
     <div id="block-snippet-overlay" class="block-snippet-overlay">
   {% endif %}
-    <div class="display-container">
-      {% if icon %}
-        <img class="icon" src="{{ icon }}" />
-      {% endif %}
+      <div class="display-container">
+        <form id="form"></form>
+        <div class="display-item">
+          <img class="icon" src="{{ icon }}" />
+        </div>
 
-      <p class="display-item">{{ text|safe }}</p>
-    </div>
-    <form id="form"></form>
-    <div class="form-container">
-      <div class="transition-container">
-        <div class="transition-track">
-          <div class="transition-item">
-            <input class="email-input form-input" type="email" required="required" placeholder="{{ email_placeholder }}"></input>
-            <button class="next-button"></button>
-          </div>
-          <div class="transition-item">
-            <div class="display-container">
-              <div class="display-item">
-                <button class="final-back-button back-button"></button>
-              </div>
-              <p class="privacy-policy display-item">{{ privacy_policy|safe }}</p>
-              <div class="display-item">
-                <button form="form" type="submit" class="display-item submit-button"></button>
-              </div>
+        <div class="display-item main-container">
+          <div class="headline-text">{{ headline_text|safe }}</div>
+          <div>{{ text|safe }}</div>
+        {% if reveal == "click" %}
+          <button class="click-to-reveal">{{ click_to_reveal_text }}</button>
+        {% endif %}
+          <div lang="de" class="form-container">
+            <div class="input-container">
+              <input form="form" class="email-input" type="email" required="required"  placeholder="{{ email_placeholder }}"/>
+              <button form="form" type="submit" class="button-link"></button>
             </div>
+            <div class="privacy-policy">{{ privacy_policy|safe }}</div>
+          </div>
+          <div class="basket-error hidden">
+            {{ basket_error }}
+          </div>
+          <div class="success-message hidden">
+            {{ success_message }}
           </div>
         </div>
       </div>
-    </div>
-    <p class="basket-error hidden">
-      {{ basket_error }}
-    </p>
-    <p class="success-message hidden">
-      {{ success_message }}
-    </p>
   {% if blockable %}
     </div>
   {% endif %}
+
+  {% if blockable %}
+    <button class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}">
+    </button>
+  {% endif %}
 </div>
+
 <script type="text/javascript">
-  //<![CDATA[
-  (function() {
-    var snippet = document.getElementById("signup-snippet");
+ //<![CDATA[
+ (function() {
+     var snippet = document.getElementById('snippet');
 
-    snippet.addEventListener("show_snippet", function () {
-      setTimeout( function() {
+     snippet.addEventListener('show_snippet', function () {
+          var overlay = document.getElementById('block-snippet-overlay');
+          var xbuttons = document.querySelectorAll('.block-snippet-button');
 
-        var button = snippet.querySelector(".submit-button");
-        var form = snippet.querySelector("#form");
-        var mainContainer = snippet.querySelector(".form-container");
-        var emailInput = snippet.querySelector(".email-input");
-        var basketError = snippet.querySelector(".basket-error");
-        var successMessage = snippet.querySelector(".success-message");
+          var button = snippet.querySelector(".button-link");
+          var form = snippet.querySelector("#form");
 
-        function submit() {
-          if (button.classList.contains("loading")) {
-            return;
-          }
-          changeState(000);
-          sendEmailToBasket();
-        }
+          var formContainer = document.querySelector(".form-container");
 
-        document.querySelector("#form").addEventListener("submit", function(e) {
-          e.preventDefault();
-          submit();
-        });
+          var emailInput = snippet.querySelector(".email-input");
+          var basketError = snippet.querySelector(".basket-error");
+          var successMessage = snippet.querySelector(".success-message");
 
-        function sendEmailToBasket() {
-          var lang = "{{ locale|default('en-US', true) }}";
-          var url = "{{ basket_host|default('https://basket.mozilla.org', true) }}" + "/news/subscribe/";
-          var newsletters = "{{ newsletters }}";
-          var source_url = "https://snippets.mozilla.com/show/{{ snippet_id }}";
-          source_url = encodeURIComponent(source_url);
-          var email = emailInput.value;
-          var params = "newsletters=" + newsletters + "&source_url=" + source_url + "&lang=" + lang + "&email=" + email + "&trigger_welcome=N";
-          var request = new XMLHttpRequest();
-          request.onreadystatechange = function() {
-            if (request.readyState == 4) {
-              changeState(request.status);
-            }
-          }
-          request.open("POST", url);
-          request.send(params);
-        }
-
-        function changeState(status) {
-          if (status === 200) {
-            button.classList.remove("loading");
-            basketError.classList.add("hidden");
-            successMessage.classList.remove("hidden");
-            mainContainer.classList.add("hidden");
-            sendMetric("signup-success");
-          } else if (status === 000) {
-            //loading
-            button.classList.add("loading");
-            basketError.classList.add("hidden");
-            successMessage.classList.add("hidden");
-          } else {
-            basketError.classList.remove("hidden");
-            button.classList.remove("loading");
-            successMessage.classList.add("hidden");
-            sendMetric("signup-error");
-          }
-        }
-
-        var nextButtons = snippet.querySelectorAll(".next-button");
-        var backButtons = snippet.querySelectorAll(".back-button");
-        var transitionTrack = snippet.querySelector(".transition-track");
-        var trackItemWidth = 420;
-        var currentIndex = 0;
-        var numberOfTabs = 2;
-
-        emailInput.addEventListener("input", function() {
-          emailInput.classList.remove("invalid");
-        });
-
-        document.addEventListener("keydown", function(e) {
-          // Enter keyCode and make sure we do nothing for the search box.
-          if (e.keyCode === 13 && e.target.id !== "searchText") {
-            onNext();
-          }
-        });
-
-        function onNext() {
-          if (currentIndex >= numberOfTabs - 1) {
-            // If we're at the last tab, try submitting.
-            submit();
-            return;
-          }
-          if (currentIndex === 0) {
-            if (!emailInput.checkValidity()) {
-              emailInput.classList.add("invalid");
+          {% if reveal == "click" %}
+            var clickToReveal = document.querySelector(".click-to-reveal");
+            clickToReveal.addEventListener("click", function() {
+              this.classList.add("hide");
+              formContainer.classList.add("reveal");
               emailInput.focus();
+            });
+          {% endif %}
+
+          function submit() {
+            if (button.classList.contains("loading")) {
               return;
             }
+            changeState(000);
+            sendEmailToBasket();
           }
-          currentIndex++;
-          transitionTrack.style.transform = "translate(-" + ( currentIndex * trackItemWidth ) + "px, 0px)";
-        }
-        function onBack(e) {
-          if (currentIndex <= 0) {
-            return;
+
+          document.querySelector("#form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            submit();
+          });
+
+          function sendEmailToBasket() {
+            var lang = "{{ locale|default('en-US', true) }}";
+            var url = "{{ basket_host|default('https://basket.mozilla.org', true) }}" + "/news/subscribe/";
+            var newsletters = "{{ newsletters }}";
+            var source_url = "https://snippets.mozilla.com/show/{{ snippet_id }}";
+            source_url = encodeURIComponent(source_url);
+            var email = emailInput.value;
+            var params = "newsletters=" + newsletters + "&source_url=" + source_url + "&lang=" + lang + "&email=" + email + "&trigger_welcome=N";
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+              if (request.readyState == 4) {
+                changeState(request.status);
+              }
+            }
+
+            request.open("POST", url);
+            request.send(params);
           }
-          currentIndex--;
-          transitionTrack.style.transform = "translate(-" + ( currentIndex * trackItemWidth ) + "px, 0px)";
-          basketError.classList.add("hidden");
-          successMessage.classList.add("hidden");
-        }
 
-        for (var nextIndex = 0; nextIndex < nextButtons.length; nextIndex++) {
-          nextButtons[nextIndex].addEventListener("click", onNext);
-        }
+          function changeState(status) {
+            if (status === 200) {
+              sendMetric("signup-success", function() {
+                addToBlockList();
+                {% if success_redirect %}
+                  window.location.href = "{{ success_redirect }}";
+                {% else %}
+                  button.classList.remove("loading");
+                  basketError.classList.add("hidden");
+                  successMessage.classList.remove("hidden");
+                  formContainer.classList.add("hidden");
+                {% endif %}
+              });
+            } else if (status === 000) {
+              //loading
+              button.classList.add("loading");
+              basketError.classList.add("hidden");
+              successMessage.classList.add("hidden");
+            } else {
+              basketError.classList.remove("hidden");
+              button.classList.remove("loading");
+              successMessage.classList.add("hidden");
+              sendMetric("signup-error");
+            }
+          }
 
-        for (var backIndex = 0; backIndex < backButtons.length; backIndex++) {
-          backButtons[backIndex].addEventListener("click", onBack);
-        }
+          {% if blockable %}
+            var mouseover = function(event) {
+               overlay.classList.add('block-snippet-overlay-close');
+            };
 
-        var elHighlighted = snippet.querySelector("em");
-        // Fade in highlight on text
-        setTimeout(function() {
+            var mouseout = function(event) {
+               overlay.classList.remove('block-snippet-overlay-close');
+            };
+            for (var k = 0, l = xbuttons.length; k < l; k++) {
+               var xbutton = xbuttons[k];
+               xbutton.addEventListener('mouseover', mouseover, false);
+               xbutton.addEventListener('mouseout', mouseout, false);
+            }
+          {% endif %}
+
+          var elHighlighted = snippet.querySelector("em");
+          // Fade in highlight on text
           if (elHighlighted) {
-            elHighlighted.classList.add("active");
+            setTimeout(function() {
+              elHighlighted.classList.add("active");
+            }, 1000);
           }
-        }, 1000);
-       });
      });
  })();
  //]]>
