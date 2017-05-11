@@ -118,7 +118,11 @@ div.switch#brandLogo {
    .block-snippet-button {
        position: absolute;
        top: -12px;
-       right: -10px;
+       {% if rtl %}
+         left: -10px;
+       {% else  %}
+         right: -10px;
+       {% endif %}
        z-index: 10;
        transform: scale(0);
        transition: transform 200ms;
