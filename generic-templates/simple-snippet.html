@@ -12,6 +12,10 @@ Variables:
   @link_logo: checkbox - Check to make replacement logo clickable.
   @replacement_logo: image - Optional. Replace logo.
   @button_label: Optional. Text for a button next to main snippet text that links to icon_url. Requires icon_url.
+  @button_background_color: Default #D3D9DD. Optional. Button background colour for button_label. Requires button_label.
+  @button_text_color: Default #000000. Optional. Button text colour for button_label. Requires button_label.
+  @button_hover_background_color: Default #2B9EEF. Optional. Button hover background colour for button_label. Requires button_label.
+  @button_hover_text_color: Default #FFFFFF. Optional. Button hover text colour for button_label. Requires button_label.
   @text: main text - Text of snippet.
   @logo_height: small_text - Logo height. Defaults to 192px
   @logo_width: small_text -  Logo width. Defaults to 192px
@@ -102,16 +106,16 @@ div.switch#brandLogo {
  .button-link {
      white-space: nowrap;
      margin: 5px;
-     background: #D3D9DD;
-     color: #000;
+     background: {{ button_background_color|default("#D3D9DD", true) }};
+     color: {{ button_text_color|default("#000000", true) }};;
      font-size: 16px;
      padding: 5px 13px;
      border-radius: 6px;
  }
 
  .button-link:hover {
-     background: #2B9EEF;
-     color: #FFF;
+     background: {{ button_hover_background_color|default("#2B9EEF", true) }};
+     color: {{ button_hover_text_color|default("#FFFFFF", true) }};;
  }
 
  {% if blockable %}
