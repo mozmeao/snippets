@@ -269,6 +269,15 @@
       }
     {% endif %}
 
+    {% if background %}
+      body {
+        background: {{ background }};
+      }
+      #launcher {
+        background: hsl(0,0%,95%);
+      }
+    {% endif %}
+
   </style>
 
   <section id="send-to-device-{{ snippet_id }}" class="logo title">
