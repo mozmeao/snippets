@@ -1,0 +1,260 @@
+{#
+Spectacular thank you snippet with link and confetti
+
+Variables:
+
+  @header_image: Required, data uri of an svg.
+  @header_image_height: Optional, number, defaults to 104.
+  @header_alt: Required, text describing the header image.
+  @text: main text - Text of snippet.
+  @text_color: Optional, defaults to #FFFFFF.
+  @button_text: Required, text for button.
+  @link_href: Required, button link location.
+  @background: Required, color hash, background color.
+  @animation: Text, Optional, defaults to "dynamic", can also use "static".
+
+#}
+<style>
+
+#snippetContainer div.snippet {
+   margin: 10px 0;
+}
+
+.snippet {
+  text-align: center;
+}
+
+.snippet p {
+  padding-left: 0;
+  width: auto;
+  margin: 0 auto;
+  display: block;
+  height: auto;
+  color: {{ text_color|default("#FFFFFF", true) }};
+  font-size: 26px;
+  line-height: 30px;
+}
+
+.snippet a {
+  background: #F7E964;
+  cursor: pointer;
+  color: {{ background }};
+  margin-top: 41px;
+  display: inline-block;
+  height: 52px;
+  box-sizing: border-box;
+  font-size: 19px;
+  padding: 13px 50px;
+}
+
+a:hover {
+  background: #FFFFFF;
+}
+
+.snippet .header-image,
+.snippet .header-alt {
+  width: 92%;
+  margin: 25px 0px 14px 0;
+}
+
+#snippetContainer {
+  height: 74px;
+  transition: height 0.6s;
+  overflow: hidden;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+}
+
+#canvas-left {
+  left: 0;
+}
+
+#canvas-right {
+  right: 0;
+}
+
+body {
+  background: {{ background }};
+  transition: background 0.3s;
+}
+#launcher {
+  background: hsl(0,0%,95%);
+}
+#searchIconAndTextContainer {
+  background: #F2F2F2;
+  border-radius: 2px;
+}
+#searchSubmit {
+  transition-duration: 0s;
+}
+
+.snippet img {
+  width: 100%;
+}
+
+</style>
+  <div class="snippet" id="snippet">
+    {% if header_image %}
+      <img class="header-image" height="{{ header_image_height|default("104", true) }}" src="{{ header_image }}" alt="{{ header_alt }}"/>
+    {% elif header_alt %}
+      <div class="header-alt">{{ header_alt }}</div>
+    {% endif %}
+    <p>{{ text|safe }}</p>
+    <a href="{{ link_href }}">{{ button_text }}</a>
+  </div>
+  <canvas id="canvas-left"></canvas>
+  <canvas id="canvas-right"></canvas>
+<script type="text/javascript">
+ //<![CDATA[
+ (function() {
+     var snippet = document.getElementById('snippet');
+
+     snippet.addEventListener('show_snippet', function () {
+       var animation = "{{ animation|default("dynamic", true) }}";
+       var snippetContainer = document.getElementById('snippetContainer');
+       var snippets = document.getElementById('snippets');
+       snippetContainer.style.height = snippets.offsetHeight + 24 + "px";
+
+       var requestAnimFrame = (function(){
+         return window.requestAnimationFrame       ||
+                window.mozRequestAnimationFrame    ||
+                function( callback ){
+                  window.setTimeout(callback, 1000 / 60);
+                };
+       })();
+
+       // Returns a random number between a range.
+       function range(a,b) {
+         return (b-a)*Math.random()+a;
+       }
+
+       var NUM_CONFETTI = 425;
+       var COLORS = [
+         "rgb(255,255,255)", "rgb(255,112,87)", "rgb(244,239,50)", "rgb(23,137,147)"
+       ];
+
+       function setupConfetti(id) {
+         var canvas = document.getElementById(id);
+         var context = canvas.getContext("2d");
+         var width = 0;
+         var height = 0;
+
+         function resizeWindow() {
+           width = canvas.width = ((window.innerWidth/2) - (470/2));
+           height = canvas.height = document.body.offsetHeight - 116;
+         }
+         resizeWindow();
+
+         var defaultOpacity = 0;
+         if (animation === "static") {
+           defaultOpacity = 1;
+         } else {
+           window.addEventListener('resize', resizeWindow, false);
+         }
+
+         var confettiSize = 6;
+
+         var xpos = 0;
+         document.addEventListener("mousemove", function(e) {
+           xpos = (e.pageX/window.innerWidth)-0.5;
+         });
+
+         // Initial code thanks to https://codepen.io/linrock/pen/Amdhr
+         class Confetti {
+           constructor() {
+             this.rgb = COLORS[~~range(0,4)];
+             this.replace();
+             this.start = Date.now()/1000;
+             this.now = this.start;
+             this.diff = 0;
+           }
+           replace() {
+             this.opacity = defaultOpacity;
+             this.x = range(-100,width-confettiSize+100);
+             this.y = range(-100,height-confettiSize);
+             this.xmax = width-confettiSize;
+             this.ymax = height-confettiSize;
+
+             this.dop = range(4,6);
+             this.vx = (range(-0.2,0.2)+xpos)*200;
+             this.vy = confettiSize+range(1,2)*150;
+             this.start = Date.now()/1000;
+             this.now = this.start;
+             this.diff = 0;
+           }
+           draw() {
+             this.now = Date.now()/1000;
+             this.diff = this.now - this.start;
+
+             this.x += (this.vx * this.diff);
+             this.y += (this.vy * this.diff);
+             this.opacity += (this.dop * this.diff);
+
+             if (this.opacity > 1) {
+               this.opacity = 1;
+               this.dop *= -1;
+             }
+             if (this.opacity < 0 || this.y > this.ymax) {
+               this.replace();
+             }
+             if (!(0 < this.x < this.xmax)) {
+               this.x = (this.x + this.xmax) % this.xmax;
+             }
+             context.beginPath();
+             context.rect(~~this.x,~~this.y,confettiSize,confettiSize);
+             context.globalAlpha = this.opacity;
+             context.fillStyle = this.rgb;
+             context.fill();
+             this.start = Date.now()/1000;
+           }
+         }
+
+         var confetti = [];
+         var pushConfetti = function() {
+           confetti.push(new Confetti());
+           if (confetti.length < NUM_CONFETTI) {
+             requestAnimationFrame(pushConfetti);
+           }
+         }
+         if (animation === "static") {
+           var pushConfetti = function() {
+             confetti.push(new Confetti());
+             if (confetti.length < NUM_CONFETTI) {
+               pushConfetti();
+             }
+           }
+         }
+         pushConfetti();
+
+         function step() {
+           context.clearRect(0,0,width,height);
+           confetti.forEach(function(c) {
+             c.draw();
+           });
+         }
+
+         return step;
+       }
+
+       var stepLeft = setupConfetti("canvas-left");
+       var stepRight = setupConfetti("canvas-right");
+       var step = function() {
+         stepLeft();
+         stepRight();
+         requestAnimationFrame(step);
+       };
+       if (animation === "static") {
+         step = function() {
+           stepLeft();
+           stepRight();
+         };
+       }
+       step();
+     });
+ })();
+ //]]>
+</script>
+
