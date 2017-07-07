@@ -4,6 +4,8 @@ Spectacular Net Neutrality Comments Snippet.
 Variables:
 
   @text: main text - Text of snippet.
+  @blockable: checkbox - Check to allow user to block this snippet.
+  @block_button_text - small text - Text to display while hovering over opt out button. Default 'Remove this'
 
 #}
 <style>
@@ -51,7 +53,6 @@ Variables:
   margin: 0 auto;
   display: block;
   font-size: 12px;
-  text-align: center;
 }
 
 #snippetContainer {
@@ -65,7 +66,7 @@ Variables:
 .comments-container {
   height: 0;
   overflow: hidden;
-  transition: height 0.8s, margin-top 0.8s, margin-bottom 0.1s;
+  transition: height 0.8s, margin-top 0.8s, margin-bottom 0.3s;
   text-align: left;
   font-family: AntonioBold;
   font-weight: bold;
@@ -79,8 +80,8 @@ Variables:
 
 .comments-background {
   opacity: 0;
-  background: #000000;
-  padding: 40px 0 22px 0;
+  background: #1A1A1A;
+  padding: 40px 0 28px;
 }
 
 .comments-transition-container {
@@ -96,6 +97,7 @@ Variables:
 .center-container {
   margin: 0 auto;
   width: 470px;
+  position: relative;
 }
 
 .comment {
@@ -148,6 +150,7 @@ Variables:
   position: absolute;
   top: 51px;
   margin-top: -26px;
+  padding: 10px;
   cursor: pointer;
   background-size: 52px 28px;
   background-position: center center;
@@ -162,7 +165,7 @@ Variables:
 }
 
 .right-arrow {
-  right: -28px;
+  right: -45px;
   background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNS41OSAyNy4zMiI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM5OTk7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5hcnJvdy1yaWdodDwvdGl0bGU+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PGcgaWQ9IkxheWVyXzItMiIgZGF0YS1uYW1lPSJMYXllciAyIj48cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMS45MyAwIDAgMS45MyAxMS43NCAxMy42NiAwIDI1LjQgMS45MyAyNy4zMiAxNS41OSAxMy42NiAxLjkzIDAiLz48L2c+PC9nPjwvc3ZnPg==');
 }
 
@@ -172,6 +175,30 @@ Variables:
   opacity: 1;
 }
 
+{% if blockable %}
+  .block-snippet-button {
+     position: absolute;
+     top: -20px;
+     right: -34px;
+     z-index: 10;
+     display: none;
+     height: 14px;
+     width: 14px;
+     padding: 6px;
+     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMC43OCAxMC43OCI+PGRlZnM+PHN0eWxlPi5jbHMtMXtmaWxsOiM0ZDRkNGQ7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5jbG9zZTwvdGl0bGU+PGcgaWQ9IkxheWVyXzIiIGRhdGEtbmFtZT0iTGF5ZXIgMiI+PGcgaWQ9IkxheWVyXzItMiIgZGF0YS1uYW1lPSJMYXllciAyIj48cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMTAuNzggMS4zMyA5LjQ1IDAgNS4zOSA0LjA2IDEuMzMgMCAwIDEuMzMgNC4wNiA1LjM5IDAgOS40NSAxLjMzIDEwLjc4IDUuMzkgNi43MiA5LjQ1IDEwLjc4IDEwLjc4IDkuNDUgNi43MiA1LjM5IDEwLjc4IDEuMzMiLz48L2c+PC9nPjwvc3ZnPg==");
+     background-repeat: no-repeat;
+     background-size: 14px 14px;
+     background-color: transparent;
+     border: 0;
+     cursor: pointer;
+     box-sizing: content-box;
+     background-position: 6px 6px;
+  }
+  .comments-background:hover .block-snippet-button {
+    display: block;
+  }
+{% endif %}
+
 </style>
   <div class="snippet" id="snippet">
     <div class="brand-logo-replacement"></div>
@@ -179,6 +206,10 @@ Variables:
       <div class="comments-height">
         <div class="comments-background">
           <div class="center-container">
+            {% if blockable %}
+              <button class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}">
+              </button>
+            {% endif %}
             <div class="comments-transition-container">
 
               <!-- Free Speech -->
@@ -206,7 +237,7 @@ Variables:
               <div class="comment-container">
                 <div class="comment">Please leave the internet open to<br/>one and all without limitations.<br/>Let the little guys keep their voice.</div>
                 <div class="author">
-                  Concerned Internet Citizen, Arlington VA
+                  Concerned Internet Citizen, Boxford MA
                 </div>
               </div>
 
