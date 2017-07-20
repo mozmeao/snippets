@@ -1,5 +1,5 @@
 {#
-Spectacular thank you snippet with link and confetti
+Spectacular thank you snippet with link and confetti. Firefox 45.0 and up only.
 
 Variables:
 
@@ -98,7 +98,7 @@ body {
 </style>
   <div class="snippet" id="snippet">
     {% if header_image %}
-      <img class="header-image" height="{{ header_image_height|default("104", true) }}" src="{{ header_image }}" alt="{{ header_alt }}"/>
+      <img class="header-image" height="{{ header_image_height|default('104', true) }}" src="{{ header_image }}" alt="{{ header_alt }}"/>
     {% elif header_alt %}
       <div class="header-alt">{{ header_alt }}</div>
     {% endif %}
@@ -257,4 +257,3 @@ body {
  })();
  //]]>
 </script>
-
