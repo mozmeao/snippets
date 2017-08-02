@@ -4,17 +4,18 @@ Simple Snippet for Activity Stream with button option.
 Variables:
 
   @blockable: checkbox - Check to allow user to block this snippet.
-  @rtl: checkbox, optional - If checked change text direction to support RTL languages
+  @rtl: checkbox, optional - If checked change text direction to support RTL languages.
   @icon: image, optional - Snippet icon. 64x64px. SVG or PNG preferred.
   @button_label: text, optional - Text for a button next to main snippet text that links to button_url. Requires button_url.
   @button_url: text, optional - A url, button_label links to this.
   @text: text - Text of snippet.
   @title: text, optional - Snippet title displayed above snippet text.
+  @wide: checkbox, optional - Turns on wide alternative for long strings / localization.
+  @title_icon: image, optional - Title icon. 16x16px. SVG or PNG preferred. Grayscale.
 
 #}
 <style>
   #snippet {
-    margin: 28px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,8 +27,13 @@ Variables:
   }
 
   .snippet section {
-    width: 420px;
-    color: #383E49;
+    {% if wide %}
+      width: 524px;
+    {% else %}
+      width: 388px;
+    {% endif %}
+    color: #000000;
+    align-self: start;
     {% if rtl %}
       direction: rtl;
     {% else %}
@@ -37,25 +43,40 @@ Variables:
   }
 
   .snippet h1 {
-    line-height: 20px;
     font-weight: bold;
-    margin: 0;
-    font-size: inherit;
+    color: #0F1126;
+    font-size: 14px;
+    margin: 0 0 5px 0;
   }
+
+  {% if title_icon %}
+    .snippet h1::before {
+      content: "";
+      background-repeat: no-repeat;
+      background-size: 14px;
+      height: 16px;
+      width: 16px;
+      float: inline-start;
+      margin-top: 2px;
+      margin-inline-end: 2px;
+      background-image: url("{{ title_icon }}");
+    }
+  {% endif %}
 
   .snippet p {
     margin: 0;
     line-height: 16px;
-    font-size: inherit;
+    font-size: 12px;
+    font-weight: 300;
   }
 
   .snippet img {
     height: 64px;
     width: 64px;
     {% if rtl %}
-      margin-left: 15px;
+      margin-left: 18px;
     {% else %}
-      margin-right: 15px;
+      margin-right: 18px;
     {% endif %}
   }
 
@@ -66,28 +87,25 @@ Variables:
   .snippet .button-link {
     white-space: nowrap;
     {% if rtl %}
-      margin-right: 15px;
+      margin-right: 18px;
     {% else %}
-      margin-left: 15px;
+      margin-left: 18px;
     {% endif %}
-    background: #9CA2A9;
+    background: #FBFBFB;
     color: #FFFFFF;
     font-size: 14px;
-    padding: 10px 28px;
-    border-radius: 6px;
-    box-shadow: 0 2px 0 #74777C;
-  }
-
-  .snippet .button-link:hover {
-    color: #FFF;
+    padding: 10px 14px;
+    border-radius: 2px;
+    color: #202340;
+    border: 1px #C1C1C1 solid;
   }
 
   {% if blockable %}
     .snippet .block-snippet-button {
       {% if rtl %}
-        left: 50px;
+        left: 24px;
       {% else  %}
-        right: 50px;
+        right: 24px;
       {% endif %}
     }
   {% endif %}
