@@ -10,7 +10,6 @@ Variables:
   @button_url: text, optional - A url, button_label links to this.
   @text: text - Text of snippet.
   @title: text, optional - Snippet title displayed above snippet text.
-  @wide: checkbox, optional - Turns on wide alternative for long strings / localization.
   @title_icon: image, optional - Title icon. 16x16px. SVG or PNG preferred. Grayscale.
 
 #}
@@ -19,34 +18,19 @@ Variables:
     display: flex;
     justify-content: center;
     align-items: center;
-    {% if rtl %}
-      flex-direction: row-reverse;
-    {% else %}
-      flex-direction: row;
-    {% endif %}
   }
 
   .snippet section {
-    {% if wide %}
-      width: 524px;
-    {% else %}
-      width: 388px;
-    {% endif %}
     color: #000000;
-    align-self: start;
-    {% if rtl %}
-      direction: rtl;
-    {% else %}
-      direction: ltr;
-    {% endif %}
     font-size: 12px;
   }
 
   .snippet h1 {
+    margin: 0;
     font-weight: bold;
-    color: #0F1126;
-    font-size: 14px;
-    margin: 0 0 5px 0;
+    color: #0f1126;
+    font-size: inherit;
+    display: inline;
   }
 
   {% if title_icon %}
@@ -56,29 +40,32 @@ Variables:
       background-size: 14px;
       height: 16px;
       width: 16px;
-      float: inline-start;
       margin-top: 2px;
       margin-inline-end: 2px;
       background-image: url("{{ title_icon }}");
+      display: inline-block;
+      vertical-align: top;
     }
   {% endif %}
 
   .snippet p {
     margin: 0;
     line-height: 16px;
-    font-size: 12px;
-    font-weight: 300;
+    display: inline;
   }
 
   .snippet img {
-    height: 64px;
-    width: 64px;
-    {% if rtl %}
-      margin-left: 18px;
-    {% else %}
-      margin-right: 18px;
-    {% endif %}
+    display: none;
+    width: 42px;
+    height: 42px;
+    margin-inline-end: 12px;
   }
+  @media (min-width: 766px) {
+    .snippet img {
+      display: block;
+    }
+  }
+
 
   .snippet section p a {
     text-decoration: underline;
@@ -86,34 +73,26 @@ Variables:
 
   .snippet .button-link {
     white-space: nowrap;
-    {% if rtl %}
-      margin-right: 18px;
-    {% else %}
-      margin-left: 18px;
-    {% endif %}
-    background: #FBFBFB;
-    color: #FFFFFF;
-    font-size: 14px;
-    padding: 10px 14px;
+    background: #fbfbfb;
+    border: 1px solid #c1c1c1;
     border-radius: 2px;
+    padding: 8px 11px;
+    font-weight: 600;
+    line-height: 14px;
     color: #202340;
-    border: 1px #C1C1C1 solid;
+    min-width: 100px;
+    margin-inline-start: 5px;
   }
-
-  {% if blockable %}
-    .snippet .block-snippet-button {
-      {% if rtl %}
-        left: 24px;
-      {% else  %}
-        right: 24px;
-      {% endif %}
+  @media (min-width: 766px) {
+    .snippet .button-link {
+      margin-inline-start: 18px;
     }
-  {% endif %}
+  }
 </style>
 
 <div class="snippet" id="snippet">
   {% if icon %}
-    <img alt="snippet icon" height="64" width="64" src="{{ icon }}" />
+    <img alt="snippet icon" height="42" width="42" src="{{ icon }}" />
   {% endif %}
 
   <section>
@@ -132,4 +111,3 @@ Variables:
     </button>
   {% endif %}
 </div>
-
