@@ -8,16 +8,22 @@ Variables:
   @icon: image, optional - Snippet icon. 64x64px. SVG or PNG preferred.
   @button_label: text, optional - Text for a button next to main snippet text that links to button_url. Requires button_url.
   @button_url: text, optional - A url, button_label links to this.
+  @button_background_color: hash, optional - Button background color. Default #D7D7DB.
+  @button_color: hash, optional - Button text color. Default #0C0C0D.
   @text: text - Text of snippet.
   @title: text, optional - Snippet title displayed above snippet text.
   @title_icon: image, optional - Title icon. 16x16px. SVG or PNG preferred. Grayscale.
 
+  @tall: checkbox, optional - Fundraising only, increases height to roughly 120px.
 #}
 <style>
   #snippet {
     display: flex;
     justify-content: center;
     align-items: center;
+    {% if tall %}
+      margin: 27px 0;
+    {% endif %}
   }
 
   .snippet section {
@@ -59,6 +65,9 @@ Variables:
     width: 42px;
     height: 42px;
     margin-inline-end: 12px;
+    {% if tall %}
+      margin-inline-end: 20px;
+    {% endif %}
   }
   @media (min-width: 766px) {
     .snippet img {
@@ -66,28 +75,36 @@ Variables:
     }
   }
 
-
   .snippet section p a {
     text-decoration: underline;
   }
 
   .snippet .button-link {
     white-space: nowrap;
-    background: #fbfbfb;
-    border: 1px solid #c1c1c1;
+    background: {{ button_background_color|default("#D7D7DB", true) }};
+    color: {{ button_color|default("#0C0C0D", true) }};
     border-radius: 2px;
     padding: 8px 11px;
     font-weight: 600;
     line-height: 14px;
-    color: #202340;
-    min-width: 100px;
     margin-inline-start: 5px;
   }
   @media (min-width: 766px) {
     .snippet .button-link {
       margin-inline-start: 18px;
+      {% if tall %}
+        margin-inline-start: 20px;
+      {% endif %}
     }
   }
+  {% if tall and blockable %}
+    .snippet .block-snippet-button {
+      background-size: 18px;
+      margin-top: -10px;
+      height: 18px;
+      width: 18px;
+    }
+  {% endif %}
 </style>
 
 <div class="snippet" id="snippet">
