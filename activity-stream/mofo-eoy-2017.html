@@ -1,0 +1,236 @@
+{#
+Fundraising Snippet for Activity Stream for 2017.
+
+Variables:
+
+  @blockable: checkbox - Check to allow user to block this snippet.
+  @block_button_text - text - Text to display while hovering over opt out button. Default "Remove this"
+
+  @donation_form_url: Required. Url to the donation form.
+  @text: text - Text of snippet.
+  @icon: image, optional - Snippet icon. 64x64px. SVG or PNG preferred.
+  @button_label: text, required - Text for a button next to main snippet text that links to button_url. Requires button_url.
+  @monthly_checkbox_label_text: Defaults to 'Make my donation monthly'. Label text for monthly checkbox.
+
+  @button_background_color: hash, optional - Button background color. Default #0060DF.
+  @button_color: hash, optional - Button text color. Default #FFFFFF.
+  @background_color: hash, optional - Snippet background color. Default #FFFFFF.
+  @highlight_color: hash, optional - Paragraph em highlight color. Default #FFE900.
+  
+  @locale: Default en-US. String for the locale code.
+  @currency_code: Default usd. The code for the currency. Examle gbp, cad, usd.
+
+  @donation_amount_first: number. Required. First button amount.
+  @donation_amount_second: number. Required. Second button amount.
+  @donation_amount_third: number. Required. Third button amount.
+  @donation_amount_fouth: number. Required. Fourth button amount.
+  @selected_button: Default donation_amount_second. Donation amount button that's selected by default.
+#}
+<style>
+  #snippet {
+    margin: 8px 0;
+    display: flex;
+  }
+
+  #snippets-container {
+    background: {{ background_color|default("#FFFFFF", true) }};
+  }
+
+  .snippet section {
+    color: #000000;
+    align-self: start;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  .snippet p {
+    margin: 0;
+    line-height: 16px;
+    margin-bottom: 12px;
+  }
+
+  .snippet p em {
+    font-style: normal;
+    background: {{ highlight_color|default("#FFE900", true) }};
+  }
+
+  .snippet section p a {
+    text-decoration: underline;
+  }
+
+  .snippet img {
+    width: 42px;
+    height: 42px;
+    margin-inline-end: 12px;
+  }
+
+  .snippet .donation-form-url {
+    margin-inline-start: 18px;
+    background: {{ button_background_color|default("#0060DF", true) }};
+    color: {{ button_color|default("#FFFFFF", true) }};
+  }
+
+  .snippet .donation-amount {
+    margin-inline-end: 18px;
+  }
+
+  .snippet .donation-form-url,
+  .snippet .donation-amount {
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 5px 14px;
+    border-radius: 2px;
+  }
+
+  .snippet .donation-amount {
+    color: #202340;
+    border: 1px #C1C1C1 solid;
+    background: #FBFBFB;
+  }
+
+  .snippet .donation-amount.button-selected {
+    background: #727272;
+    color: #FFFFFF;
+    border: 1px #5E5E5F solid;
+  }
+
+  .snippet .donation-amount {
+    cursor: pointer;
+  }
+
+  .snippet .monthly-checkbox-container {
+    width: 100%;
+  }
+
+  .snippet .monthly-checkbox-container input {
+    vertical-align: middle;
+  }
+
+  {% if blockable %}
+    .snippet .block-snippet-button {
+      background-size: 18px;
+      margin-top: -10px;
+      height: 18px;
+      width: 18px;
+    }
+  {% endif %}
+</style>
+
+<div class="snippet" id="snippet">
+  {% if icon %}
+    <img alt="snippet icon" height="42" width="42" src="{{ icon }}" />
+  {% endif %}
+  <div>
+    <section>
+      <p>{{ text|safe }}</p>
+    </section>
+
+    <section>
+      <button class="button donation-amount donation-amount-first" data-amount="{{ donation_amount_first }}"></button>
+      <button class="button donation-amount donation-amount-second" data-amount="{{ donation_amount_second }}"></button>
+      <button class="button donation-amount donation-amount-third" data-amount="{{ donation_amount_third }}"></button>
+      <button class="button donation-amount donation-amount-fourth" data-amount="{{ donation_amount_fourth }}"></button>
+
+      <div class="monthly-checkbox-container">
+        <input id="monthly-checkbox" class="monthly-checkbox" type="checkbox"/>
+        <label for="monthly-checkbox" class="monthly-checkbox-label">
+          {{ monthly_checkbox_label_text|default('Make my donation monthly', true) }}
+        </label>
+      </div>
+
+      <a class="donation-form-url" href="{{ donation_form_url|safe }}">{{ button_label }}</a>
+    </section>
+  </div>
+
+  {% if blockable %}
+    <button class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}">
+    </button>
+  {% endif %}
+</div>
+<script type="text/javascript">
+  //<![CDATA[
+  (function() {
+    var snippet = document.getElementById("snippet");
+    snippet.addEventListener("show_snippet", function () {
+      var btnDonate = snippet.querySelector(".donation-form-url");
+
+      var btnAmounts = snippet.querySelectorAll(".donation-amount");
+      var btnSelected;
+      var amount;
+      var locale = "{{ locale|default('en-US', true) }}";
+      var currencyCode = "{{ currency_code|default('usd', true) }}";
+      var dAmountFirst = "{{ donation_amount_first }}";
+      var dAmountSecond = "{{ donation_amount_second }}";
+      var dAmountThird = "{{ donation_amount_third }}";
+      var dAmountFourth = "{{ donation_amount_fourth }}";
+      var presets = [dAmountFirst, dAmountSecond, dAmountThird, dAmountFourth];
+      var numberFormat = new Intl.NumberFormat(locale, {
+        style: "currency",
+        currency: currencyCode,
+        minimumFractionDigits: 0
+      });
+      var dAmountFirstEl = snippet.querySelector(".donation-amount-first");
+      var dAmountSecondEl = snippet.querySelector(".donation-amount-second");
+      var dAmountThirdEl = snippet.querySelector(".donation-amount-third");
+      var dAmountFourthEl = snippet.querySelector(".donation-amount-fourth");
+      dAmountFirstEl.textContent = numberFormat.format(dAmountFirst);
+      dAmountSecondEl.textContent = numberFormat.format(dAmountSecond);
+      dAmountThirdEl.textContent = numberFormat.format(dAmountThird);
+      dAmountFourthEl.textContent = numberFormat.format(dAmountFourth);
+      function selectAmount(element) {
+        if (!element) {
+          return;
+        }
+        element.classList.add("button-selected");
+        if (btnSelected) {
+          btnSelected.classList.remove("button-selected");
+        }
+        btnSelected = element;
+        amount = element.attributes["data-amount"].value;
+      }
+      var selected = "{{ selected_button|default('donation-amount-second', true) }}";
+      selectAmount(snippet.querySelector("." + selected));
+      var frequency = "single";
+
+      var monthlyCheckbox = snippet.querySelector("#monthly-checkbox");
+      function updateFrequency() {
+        frequency = "single";
+        if (monthlyCheckbox.checked) {
+          frequency = "monthly";
+        }
+      }
+      updateFrequency();
+      monthlyCheckbox.addEventListener("change", function() {
+        updateFrequency();
+        updateLink();
+      });
+
+      var donationURL = "";
+      var delimiter = "?";
+
+      function updateLink() {
+        btnDonate.attributes["href"].value = donationURL + delimiter + "amount=" + amount + "&currency=" + currencyCode + "&presets=" + presets + "&frequency=" + frequency;
+      }
+
+      // Store the donationURL later to ensure we catch sample_rate and snippet_name
+      setTimeout(function() {
+        donationURL = btnDonate.attributes["href"].value;
+        if (donationURL.indexOf("?") >= 0) {
+          delimiter = "&";
+        }
+        updateLink();
+      });
+
+      for(var i=0; i<btnAmounts.length; i++) {
+        btnAmounts[i].addEventListener("click", function (event) {
+          if (!event.target.classList.contains("button-selected")) {
+            selectAmount(event.target);
+            updateLink();
+          }
+        });
+      }
+    });
+ })();
+ //]]>
+</script>
