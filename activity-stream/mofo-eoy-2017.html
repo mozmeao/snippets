@@ -25,11 +25,29 @@ Variables:
   @donation_amount_third: number. Required. Third button amount.
   @donation_amount_fouth: number. Required. Fourth button amount.
   @selected_button: Default donation_amount_second. Donation amount button that's selected by default.
+
+  @test: String. Optional. Options are bold and takeover.
 #}
 <style>
+  main {
+    {% if test == 'bold' %}
+      padding-bottom: 232px;
+    {% elif test == 'takeover' %}
+      padding-bottom: 384px;
+    {% else %}
+      padding-bottom: 154px;
+    {% endif %}
+  }
+
   #snippet {
     margin: 8px 0;
     display: flex;
+    align-items: center;
+    {% if test == 'bold' %}
+      height: 176px;
+    {% elif test == 'takeover' %}
+      height: 344px;
+    {% endif %}
   }
 
   #snippets-container {
@@ -44,10 +62,26 @@ Variables:
     align-items: center;
   }
 
+  .snippet section.paragraph-section {
+    {% if test == 'takeover' %}
+      display: block;
+    {% endif %}
+  }
+
   .snippet p {
     margin: 0;
-    line-height: 16px;
     margin-bottom: 12px;
+    {% if test == 'bold' %}
+      font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 20px;
+    {% elif test == 'takeover' %}
+      font-size: 16px;
+      line-height: 24px;
+      margin-bottom: 35px;
+    {% else %}
+      line-height: 16px;
+    {% endif %}
   }
 
   .snippet p em {
@@ -60,9 +94,23 @@ Variables:
   }
 
   .snippet img {
-    width: 42px;
-    height: 42px;
-    margin-inline-end: 12px;
+    align-self: start;
+    {% if test == 'bold' %}
+      width: 71px;
+      height: 71px;
+      margin-inline-end: 16px;
+      margin-bottom: 20px;
+    {% elif test == 'takeover' %}
+      float: left;
+      margin-top: -8px;
+      width: 79px;
+      height: 79px;
+      margin-inline-end: 9px;
+    {% else %}
+      width: 42px;
+      height: 42px;
+      margin-inline-end: 12px;
+    {% endif %}
   }
 
   .snippet .donation-form-url {
@@ -80,6 +128,10 @@ Variables:
     white-space: nowrap;
     font-size: 14px;
     padding: 5px 14px;
+    {% if test %}
+      padding-top: 8px;
+      padding-bottom: 8px;
+    {% endif %}
     border-radius: 2px;
   }
 
@@ -113,16 +165,27 @@ Variables:
       margin-top: -10px;
       height: 18px;
       width: 18px;
+      {% if test %}
+        top: 24px;
+        margin-top: 0;
+      {% endif %}
     }
   {% endif %}
 </style>
 
 <div class="snippet" id="snippet">
-  {% if icon %}
+  {% if icon and not test %}
     <img alt="snippet icon" height="42" width="42" src="{{ icon }}" />
   {% endif %}
   <div>
-    <section>
+    <section class="paragraph-section">
+      {% if icon %}
+        {% if test == 'bold' %}
+          <img alt="snippet icon" height="71" width="71" src="{{ icon }}" />
+        {% elif test == 'takeover' %}
+          <img alt="snippet icon" height="79" width="79" src="{{ icon }}" />
+        {% endif %}
+      {% endif %}
       <p>{{ text|safe }}</p>
     </section>
 
