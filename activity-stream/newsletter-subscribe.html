@@ -1,0 +1,364 @@
+{#
+Activity Stream snippet for email signup.
+
+Variables:
+
+  @blockable: checkbox - Check to allow user to block this snippet.
+  
+  @scene1_icon: image, optional - Snippet icon. 64x64px. SVG or PNG preferred.
+  @scene1_button_label: text - Text for the button next to main text that opens the email form.
+  @scene1_button_background_color: hash, optional - Button background color. Default #D7D7DB.
+  @scene1_button_color: hash, optional - Button text color. Default #0C0C0D.
+  @scene1_text: text - Text for scene1/initial view of the snippet.
+  @scene1_title: text, optional - Title displayed before scene1_text.
+  @scene1_title_icon: image, optional - Title icon. 16x16px. SVG or PNG preferred. Grayscale.
+  
+  @scene2_text: text - Text for scene2/form view.
+  @scene2_title: text, optional - Title displayed before scene2_text.
+  @scene2_newsletter: text - Newsletter/basket id user is subscribing to. Must be a value from the 'Slug' column here: https://basket.mozilla.org/news/. Default 'mozilla-foundation'.
+  @scene2_email_placeholder_text: text, optional - Placeholder text for email field. Default 'YOUR EMAIL HERE'.
+  @scene2_button_label: text, optional - Text for form submit button. Default 'Sign Me Up'.
+  @scene2_privacy_html: text - Html for text and link next to privacy checkbox. Must link to a privacy policy.
+  @scene2_dismiss_button_text: text, optional - Text for dismiss button in footer of form/scene2. Default 'Nevermind'.
+  
+  @error_text: text - Text of error message if form submission fails.
+  @success_text: text - Text of success message after form submission.
+#}
+<style>
+  /* helper classes */
+  .hidden {
+    display: none !important;
+  }
+
+  /* overrides to accommodate design */
+  #snippets-container {
+    padding: 0;
+  }
+
+  #snippets > div {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* general styles for all scenes/views */
+  #snippets .scene-content {
+    margin: 0 auto;
+    max-width: 736px;
+    padding-top: 20px;
+    width: 224px;
+  }
+
+  @media (min-width: 416px) {
+    #snippets .scene-content {
+      width: 352px;
+    }
+  }
+
+  @media (min-width: 544px) {
+    #snippets .scene-content {
+      width: 480px;
+    }
+  }
+
+  @media (min-width: 800px) {
+    #snippets .scene-content {
+      width: 100%;
+    }
+  }
+
+  .snippet section {
+    color: #000000;
+    font-size: 12px;
+  }
+
+  .snippet h1 {
+    margin: 0;
+    font-weight: bold;
+    color: #0f1126;
+    font-size: 14px;
+    display: inline;
+  }
+
+{% if scene1_title_icon %}
+  .snippet h1::before {
+    background-image: url("{{ scene1_title_icon }}");
+    background-repeat: no-repeat;
+    background-size: 14px;
+    content: '';
+    display: inline-block;
+    height: 16px;
+    margin-inline-end: 2px;
+    margin-top: 2px;
+    vertical-align: top;
+    width: 16px;
+  }
+{% endif %}
+
+  .snippet p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 16px;
+    display: inline;
+  }
+
+  .snippet img {
+    display: none;
+    width: 42px;
+    height: 42px;
+    margin-inline-end: 12px;
+  }
+
+  @media (min-width: 766px) {
+    .snippet img {
+      display: block;
+    }
+  }
+
+  .snippet section p a {
+    text-decoration: underline;
+  }
+
+  .snippet .button-link {
+    background: {{ scene1_button_background_color|default('#D7D7DB', true) }};
+    border-radius: 2px;
+    border: 0;
+    color: {{ scene1_button_color|default('#0C0C0D', true) }};
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    margin-inline-start: 5px;
+    padding: 8px 11px;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 766px) {
+    .snippet .button-link {
+      margin-inline-start: 18px;
+    }
+  }
+
+  /* scene1 specifics */
+  #scene1 .scene-content {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+  }
+
+  /* scene2 specifics */
+  #scene2 > .scene-content {
+    margin: 0 auto;
+    max-width: 670px;
+    padding: 40px 0;
+  }
+
+  #scene2-intro {
+    margin-bottom: 10px;
+  }
+
+  input[type="email"] {
+    margin-bottom: 10px;
+    margin-right: 10px;
+    padding: 6px;
+  }
+
+  @media (min-width: 544px) {
+    input[type="email"] {
+      margin-bottom: 0;
+      width: 40%;
+    }
+  }
+
+  @media (min-width: 766px) {
+    input[type="email"] {
+      width: 50%;
+    }
+  }
+
+  form button {
+    background: #0060df;
+    border: 0;
+    border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px 11px;
+  }
+
+  form button:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  #privacy-label {
+    color: #4a4a4f;
+    display: block;
+    font-size: 12px;
+    opacity: 0.75;
+    padding-top: 10px;
+  }
+
+{% if blockable %}
+  #scene2-footer {
+    background: rgba(12, 12, 13, 5%);
+    padding: 10px 0;
+    text-align: right;
+  }
+
+  #scene2-footer .scene-content {
+    padding: 0;
+  }
+
+  #scene2-footer .block-snippet-button {
+    background: #f9f9fa;
+    border: 1px solid #d7d7db;
+    color: #3b3b3b;
+    height: auto;
+    margin: 0;
+    offset-inline-end: auto;
+    opacity: 1;
+    position: relative;
+    top: 0;
+    width: auto;
+  }
+
+  .snippet #scene2-footer .block-snippet-button,
+  #snippets-container:hover .snippet #scene2-footer .block-snippet-button {
+      display: inline-block;
+  }
+{% endif %}
+</style>
+    
+<div class="snippet" id="snippet">
+  <section id="scene1" class="scene">
+    <div class="scene-content">
+    {% if scene1_icon %}
+      <img alt="snippet icon" height="42" width="42" src="{{ scene1_icon }}" />
+    {% endif %}
+  
+      <section>
+      {% if scene1_title %}
+        <h1>{{ scene1_title }}</h1>
+      {% endif %}
+        <p>{{ scene1_text|safe }}</p>
+      </section>
+  
+      <button type="button" class="button-link" id="learn-more">{{ scene1_button_label|default('Learn more', true) }}</button>
+  
+    {% if blockable %}
+      <button type="button" class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}"></button>
+    {% endif %}
+    </div><!--/.scene-content-->
+  </section>
+
+  <section id="scene2" class="scene hidden">
+    <div class="scene-content">
+      <div id="scene2-intro">
+      {% if scene2_title %}
+        <h1>{{ scene2_title }}</h1>
+      {% endif %}
+        
+        <p>{{ scene2_text|safe }}</p>
+      </div>
+
+      <form action="https://basket.mozilla.org/subscribe.json" method="POST" id="newsletter-form">
+        <input type="hidden" name="newsletters" value="{{ scene2_newsletter|default('mozilla-foundation', true) }}" />
+        <input type="hidden" name="fmt" value="H" />
+        <input type="email" name="email" required="required" placeholder="{{ scene2_email_placeholder_text|safe|default('YOUR EMAIL HERE', true) }}" />
+        <button type="submit" id="scene2-submit">{{ scene2_button_label|default('Sign Me Up', true) }}</button>
+        <label for="id_privacy" id="privacy-label">
+          <input type="checkbox" id="id_privacy" name="privacy" required="required" />
+          {{ scene2_privacy_html|safe }}
+        </label>
+      </form>
+    </div><!--/.scene-content-->
+
+  {% if blockable %}
+    <footer id="scene2-footer">
+      <div class="scene-content">
+        <button type="button" class="block-snippet-button button-link">{{ scene2_dismiss_button_text|default('Nevermind', true) }}</button>
+      </div>
+    </footer>
+  {% endif %}
+  </section>
+
+  <section id="sceneOk" class="scene hidden">
+    <div class="scene-content">
+      <p>{{ success_text|safe }}</p>
+
+    {% if blockable %}
+      <button type="button" class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}"></button>
+    {% endif %}
+    </div>
+  </section>
+
+  <section id="sceneError" class="scene hidden">
+    <div class="scene-content">
+      <p>{{ error_text|safe }}</p>
+
+    {% if blockable %}
+      <button type="button" class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}"></button>
+    {% endif %}
+    </div>
+  </section>
+</div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  (function() {
+    var snippet = document.getElementById('snippet');
+  
+    snippet.addEventListener('show_snippet', function () {
+      var learnMoreButton = document.getElementById('learn-more');
+      var newsletterForm = document.getElementById('newsletter-form');
+      var scene1 = document.getElementById('scene1');
+      var scene2 = document.getElementById('scene2');
+      var scene2Submit = document.getElementById('scene2-submit');
+      var sceneOk = document.getElementById('sceneOk');
+      var sceneError = document.getElementById('sceneError');
+
+      function subscribeError() {
+        scene2.classList.add('hidden');
+        sceneError.classList.remove('hidden');
+      }
+  
+      function subscribeOk() {
+        scene2.classList.add('hidden');
+        sceneOk.classList.remove('hidden');
+      }
+
+      learnMoreButton.addEventListener('click', function() {
+        scene1.classList.add('hidden');
+        scene2.classList.remove('hidden');
+
+        newsletterForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          // disable form submit button
+          scene2Submit.disabled = true;
+
+          var fetchConfig = {
+            body: new FormData(newsletterForm),
+            method: 'post'
+          };
+
+          var fetchRequest = new Request(newsletterForm.action, fetchConfig);
+
+          fetch(fetchRequest).then(function(response) {
+            // .json endpoint only returns JSON
+            return response.json();
+          }).then(function(json) {
+            if (json.status === 'ok') {
+              subscribeOk();
+            } else {
+              subscribeError();
+            }
+          }).catch(function(err) {
+            subscribeError();
+          });
+        });
+      });
+    });
+  })();
+  //]]>
+</script>
