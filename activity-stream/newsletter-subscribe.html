@@ -79,21 +79,6 @@ Variables:
     display: inline;
   }
 
-{% if scene1_title_icon %}
-  .snippet h1::before {
-    background-image: url("{{ scene1_title_icon }}");
-    background-repeat: no-repeat;
-    background-size: 14px;
-    content: '';
-    display: inline-block;
-    height: 16px;
-    margin-inline-end: 2px;
-    margin-top: 2px;
-    vertical-align: top;
-    width: 16px;
-  }
-{% endif %}
-
   .snippet p {
     margin: 0;
     font-size: 14px;
@@ -144,6 +129,21 @@ Variables:
     justify-content: center;
     padding-top: 10px;
   }
+
+{% if scene1_title_icon %}
+  #scene1 h1::before {
+    background-image: url("{{ scene1_title_icon }}");
+    background-repeat: no-repeat;
+    background-size: 14px;
+    content: '';
+    display: inline-block;
+    height: 16px;
+    margin-inline-end: 2px;
+    margin-top: 2px;
+    vertical-align: top;
+    width: 16px;
+  }
+{% endif %}
 
   /* scene2 specifics */
   #scene2 > .scene-content {
