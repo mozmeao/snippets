@@ -20,6 +20,8 @@ Variables:
   @scene2_button_label: text, optional - Text for form submit button. Default 'Sign Me Up'.
   @scene2_privacy_html: text - Html for text and link next to privacy checkbox. Must link to a privacy policy.
   @scene2_dismiss_button_text: text, optional - Text for dismiss button in footer of form/scene2. Default 'Nevermind'.
+
+  @locale: text - String for the newsletter locale code. Default "en-US".
   
   @error_text: text - Text of error message if form submission fails.
   @success_text: text - Text of success message after form submission.
@@ -264,6 +266,7 @@ Variables:
       <form action="https://basket.mozilla.org/subscribe.json" method="POST" id="newsletter-form">
         <input type="hidden" name="newsletters" value="{{ scene2_newsletter|default('mozilla-foundation', true) }}" />
         <input type="hidden" name="fmt" value="H" />
+        <input type="hidden" name="lang" value="{{ locale|default('en-US', true) }}" />
         <input type="email" name="email" required="required" placeholder="{{ scene2_email_placeholder_text|safe|default('YOUR EMAIL HERE', true) }}" />
         <button type="submit" id="scene2-submit">{{ scene2_button_label|default('Sign Me Up', true) }}</button>
         <label for="id_privacy" id="privacy-label">
