@@ -1,0 +1,233 @@
+{#
+Activity Stream snippet for simple video display.
+
+Variables:
+
+  @blockable: checkbox - Check to allow user to block this snippet.
+  
+  @scene1_icon: image, optional - Snippet icon. 64x64px. SVG or PNG preferred.
+  @scene1_button_label: text - Text for the button next to main text that displays the video. Default 'Watch'.
+  @scene1_button_background_color: hash, optional - Button background color. Default #D7D7DB.
+  @scene1_button_color: hash, optional - Button text color. Default #0C0C0D.
+  @scene1_text: text - Text for scene1/initial view of the snippet.
+  @scene1_title: text, optional - Title displayed before scene1_text.
+  
+  @close_video_button_text: text, optional - Text for video modal close button in footer of scene2. Default 'Done'.
+
+  @video_url: text - URL to .webm version of the video. Must be .webm format!
+#}
+<style>
+  /* helper classes */
+  .hidden {
+    display: none !important;
+  }
+
+  /* overrides to accommodate design */
+  #snippets-container {
+    padding: 0;
+  }
+
+  #snippets > div {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* general styles for all scenes/views */
+  #snippets .scene-content {
+    margin: 0 auto;
+    max-width: 736px;
+    padding-top: 20px;
+    width: 224px;
+  }
+
+  @media (min-width: 416px) {
+    #snippets .scene-content {
+      width: 352px;
+    }
+  }
+
+  @media (min-width: 544px) {
+    #snippets .scene-content {
+      width: 480px;
+    }
+  }
+
+  @media (min-width: 800px) {
+    #snippets .scene-content {
+      width: 100%;
+    }
+  }
+
+  .snippet section {
+    color: #000000;
+    font-size: 12px;
+  }
+
+  .snippet h1 {
+    margin: 0;
+    font-weight: bold;
+    color: #0f1126;
+    font-size: 14px;
+    display: inline;
+  }
+
+  .snippet p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 16px;
+    display: inline;
+  }
+
+  .snippet img {
+    display: none;
+    width: 42px;
+    height: 42px;
+    margin-inline-end: 12px;
+  }
+
+  @media (min-width: 766px) {
+    .snippet img {
+      display: block;
+    }
+  }
+
+  .snippet section p a {
+    text-decoration: underline;
+  }
+
+  .snippet .button-link {
+    background: {{ scene1_button_background_color|default('#D7D7DB', true) }};
+    border-radius: 2px;
+    border: 0;
+    color: {{ scene1_button_color|default('#0C0C0D', true) }};
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    margin-inline-start: 5px;
+    padding: 8px 11px;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 766px) {
+    .snippet .button-link {
+      margin-inline-start: 18px;
+    }
+  }
+
+  /* scene1 specifics */
+  #scene1 .scene-content {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+  }
+
+  /* scene2 specifics */
+  #video-container {
+    margin: 0 auto 20px;
+    max-height: 360px;
+    max-width: 640px;
+  }
+
+  #video {
+    width: 100%;
+  }
+
+  #scene2-footer {
+    background: rgba(12, 12, 13, 5%);
+    padding: 10px 0;
+    text-align: right;
+  }
+
+  #scene2-footer .scene-content {
+    padding: 0;
+  }
+
+  #scene2-footer .block-snippet-button {
+    background: #f9f9fa;
+    border: 1px solid #d7d7db;
+    color: #3b3b3b;
+    height: auto;
+    margin: 0;
+    offset-inline-end: auto;
+    opacity: 1;
+    position: relative;
+    top: 0;
+    width: auto;
+  }
+
+  .snippet #scene2-footer .block-snippet-button,
+  #snippets-container:hover .snippet #scene2-footer .block-snippet-button {
+    display: inline-block;
+  }
+</style>
+      
+<div class="snippet" id="snippet">
+  <section id="scene1" class="scene">
+    <div class="scene-content">
+    {% if scene1_icon %}
+      <img alt="snippet icon" height="42" width="42" src="{{ scene1_icon }}" />
+    {% endif %}
+  
+      <section>
+      {% if scene1_title %}
+        <h1>{{ scene1_title }}</h1>
+      {% endif %}
+        <p>{{ scene1_text|safe }}</p>
+      </section>
+  
+      <button type="button" class="button-link" id="show-video">{{ scene1_button_label|default('Watch', true) }}</button>
+  
+    {% if blockable %}
+      <button type="button" class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}"></button>
+    {% endif %}
+    </div><!--/.scene-content-->
+  </section>
+
+  <section id="scene2" class="scene hidden">
+    <div class="scene-content">
+      <div id="video-container">
+        <video id="video" preload="metadata" controls>
+          <source src="{{ video_url }}" type="video/webm">
+        </video>
+      </div>
+    </div>
+
+    <footer id="scene2-footer">
+      <div class="scene-content">
+        <button type="button" class="button-link" id="close-video">{{ close_video_button_text|default('Done', true) }}</button>
+      </div>
+    </footer>
+  </section>
+</div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  (function() {
+    const snippet = document.getElementById('snippet');
+  
+    snippet.addEventListener('show_snippet', e => {
+      const closeVideoButton = document.getElementById('close-video');
+      const scene1 = document.getElementById('scene1');
+      const scene2 = document.getElementById('scene2');
+      const showVideoButton = document.getElementById('show-video');
+      const video = document.getElementById('video');
+
+      closeVideoButton.addEventListener('click', e => {
+        video.pause();
+
+        scene2.classList.add('hidden');
+        scene1.classList.remove('hidden');
+      });
+
+      showVideoButton.addEventListener('click', e => {
+        scene1.classList.add('hidden');
+        scene2.classList.remove('hidden');
+
+        video.play();
+      });
+    });
+  })();
+  //]]>
+</script>
+  
