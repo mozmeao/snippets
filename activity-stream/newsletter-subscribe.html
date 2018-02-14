@@ -19,7 +19,7 @@ Variables:
   @scene2_email_placeholder_text: text, optional - Placeholder text for email field. Default 'YOUR EMAIL HERE'.
   @scene2_button_label: text, optional - Text for form submit button. Default 'Sign Me Up'.
   @scene2_privacy_html: text - Html for text and link next to privacy checkbox. Must link to a privacy policy.
-  @scene2_dismiss_button_text: text, optional - Text for dismiss button in footer of form/scene2. Default 'Nevermind'.
+  @scene2_dismiss_button_text: text, optional - Text for dismiss button in footer of form/scene2. Default 'Dismiss'.
 
   @locale: text - String for the newsletter locale code. Default "en-US".
   
@@ -279,7 +279,7 @@ Variables:
   {% if blockable %}
     <footer id="scene2-footer">
       <div class="scene-content">
-        <button type="button" class="block-snippet-button button-link">{{ scene2_dismiss_button_text|default('Nevermind', true) }}</button>
+        <button type="button" class="block-snippet-button button-link" data-metric="snippet-scene2-blocked">{{ scene2_dismiss_button_text|default('Dismiss', true) }}</button>
       </div>
     </footer>
   {% endif %}
@@ -309,33 +309,41 @@ Variables:
 <script type="text/javascript">
   //<![CDATA[
   (function() {
-    var snippet = document.getElementById('snippet');
+    const snippet = document.getElementById('snippet');
   
     snippet.addEventListener('show_snippet', function () {
-      var learnMoreButton = document.getElementById('learn-more');
-      var newsletterForm = document.getElementById('newsletter-form');
-      var scene1 = document.getElementById('scene1');
-      var scene2 = document.getElementById('scene2');
-      var scene2Submit = document.getElementById('scene2-submit');
-      var sceneOk = document.getElementById('sceneOk');
-      var sceneError = document.getElementById('sceneError');
+      const learnMoreButton = document.getElementById('learn-more');
+      const newsletterForm = document.getElementById('newsletter-form');
+      const scene1 = document.getElementById('scene1');
+      const scene2 = document.getElementById('scene2');
+      const scene2Submit = document.getElementById('scene2-submit');
+      const sceneOk = document.getElementById('sceneOk');
+      const sceneError = document.getElementById('sceneError');
 
       function subscribeError() {
+        sendMetric('subscribe-error');
+
         scene2.classList.add('hidden');
         sceneError.classList.remove('hidden');
       }
   
       function subscribeOk() {
+        sendMetric('subscribe-success');
+
         scene2.classList.add('hidden');
         sceneOk.classList.remove('hidden');
       }
 
       learnMoreButton.addEventListener('click', function() {
+        sendMetric('button-click');
+
         scene1.classList.add('hidden');
         scene2.classList.remove('hidden');
 
         newsletterForm.addEventListener('submit', function(e) {
           e.preventDefault();
+
+          sendMetric('conversion-subscribe-activation');
 
           // disable form submit button
           scene2Submit.disabled = true;

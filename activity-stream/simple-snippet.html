@@ -119,7 +119,7 @@ Variables:
   </section>
 
   {% if button_label and button_url %}
-    <a class="button-link" href="{{ button_url|safe }}">{{ button_label }}</a>
+    <a class="button-link" href="{{ button_url|safe }}" id="button">{{ button_label }}</a>
   {% endif %}
 
   {% if blockable %}
@@ -127,3 +127,25 @@ Variables:
     </button>
   {% endif %}
 </div>
+
+{% if button_label and button_url %}
+<script type="text/javascript">
+  //<![CDATA[
+  (function() {
+    const snippet = document.getElementById('snippet');
+  
+    snippet.addEventListener('show_snippet', function () {
+      const button = document.getElementById('button');
+
+      button.addEventListener('click', e => {
+        e.preventDefault();
+
+        sendMetric('button-click', () => {
+          window.location.href = button.href;
+        });
+      })
+    });
+  })();
+  //]]>
+</script>
+{% endif %}

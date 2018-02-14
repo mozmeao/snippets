@@ -214,6 +214,8 @@ Variables:
       const video = document.getElementById('video');
 
       closeVideoButton.addEventListener('click', e => {
+        sendMetric('video-done');
+
         video.pause();
 
         scene2.classList.add('hidden');
@@ -221,11 +223,17 @@ Variables:
       });
 
       showVideoButton.addEventListener('click', e => {
+        sendMetric('button-click');
+
         scene1.classList.add('hidden');
         scene2.classList.remove('hidden');
 
         video.play();
       });
+
+      video.addEventListener('ended', () => {
+        sendMetric('conversion-video-complete');
+      })
     });
   })();
   //]]>

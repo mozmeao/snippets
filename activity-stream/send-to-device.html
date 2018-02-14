@@ -21,7 +21,7 @@ Variables:
   
   @scene2_button_label: text, optional - Text for form submit button. Default 'Send'.
   @scene2_disclaimer_html: text - Html for text and link underneath input box.
-  @scene2_dismiss_button_text: text, optional - Text for dismiss button in footer of form/scene2. Default 'Nevermind'.
+  @scene2_dismiss_button_text: text, optional - Text for dismiss button in footer of form/scene2. Default 'Dismiss'.
   @scene2_icon: image, optional - Image to display above the form. 98x98px. SVG or PNG preferred.
   @scene2_input_placeholder: text, optional - Placeholder text for email/phone number field. Default 'YOUR EMAIL HERE'.
   @scene2_text: text - Text for scene2/form view.
@@ -316,7 +316,7 @@ Variables:
   {% if blockable %}
     <footer id="scene2-footer">
       <div class="scene-content">
-        <button type="button" class="block-snippet-button button-link">{{ scene2_dismiss_button_text|default('Nevermind', true) }}</button>
+        <button type="button" class="block-snippet-button button-link" data-metric="snippet-scene2-blocked">{{ scene2_dismiss_button_text|default('Dismiss', true) }}</button>
       </div>
     </footer>
   {% endif %}
@@ -395,12 +395,20 @@ Variables:
 
       // if fetch request fails, show the error message
       function subscribeError() {
+        const metric = input_type === 'email' ? 'activation-email-error' : 'activation-SMS-error';
+        
+        sendMetric(metric);
+        
         scene2.classList.add('hidden');
         sceneError.classList.remove('hidden');
       }
   
       // if fetch request is successful, show the success message
       function subscribeOk() {
+        const metric = (input_type === 'email') ? 'activation-email-success' : 'activation-SMS-success';
+        
+        sendMetric(metric);
+
         scene2.classList.add('hidden');
         sceneOk.classList.remove('hidden');
       }
@@ -422,6 +430,9 @@ Variables:
 
       function sendSMSToBasket() {
         const formData = new FormData();
+
+        sendMetric('conversion-mobile-activation-sms');
+
         formData.append('mobile_number', input.value);
         formData.append('msg_name', '{{ message_id_sms }}');
         
@@ -437,6 +448,9 @@ Variables:
 
       function sendEmailToBasket() {
         const formData = new FormData();
+
+        sendMetric('conversion-mobile-activation-email');
+
         formData.append('email', input.value);
         formData.append('newsletters', '{{ message_id_email }}');
         formData.append('source_url', encodeURIComponent('https://snippets.mozilla.com/show/{{ snippet_id }}'));
@@ -453,6 +467,8 @@ Variables:
 
       // displays scene 2/the form
       learnMoreButton.addEventListener('click', () => {
+        sendMetric('button-click');
+
         scene1.classList.add('hidden');
         scene2.classList.remove('hidden');
 
