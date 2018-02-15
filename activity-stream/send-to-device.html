@@ -6,7 +6,8 @@ Variables:
   @blockable: checkbox - Check to allow user to block this snippet.
 
   @include_sms: checkbox - Defines whether SMS is available.
-  @locale: text - String for the locale code. Default 'en-US'.
+  @locale: text - Two to five character string for the locale code. Default 'en-US'.
+  @country: text - Two character string for the country code (used for SMS). Default 'us'.
 
   @message_id_sms: text - Newsletter/basket id representing the SMS message to be sent.
   @message_id_email: text - Newsletter/basket id representing the email message to be sent. Must be a value from the 'Slug' column here: https://basket.mozilla.org/news/.
@@ -351,6 +352,7 @@ Variables:
     const snippet = document.getElementById('snippet');
   
     snippet.addEventListener('show_snippet', function () {
+      const country = '{{ country|default("us", true) }}';
       const input = document.getElementById('phone-or-email');
       const learnMoreButton = document.getElementById('learn-more');
       const locale = '{{ locale|default("en-US", true) }}';
@@ -372,11 +374,12 @@ Variables:
 
         switch (locale) {
           case 'en-US':
-            check_phone = val.length === 10 && !isNaN(val);
+            // allow 10-11 digits in case user wants to enter country code
+            check_phone = val.length >= 10 && val.length <= 11 && !isNaN(val);
             break;
           case 'de':
-            // afaict, german phone numbers can be between 2 and 11 digits
-            check_phone = val.length >= 2 && val.length <= 11 && !isNaN(val);
+            // allow between 2 and 12 digits for german phone numbers
+            check_phone = val.length >= 2 && val.length <= 12 && !isNaN(val);
             break;
           // this case should never be hit, but good to have a fallback just in case
           default:
@@ -435,6 +438,8 @@ Variables:
 
         formData.append('mobile_number', input.value);
         formData.append('msg_name', '{{ message_id_sms }}');
+        formData.append('lang', locale);
+        formData.append('country', country);
         
         const fetchConfig = {
           body: formData,
