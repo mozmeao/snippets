@@ -457,6 +457,7 @@ Variables:
         sendMetric('conversion-mobile-activation-email');
 
         formData.append('email', input.value);
+        formData.append('lang', locale);
         formData.append('newsletters', '{{ message_id_email }}');
         formData.append('source_url', encodeURIComponent('https://snippets.mozilla.com/show/{{ snippet_id }}'));
         
