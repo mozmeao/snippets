@@ -4,7 +4,7 @@ Activity Stream snippet for FxA sign up/sign in.
 Variables:
 
   @blockable: checkbox - Check to allow user to block this snippet.
-  
+
   @scene1_icon: image, optional - Snippet icon. 64x64px. SVG or PNG preferred.
   @scene1_button_label: text - Text for the button next to main text that opens the email form.
   @scene1_button_background_color: hash, optional - Button background color. Default #D7D7DB.
@@ -12,7 +12,7 @@ Variables:
   @scene1_text: text - Text for scene1/initial view of the snippet.
   @scene1_title: text, optional - Title displayed before scene1_text.
   @scene1_title_icon: image, optional - Title icon. 16x16px. SVG or PNG preferred. Grayscale.
-  
+
   @scene2_text: text - Text for scene2/form view.
   @scene2_title: text, optional - Title displayed before scene2_text.
   @scene2_email_placeholder_text: text, optional - Placeholder text for email field. Default 'YOUR EMAIL HERE'.
@@ -65,14 +65,14 @@ Variables:
   }
 
   .snippet section {
-    color: #000000;
+    color: var(--newtab-text-primary-color, #000000);
     font-size: 12px;
   }
 
   .snippet h1 {
     margin: 0;
     font-weight: bold;
-    color: #0f1126;
+    color: var(--newtab-text-primary-color, #0f1126);
     font-size: 14px;
     display: inline;
   }
@@ -102,10 +102,10 @@ Variables:
   }
 
   .snippet .button-link {
-    background: {{ scene1_button_background_color|default('#D7D7DB', true) }};
+    background: {{ scene1_button_background_color|default("var(--newtab-button-secondary-color, #D7D7DB)", true) }};
     border-radius: 2px;
-    border: 0;
-    color: {{ scene1_button_color|default('#0C0C0D', true) }};
+    border: 1px solid var(--newtab-border-primary-color, transparent);
+    color: {{ scene1_button_color|default("var(--newtab-text-primary-color, #0C0C0D)", true) }};
     font-size: 14px;
     font-weight: 600;
     line-height: 14px;
@@ -174,7 +174,7 @@ Variables:
   }
 
   form button {
-    background: #0060df;
+    background: var(--newtab-button-primary-color, #0060df);
     border: 0;
     border-radius: 2px;
     color: #fff;
@@ -218,23 +218,23 @@ Variables:
   }
 {% endif %}
 </style>
-      
+
 <div class="snippet" id="snippet">
   <section id="scene1" class="scene">
     <div class="scene-content">
     {% if scene1_icon %}
       <img alt="snippet icon" height="42" width="42" src="{{ scene1_icon }}" />
     {% endif %}
-  
+
       <section>
       {% if scene1_title %}
         <h1>{{ scene1_title }}</h1>
       {% endif %}
         <p>{{ scene1_text|safe }}</p>
       </section>
-  
+
       <button type="button" class="button-link" id="learn-more">{{ scene1_button_label|default('Learn more', true) }}</button>
-  
+
     {% if blockable %}
       <button type="button" class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}"></button>
     {% endif %}
@@ -247,7 +247,7 @@ Variables:
       {% if scene2_title %}
         <h1>{{ scene2_title }}</h1>
       {% endif %}
-        
+
         <p>{{ scene2_text|safe }}</p>
       </div>
 
@@ -288,7 +288,7 @@ Variables:
     const snippet = document.getElementById('snippet');
     const matches = /Firefox\/(\d+(?:\.\d+){1,2})/.exec(navigator.userAgent);
     const fxVersion = (matches) ? matches[1] : 'N/A';
-    
+
     snippet.addEventListener('show_snippet', () => {
       const inputUtmContent = document.getElementById('input-utm-content');
       const learnMoreButton = document.getElementById('learn-more');
@@ -322,4 +322,3 @@ Variables:
   })();
   //]]>
 </script>
-  
