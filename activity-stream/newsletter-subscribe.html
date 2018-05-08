@@ -69,14 +69,14 @@ Variables:
   }
 
   .snippet section {
-    color: #000000;
+    color: var(--newtab-text-primary-color, #000000);
     font-size: 12px;
   }
 
   .snippet h1 {
     margin: 0;
     font-weight: bold;
-    color: #0f1126;
+    color: var(--newtab-text-primary-color, #0f1126);
     font-size: 14px;
     display: inline;
   }
@@ -106,10 +106,10 @@ Variables:
   }
 
   .snippet .button-link {
-    background: {{ scene1_button_background_color|default('#D7D7DB', true) }};
+    background: {{ scene1_button_background_color|default("var(--newtab-button-secondary-color, #D7D7DB)", true) }};
     border-radius: 2px;
-    border: 0;
-    color: {{ scene1_button_color|default('#0C0C0D', true) }};
+    border: 1px solid var(--newtab-border-primary-color, transparent);
+    color: {{ scene1_button_color|default("var(--newtab-text-primary-color, #0C0C0D)", true) }};
     font-size: 14px;
     font-weight: 600;
     line-height: 14px;
@@ -178,7 +178,7 @@ Variables:
   }
 
   form button {
-    background: #0060df;
+    background: var(--newtab-button-primary-color, #0060df);
     border: 0;
     border-radius: 2px;
     color: #fff;
@@ -193,7 +193,7 @@ Variables:
   }
 
   #privacy-label {
-    color: #4a4a4f;
+    color: var(--newtab-text-secondary-color, #4A4A4F);
     display: block;
     font-size: 12px;
     opacity: 0.75;
