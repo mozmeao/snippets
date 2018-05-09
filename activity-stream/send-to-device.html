@@ -3,271 +3,275 @@ Activity Stream snippet for send to device mobile download.
 
 Variables:
 
-  @blockable: checkbox - Check to allow user to block this snippet.
+@blockable: checkbox - Check to allow user to block this snippet.
 
-  @include_sms: checkbox - Defines whether SMS is available.
-  @locale: text - Two to five character string for the locale code. Default 'en-US'.
-  @country: text - Two character string for the country code (used for SMS). Default 'us'.
+@include_sms: checkbox - Defines whether SMS is available.
+@locale: text - Two to five character string for the locale code. Default 'en-US'.
+@country: text - Two character string for the country code (used for SMS). Default 'us'.
 
-  @message_id_sms: text - Newsletter/basket id representing the SMS message to be sent.
-  @message_id_email: text - Newsletter/basket id representing the email message to be sent. Must be a value from the 'Slug' column here: https://basket.mozilla.org/news/.
+@message_id_sms: text - Newsletter/basket id representing the SMS message to be sent.
+@message_id_email: text - Newsletter/basket id representing the email message to be sent. Must be a value from the 'Slug' column here: https://basket.mozilla.org/news/.
 
-  @scene1_button_background_color: hash, optional - Button background color. Default #D7D7DB.
-  @scene1_button_color: hash, optional - Button text color. Default #0C0C0D.
-  @scene1_button_label: text, optional - Text for the button next to main text that opens the send to device form. Default 'Learn more'.
-  @scene1_icon: image, optional - Snippet icon. 64x64px. SVG or PNG preferred.
-  @scene1_text: text - Text for scene1/initial view of the snippet.
-  @scene1_title: text, optional - Title displayed before scene1_text.
-  @scene1_title_icon: image, optional - Title icon. 16x16px. SVG or PNG preferred. Grayscale.
+@scene1_button_background_color: hash, optional - Button background color. Default #D7D7DB.
+@scene1_button_color: hash, optional - Button text color. Default #0C0C0D.
+@scene1_button_label: text, optional - Text for the button next to main text that opens the send to device form. Default 'Learn more'.
+@scene1_icon: image, optional - Snippet icon. 64x64px. SVG or PNG preferred.
+@scene1_text: text - Text for scene1/initial view of the snippet.
+@scene1_title: text, optional - Title displayed before scene1_text.
+@scene1_title_icon: image, optional - Title icon. 16x16px. SVG or PNG preferred. Grayscale.
 
-  @scene2_button_label: text, optional - Text for form submit button. Default 'Send'.
-  @scene2_disclaimer_html: text - Html for text and link underneath input box.
-  @scene2_dismiss_button_text: text, optional - Text for dismiss button in footer of form/scene2. Default 'Dismiss'.
-  @scene2_icon: image, optional - Image to display above the form. 98x98px. SVG or PNG preferred.
-  @scene2_input_placeholder: text, optional - Placeholder text for email/phone number field. Default 'YOUR EMAIL HERE'.
-  @scene2_text: text - Text for scene2/form view.
-  @scene2_title: text, optional - Title displayed before scene2_text.
+@scene2_button_label: text, optional - Text for form submit button. Default 'Send'.
+@scene2_disclaimer_html: text - Html for text and link underneath input box.
+@scene2_dismiss_button_text: text, optional - Text for dismiss button in footer of form/scene2. Default 'Dismiss'.
+@scene2_icon: image, optional - Image to display above the form. 98x98px. SVG or PNG preferred.
+@scene2_input_placeholder: text, optional - Placeholder text for email/phone number field. Default 'YOUR EMAIL HERE'.
+@scene2_text: text - Text for scene2/form view.
+@scene2_title: text, optional - Title displayed before scene2_text.
 
-  @error_text: text - Text of error message if form submission fails.
-  @success_text: text - Text of success message after form submission.
-  @success_title: text - Text for title of success message.
+@error_text: text - Text of error message if form submission fails.
+@success_text: text - Text of success message after form submission.
+@success_title: text - Text for title of success message.
 #}
 <style>
-  /* helper classes */
-  .hidden {
-    display: none !important;
-  }
+ /* helper classes */
+ .hidden {
+     display: none !important;
+ }
 
-  /* overrides to accommodate design */
-  #snippets-container {
-    padding: 0;
-  }
+ /* overrides to accommodate design */
+ #snippets-container {
+     padding: 0;
+ }
 
-  #snippets > div {
-    max-width: 100%;
-    width: 100%;
-  }
+ #snippets > div {
+     max-width: 100%;
+     width: 100%;
+ }
 
-  /* general styles for all scenes/views */
-  #snippets .scene-content {
-    margin: 0 auto;
-    max-width: 736px;
-    padding-top: 20px;
-    width: 224px;
-  }
+ /* general styles for all scenes/views */
+ #snippets .scene-content {
+     margin: 0 auto;
+     max-width: 736px;
+     padding-top: 20px;
+     width: 224px;
+ }
 
-  @media (min-width: 416px) {
-    #snippets .scene-content {
-      width: 352px;
-    }
-  }
+ @media (min-width: 416px) {
+     #snippets .scene-content {
+         width: 352px;
+     }
+ }
 
-  @media (min-width: 544px) {
-    #snippets .scene-content {
-      width: 480px;
-    }
-  }
+ @media (min-width: 544px) {
+     #snippets .scene-content {
+         width: 480px;
+     }
+ }
 
-  @media (min-width: 800px) {
-    #snippets .scene-content {
-      width: 100%;
-    }
-  }
+ @media (min-width: 800px) {
+     #snippets .scene-content {
+         width: 100%;
+     }
+ }
 
-  .snippet section {
-    color: var(--newtab-text-primary-color, #000000);
-    font-size: 12px;
-  }
+ .snippet section {
+     color: var(--newtab-text-primary-color, #000000);
+     font-size: 12px;
+ }
 
-  .snippet img {
-    display: none;
-    width: 42px;
-    height: 42px;
-    margin-inline-end: 12px;
-  }
+ .snippet img {
+     display: none;
+     width: 42px;
+     height: 42px;
+     margin-inline-end: 12px;
+ }
 
-  @media (min-width: 766px) {
-    .snippet img {
-      display: block;
-    }
-  }
+ @media (min-width: 766px) {
+     .snippet img {
+         display: block;
+     }
+ }
 
-  .snippet section p a {
-    text-decoration: underline;
-  }
+ .snippet section p a {
+     text-decoration: underline;
+ }
 
-  .snippet .button-link {
-    background: {{ scene1_button_background_color|default("var(--newtab-button-secondary-color, #D7D7DB)", true) }};
-    border-radius: 2px;
-    border: 1px solid var(--newtab-border-primary-color, transparent);
-    color: {{ scene1_button_color|default("var(--newtab-text-primary-color, #0C0C0D)", true) }};
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 14px;
-    margin-inline-start: 5px;
-    padding: 8px 11px;
-    white-space: nowrap;
-  }
+ .snippet .button-link {
+     background: {{ scene1_button_background_color|default("var(--newtab-button-secondary-color, #D7D7DB)", true) }};
+     border-radius: 2px;
+     border: 1px solid var(--newtab-border-primary-color, transparent);
+     color: {{ scene1_button_color|default("var(--newtab-text-primary-color, #0C0C0D)", true) }};
+     font-size: 14px;
+     font-weight: 600;
+     line-height: 14px;
+     margin-inline-start: 5px;
+     padding: 8px 11px;
+     white-space: nowrap;
+ }
 
-  @media (min-width: 766px) {
-    .snippet .button-link {
-      margin-inline-start: 18px;
-    }
-  }
+ @media (min-width: 766px) {
+     .snippet .button-link {
+         margin-inline-start: 18px;
+     }
+ }
 
-  /* scene1 specifics */
-  #scene1 .scene-content {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    padding-top: 10px;
-  }
+ /* scene1 specifics */
+ #scene1 .scene-content {
+     align-items: center;
+     display: flex;
+     justify-content: center;
+     padding-top: 10px;
+ }
 
-  #scene1 p {
-    margin: 0;
-    font-size: 14px;
-    line-height: 16px;
-    display: inline;
-  }
+ #scene1 p {
+     margin: 0;
+     font-size: 14px;
+     line-height: 16px;
+     display: inline;
+ }
 
-  #scene1 h1 {
-    margin: 0;
-    font-weight: bold;
-    color: var(--newtab-text-primary-color, #0f1126);
-    font-size: 14px;
-    display: inline;
-  }
+ #scene1 h1 {
+     margin: 0;
+     font-weight: bold;
+     color: var(--newtab-text-primary-color, #0f1126);
+     font-size: 14px;
+     display: inline;
+ }
 
-{% if scene1_title_icon %}
-  #scene1 h1::before {
-    background-image: url("{{ scene1_title_icon }}");
-    background-repeat: no-repeat;
-    background-size: 14px;
-    content: '';
-    display: inline-block;
-    height: 16px;
-    margin-inline-end: 2px;
-    margin-top: 2px;
-    vertical-align: top;
-    width: 16px;
-  }
-{% endif %}
+ {% if scene1_title_icon %}
+ #scene1 h1::before {
+     background-image: url("{{ scene1_title_icon }}");
+     background-repeat: no-repeat;
+     background-size: 14px;
+     content: '';
+     display: inline-block;
+     height: 16px;
+     margin-inline-end: 2px;
+     margin-top: 2px;
+     vertical-align: top;
+     width: 16px;
+ }
+ {% endif %}
 
-  /* scene2 specifics */
-  #scene2 > .scene-content {
-    color: var(--newtab-text-secondary-color, #4A4A4F);
-    margin: 0 auto;
-    max-width: 670px;
-    padding: 40px 0;
-    text-align: center;
-  }
+ /* scene2 specifics */
+ #scene2 > .scene-content {
+     color: var(--newtab-text-secondary-color, #4A4A4F);
+     margin: 0 auto;
+     max-width: 670px;
+     padding: 40px 0;
+     text-align: center;
+ }
 
-  #scene2-intro {
-    margin-bottom: 20px;
-  {% if scene2_icon %}
-    background-image: url("{{ scene2_icon }}");
-    background-position: top center;
-    background-repeat: no-repeat;
-    background-size: 98px;
-    padding-top: 118px;
-  {% endif %}
-  }
+ #scene2-intro {
+     margin-bottom: 20px;
+     {% if scene2_icon %}
+     background-image: url("{{ scene2_icon }}");
+     background-position: top center;
+     background-repeat: no-repeat;
+     background-size: 98px;
+     padding-top: 118px;
+     {% endif %}
+ }
 
-  #scene2 h1 {
-    color: var(--newtab-text-primary-color, #0C0C0D);
-    font-size: 24px;
-    margin-top: 0;
-  }
+ #scene2 h1 {
+     color: var(--newtab-text-primary-color, #0C0C0D);
+     font-size: 24px;
+     margin-top: 0;
+ }
 
-  #scene2 p {
-    font-size: 14px;
-    margin: 0;
-  }
+ #scene2 p {
+     font-size: 14px;
+     margin: 0;
+ }
 
-  #scene2-intro p {
-    font-size: 16px;
-  }
+ #scene2-intro p {
+     font-size: 16px;
+ }
 
-  #phone-or-email {
-    margin-bottom: 10px;
-    margin-right: 10px;
-    padding: 6px;
-  }
+ #phone-or-email {
+     margin-bottom: 10px;
+     margin-right: 10px;
+     padding: 6px;
+ }
 
-  @media (min-width: 544px) {
-    #phone-or-email {
-      margin-bottom: 0;
-      width: 40%;
-    }
-  }
+ @media (min-width: 544px) {
+     #phone-or-email {
+         margin-bottom: 0;
+         width: 40%;
+     }
+ }
 
-  @media (min-width: 766px) {
-    #phone-or-email {
-      width: 50%;
-    }
-  }
+ @media (min-width: 766px) {
+     #phone-or-email {
+         width: 50%;
+     }
+ }
 
-  form {
-    margin-bottom: 20px;
-  }
+ form {
+     margin-bottom: 20px;
+ }
 
-  form button {
-    background: var(--newtab-button-primary-color, #0060df);
-    border: 0;
-    border-radius: 2px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 14px;
-    padding: 8px 20px;
-  }
+ form button {
+     background: var(--newtab-button-primary-color, #0060df);
+     border: 0;
+     border-radius: 2px;
+     color: #f9f9fa;
+     cursor: pointer;
+     font-size: 14px;
+     padding: 8px 20px;
+ }
 
-  form button:disabled {
-    cursor: default;
-    opacity: 0.5;
-  }
+ form input {
+     border: 1px solid var(--newtab-border-primary-color, #d7d7db);
+ }
 
-{% if blockable %}
-  #scene2-footer {
-    background: rgba(12, 12, 13, 5%);
-    padding: 10px 0;
-    text-align: right;
-  }
+ form button:disabled {
+     cursor: default;
+     opacity: 0.5;
+ }
 
-  #scene2-footer .scene-content {
-    padding: 0;
-  }
+ {% if blockable %}
+ #scene2-footer {
+     background: rgba(12, 12, 13, 5%);
+     padding: 10px 0;
+     text-align: right;
+ }
 
-  #scene2-footer .block-snippet-button {
-    background: #f9f9fa;
-    border: 1px solid #d7d7db;
-    color: #3b3b3b;
-    height: auto;
-    margin: 0;
-    offset-inline-end: auto;
-    opacity: 1;
-    position: relative;
-    top: 0;
-    width: auto;
-  }
+ #scene2-footer .scene-content {
+     padding: 0;
+ }
 
-  .snippet #scene2-footer .block-snippet-button,
-  #snippets-container:hover .snippet #scene2-footer .block-snippet-button {
-      display: inline-block;
-  }
-{% endif %}
+ #scene2-footer .block-snippet-button {
+     background: var(--newtab-button-secondary-color, #f9f9fa);
+     border: 1px solid var(--newtab-text-primary-color, #d7d7db);
+     color: var(--newtab-text-primary-color, #3b3b3b);
+     height: auto;
+     margin: 0;
+     offset-inline-end: auto;
+     opacity: 1;
+     position: relative;
+     top: 0;
+     width: auto;
+ }
 
-  .scene-result {
-    padding-bottom: 20px;
-    text-align: center;
-  }
+ .snippet #scene2-footer .block-snippet-button,
+ #snippets-container:hover .snippet #scene2-footer .block-snippet-button {
+     display: inline-block;
+ }
+ {% endif %}
 
-  .scene-result h1 {
-    font-size: 20px;
-  }
+ .scene-result {
+     padding-bottom: 20px;
+     text-align: center;
+ }
 
-  .scene-result p {
-    font-size: 14px;
-  }
+ .scene-result h1 {
+     font-size: 20px;
+ }
+
+ .scene-result p {
+     font-size: 14px;
+ }
 </style>
 
 <div class="snippet" id="snippet">
