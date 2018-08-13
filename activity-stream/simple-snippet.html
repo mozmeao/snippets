@@ -3,7 +3,6 @@ Simple Snippet for Activity Stream with button option.
 
 Variables:
 
-  @blockable: checkbox - Check to allow user to block this snippet.
   @icon: image, optional - Snippet icon. 64x64px. SVG or PNG preferred.
   @button_label: text, optional - Text for a button next to main snippet text that links to button_url. Requires button_url.
   @button_url: text, optional - A url, button_label links to this.
@@ -97,7 +96,7 @@ Variables:
       {% endif %}
     }
   }
-  {% if tall and blockable %}
+  {% if tall %}
     .snippet .block-snippet-button {
       background-size: 18px;
       margin-top: -10px;
@@ -123,8 +122,6 @@ Variables:
     <a class="button-link" data-metric="button-click" href="{{ button_url|safe }}" id="button">{{ button_label }}</a>
   {% endif %}
 
-  {% if blockable %}
     <button class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}">
     </button>
-  {% endif %}
 </div>

@@ -3,8 +3,6 @@ Activity Stream snippet for FxA sign up/sign in.
 
 Variables:
 
-@blockable: checkbox - Check to allow user to block this snippet.
-
 @scene1_icon: image, optional - Snippet icon. 64x64px. SVG or PNG preferred.
 @scene1_button_label: text - Text for the button next to main text that opens the email form.
 @scene1_button_background_color: hash, optional - Button background color. Default #D7D7DB.
@@ -192,7 +190,6 @@ Variables:
      border: 1px solid var(--newtab-border-primary-color, #d7d7db);
  }
 
- {% if blockable %}
  #scene2-footer {
      background: rgba(12, 12, 13, 5%);
      padding: 10px 0;
@@ -221,7 +218,6 @@ Variables:
  #snippets-container:hover .snippet #scene2-footer .block-snippet-button {
      display: inline-block;
  }
- {% endif %}
 </style>
 
 <div class="snippet" id="snippet">
@@ -240,9 +236,7 @@ Variables:
 
       <button type="button" class="button-link" id="learn-more">{{ scene1_button_label|default('Learn more', true) }}</button>
 
-    {% if blockable %}
       <button type="button" class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}"></button>
-    {% endif %}
     </div><!--/.scene-content-->
   </section>
 
@@ -277,13 +271,11 @@ Variables:
       </form>
     </div><!--/.scene-content-->
 
-  {% if blockable %}
     <footer id="scene2-footer">
       <div class="scene-content">
         <button type="button" class="block-snippet-button button-link" data-metric="snippet-scene2-blocked">{{ scene2_dismiss_button_text|default('Dismiss', true) }}</button>
       </div>
     </footer>
-  {% endif %}
   </section>
 </div>
 
