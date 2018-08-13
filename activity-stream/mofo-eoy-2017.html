@@ -3,7 +3,6 @@ Fundraising Snippet for Activity Stream for 2017.
 
 Variables:
 
-  @blockable: checkbox - Check to allow user to block this snippet.
   @block_button_text - text - Text to display while hovering over opt out button. Default "Remove this"
 
   @donation_form_url: Required. Url to the donation form.
@@ -17,7 +16,7 @@ Variables:
   @background_color: hash, optional - Snippet background color. Default #FFFFFF.
   @text_color: hash, optional - Text color. Default #000000.
   @highlight_color: hash, optional - Paragraph em highlight color. Default #FFE900.
-  
+
   @locale: Default en-US. String for the locale code.
   @currency_code: Default usd. The code for the currency. Examle gbp, cad, usd.
 
@@ -162,7 +161,6 @@ Variables:
     vertical-align: middle;
   }
 
-  {% if blockable %}
     .snippet .block-snippet-button {
       background-size: 18px;
       margin-top: -10px;
@@ -176,7 +174,6 @@ Variables:
         margin-top: 0;
       {% endif %}
     }
-  {% endif %}
 </style>
 
 <div class="snippet" id="snippet">
@@ -212,10 +209,8 @@ Variables:
     </section>
   </div>
 
-  {% if blockable %}
     <button class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}">
     </button>
-  {% endif %}
 </div>
 <script type="text/javascript">
   //<![CDATA[

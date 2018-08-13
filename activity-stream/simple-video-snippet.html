@@ -3,8 +3,6 @@ Activity Stream snippet for simple video display.
 
 Variables:
 
-  @blockable: checkbox - Check to allow user to block this snippet.
-
   @scene1_icon: image, optional - Snippet icon. 64x64px. SVG or PNG preferred.
   @scene1_button_label: text - Text for the button next to main text that displays the video. Default 'Watch'.
   @scene1_button_background_color: hash, optional - Button background color. Default #D7D7DB.
@@ -178,9 +176,7 @@ Variables:
 
       <button type="button" class="button-link" id="show-video">{{ scene1_button_label|default('Watch', true) }}</button>
 
-    {% if blockable %}
       <button type="button" class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}"></button>
-    {% endif %}
     </div><!--/.scene-content-->
   </section>
 
