@@ -1,15 +1,15 @@
 {#
-Activity Stream snippet for send to device Firefox Rocket download.
+Activity Stream snippet for send to device card (fancier UX than send-to-device.html).
 
 Variables:
 
 @locale: text - Two to five character string for the locale code. Default 'en-US'.
 @message_id_email: text - Newsletter/basket id representing the email message to be sent. Must be a value from the 'Slug' column here: https://basket.mozilla.org/news/.
 
-@icon: image, optional - Snippet icon. 72x72px. SVG or PNG preferred. Defaults to Firefox Rocket logo.
+@icon: image - Snippet icon. 72x72px. SVG or PNG preferred.
 
-@text: text - Introductory text.
 @title: text - Title displayed before introductory text.
+@text: text - Introductory text.
 @show_form_link_text: Text clicked to display the form.
 @google_play_link_url: text - The Google Play Store URL.
 @google_play_link_text: text, optional - Text displayed in the link to Google Play. Default 'visit the Play Store'.
@@ -22,6 +22,7 @@ Variables:
 @button_label_sent: text, optional - Text displayed after form is successfully submitted. Default 'Email sent!'.
 
 @error_text: text, optional - Text of error message if form submission fails. Default 'There was an error sending the email. Please try again.'
+@block_button_text: text - Alt text for block button.
 #}
 <style>
   /* variable for translateY offset - updated by JS */
@@ -65,6 +66,11 @@ Variables:
     color: var(--newtab-text-primary-color, #000000);
   }
 
+  .snippet section a {
+    color: var(--newtab-link-primary-color, #0060df);
+    text-decoration: underline;
+  }
+
   .snippet img {
     display: none;
     width: 72px;
@@ -76,10 +82,6 @@ Variables:
     .snippet img {
       display: block;
     }
-  }
-
-  .snippet section a {
-    text-decoration: underline;
   }
 
   #snippet {
@@ -116,11 +118,7 @@ Variables:
 
   @media (min-width: 766px) {
     #icon {
-    {% if icon %}
       background-image: url({{ icon }});
-    {% else %}
-      background-image: url('data:image/png;base64,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');
-    {% endif %}
       display: block;
       float: left;
       height: 72px;
@@ -163,6 +161,7 @@ Variables:
   }
 
   button.text-link {
+    background: transparent;
     border: none;
     color: var(--newtab-button-primary-color, #0060df);
     cursor: pointer;
@@ -289,7 +288,7 @@ Variables:
             {{ text|safe }}
             <button type="button" class="text-link" id="show-form-button">{{ show_form_link_text }}</button>
             or
-            <a href="{{ google_play_link_url }}" id="google-play-link">{{ google_play_link_text|default('visit the Play Store', true) }}</a>
+            <a href="{{ google_play_link_url }}" id="google-play-link">{{ google_play_link_text|default('visit the Play Store', true) }}</a>.
           </p>
         </section>
       </div><!--/.section-content-->
@@ -303,7 +302,7 @@ Variables:
           <button type="submit" id="form-submit">{{ form_button_label|default('Send Download Link', true) }}</button>
           <span id="error" class="hidden"><span class="alert">!</span> {{ error_text|default('There was an error sending the email. Please try again.', true) }}</span>
           <p class="disclaimer">
-            <input type="checkbox" id="privacy" required />
+            <input type="checkbox" id="privacy" required="required" />
             <label for="privacy">{{ form_disclaimer_html|default('I am okay with Mozilla handling my information as explained in this <a href="https://www.mozilla.org/privacy">Privacy Notice</a>', true)|safe }}</label>
           </p>
         </form>
