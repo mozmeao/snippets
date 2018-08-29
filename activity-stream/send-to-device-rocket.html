@@ -1,0 +1,538 @@
+{#
+Activity Stream snippet for send to device Firefox Rocket download.
+
+Variables:
+
+@locale: text - Two to five character string for the locale code. Default 'en-US'.
+@message_id_email: text - Newsletter/basket id representing the email message to be sent. Must be a value from the 'Slug' column here: https://basket.mozilla.org/news/.
+
+@icon: image, optional - Snippet icon. 72x72px. SVG or PNG preferred. Defaults to Firefox Rocket logo.
+
+@text: text - Introductory text.
+@title: text - Title displayed before introductory text.
+@show_form_link_text: Text clicked to display the form.
+@google_play_link_url: text - The Google Play Store URL.
+@google_play_link_text: text, optional - Text displayed in the link to Google Play. Default 'visit the Play Store'.
+
+@form_button_label: text, optional - Text for form submit button. Default 'Send Download Link'.
+@form_disclaimer_html: text, optional - Html for text and link underneath input box. Default 'I am okay with Mozilla handling my information as explained in this <a href="https://www.mozilla.org/privacy">Privacy Notice</a>'
+@form_input_placeholder: text, optional - Placeholder text for email/phone number field. Default 'YOUR EMAIL HERE'.
+@button_label: text, optional - Text for the button next to main text that opens the send to device form. Default 'Learn more'.
+@button_label_sending: text, optional - Text displayed while form is being submitted. Default 'Sending...'.
+@button_label_sent: text, optional - Text displayed after form is successfully submitted. Default 'Email sent!'.
+
+@error_text: text, optional - Text of error message if form submission fails. Default 'There was an error sending the email. Please try again.'
+#}
+<style>
+  /* variable for translateY offset - updated by JS */
+  :root {
+    --yOffset: 1000px;
+  }
+
+  /* helper classes */
+  .hidden {
+    display: none !important;
+  }
+
+  .snippet .block-snippet-button {
+    background-size: 20px;
+    display: block;
+    height: 20px;
+    offset-inline-end: 0;
+    opacity: 0.8;
+    position: relative;
+    top: 9px;
+    width: 20px;
+  }
+
+ /* overrides to accommodate design */
+  #snippets-container {
+    border-radius: 4px;
+    bottom: 10px;
+    box-shadow: 0 0px 8px 0 rgba(12, 12, 13, 0.1);
+    left: 50vw;
+    margin-left: calc(-50vw + 10px);
+    padding: 0;
+    width: calc(100vw - 20px);
+  }
+
+  #snippets > div {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .snippet section {
+    color: var(--newtab-text-primary-color, #000000);
+  }
+
+  .snippet img {
+    display: none;
+    width: 72px;
+    height: 72px;
+    margin-inline-end: 12px;
+  }
+
+  @media (min-width: 766px) {
+    .snippet img {
+      display: block;
+    }
+  }
+
+  .snippet section a {
+    text-decoration: underline;
+  }
+
+  #snippet {
+    display: grid;
+    font-size: 14px;
+    grid-gap: 12px;
+    grid-template-columns: auto 20px;
+    line-height: 1.4;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  @media (min-width: 766px) {
+    #snippet {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 766px) {
+    .section {
+      padding-left: 92px;
+    }
+
+    html[dir="rtl"] .section {
+      padding-left: 0;
+      padding-right: 92px;
+    }
+  }
+
+  /* icon */
+  #icon {
+    display: none;
+  }
+
+  @media (min-width: 766px) {
+    #icon {
+    {% if icon %}
+      background-image: url({{ icon }});
+    {% else %}
+      background-image: url('data:image/png;base64,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');
+    {% endif %}
+      display: block;
+      float: left;
+      height: 72px;
+      margin-left: -92px;
+      width: 72px;
+    }
+
+    html[dir="rtl"] #icon {
+      float: right;
+      margin-left: 0;
+      margin-right: -92px;
+    }
+  }
+
+  /* intro specifics */
+  #intro {
+    padding: 6px 0 20px;
+  }
+
+  @media (min-width: 766px) {
+    #intro {
+      /* make sure full icon is displayed if text is only a single line */
+      min-height: 92px;
+      padding: 0 0 20px 92px;
+    }
+
+    html[dir="rtl"] #intro {
+      padding: 0 92px 20px 0;
+    }
+  }
+
+  #intro p {
+    margin: 0;
+  }
+
+  #intro h1 {
+    margin: 0 0 5px;
+    font-weight: bold;
+    color: var(--newtab-text-primary-color, #0f1126);
+  }
+
+  button.text-link {
+    border: none;
+    color: var(--newtab-button-primary-color, #0060df);
+    cursor: pointer;
+    display: inline;
+    padding: 0;
+    text-decoration: underline;
+  }
+
+  #email {
+    margin-right: 10px;
+    max-width: 400px;
+    padding: 8px;
+    width: 100%;
+  }
+
+  html[dir="rtl"] #email {
+    margin-left: 10px;
+    margin-right: 0;
+  }
+
+  @media (min-width: 544px) {
+    #email {
+      margin-bottom: 0;
+      width: 40%;
+    }
+  }
+
+  @media (min-width: 766px) {
+    #email {
+      width: 50%;
+    }
+  }
+
+  /* visually hide label for email field */
+  label[for="email"] {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  form button {
+    background: var(--newtab-button-primary-color, #0060df);
+    border: 0;
+    border-radius: 2px;
+    color: #f9f9fa;
+    cursor: pointer;
+    margin: 8px 0 0 0;
+    max-width: 400px;
+    padding: 8px 20px;
+    width: 100%;
+  }
+
+  @media (min-width: 544px) {
+    form button {
+      margin: 0 5px 0 0;
+      width: auto;
+    }
+  }
+
+  form input {
+    border: 1px solid var(--newtab-border-primary-color, #d7d7db);
+  }
+
+  form button:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  .disclaimer {
+    color: #777;
+    font-size: 12px;
+    margin: 10px 0 0;
+  }
+
+  @media (min-width: 766px) {
+    .disclaimer {
+      font-size: 14px;
+    }
+  }
+
+  #error {
+    color: #d70022;
+    display: block;
+    margin-top: 10px;
+  }
+
+  .alert {
+    background: #d70022;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    font-weight: bold;
+    height: 20px;
+    text-align: center;
+    width: 20px;
+  }
+
+  /* slide up stuff */
+  #snippets-container {
+    /* make sure entire snippet is hidden (1000px is excessive, but we don't know the height at this point) */
+    transform: translateY(var(--yOffset));
+  }
+
+  #snippets-container.visible {
+    transition: transform 0.25s ease;
+  }
+</style>
+
+<div class="snippet" id="snippet">
+  <div id="content-wrapper">
+    <section id="intro" class="section">
+      <div id="icon"></div>
+      <div class="section-content">
+        <section>
+        {% if title %}
+          <h1>{{ title }}</h1>
+        {% endif %}
+          <p>
+            {{ text|safe }}
+            <button type="button" class="text-link" id="show-form-button">{{ show_form_link_text }}</button>
+            or
+            <a href="{{ google_play_link_url }}" id="google-play-link">{{ google_play_link_text|default('visit the Play Store', true) }}</a>
+          </p>
+        </section>
+      </div><!--/.section-content-->
+    </section>
+
+    <section id="send-to" class="section">
+      <div class="section-content">
+        <form action="" id="send-to-device-form">
+          <label for="email">{{ form_input_placeholder|default('Enter your email address...', true) }}</label>
+          <input id="email" name="email" type="text" required="required" placeholder="{{ form_input_placeholder|default('Enter your email address...', true) }}" />
+          <button type="submit" id="form-submit">{{ form_button_label|default('Send Download Link', true) }}</button>
+          <span id="error" class="hidden"><span class="alert">!</span> {{ error_text|default('There was an error sending the email. Please try again.', true) }}</span>
+          <p class="disclaimer">
+            <input type="checkbox" id="privacy" required />
+            <label for="privacy">{{ form_disclaimer_html|default('I am okay with Mozilla handling my information as explained in this <a href="https://www.mozilla.org/privacy">Privacy Notice</a>', true)|safe }}</label>
+          </p>
+        </form>
+      </div><!--/.section-content-->
+    </section>
+  </div><!--/#content-wrapper-->
+
+  <button type="button" class="block-snippet-button" title="{{ block_button_text|default('Remove this', true) }}"></button>
+</div>
+
+<script type="text/javascript">
+  //<![CDATA[
+  (function() {
+    const snippetsContainer = document.getElementById('snippets-container');
+    const snippet = document.getElementById('snippet');
+    const style = document.documentElement.style;
+
+    snippet.addEventListener('show_snippet', function () {
+      const input = document.getElementById('email');
+      const showFormButton = document.getElementById('show-form-button');
+      const locale = '{{ locale|default("en-US", true) }}';
+      const intro = document.getElementById('intro');
+      const sendTo = document.getElementById('send-to');
+      const formSubmit = document.getElementById('form-submit');
+      const sendToDeviceForm = document.getElementById('send-to-device-form');
+      const error = document.getElementById('error');
+
+      // alternative button strings for sending/sent states
+      const buttonTextSending = '{{ button_label_sending|default('Sending...', true) }}';
+      const buttonTextSent = '\u2713 {{ button_label_sent|default('Email sent!', true) }}';
+
+      // compensates for padding in containing element
+      const introHeightModifier = 10;
+
+      // keep track of form being submitted
+      let formIsTrying = false;
+
+      // set each time input field is modified/per keystroke
+      let inputOk; 
+
+      // get height of #snippets-container & #intro
+      let scHeight;
+      let introHeight;
+
+      // fire this ASAP after page load
+      setTimeout(() => {
+        // this class only adds transition to transform values so the line below results in a smooth slide up
+        snippetsContainer.classList.add('visible');
+
+        repositionSnippetContainer();
+      }, 500);
+
+      // used for monitoring window resizes
+      // https://davidwalsh.name/javascript-debounce-function
+      function debounce(func, wait, immediate) {
+        var timeout;
+        return function () {
+          var context = this, args = arguments;
+          var later = function () {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+          };
+          var callNow = immediate && !timeout;
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+          if (callNow) func.apply(context, args);
+        };
+      };
+
+      // make sure #snippet-container is positioned so the form is hidden just below the bottom of the window
+      function repositionSnippetContainer(specifiedOffset) {
+        let newOffset;
+
+        // if a specifiedOffset was provided, move directly there
+        if (specifiedOffset !== undefined) {
+          newOffset = specifiedOffset;
+        // otherwise, keep just the intro text in view/keep the form hidden
+        } else {
+          // check the current height of the elments
+          const newIntroHeight = intro.offsetHeight;
+          const newScHeight = snippetsContainer.offsetHeight;
+
+          // if either #intro or #snippets-container changed height, update the offset
+          if (introHeight !== newIntroHeight || scHeight !== newScHeight) {
+            // subtract height of #intro from #snippets-container - that's how much should be visible
+            newOffset = newScHeight - (newIntroHeight + introHeightModifier);
+
+            // update current heights for the next resize check
+            introHeight = newIntroHeight;
+            scHeight = newScHeight;
+          }
+        }
+
+        // if there's reason to change the offset, do so
+        if (newOffset !== undefined) {
+          // this updates a CSS variable which impacts the transform: translateY on #snippets-container
+          style.setProperty('--yOffset', newOffset + 'px');
+        }
+      }
+
+      // check if it is a valid email
+      function checkInput(val) {
+        const check_email = /\S+@\S+/.test(val);
+
+        if (check_email) {
+            return true;
+        } else {
+            return false;
+        }
+      }
+
+      // sets the text of the submit button back to its original state
+      function resetForm() {
+        setTimeout(() => {
+          // reset button text
+          formSubmit.textContent = formSubmit.dataset.originalText;
+
+          // disable form submit button
+          formSubmit.disabled = true;
+
+          // allow submissions
+          formIsTrying = false;
+        }, 2500);
+      }
+
+      // if fetch request fails, show the error message
+      function subscribeError() {
+        sendMetric('activation-email-error');
+
+        error.classList.remove('hidden');
+
+        resetForm();
+      }
+
+      // if fetch request is successful, show the success message
+      function subscribeOk() {
+        sendMetric('activation-email-success');
+
+        formSubmit.textContent = buttonTextSent;
+
+        resetForm();
+      }
+
+      function performFetch(fetchRequest) {
+        // swap text on submit button to let user know things are happening
+        formSubmit.dataset.originalText = formSubmit.textContent;
+        formSubmit.textContent = buttonTextSending;
+
+        fetch(fetchRequest).then(response => {
+          return response.json();
+        }).then(json => {
+          if (json.status === 'ok') {
+            subscribeOk();
+          } else {
+            subscribeError();
+          }
+        }).catch(err => {
+          subscribeError();
+        }).finally(() => {
+          sendToDeviceForm.reset();
+        });
+      }
+
+      function sendEmailToBasket() {
+        const formData = new FormData();
+
+        sendMetric('conversion-mobile-activation-email');
+
+        // make sure error message is hidden
+        // (necessary for tries *after* an error has been encountered)
+        error.classList.add('hidden');
+
+        formData.append('email', input.value);
+        formData.append('lang', locale);
+        formData.append('newsletters', '{{ message_id_email }}');
+        formData.append('source_url', encodeURIComponent('https://snippets.mozilla.com/show/{{ snippet_id }}'));
+
+        const fetchConfig = {
+          body: formData,
+          method: 'post'
+        };
+
+        const fetchRequest = new Request('https://basket.mozilla.org/news/subscribe/', fetchConfig);
+
+        performFetch(fetchRequest);
+      }
+
+      // debounced function to be fired when window resizes
+      var resizeRepositionSnippetContainer = debounce(() => {
+        repositionSnippetContainer();
+      }, 250);
+
+      window.addEventListener('resize', resizeRepositionSnippetContainer);
+
+      // displays the form
+      showFormButton.addEventListener('click', () => {
+        sendMetric('button-click');
+
+        // slide the snippet container fully into view
+        repositionSnippetContainer(0);
+
+        // stop listening for window resizing
+        window.removeEventListener('resize', resizeRepositionSnippetContainer);
+
+        sendToDeviceForm.addEventListener('submit', e => {
+          e.preventDefault();
+
+          // prevent double submissions
+          if (!formIsTrying) {
+            formIsTrying = true;
+
+            sendEmailToBasket();
+          }
+        });
+      });
+
+      // check input while typing
+      input.addEventListener('input', () => {
+        input_type = checkInput(input.value);
+
+        // disable the submit button while input_type is false
+        formSubmit.disabled = (input_type === false);
+      });
+
+      // initializes input_type by firing the input handler above on page load
+      const evt = document.createEvent('HTMLEvents');
+      evt.initEvent('input', false, true);
+      input.dispatchEvent(evt);
+    });
+  })();
+  //]]>
+</script>
