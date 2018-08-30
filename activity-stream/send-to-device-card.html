@@ -15,13 +15,12 @@ Variables:
 @google_play_link_text: text, optional - Text displayed in the link to Google Play. Default 'visit the Play Store'.
 
 @form_button_label: text, optional - Text for form submit button. Default 'Send Download Link'.
-@form_disclaimer_html: text, optional - Html for text and link underneath input box. Default 'I am okay with Mozilla handling my information as explained in this <a href="https://www.mozilla.org/privacy">Privacy Notice</a>'
+@form_disclaimer_html: text, optional - Html for text and link underneath input box. Default 'I am okay with Mozilla handling my information as explained in this <a href="https://www.mozilla.org/privacy">Privacy Notice</a>.'
 @form_input_placeholder: text, optional - Placeholder text for email/phone number field. Default 'YOUR EMAIL HERE'.
 @button_label: text, optional - Text for the button next to main text that opens the send to device form. Default 'Learn more'.
-@button_label_sending: text, optional - Text displayed while form is being submitted. Default 'Sending...'.
 @button_label_sent: text, optional - Text displayed after form is successfully submitted. Default 'Email sent!'.
 
-@error_text: text, optional - Text of error message if form submission fails. Default 'There was an error sending the email. Please try again.'
+@error_text: text, optional - Text of error message if form submission fails. Default 'There was an error processing your request.'
 @block_button_text: text - Alt text for block button.
 #}
 <style>
@@ -66,8 +65,8 @@ Variables:
     color: var(--newtab-text-primary-color, #000000);
   }
 
-  .snippet section a {
-    color: var(--newtab-link-primary-color, #0060df);
+  #snippets-container a {
+    color: #0060df;
     text-decoration: underline;
   }
 
@@ -300,10 +299,10 @@ Variables:
           <label for="email">{{ form_input_placeholder|default('Enter your email address...', true) }}</label>
           <input id="email" name="email" type="text" required="required" placeholder="{{ form_input_placeholder|default('Enter your email address...', true) }}" />
           <button type="submit" id="form-submit">{{ form_button_label|default('Send Download Link', true) }}</button>
-          <span id="error" class="hidden"><span class="alert">!</span> {{ error_text|default('There was an error sending the email. Please try again.', true) }}</span>
+          <span id="error" class="hidden"><span class="alert">!</span> {{ error_text|default('There was an error processing your request.', true) }}</span>
           <p class="disclaimer">
             <input type="checkbox" id="privacy" required="required" />
-            <label for="privacy">{{ form_disclaimer_html|default('I am okay with Mozilla handling my information as explained in this <a href="https://www.mozilla.org/privacy">Privacy Notice</a>', true)|safe }}</label>
+            <label for="privacy">{{ form_disclaimer_html|default('I am okay with Mozilla handling my information as explained in this <a href="https://www.mozilla.org/privacy">Privacy Notice</a>.', true)|safe }}</label>
           </p>
         </form>
       </div><!--/.section-content-->
@@ -330,8 +329,7 @@ Variables:
       const sendToDeviceForm = document.getElementById('send-to-device-form');
       const error = document.getElementById('error');
 
-      // alternative button strings for sending/sent states
-      const buttonTextSending = '{{ button_label_sending|default('Sending...', true) }}';
+      // alternative button string for sent state
       const buttonTextSent = '\u2713 {{ button_label_sent|default('Email sent!', true) }}';
 
       // compensates for padding in containing element
@@ -414,43 +412,23 @@ Variables:
         }
       }
 
-      // sets the text of the submit button back to its original state
-      function resetForm() {
-        setTimeout(() => {
-          // reset button text
-          formSubmit.textContent = formSubmit.dataset.originalText;
-
-          // disable form submit button
-          formSubmit.disabled = true;
-
-          // allow submissions
-          formIsTrying = false;
-        }, 2500);
-      }
-
       // if fetch request fails, show the error message
       function subscribeError() {
         sendMetric('activation-email-error');
 
         error.classList.remove('hidden');
-
-        resetForm();
       }
 
       // if fetch request is successful, show the success message
       function subscribeOk() {
         sendMetric('activation-email-success');
 
+        // swap text on submit button to let user know things are happening
+        formSubmit.disabled = false;
         formSubmit.textContent = buttonTextSent;
-
-        resetForm();
       }
 
       function performFetch(fetchRequest) {
-        // swap text on submit button to let user know things are happening
-        formSubmit.dataset.originalText = formSubmit.textContent;
-        formSubmit.textContent = buttonTextSending;
-
         fetch(fetchRequest).then(response => {
           return response.json();
         }).then(json => {
@@ -462,7 +440,9 @@ Variables:
         }).catch(err => {
           subscribeError();
         }).finally(() => {
+          // reset form and allow another submission
           sendToDeviceForm.reset();
+          formIsTrying = false;
         });
       }
 
@@ -513,10 +493,20 @@ Variables:
           // prevent double submissions
           if (!formIsTrying) {
             formIsTrying = true;
+            formSubmit.disabled = true;
 
             sendEmailToBasket();
           }
         });
+      });
+
+      // reset button (for subsequent submissions)
+      input.addEventListener('focus', () => {
+        // only reset button if it's currently disabled and the email field is empty
+        if (!formSubmit.disabled && input.value === '') {
+          formSubmit.disabled = true;
+          formSubmit.textContent = formSubmit.dataset.originalText;
+        }
       });
 
       // check input while typing
@@ -526,6 +516,9 @@ Variables:
         // disable the submit button while input_type is false
         formSubmit.disabled = (input_type === false);
       });
+
+      // store original button text in data for later retrieval
+      formSubmit.dataset.originalText = formSubmit.textContent;
 
       // initializes input_type by firing the input handler above on page load
       const evt = document.createEvent('HTMLEvents');
