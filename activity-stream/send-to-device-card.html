@@ -11,8 +11,6 @@ Variables:
 @title: text - Title displayed before introductory text.
 @text: text - Introductory text.
 @show_form_link_text: Text clicked to display the form.
-@google_play_link_url: text - The Google Play Store URL.
-@google_play_link_text: text, optional - Text displayed in the link to Google Play. Default 'visit the Play Store'.
 
 @form_button_label: text, optional - Text for form submit button. Default 'Send Download Link'.
 @form_disclaimer_html: text, optional - Html for text and link underneath input box. Default 'I am okay with Mozilla handling my information as explained in this <a href="https://www.mozilla.org/privacy">Privacy Notice</a>.'
@@ -285,9 +283,7 @@ Variables:
         {% endif %}
           <p>
             {{ text|safe }}
-            <button type="button" class="text-link" id="show-form-button">{{ show_form_link_text }}</button>
-            or
-            <a href="{{ google_play_link_url }}" id="google-play-link">{{ google_play_link_text|default('visit the Play Store', true) }}</a>.
+            <button type="button" class="text-link" id="show-form-button">{{ show_form_link_text }}</button>.
           </p>
         </section>
       </div><!--/.section-content-->
@@ -339,7 +335,7 @@ Variables:
       let formIsTrying = false;
 
       // set each time input field is modified/per keystroke
-      let inputOk; 
+      let inputOk;
 
       // get height of #snippets-container & #intro
       let scHeight;
