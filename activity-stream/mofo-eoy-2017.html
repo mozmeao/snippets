@@ -17,7 +17,7 @@ Variables:
   @background_color: hash, optional - Snippet background color. Default #FFFFFF.
   @text_color: hash, optional - Text color. Default #000000.
   @highlight_color: hash, optional - Paragraph em highlight color. Default #FFE900.
-  
+
   @locale: Default en-US. String for the locale code.
   @currency_code: Default usd. The code for the currency. Examle gbp, cad, usd.
 
@@ -277,6 +277,16 @@ Variables:
 
       var donationURL = "";
       var delimiter = "?";
+
+      btnDonate.addEventListener("click", function(event) {
+          if (event.target.dataset.blocked !== 'true') {
+              event.preventDefault();
+              event.stopPropagation();
+              event.target.dataset.blocked = 'true'
+              addToBlockList();
+          }
+          event.target.click();
+      });
 
       function updateLink() {
         btnDonate.attributes["href"].value = donationURL + delimiter + "amount=" + amount + "&currency=" + currencyCode + "&presets=" + presets + "&frequency=" + frequency;
