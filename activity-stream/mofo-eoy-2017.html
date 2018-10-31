@@ -273,6 +273,16 @@ Variables:
       var donationURL = "";
       var delimiter = "?";
 
+      btnDonate.addEventListener("click", function(event) {
+          if (event.target.dataset.blocked !== 'true') {
+              event.preventDefault();
+              event.stopPropagation();
+              event.target.dataset.blocked = 'true'
+              addToBlockList();
+          }
+          event.target.click();
+      });
+
       function updateLink() {
         btnDonate.attributes["href"].value = donationURL + delimiter + "amount=" + amount + "&currency=" + currencyCode + "&presets=" + presets + "&frequency=" + frequency;
       }
