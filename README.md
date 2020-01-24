@@ -1,7 +1,7 @@
 # about:home Snippets
 
 This repo contains code for standard and interactive snippets that we share
-on the about:home page in Firefox.
+on the about:home page in Firefox pre version 56.
 
 ## License
 
